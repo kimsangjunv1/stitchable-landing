@@ -26,7 +26,7 @@ export function ScrollReveal({
   children,
   className,
   delay = 0,
-  once = true,
+  once = false,
   amount = 0.2,
   variant = "fadeUp",
   ...rest
@@ -61,7 +61,7 @@ export function StaggerReveal({
   children,
   className,
   stagger = 0.08,
-  once = true,
+  once = false,
   amount = 0.15,
 }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null)

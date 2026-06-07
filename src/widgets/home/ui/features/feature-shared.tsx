@@ -73,7 +73,7 @@ export function CodeVisual({
         className="vp-code-block relative z-10 w-full max-w-lg p-4 sm:p-5"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.3 }}
         transition={motionTransition.medium}
       >
         {label ? (
@@ -139,7 +139,7 @@ export function DualCodeVisual({
         className="vp-code-block relative z-10 p-4"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ ...motionTransition.medium, delay: 0 }}
       >
         <div className="mb-2 flex items-center justify-between">
@@ -156,7 +156,7 @@ export function DualCodeVisual({
         className="vp-code-block relative z-10 p-4"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ ...motionTransition.medium, delay: 0.1 }}
       >
         <div className="mb-2 flex items-center justify-between">
@@ -182,7 +182,7 @@ export function TagsVisual({ tags }: { tags: string[] }) {
             key={tag}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ ...motionTransition.fast, delay: i * 0.05 }}
           >
             <TagPill dark>{tag}</TagPill>

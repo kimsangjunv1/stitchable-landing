@@ -62,7 +62,7 @@ export function FeatureArchitecture() {
                 className="vp-arch-node"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ ...motionTransition.medium, delay: i * 0.08 }}
                 style={{ marginLeft: `${i * 1.25}rem` }}
               >
@@ -78,7 +78,7 @@ export function FeatureArchitecture() {
             className="vp-code-block relative z-10 mx-auto mt-8 w-full max-w-md p-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ ...motionTransition.medium, delay: 0.2 }}
           >
             <div className="mb-3 flex items-center justify-between">

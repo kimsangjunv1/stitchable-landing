@@ -11,6 +11,7 @@ import { MousePointer2 } from "lucide-react";
 import { useLocale, useMessages } from "@/app/providers/LocaleProvider";
 import type { LandingMessages } from "@/i18n";
 import { cn } from "@/shared/lib/utils";
+import { SafariWindowChrome } from "./SafariWindowChrome";
 import {
   ChevronDownIcon,
   formatStatCount,
@@ -374,15 +375,15 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
   const cardLeft = markerPos?.left ?? 50;
   const cardTop = markerPos
-    ? Math.min(Math.max(markerPos.top - 10, 4), 36)
-    : 20;
+    ? Math.min(Math.max(markerPos.top - 10, 6), 42)
+    : 24;
 
   const markerCardStyle = (
     marker: MarkerPos,
     offsetTop = 8,
   ): { left: string; top: string; width: number; transform: string } => ({
     left: `${marker.left}%`,
-    top: `${Math.min(Math.max(marker.top + offsetTop, 8), 72)}%`,
+    top: `${Math.min(Math.max(marker.top + offsetTop, 22), 68)}%`,
     width: 260,
     transform: "translateX(-50%)",
   });
@@ -400,207 +401,202 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
       <div
         data-stitchable-mock=""
-        className={`relative flex min-h-0 w-full flex-col overflow-hidden bg-white ${
-          embedded ? "h-full flex-1" : "aspect-video h-full"
-        }`}
+        className={cn(
+          "relative flex w-full flex-col overflow-hidden rounded-[24px] shadow-[0_22px_70px_-12px_rgba(0,0,0,0.28)]",
+          embedded ? "min-h-[520px]" : "aspect-[10/13] min-h-[480px]",
+        )}
         style={STITCHABLE_LIGHT_STYLE}
       >
-        <div className="flex items-center gap-2 border-b border-[#e2e2e3] bg-[#f6f6f7] px-4 py-2">
-          <div className="flex gap-1.5">
-            <span className="size-2 rounded-full bg-[#d1d1d6]" />
-            <span className="size-2 rounded-full bg-[#d1d1d6]" />
-            <span className="size-2 rounded-full bg-[#d1d1d6]" />
-          </div>
-          <div className="mx-auto flex h-5 w-44 items-center gap-1.5 rounded-md border border-[#e2e2e3] bg-white px-2">
-            <span className="size-1.5 rounded-full bg-[#03b26c]" />
-            <span className="h-2 flex-1 rounded bg-[#ebebeb]" />
-          </div>
-        </div>
-
-        <div
-          ref={canvasRef}
-          className="relative min-h-0 flex-1 overflow-hidden bg-white"
+        <SafariWindowChrome
+          url="app.stitchable.dev/dashboard"
+          tabTitle="Dashboard"
+          className="h-full min-h-0 flex-1"
         >
-          <SkeletonApp
-            targetRef={targetRef}
-            highlightTarget={highlightTarget}
-            reportMode={panelMode === "report"}
-            exportLabel={preview.exportReport}
-            selectedItemLabel={messages.statusText.selectedItem}
-          />
+          <div
+            ref={canvasRef}
+            className="relative h-full min-h-[380px] overflow-hidden bg-white"
+          >
+            <SkeletonApp
+              targetRef={targetRef}
+              highlightTarget={highlightTarget}
+              reportMode={panelMode === "report"}
+              exportLabel={preview.exportReport}
+              selectedItemLabel={messages.statusText.selectedItem}
+            />
 
-          {showMarker && markerPos ? (
-            <button
-              ref={markerRef}
-              type="button"
-              aria-hidden
-              tabIndex={-1}
-              className="pointer-events-none absolute z-40 -translate-x-1/2 -translate-y-1/2"
-              style={{ left: `${markerPos.left}%`, top: `${markerPos.top}%` }}
-            >
-              <span
-                className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60"
-                style={{ backgroundColor: MARKER_ITEM }}
-              />
-              {replyCount > 0 ? (
-                <span className="absolute -right-[6px] -top-[6px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[var(--adaptive-black900)] px-[3px] text-[10px] font-semibold leading-none text-[var(--adaptive-black50)] ring-1 ring-white/80">
-                  +{replyCount}
-                </span>
-              ) : null}
-            </button>
-          ) : null}
+            {showMarker && markerPos ? (
+              <button
+                ref={markerRef}
+                type="button"
+                aria-hidden
+                tabIndex={-1}
+                className="pointer-events-none absolute z-40 -translate-x-1/2 -translate-y-1/2"
+                style={{ left: `${markerPos.left}%`, top: `${markerPos.top}%` }}
+              >
+                <span
+                  className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60"
+                  style={{ backgroundColor: MARKER_ITEM }}
+                />
+                {replyCount > 0 ? (
+                  <span className="absolute -right-[6px] -top-[6px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[var(--adaptive-black900)] px-[3px] text-[10px] font-semibold leading-none text-[var(--adaptive-black50)] ring-1 ring-white/80">
+                    +{replyCount}
+                  </span>
+                ) : null}
+              </button>
+            ) : null}
 
-          {showHoverCard && feedback ? (
-            <div
-              className="pointer-events-none absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
-              style={markerCardStyle(markerPos!, 8)}
-            >
-              <div className="flex w-[260px] flex-col gap-[10px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[10px]">
-                <StatusBadge
-                  status={getDisplayStatus(feedback, messages)}
+            {showHoverCard && feedback ? (
+              <div
+                className="pointer-events-none absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
+                style={markerCardStyle(markerPos!, 8)}
+              >
+                <div className="flex w-[260px] flex-col gap-[10px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[10px]">
+                  <StatusBadge
+                    status={getDisplayStatus(feedback, messages)}
+                    messages={messages}
+                  />
+                  <p className="line-clamp-2 text-[16px] leading-[1.5] text-[var(--adaptive-black50)]">
+                    {feedback.message}
+                  </p>
+                  <div className="flex items-center gap-[6px]">
+                    <p className="text-[12px] text-[var(--adaptive-black500)]">
+                      {feedback.author_name}
+                    </p>
+                    <span className="rounded-full bg-[var(--adaptive-black800)] px-[6px] py-[2px] text-[10px] text-[var(--adaptive-black400)]">
+                      {messages.author.creatorLabel}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+            {showCreateComposer ? (
+              <div
+                className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
+                style={
+                  markerPos
+                    ? markerCardStyle(markerPos, 10)
+                    : {
+                        left: "50%",
+                        top: "28%",
+                        width: 260,
+                        transform: "translateX(-50%)",
+                      }
+                }
+              >
+                <MockComposer
+                  message={draftMessage}
+                  author={preview.designer}
                   messages={messages}
                 />
-                <p className="line-clamp-2 text-[16px] leading-[1.5] text-[var(--adaptive-black50)]">
-                  {feedback.message}
-                </p>
-                <div className="flex items-center gap-[6px]">
+              </div>
+            ) : null}
+
+            {showThreadCard && feedback ? (
+              <div
+                className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
+                style={
+                  markerPos
+                    ? markerCardStyle(markerPos, -4)
+                    : {
+                        left: `${cardLeft}%`,
+                        top: `${cardTop}%`,
+                        width: 260,
+                        transform: "translateX(-50%)",
+                      }
+                }
+              >
+                <section className="flex flex-col gap-[12px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[20px]">
+                  <StatusBadge
+                    status={getDisplayStatus(feedback, messages)}
+                    messages={messages}
+                  />
+                  <p className="text-[16px] font-semibold leading-[1.5] text-[var(--adaptive-black50)]">
+                    {feedback.message}
+                  </p>
                   <p className="text-[12px] text-[var(--adaptive-black500)]">
                     {feedback.author_name}
                   </p>
-                  <span className="rounded-full bg-[var(--adaptive-black800)] px-[6px] py-[2px] text-[10px] text-[var(--adaptive-black400)]">
-                    {messages.author.creatorLabel}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ) : null}
-
-          {showCreateComposer ? (
-            <div
-              className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
-              style={
-                markerPos
-                  ? markerCardStyle(markerPos, 10)
-                  : {
-                      left: "50%",
-                      top: "28%",
-                      width: 260,
-                      transform: "translateX(-50%)",
-                    }
-              }
-            >
-              <MockComposer
-                message={draftMessage}
-                author={preview.designer}
-                messages={messages}
-              />
-            </div>
-          ) : null}
-
-          {showThreadCard && feedback ? (
-            <div
-              className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
-              style={
-                markerPos
-                  ? markerCardStyle(markerPos, -4)
-                  : {
-                      left: `${cardLeft}%`,
-                      top: `${cardTop}%`,
-                      width: 260,
-                      transform: "translateX(-50%)",
-                    }
-              }
-            >
-              <section className="flex flex-col gap-[12px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[20px]">
-                <StatusBadge
-                  status={getDisplayStatus(feedback, messages)}
-                  messages={messages}
-                />
-                <p className="text-[16px] font-semibold leading-[1.5] text-[var(--adaptive-black50)]">
-                  {feedback.message}
-                </p>
-                <p className="text-[12px] text-[var(--adaptive-black500)]">
-                  {feedback.author_name}
-                </p>
-              </section>
-
-              {autoStep === "compose-reply" || autoStep === "open-thread" ? (
-                <MockComposer
-                  message={draftMessage}
-                  author={preview.developer}
-                  messages={messages}
-                />
-              ) : null}
-
-              {feedback.replies.length > 0 ? (
-                <section className="max-h-[200px] overflow-auto bg-[var(--adaptive-blackOpacity900)] backdrop-blur-[10px]">
-                  {[...feedback.replies].reverse().map((reply) => {
-                    const isLatest =
-                      feedback.replies[feedback.replies.length - 1]?.id ===
-                      reply.id;
-                    const showResolveBtn =
-                      isLatest &&
-                      reply.status === "suggested" &&
-                      feedback.status !== "resolved";
-
-                    return (
-                      <article
-                        key={reply.id}
-                        className="flex flex-col gap-[8px] border-t border-[var(--adaptive-black800)] p-[16px]"
-                      >
-                        <StatusBadge
-                          status={reply.status}
-                          messages={messages}
-                        />
-                        <p className="text-[14px] leading-[1.5] text-[var(--adaptive-black50)]">
-                          {reply.message}
-                        </p>
-                        <p className="text-[12px] text-[var(--adaptive-black500)]">
-                          {reply.author_name}
-                        </p>
-                        {showResolveBtn ? (
-                          <div className="mt-[10px]">
-                            <div className="flex items-center gap-[8px] rounded-full border border-[var(--adaptive-black800)] bg-[var(--adaptive-black900)] px-[8px] py-[4px]">
-                              <button
-                                ref={resolveBtnRef}
-                                type="button"
-                                tabIndex={-1}
-                                className={`flex-1 rounded-full text-[12px] font-semibold transition-colors ${
-                                  resolveHighlight
-                                    ? "bg-[var(--adaptive-blue500)] text-[var(--adaptive-black50)]"
-                                    : "text-[var(--adaptive-black500)]"
-                                }`}
-                              >
-                                {messages.thread.resolved}
-                              </button>
-                              <div className="h-full w-px bg-[var(--adaptive-black700)]" />
-                              <span className="shrink-0 text-[12px] font-semibold text-[var(--adaptive-black700)]">
-                                {messages.thread.select}
-                              </span>
-                            </div>
-                          </div>
-                        ) : null}
-                      </article>
-                    );
-                  })}
                 </section>
-              ) : null}
-            </div>
-          ) : null}
 
-          <ControlPanel
-            mode={panelMode}
-            stats={stats}
-            addBtnRef={addBtnRef}
-            highlightAdd={autoStep === "add-feedback"}
-            messages={messages}
-            envLabel={preview.envLabel}
-          />
+                {autoStep === "compose-reply" || autoStep === "open-thread" ? (
+                  <MockComposer
+                    message={draftMessage}
+                    author={preview.developer}
+                    messages={messages}
+                  />
+                ) : null}
 
-          {cursor ? (
-            <VirtualCursor x={cursor.x} y={cursor.y} clicking={cursorClick} />
-          ) : null}
-        </div>
+                {feedback.replies.length > 0 ? (
+                  <section className="max-h-[200px] overflow-auto bg-[var(--adaptive-blackOpacity900)] backdrop-blur-[10px]">
+                    {[...feedback.replies].reverse().map((reply) => {
+                      const isLatest =
+                        feedback.replies[feedback.replies.length - 1]?.id ===
+                        reply.id;
+                      const showResolveBtn =
+                        isLatest &&
+                        reply.status === "suggested" &&
+                        feedback.status !== "resolved";
+
+                      return (
+                        <article
+                          key={reply.id}
+                          className="flex flex-col gap-[8px] border-t border-[var(--adaptive-black800)] p-[16px]"
+                        >
+                          <StatusBadge
+                            status={reply.status}
+                            messages={messages}
+                          />
+                          <p className="text-[14px] leading-[1.5] text-[var(--adaptive-black50)]">
+                            {reply.message}
+                          </p>
+                          <p className="text-[12px] text-[var(--adaptive-black500)]">
+                            {reply.author_name}
+                          </p>
+                          {showResolveBtn ? (
+                            <div className="mt-[10px]">
+                              <div className="flex items-center gap-[8px] rounded-full border border-[var(--adaptive-black800)] bg-[var(--adaptive-black900)] px-[8px] py-[4px]">
+                                <button
+                                  ref={resolveBtnRef}
+                                  type="button"
+                                  tabIndex={-1}
+                                  className={`flex-1 rounded-full text-[12px] font-semibold transition-colors ${
+                                    resolveHighlight
+                                      ? "bg-[var(--adaptive-blue500)] text-[var(--adaptive-black50)]"
+                                      : "text-[var(--adaptive-black500)]"
+                                  }`}
+                                >
+                                  {messages.thread.resolved}
+                                </button>
+                                <div className="h-full w-px bg-[var(--adaptive-black700)]" />
+                                <span className="shrink-0 text-[12px] font-semibold text-[var(--adaptive-black700)]">
+                                  {messages.thread.select}
+                                </span>
+                              </div>
+                            </div>
+                          ) : null}
+                        </article>
+                      );
+                    })}
+                  </section>
+                ) : null}
+              </div>
+            ) : null}
+
+            <ControlPanel
+              mode={panelMode}
+              stats={stats}
+              addBtnRef={addBtnRef}
+              highlightAdd={autoStep === "add-feedback"}
+              messages={messages}
+              envLabel={preview.envLabel}
+            />
+
+            {cursor ? (
+              <VirtualCursor x={cursor.x} y={cursor.y} clicking={cursorClick} />
+            ) : null}
+          </div>
+        </SafariWindowChrome>
 
         <ProcessStepTabs current={progress} labels={preview.progress} />
       </div>
@@ -668,7 +664,7 @@ function SkeletonApp({
         </div>
       </div>
 
-      <div className="relative flex min-w-0 flex-1 flex-col gap-4 p-4 pr-[36%]">
+      <div className="relative flex min-w-0 flex-1 flex-col gap-4 p-4 pb-16">
         <div className="space-y-2">
           <div className="h-3 w-[42%] rounded bg-[#e2e2e3]" />
           <div className="h-2 w-[58%] rounded bg-[#ebebeb]" />
@@ -743,7 +739,7 @@ function ControlPanel({
   }
 
   return (
-    <div className="absolute right-3 top-3 z-50 w-[min(340px,82%)] min-w-[300px] rounded-[24px] border border-[var(--adaptive-black200)] bg-[var(--adaptive-whiteOpacity800)] backdrop-blur-[50px]">
+    <div className="absolute left-3 right-3 top-3 z-50 mx-auto max-w-[320px] rounded-[24px] border border-[var(--adaptive-black200)] bg-[var(--adaptive-whiteOpacity800)] backdrop-blur-[50px] sm:left-auto sm:right-3 sm:mx-0">
       <div className="flex flex-col gap-[8px] p-[8px_0_8px_12px]">
         <section className="flex items-center justify-between gap-[8px] pr-[8px]">
           <section className="flex min-w-0 items-center gap-[4px]">

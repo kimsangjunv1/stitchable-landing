@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useMessages } from "@/app/providers/LocaleProvider";
+import { RichText } from "@/shared/ui/rich-text";
 import { ScrollReveal } from "@/shared/ui/scroll-reveal";
 import { motionTransition } from "@/shared/lib/motion";
 
@@ -29,7 +30,7 @@ export function CtaBanner() {
       <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 px-5 py-20 text-center sm:px-10 sm:py-24">
         <ScrollReveal variant="fadeUp">
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-[var(--vp-color-text)] sm:text-4xl">
-            {t.title}
+            <RichText text={t.title} />
           </h2>
         </ScrollReveal>
         <motion.a
@@ -38,7 +39,7 @@ export function CtaBanner() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           whileHover={{ y: -2 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={motionTransition.medium}
         >
           {t.button}

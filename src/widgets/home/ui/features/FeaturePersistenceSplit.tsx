@@ -70,7 +70,7 @@ function PersistencePanel({
           className="vp-code-block p-4"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={motionTransition.medium}
         >
           <div className="mb-3 flex items-center justify-between">

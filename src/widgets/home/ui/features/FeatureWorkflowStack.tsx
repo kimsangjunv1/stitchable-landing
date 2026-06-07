@@ -22,7 +22,7 @@ function WorkflowStepVisual({ index }: { index: number }) {
         className="relative z-10 font-mono text-4xl font-semibold tabular-nums text-[var(--vp-color-brand)] opacity-20 sm:text-6xl"
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 0.2 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       >
         {String(index + 1).padStart(2, "0")}
@@ -82,7 +82,7 @@ export function FeatureWorkflowStack() {
                 </span>
                 <h4 className="mt-2 text-lg font-semibold sm:text-xl">{step.title}</h4>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
-                  {step.description}
+                  <RichText text={step.description} />
                 </p>
                 {step.status ? (
                   <span className="vp-workflow-status mt-4 w-fit">{step.status}</span>

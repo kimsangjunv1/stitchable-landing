@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Inter, Space_Grotesk } from 'next/font/google'
+import { Geist_Mono, Space_Grotesk } from 'next/font/google'
+import localFont from 'next/font/local'
 import { GlobalErrorBoundary } from '@/app/providers/GlobalErrorBoundary'
 import { QueryProvider } from '@/app/providers/QueryProvider'
 import { AuthProvider } from '@/app/providers/AuthProvider'
@@ -14,20 +15,40 @@ import { Progress } from '@/widgets/layout/Progress'
 import { Toast } from '@/widgets/layout/Toast'
 import './globals.css'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
-})
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
 })
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+})
+const suit = localFont({
+  src: [
+    {
+      path: '../../public/fonts/SUIT-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SUIT-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SUIT-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SUIT-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-suit',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -62,7 +83,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${geistMono.variable} ${spaceGrotesk.variable} ${suit.variable}`}
     >
       <body className="bg-background font-sans antialiased">
         <GlobalErrorBoundary>

@@ -74,7 +74,7 @@ export function FeatureBentoGrid() {
                   </span>
                 </div>
                 <p className="text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
-                  {mode.description}
+                  <RichText text={mode.description} />
                 </p>
               </motion.div>
             ))}
@@ -123,7 +123,7 @@ export function FeatureBentoGrid() {
               >
                 <h4 className="text-sm font-semibold">{item.title}</h4>
                 <p className="text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
-                  {item.description}
+                  <RichText text={item.description} />
                 </p>
                 <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
                   {item.tags.map((tag) => (
