@@ -13,42 +13,43 @@ import { FeatureFullstackGrid } from "./ui/features/FeatureFullstackGrid";
 export default function Panel() {
   return (
     <HomePageProvider>
-      <LenisProvider>
-        <div className="marketing-layout">
-          <StitchableReport />
+      <div className="marketing-layout">
+        <StitchableReport />
 
-          <div className="vp-section-light sticky top-0 z-50 w-full">
-            <div className="vp-page-shell">
-              <HomeLayer.SiteHeader />
-            </div>
+        <div className="vp-section-light sticky top-0 z-50 w-full">
+          <div className="vp-page-shell">
+            <HomeLayer.SiteHeader />
           </div>
-
-          <SectionTheme theme="light">
-            <main>
-              <HomeLayer.Hero />
-              <HomeLayer.FoundationIntro />
-              <HomeLayer.FeatureStickyNav />
-              <HomeLayer.FeatureSections />
-            </main>
-          </SectionTheme>
-
-          <SectionTheme theme="dark">
-            <FeatureArchitecture />
-            <FeatureWorkflowStack />
-          </SectionTheme>
-
-          <SectionTheme theme="light">
-            <FeaturePersistenceSplit />
-            <FeatureFullstackGrid />
-          </SectionTheme>
-
-          <SectionTheme theme="dark">
-            <HomeLayer.OpenSourceNotice />
-            <HomeLayer.CtaBanner />
-            <HomeLayer.SiteFooter />
-          </SectionTheme>
         </div>
-      </LenisProvider>
+
+        <SectionTheme theme="light">
+          <main>
+            <HomeLayer.Hero />
+            <HomeLayer.FoundationIntro />
+            <HomeLayer.FeatureStickyNav />
+            <HomeLayer.FeatureSections />
+          </main>
+        </SectionTheme>
+
+        <SectionTheme theme="dark">
+          <FeatureArchitecture />
+          <FeatureWorkflowStack />
+        </SectionTheme>
+
+        <SectionTheme theme="light">
+          <FeaturePersistenceSplit />
+          <FeatureFullstackGrid />
+          <HomeLayer.LibraryGoodPoints />
+        </SectionTheme>
+
+        <SectionTheme theme="dark">
+          <HomeLayer.OpenSourceNotice />
+          <HomeLayer.CtaBanner />
+          <HomeLayer.SiteFooter />
+        </SectionTheme>
+      </div>
+      {/* <LenisProvider>
+      </LenisProvider> */}
     </HomePageProvider>
   );
 }

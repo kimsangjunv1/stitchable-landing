@@ -8,11 +8,11 @@
 
 ### UI 모드
 
-| 모드 | 진입 | 하는 일 |
-| ---- | ---- | ------- |
-| **idle** | 기본 | 우측 패널에서 Report / View / 요소 미리보기 선택 |
-| **report** | Report 버튼 · `⌘⇧M` | 화면 요소를 클릭해 피드백 작성 |
-| **view** | View 버튼 · `⌘⇧L` | 저장된 마커·목록 조회, 답변·검수, Git Issue 승격 |
+| 모드       | 진입                | 하는 일                                          |
+| ---------- | ------------------- | ------------------------------------------------ |
+| **idle**   | 기본                | 우측 패널에서 Report / View / 요소 미리보기 선택 |
+| **report** | Report 버튼 · `⌘⇧M` | 화면 요소를 클릭해 피드백 작성                   |
+| **view**   | View 버튼 · `⌘⇧L`   | 저장된 마커·목록 조회, 답변·검수, Git Issue 승격 |
 
 답변·검수(`denied` / `confirm` / `checkout`) 상세는 [Feedback Workflow](#feedback-workflow-view-모드)를 참고하세요.
 
@@ -28,20 +28,17 @@ npm install stitchable react react-dom
 import { Report } from "stitchable";
 
 export default function App() {
-    return (
-        <>
-            <Report />
+  return (
+    <>
+      <Report />
 
-            <main>
-                <section
-                    data-report-id="hero"
-                    data-report-type="group"
-                >
-                    <button data-report-id="hero-cta">시작하기</button>
-                </section>
-            </main>
-        </>
-    );
+      <main>
+        <section data-report-id="hero" data-report-type="group">
+          <button data-report-id="hero-cta">시작하기</button>
+        </section>
+      </main>
+    </>
+  );
 }
 ```
 
@@ -59,112 +56,118 @@ export default function App() {
 
 ```tsx
 import type {
-    CreateReportFeedbackPayload,
-    ReportFeedback,
-    ReportEvent,
-    UpdateReportFeedbackPayload,
+  CreateReportFeedbackPayload,
+  ReportFeedback,
+  ReportEvent,
+  UpdateReportFeedbackPayload,
 } from "stitchable";
 import { Report } from "stitchable";
 
 async function request<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
-    const response = await fetch(input, init);
+  const response = await fetch(input, init);
 
-    if (!response.ok) {
-        throw new Error("Request failed");
-    }
+  if (!response.ok) {
+    throw new Error("Request failed");
+  }
 
-    return response.json() as Promise<T>;
+  return response.json() as Promise<T>;
 }
 
 async function createGitHubIssue(feedback: ReportFeedback) {
-    const response = await fetch("/api/github/issues", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ feedbackId: feedback.id, feedback }),
-    });
+  const response = await fetch("/api/github/issues", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ feedbackId: feedback.id, feedback }),
+  });
 
-    if (!response.ok) {
-        throw new Error("GitHub issue creation failed");
-    }
+  if (!response.ok) {
+    throw new Error("GitHub issue creation failed");
+  }
 
-    return response.json() as Promise<{ issueNumber: number; issueUrl: string }>;
+  return response.json() as Promise<{ issueNumber: number; issueUrl: string }>;
 }
 
 export default function App() {
-    return (
-        <>
-            <Report
-                project={{
-                    id: "my-app",
-                    env: "stage",
-                    version: "1.2.3",
-                }}
-                ui={{
-                    locale: "ko",
-                    appearance: "system",
-                    showFeedbackList: true,
-                    visibleShortcutKeys: true,
-                }}
-                visibility={{
-                    devOnly: true,
-                    routeKey: "/dashboard",
-                }}
-                team={{
-                    user: { id: "user-1", name: "김아영 주임" },
-                    reviewers: [
-                        { id: "1", name: "김아영 주임" },
-                        { id: "2", name: "최민호 전임" },
-                    ],
-                }}
-                fields={[
-                    { key: "message", type: "textarea", label: "메시지", required: true },
-                    { key: "isBug", type: "checkbox", label: "bug" },
-                    { key: "isImportant", type: "checkbox", label: "IMPORTANT" },
-                ]}
-                onList={({ pathname }) =>
-                    request<ReportFeedback[]>(`/api/feedbacks?pathname=${encodeURIComponent(pathname)}`)
-                }
-                onCreate={(payload: CreateReportFeedbackPayload) =>
-                    request<ReportFeedback>("/api/feedbacks", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload),
-                    })
-                }
-                onUpdate={(id, payload: UpdateReportFeedbackPayload) =>
-                    request<ReportFeedback>(`/api/feedbacks/${id}`, {
-                        method: "PATCH",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload),
-                    })
-                }
-                onDelete={(id) => request<void>(`/api/feedbacks/${id}`, { method: "DELETE" })}
-                onEvent={(event: ReportEvent) => {
-                    if (event.type === "feedback:create") {
-                        analytics.track("feedback_created", { id: event.payload.id });
-                    }
+  return (
+    <>
+      <Report
+        project={{
+          id: "my-app",
+          env: "stage",
+          version: "1.2.3",
+        }}
+        ui={{
+          locale: "ko",
+          appearance: "system",
+          showFeedbackList: true,
+          visibleShortcutKeys: true,
+        }}
+        visibility={{
+          devOnly: true,
+          routeKey: "/dashboard",
+        }}
+        team={{
+          user: { id: "user-1", name: "김아영 주임" },
+          reviewers: [
+            { id: "1", name: "김아영 주임" },
+            { id: "2", name: "최민호 전임" },
+          ],
+        }}
+        fields={[
+          { key: "message", type: "textarea", label: "메시지", required: true },
+          { key: "isBug", type: "checkbox", label: "bug" },
+          { key: "isImportant", type: "checkbox", label: "IMPORTANT" },
+        ]}
+        onList={({ pathname }) =>
+          request<ReportFeedback[]>(
+            `/api/feedbacks?pathname=${encodeURIComponent(pathname)}`,
+          )
+        }
+        onCreate={(payload: CreateReportFeedbackPayload) =>
+          request<ReportFeedback>("/api/feedbacks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+        }
+        onUpdate={(id, payload: UpdateReportFeedbackPayload) =>
+          request<ReportFeedback>(`/api/feedbacks/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+        }
+        onDelete={(id) =>
+          request<void>(`/api/feedbacks/${id}`, { method: "DELETE" })
+        }
+        onEvent={(event: ReportEvent) => {
+          if (event.type === "feedback:create") {
+            analytics.track("feedback_created", { id: event.payload.id });
+          }
 
-                    if (event.type === "feedback:github-issue-created") {
-                        analytics.track("github_issue_created", { issueUrl: event.payload.issueUrl });
-                    }
-                }}
-                onReply={({ feedbackId, message }) => {
-                    notifySlack(`새 답변 on ${feedbackId}: ${message}`);
-                }}
-                github={{
-                    enabled: true,
-                    modes: ["on-create", "from-list"],
-                    onCreate: createGitHubIssue,
-                }}
-            />
+          if (event.type === "feedback:github-issue-created") {
+            analytics.track("github_issue_created", {
+              issueUrl: event.payload.issueUrl,
+            });
+          }
+        }}
+        onReply={({ feedbackId, message }) => {
+          notifySlack(`새 답변 on ${feedbackId}: ${message}`);
+        }}
+        github={{
+          enabled: true,
+          modes: ["on-create", "from-list"],
+          onCreate: createGitHubIssue,
+        }}
+      />
 
-            <main>
-                <section data-report-id="hero" data-report-type="group">
-                    <button data-report-id="hero-cta">시작하기</button>
-                </section>
-            </main>
-        </>
-    );
+      <main>
+        <section data-report-id="hero" data-report-type="group">
+          <button data-report-id="hero-cta">시작하기</button>
+        </section>
+      </main>
+    </>
+  );
 }
 ```
 
@@ -225,16 +228,16 @@ import { motion, AnimatedPresence } from "stitchable";
 import { Report } from "stitchable";
 
 export default function App() {
-    return (
-        <Report
-            project={{
-                id: "multimachine-ceo",
-                env: "stage",
-                version: "1.2.3",
-            }}
-            ui={{ appearance: "system" }}
-        />
-    );
+  return (
+    <Report
+      project={{
+        id: "multimachine-ceo",
+        env: "stage",
+        version: "1.2.3",
+      }}
+      ui={{ appearance: "system" }}
+    />
+  );
 }
 ```
 
@@ -246,33 +249,33 @@ export default function App() {
 
 ### Props
 
-| 이름                  | 설명                                                                           |
-| --------------------- | ------------------------------------------------------------------------------ |
-| `project`             | `{ id?, env?, version? }` 프로젝트/배포 컨텍스트. `id` 생략 시 `"my-app"`.     |
+| 이름                  | 설명                                                                                                    |
+| --------------------- | ------------------------------------------------------------------------------------------------------- |
+| `project`             | `{ id?, env?, version? }` 프로젝트/배포 컨텍스트. `id` 생략 시 `"my-app"`.                              |
 | `ui`                  | `{ appearance?, showFeedbackList?, visibleShortcutKeys?, shortcut?, locale?, messages? }` UI·i18n 옵션. |
-| `visibility`          | `{ enabled?, devOnly?, routeKey? }` 표시/활성화/화면 키.                       |
-| `projectId`           | _(deprecated)_ `project.id` 사용.                                              |
-| `environment`         | _(deprecated)_ `project.env` 사용.                                             |
-| `appVersion`          | _(deprecated)_ `project.version` 사용.                                         |
-| `pathname`            | _(deprecated)_ `visibility.routeKey` 사용.                                     |
-| `routeKey`            | _(deprecated)_ `visibility.routeKey` 사용.                                     |
-| `appearance`          | _(deprecated)_ `ui.appearance` 사용.                                           |
-| `showFeedbackList`    | _(deprecated)_ `ui.showFeedbackList` 사용.                                     |
-| `visibleShortcutKeys` | _(deprecated)_ `ui.visibleShortcutKeys` 사용.                                  |
-| `shortcut`            | _(deprecated)_ `ui.shortcut` 사용.                                             |
-| `devOnly`             | _(deprecated)_ `visibility.devOnly` 사용.                                      |
-| `enabled`             | _(deprecated)_ `visibility.enabled` 사용.                                      |
-| `team`                | `{ user?, reviewers? }` 현재 사용자와 reviewer 목록.                           |
-| `identify`            | _(deprecated)_ `team.user` 사용.                                               |
-| `authors`             | _(deprecated)_ `team.reviewers` 사용.                                          |
-| `fields`              | 피드백 작성 폼 필드 배열.                                                      |
-| `onList`              | 현재 화면 키의 피드백 목록을 반환. 서버 연동 시 필수.                          |
-| `onCreate`            | 피드백 생성 persistence handler.                                               |
-| `onUpdate`            | 피드백 수정 persistence handler.                                               |
-| `onDelete`            | 피드백 삭제 persistence handler. UI 삭제 기능 사용 시 필요.                    |
-| `onEvent`             | 저장 성공 후 side effect (`ReportEvent`). analytics 등.                        |
-| `onReply`             | 답변 추가 후 side effect. Slack 알림 등.                                       |
-| `github`              | GitHub Issue 연동 옵션. `enabled`, `modes`, `onCreate`. persistence `onCreate`와 별개. |
+| `visibility`          | `{ enabled?, devOnly?, routeKey? }` 표시/활성화/화면 키.                                                |
+| `projectId`           | _(deprecated)_ `project.id` 사용.                                                                       |
+| `environment`         | _(deprecated)_ `project.env` 사용.                                                                      |
+| `appVersion`          | _(deprecated)_ `project.version` 사용.                                                                  |
+| `pathname`            | _(deprecated)_ `visibility.routeKey` 사용.                                                              |
+| `routeKey`            | _(deprecated)_ `visibility.routeKey` 사용.                                                              |
+| `appearance`          | _(deprecated)_ `ui.appearance` 사용.                                                                    |
+| `showFeedbackList`    | _(deprecated)_ `ui.showFeedbackList` 사용.                                                              |
+| `visibleShortcutKeys` | _(deprecated)_ `ui.visibleShortcutKeys` 사용.                                                           |
+| `shortcut`            | _(deprecated)_ `ui.shortcut` 사용.                                                                      |
+| `devOnly`             | _(deprecated)_ `visibility.devOnly` 사용.                                                               |
+| `enabled`             | _(deprecated)_ `visibility.enabled` 사용.                                                               |
+| `team`                | `{ user?, reviewers? }` 현재 사용자와 reviewer 목록.                                                    |
+| `identify`            | _(deprecated)_ `team.user` 사용.                                                                        |
+| `authors`             | _(deprecated)_ `team.reviewers` 사용.                                                                   |
+| `fields`              | 피드백 작성 폼 필드 배열.                                                                               |
+| `onList`              | 현재 화면 키의 피드백 목록을 반환. 서버 연동 시 필수.                                                   |
+| `onCreate`            | 피드백 생성 persistence handler.                                                                        |
+| `onUpdate`            | 피드백 수정 persistence handler.                                                                        |
+| `onDelete`            | 피드백 삭제 persistence handler. UI 삭제 기능 사용 시 필요.                                             |
+| `onEvent`             | 저장 성공 후 side effect (`ReportEvent`). analytics 등.                                                 |
+| `onReply`             | 답변 추가 후 side effect. Slack 알림 등.                                                                |
+| `github`              | GitHub Issue 연동 옵션. `enabled`, `modes`, `onCreate`. persistence `onCreate`와 별개.                  |
 
 ### Advanced (localStorage only)
 
@@ -280,26 +283,26 @@ export default function App() {
 
 ```tsx
 <Report
-    project={{ id: "my-app" }}
-    ui={{
-        appearance: "system",
-        showFeedbackList: false,
-        visibleShortcutKeys: true,
-        locale: "ko",
-    }}
-    visibility={{ devOnly: true }}
-    team={{
-        user: { id: "user-1", name: "김아영 주임" },
-        reviewers: [
-            { id: "1", name: "김아영 주임" },
-            { id: "2", name: "최민호 전임" },
-        ],
-    }}
-    fields={[
-        { key: "message", type: "textarea", label: "메시지", required: true },
-        { key: "isBug", type: "checkbox", label: "bug" },
-        { key: "isImportant", type: "checkbox", label: "IMPORTANT" },
-    ]}
+  project={{ id: "my-app" }}
+  ui={{
+    appearance: "system",
+    showFeedbackList: false,
+    visibleShortcutKeys: true,
+    locale: "ko",
+  }}
+  visibility={{ devOnly: true }}
+  team={{
+    user: { id: "user-1", name: "김아영 주임" },
+    reviewers: [
+      { id: "1", name: "김아영 주임" },
+      { id: "2", name: "최민호 전임" },
+    ],
+  }}
+  fields={[
+    { key: "message", type: "textarea", label: "메시지", required: true },
+    { key: "isBug", type: "checkbox", label: "bug" },
+    { key: "isImportant", type: "checkbox", label: "IMPORTANT" },
+  ]}
 />
 ```
 
@@ -336,9 +339,9 @@ Report UI는 마우스 없이도 주요 기능을 사용할 수 있도록 키보
 
 ```tsx
 <Report
-    project={{ id: "my-app" }}
-    ui={{ visibleShortcutKeys: true }}
-    visibility={{ devOnly: true }}
+  project={{ id: "my-app" }}
+  ui={{ visibleShortcutKeys: true }}
+  visibility={{ devOnly: true }}
 />
 ```
 
@@ -346,11 +349,11 @@ Report UI는 마우스 없이도 주요 기능을 사용할 수 있도록 키보
 
 ```tsx
 <ReportProvider
-    project={{ id: "my-app" }}
-    ui={{ visibleShortcutKeys: true }}
-    visibility={{ devOnly: true }}
+  project={{ id: "my-app" }}
+  ui={{ visibleShortcutKeys: true }}
+  visibility={{ devOnly: true }}
 >
-    {/* custom report UI */}
+  {/* custom report UI */}
 </ReportProvider>
 ```
 
@@ -374,11 +377,11 @@ handler props를 넘기지 않으면 브라우저 `localStorage`를 기본 저�
 
 handler props를 넘기지 **않은** localStorage 모드에서만 패널 **설정(⚙) 메뉴**의 아래 기능이 활성화됩니다.
 
-| 기능 | 설명 |
-| ---- | ---- |
-| **Import** | JSON 파일 또는 드래그앤드롭으로 피드백 일괄 가져오기. `project.id`/`env` 불일치 시 확인 다이얼로그 표시 |
-| **Export** | 현재 scope의 피드백 JSON 내보내기 |
-| **Command** | JSON paste로 일괄 replace·merge (충돌 시 확인) |
+| 기능        | 설명                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------- |
+| **Import**  | JSON 파일 또는 드래그앤드롭으로 피드백 일괄 가져오기. `project.id`/`env` 불일치 시 확인 다이얼로그 표시 |
+| **Export**  | 현재 scope의 피드백 JSON 내보내기                                                                       |
+| **Command** | JSON paste로 일괄 replace·merge (충돌 시 확인)                                                          |
 
 서버 persistence를 쓰는 경우 import/export·command UI는 비활성화됩니다.
 
@@ -387,46 +390,54 @@ handler props를 넘기지 **않은** localStorage 모드에서만 패널 **설�
 서버를 primary storage로 쓰려면 `onList`, `onCreate`, `onUpdate`를 **함께** 넘깁니다. UI에서 삭제까지 쓰려면 `onDelete`도 구현하세요.
 
 ```tsx
-import type { CreateReportFeedbackPayload, ReportFeedback, UpdateReportFeedbackPayload } from "stitchable";
+import type {
+  CreateReportFeedbackPayload,
+  ReportFeedback,
+  UpdateReportFeedbackPayload,
+} from "stitchable";
 import { Report } from "stitchable";
 
 async function request<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
-    const response = await fetch(input, init);
+  const response = await fetch(input, init);
 
-    if (!response.ok) {
-        throw new Error("Request failed");
-    }
+  if (!response.ok) {
+    throw new Error("Request failed");
+  }
 
-    return response.json() as Promise<T>;
+  return response.json() as Promise<T>;
 }
 
 export default function App() {
-    return (
-        <Report
-            project={{ id: "my-app" }}
-            visibility={{ devOnly: true }}
-            onList={({ pathname }) => request<ReportFeedback[]>(`/api/feedbacks?pathname=${encodeURIComponent(pathname)}`)}
-            onCreate={(payload: CreateReportFeedbackPayload) =>
-                request<ReportFeedback>("/api/feedbacks", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                })
-            }
-            onUpdate={(id: string, payload: UpdateReportFeedbackPayload) =>
-                request<ReportFeedback>(`/api/feedbacks/${id}`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                })
-            }
-            onDelete={(id) =>
-                request<void>(`/api/feedbacks/${id}`, {
-                    method: "DELETE",
-                })
-            }
-        />
-    );
+  return (
+    <Report
+      project={{ id: "my-app" }}
+      visibility={{ devOnly: true }}
+      onList={({ pathname }) =>
+        request<ReportFeedback[]>(
+          `/api/feedbacks?pathname=${encodeURIComponent(pathname)}`,
+        )
+      }
+      onCreate={(payload: CreateReportFeedbackPayload) =>
+        request<ReportFeedback>("/api/feedbacks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+      }
+      onUpdate={(id: string, payload: UpdateReportFeedbackPayload) =>
+        request<ReportFeedback>(`/api/feedbacks/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+      }
+      onDelete={(id) =>
+        request<void>(`/api/feedbacks/${id}`, {
+          method: "DELETE",
+        })
+      }
+    />
+  );
 }
 ```
 
@@ -462,9 +473,9 @@ export default function App() {
 
 위 예시는 `replies` 중 **첫 항목·마지막 항목만** 표시한 것입니다 (`replies.length === 9` 가정). UI 동작:
 
-| UI | 값 |
-| -- | -- |
-| 마커 배지 | `+9` (`replies.length`) |
+| UI         | 값                                                                       |
+| ---------- | ------------------------------------------------------------------------ |
+| 마커 배지  | `+9` (`replies.length`)                                                  |
 | hover 하단 | `리뷰어B \| 내일 배포에 포함됩니다. \| +8` (`+8` = `replies.length - 1`) |
 
 ### Side effects (`onEvent` / `onReply`)
@@ -473,19 +484,19 @@ persistence와 별도로 analytics, Slack 알림 등 **저장 이후** 동작을
 
 ```tsx
 <Report
-    project={{ id: "my-app" }}
-    onList={listFeedbacks}
-    onCreate={createFeedback}
-    onUpdate={updateFeedback}
-    onDelete={deleteFeedback}
-    onEvent={(event) => {
-        if (event.type === "feedback:create") {
-            analytics.track("feedback_created", { id: event.payload.id });
-        }
-    }}
-    onReply={({ feedbackId, message }) => {
-        notifySlack(`새 답변 on ${feedbackId}: ${message}`);
-    }}
+  project={{ id: "my-app" }}
+  onList={listFeedbacks}
+  onCreate={createFeedback}
+  onUpdate={updateFeedback}
+  onDelete={deleteFeedback}
+  onEvent={(event) => {
+    if (event.type === "feedback:create") {
+      analytics.track("feedback_created", { id: event.payload.id });
+    }
+  }}
+  onReply={({ feedbackId, message }) => {
+    notifySlack(`새 답변 on ${feedbackId}: ${message}`);
+  }}
 />
 ```
 
@@ -497,13 +508,13 @@ persistence와 별도로 analytics, Slack 알림 등 **저장 이후** 동작을
 import type { ReportEvent } from "stitchable";
 
 function handleReportEvent(event: ReportEvent) {
-    if (event.type === "feedback:create") {
-        console.log("created", event.payload.id);
-    }
+  if (event.type === "feedback:create") {
+    console.log("created", event.payload.id);
+  }
 
-    if (event.type === "feedback:github-issue-created") {
-        console.log("github issue", event.payload.issueUrl);
-    }
+  if (event.type === "feedback:github-issue-created") {
+    console.log("github issue", event.payload.issueUrl);
+  }
 }
 ```
 
@@ -512,43 +523,49 @@ function handleReportEvent(event: ReportEvent) {
 피드백을 로컬에 쌓아 두었다가, 필요할 때 GitHub Issue로 **승격**하는 흐름을 지원합니다. GitHub API 호출은 브라우저가 아니라 **앱 서버**에서 처리하는 것을 권장합니다. (`github.onCreate` 콜백)
 
 ```tsx
-import { Report, formatFeedbackAsGitHubIssueBody, type ReportFeedback } from "stitchable";
+import {
+  Report,
+  formatFeedbackAsGitHubIssueBody,
+  type ReportFeedback,
+} from "stitchable";
 
 async function createGitHubIssue(feedback: ReportFeedback) {
-    const response = await fetch("/api/github/issues", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ feedbackId: feedback.id, feedback }),
-    });
+  const response = await fetch("/api/github/issues", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ feedbackId: feedback.id, feedback }),
+  });
 
-    if (!response.ok) {
-        throw new Error("GitHub issue creation failed");
-    }
+  if (!response.ok) {
+    throw new Error("GitHub issue creation failed");
+  }
 
-    return response.json() as Promise<{ issueNumber: number; issueUrl: string }>;
+  return response.json() as Promise<{ issueNumber: number; issueUrl: string }>;
 }
 
 <Report
-    project={{ id: "my-app" }}
-    ui={{ showFeedbackList: true }}
-    github={{
-        enabled: true,
-        modes: ["on-create", "from-list"],
-        onCreate: createGitHubIssue,
-    }}
-    onEvent={(event) => {
-        if (event.type === "feedback:github-issue-created") {
-            analytics.track("github_issue_created", { issueUrl: event.payload.issueUrl });
-        }
-    }}
-/>
+  project={{ id: "my-app" }}
+  ui={{ showFeedbackList: true }}
+  github={{
+    enabled: true,
+    modes: ["on-create", "from-list"],
+    onCreate: createGitHubIssue,
+  }}
+  onEvent={(event) => {
+    if (event.type === "feedback:github-issue-created") {
+      analytics.track("github_issue_created", {
+        issueUrl: event.payload.issueUrl,
+      });
+    }
+  }}
+/>;
 ```
 
-| `github` 필드 | 설명 |
-| ------------- | ---- |
-| `enabled` | `false`면 Git Issue 버튼을 숨깁니다. 생략 시 `onCreate`가 있으면 활성화됩니다. |
-| `modes` | `"on-create"` (작성 시 Git Issue 버튼), `"from-list"` (목록에서 Git Issue +). 기본값은 `["from-list"]`만. |
-| `onCreate` | GitHub Issue 생성 콜백. `{ issueNumber, issueUrl }`를 반환해야 합니다. |
+| `github` 필드 | 설명                                                                                                      |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| `enabled`     | `false`면 Git Issue 버튼을 숨깁니다. 생략 시 `onCreate`가 있으면 활성화됩니다.                            |
+| `modes`       | `"on-create"` (작성 시 Git Issue 버튼), `"from-list"` (목록에서 Git Issue +). 기본값은 `["from-list"]`만. |
+| `onCreate`    | GitHub Issue 생성 콜백. `{ issueNumber, issueUrl }`를 반환해야 합니다.                                    |
 
 **전송 시 UI 동작**
 
@@ -563,19 +580,22 @@ async function createGitHubIssue(feedback: ReportFeedback) {
 // POST /api/github/issues
 import { formatFeedbackAsGitHubIssueBody } from "stitchable";
 
-const issue = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/issues`, {
+const issue = await fetch(
+  `https://api.github.com/repos/${OWNER}/${REPO}/issues`,
+  {
     method: "POST",
     headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        Accept: "application/vnd.github+json",
-        "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        title: `[Feedback] ${feedback.pathname}`,
-        body: formatFeedbackAsGitHubIssueBody(feedback, fields),
-        labels: ["stitchable"],
+      title: `[Feedback] ${feedback.pathname}`,
+      body: formatFeedbackAsGitHubIssueBody(feedback, fields),
+      labels: ["stitchable"],
     }),
-}).then((res) => res.json());
+  },
+).then((res) => res.json());
 
 return { issueNumber: issue.number, issueUrl: issue.html_url };
 ```

@@ -1,6 +1,7 @@
 "use client"
 
-import { motion, useInView, type HTMLMotionProps } from "framer-motion"
+import type { HTMLMotionProps } from "motion/react"
+import { motion, useInView } from "motion/react"
 import { useRef, type ReactNode } from "react"
 import { cn } from "@/shared/lib/utils"
 import { motionTransition } from "@/shared/lib/motion"

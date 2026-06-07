@@ -3,6 +3,7 @@ export { Hero } from "./Hero";
 export { FoundationIntro } from "./FoundationIntro";
 export { FeatureStickyNav } from "./FeatureStickyNav";
 export { FeatureSections } from "./FeatureSections";
+export { LibraryGoodPoints } from "./LibraryGoodPoints";
 export { OpenSourceNotice } from "./OpenSourceNotice";
 export { CtaBanner } from "./CtaBanner";
 export { SiteFooter } from "./SiteFooter";

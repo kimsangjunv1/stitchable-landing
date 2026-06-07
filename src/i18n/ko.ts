@@ -127,6 +127,23 @@ export const ko: LandingMessages = {
           "스크린샷 대신 `DOM 마커`로 피드백하고, UI 변경 후에도 `위치를 복원`합니다.\n필요하면 `GitHub Issue`로 바로 승격할 수 있습니다.",
       },
     },
+    libraryGoodPoints: {
+      title: "스테이징 QA를 위한 가볍고 완전한 오픈소스 레이어",
+      mainStat: {
+        label: "Total bundle (gzip)",
+        value: "~55KB",
+      },
+      chart: {
+        label: "Stitchable Bundle",
+        axisStart: "v0.1",
+        axisEnd: "Today",
+      },
+      stats: [
+        { value: "~10KB+", label: "Stylesheet (gzip)" },
+        { value: "~45KB+", label: "JS only (gzip)" },
+        { value: "0", label: "Runtime dependencies" },
+      ],
+    },
     benefits: {
       shipping: {
         title: "배포에 집중하고, 도구 유지보수는 최소화",

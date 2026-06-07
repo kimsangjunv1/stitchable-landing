@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ArrowRight, Check } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { RichText } from "@/shared/ui/rich-text";
 import { CopyButton, TagPill, TerminalLine } from "../landing-shared";

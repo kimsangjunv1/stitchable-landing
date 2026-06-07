@@ -126,6 +126,23 @@ export const en: LandingMessages = {
           "Leave feedback with `DOM markers` instead of screenshots, `restore positions` after UI changes, and `promote to GitHub Issues` instantly.",
       },
     },
+    libraryGoodPoints: {
+      title: "A lightweight open-source QA layer for staging teams",
+      mainStat: {
+        label: "Total bundle (gzip)",
+        value: "~55KB",
+      },
+      chart: {
+        label: "Stitchable Bundle",
+        axisStart: "v0.1",
+        axisEnd: "Today",
+      },
+      stats: [
+        { value: "~10KB+", label: "Stylesheet (gzip)" },
+        { value: "~45KB+", label: "JS only (gzip)" },
+        { value: "0", label: "Runtime dependencies" },
+      ],
+    },
     benefits: {
       shipping: {
         title: "Focus on shipping, not tooling",

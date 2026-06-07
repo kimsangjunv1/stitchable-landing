@@ -94,6 +94,16 @@ export type LandingMessages = {
         description: string
       }
     }
+    libraryGoodPoints: {
+      title: string
+      mainStat: { label: string; value: string }
+      chart: {
+        label: string
+        axisStart: string
+        axisEnd: string
+      }
+      stats: { value: string; label: string }[]
+    }
     benefits: {
       shipping: {
         title: string
