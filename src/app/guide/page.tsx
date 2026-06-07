@@ -9,7 +9,7 @@ export default async function GuidePage() {
     <Main
       id="guide"
       className={{
-        container: "min-h-screen bg-background",
+        container: "min-h-screen vp-section-light",
         inner: "",
       }}
     >

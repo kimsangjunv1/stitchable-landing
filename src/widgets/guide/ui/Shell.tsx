@@ -13,7 +13,7 @@ export function Shell() {
   useGuideSectionObserver(sectionIds)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <TopBar navHome={guide.navHome} />
       <div className="flex gap-10 px-6 sm:px-10">
         <Sidebar

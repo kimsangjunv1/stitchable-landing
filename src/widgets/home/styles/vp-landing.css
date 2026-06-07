@@ -85,6 +85,27 @@
   border-right-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Guide page — map shadcn tokens to vp-section-light palette */
+#guide.vp-section-light {
+  --background: var(--vp-color-bg);
+  --foreground: var(--vp-color-text);
+  --card: var(--vp-color-bg-elevated);
+  --card-foreground: var(--vp-color-text);
+  --popover: var(--vp-color-bg-elevated);
+  --popover-foreground: var(--vp-color-text);
+  --primary: var(--vp-color-brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--vp-color-bg-soft);
+  --secondary-foreground: var(--vp-color-text);
+  --muted: var(--vp-color-bg-soft);
+  --muted-foreground: var(--vp-color-text-muted);
+  --accent: var(--vp-color-brand-dim);
+  --accent-foreground: var(--vp-color-brand);
+  --border: var(--vp-color-stroke);
+  --input: var(--vp-color-stroke);
+  --ring: var(--vp-color-brand);
+}
+
 .marketing-layout {
   background-color: transparent;
   color: inherit;
