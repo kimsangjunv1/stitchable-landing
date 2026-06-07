@@ -15,7 +15,7 @@ export function Shell() {
   return (
     <div className="min-h-screen bg-background">
       <TopBar navHome={guide.navHome} />
-      <div className="mx-auto flex max-w-6xl gap-10 px-6">
+      <div className="flex gap-10 px-6 sm:px-10">
         <Sidebar
           groups={guide.navGroups}
           sections={guide.sections}

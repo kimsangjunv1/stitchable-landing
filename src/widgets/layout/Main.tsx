@@ -25,7 +25,12 @@ export function Main({ children, id, className }: MainProps) {
         className?.container,
       )}
     >
-      <div className={cn(isFullBleed ? "" : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]", className?.inner)}>
+      <div
+        className={cn(
+          isFullBleed ? "vp-page-shell min-h-screen" : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]",
+          className?.inner,
+        )}
+      >
         {children}
       </div>
     </div>

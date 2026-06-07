@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
-import { HomePageProvider } from "@/features/home/model/HomeContext"
-import * as HomeLayer from "./ui"
+import { HomePageProvider } from "@/features/home/model/HomeContext";
+import * as HomeLayer from "./ui";
 
 export default function Panel() {
   return (
     <HomePageProvider>
-      <HomeLayer.SiteHeader />
-      <main>
-        <HomeLayer.Hero />
-        <HomeLayer.WorkflowStrip />
-        <HomeLayer.FeatureGrid />
-        <HomeLayer.CodeExamples />
-        <HomeLayer.Pricing />
-      </main>
-      <HomeLayer.SiteFooter />
+      <div className="marketing-layout bg-[var(--vp-color-white)]">
+        <HomeLayer.SiteHeader />
+        <main className="bg-[#ededed]">
+          <HomeLayer.Hero />
+          <HomeLayer.TerminalPreview />
+          <HomeLayer.BentoSections />
+          <HomeLayer.DarkShowcase />
+          <HomeLayer.CtaBanner />
+        </main>
+        <HomeLayer.SiteFooter />
+      </div>
     </HomePageProvider>
-  )
+  );
 }

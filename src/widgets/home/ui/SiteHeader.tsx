@@ -1,29 +1,28 @@
 "use client"
 
 import { StitchableLogo } from "./StitchableLogo"
-import { Button } from "@/shared/ui/button"
 import { GithubIcon } from "./GithubIcon"
 import { LocaleSwitcher } from "./LocaleSwitcher"
 import { useMessages } from "@/app/providers/LocaleProvider"
 
 export function SiteHeader() {
-  const messages = useMessages()
-  const t = messages.landing.header
+  const t = useMessages().landing.header
 
   const NAV = [
     { label: t.navFeatures, href: "#features" },
     { label: t.navHowItWorks, href: "#how-it-works" },
     { label: t.navDocs, href: "/guide" },
-    { label: t.navPricing, href: "#pricing" },
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
-        <a href="#" className="flex items-center gap-2.5">
-          <StitchableLogo className="size-6 text-primary" />
-          <span className="text-sm font-semibold tracking-tight text-foreground">Stitchable</span>
-          <span className="hidden rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground sm:inline">
+    <header className="sticky top-0 z-50 border-b border-[var(--vp-color-stroke)] bg-[var(--vp-color-white)]/90 backdrop-blur-md">
+      <div className="flex h-[82px] items-center justify-between gap-4 px-5 sm:px-10">
+        <a href="#" className="flex items-center gap-2">
+          <StitchableLogo className="size-6 text-[var(--vp-color-brand)]" />
+          <span className="text-sm font-semibold tracking-tight text-[var(--vp-color-primary)]">
+            Stitchable
+          </span>
+          <span className="hidden rounded-full border border-[var(--vp-color-stroke)] bg-[var(--vp-color-beige)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[var(--vp-color-grey)] sm:inline">
             {t.beta}
           </span>
         </a>
@@ -33,7 +32,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-sm text-[var(--vp-color-grey)] transition-colors hover:text-[var(--vp-color-primary)]"
             >
               {item.label}
             </a>
@@ -42,20 +41,19 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden text-muted-foreground hover:text-foreground sm:inline-flex"
-            asChild
+          <a
+            href="#"
+            className="hidden items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[var(--vp-color-grey)] transition-colors hover:text-[var(--vp-color-primary)] sm:inline-flex"
           >
-            <a href="#docs">
-              <GithubIcon className="size-4" />
-              {t.github}
-            </a>
-          </Button>
-          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-            <a href="#quickstart">{t.getStarted}</a>
-          </Button>
+            <GithubIcon className="size-4" />
+            {t.github}
+          </a>
+          <a
+            href="#quickstart"
+            className="vp-btn-brand inline-flex h-9 items-center rounded-lg px-4 text-sm font-medium transition-colors"
+          >
+            {t.getStarted}
+          </a>
         </div>
       </div>
     </header>

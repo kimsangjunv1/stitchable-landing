@@ -53,14 +53,85 @@ export type LandingMessages = {
       getStarted: string
     }
     hero: {
+      titleLine1: string
+      titleLine2: string
+      description: string
+      license: string
+      getStarted: string
+      readDocs: string
+      copyPrompt: string
+      codeCopy: string
+      codeCopied: string
+      copyPromptText: string
+    }
+    terminal: {
+      lines: string[]
+    }
+    gettingStarted: {
       eyebrow: string
       title: string
       description: string
-      getStarted: string
-      installCmd: string
-      codeCopy: string
-      codeCopied: string
-      badges: string[]
+      ciNote: string
+      ciLink: string
+      npmLabel: string
+      npmCmd: string
+      yarnLabel: string
+      yarnCmd: string
+    }
+    capabilities: {
+      items: {
+        title: string
+        description: string
+        tags: string[]
+      }[]
+    }
+    trust: {
+      title: string
+      description: string
+      stats: { value: string; label: string }[]
+      performance: {
+        title: string
+        description: string
+      }
+    }
+    benefits: {
+      shipping: {
+        title: string
+        items: string[]
+      }
+      security: {
+        title: string
+        description: string
+        items: string[]
+      }
+    }
+    showcase: {
+      title: string
+      subtitle: string
+      tabs: {
+        id: string
+        label: string
+        title: string
+        description: string
+        bullets: string[]
+        poweredBy: string
+        output: string[]
+      }[]
+    }
+    fullstack: {
+      title: string
+      description: string
+      items: { title: string; description: string }[]
+    }
+    cta: {
+      title: string
+      button: string
+    }
+    footer: {
+      companyTitle: string
+      companyLinks: { label: string; href: string }[]
+      socialTitle: string
+      copyright: string
     }
     preview: {
       title: string
@@ -72,38 +143,6 @@ export type LandingMessages = {
       designer: string
       developer: string
       envLabel: string
-    }
-    workflow: {
-      steps: { label: string; desc: string }[]
-    }
-    features: {
-      eyebrow: string
-      title: string
-      subtitle: string
-      items: { title: string; desc: string }[]
-    }
-    pricing: {
-      eyebrow: string
-      title: string
-      description: string
-      freeTitle: string
-      freeSubtitle: string
-      freePrice: string
-      freePriceSuffix: string
-      freeCta: string
-      proTitle: string
-      proSubtitle: string
-      proBadge: string
-      proPrice: string
-      proCta: string
-      freeFeatures: string[]
-      proFeatures: string[]
-    }
-    footer: {
-      tagline: string
-      docs: string
-      features: string
-      github: string
     }
   }
 }

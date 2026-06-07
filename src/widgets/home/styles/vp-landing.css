@@ -1,0 +1,159 @@
+/* Vite+ color chips — sourced from viteplus.dev */
+:root {
+  --vp-color-primary: #16171d;
+  --vp-color-electric: #6c3bff;
+  --vp-color-vite: #b39aff;
+  --vp-color-white: #ffffff;
+  --vp-color-grey: #867e8e;
+  --vp-color-beige: #f4f3ec;
+  --vp-color-stroke: #e5e4e7;
+  --vp-color-midnight: #0c0912;
+  --vp-color-slate: #14121a;
+  --vp-color-nickel: #3b3440;
+  --vp-color-brand: #4f30e8;
+  --vp-color-shine: #6254fe;
+
+  --background: var(--vp-color-white);
+  --foreground: var(--vp-color-primary);
+  --card: var(--vp-color-white);
+  --card-foreground: var(--vp-color-primary);
+  --popover: var(--vp-color-white);
+  --popover-foreground: var(--vp-color-primary);
+  --primary: var(--vp-color-brand);
+  --primary-foreground: var(--vp-color-white);
+  --secondary: var(--vp-color-beige);
+  --secondary-foreground: var(--vp-color-primary);
+  --muted: var(--vp-color-beige);
+  --muted-foreground: var(--vp-color-grey);
+  --accent: var(--vp-color-beige);
+  --accent-foreground: var(--vp-color-primary);
+  --border: var(--vp-color-stroke);
+  --input: var(--vp-color-stroke);
+  --ring: var(--vp-color-brand);
+
+  --vp-layout-max-width: 90rem; /* 1440px */
+}
+
+.vp-page-shell {
+  width: 100%;
+  max-width: var(--vp-layout-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 1px solid var(--vp-color-stroke);
+  border-right: 1px solid var(--vp-color-stroke);
+}
+
+@keyframes vp-shine {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+.marketing-layout h1 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  color: var(--vp-color-primary);
+}
+
+.marketing-layout h2,
+.marketing-layout h3,
+.marketing-layout h4,
+.marketing-layout h5,
+.marketing-layout h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.vp-shine-text {
+  background-image: linear-gradient(
+    110deg,
+    #16171d 0%,
+    #16171d 40%,
+    #6254fe 48%,
+    #6254fe 50%,
+    #6254fe 52%,
+    #16171d 60%,
+    #16171d 100%
+  );
+  background-size: 400% 100%;
+  background-position: 100% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: vp-shine 5s ease-in-out forwards;
+}
+
+.vp-btn-brand {
+  border: 1px solid transparent;
+  background-color: var(--vp-color-primary);
+  color: var(--vp-color-white);
+  box-shadow:
+    0 0 0 1px rgba(98, 84, 254, 0.35),
+    0 0 24px rgba(98, 84, 254, 0.25);
+}
+
+.vp-btn-brand:hover {
+  background-color: #1e1f27;
+}
+
+.vp-btn-alt {
+  border: 1px solid var(--vp-color-stroke);
+  background-color: var(--vp-color-white);
+  color: var(--vp-color-primary);
+}
+
+.vp-btn-alt:hover {
+  background-color: var(--vp-color-beige);
+}
+
+.vp-terminal-warp {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(98, 84, 254, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 30% 60%, rgba(108, 59, 255, 0.4) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 70% 50%, rgba(79, 48, 232, 0.35) 0%, transparent 60%),
+    linear-gradient(180deg, #0c0912 0%, #14121a 50%, #16171d 100%);
+}
+
+.vp-cta-banner {
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 0%, rgba(98, 84, 254, 0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(79, 48, 232, 0.3) 0%, transparent 70%),
+    linear-gradient(180deg, #1a1540 0%, #16171d 40%, #0c0912 100%);
+}
+
+.vp-bento-grid {
+  border: 1px solid var(--vp-color-stroke);
+}
+
+.vp-bento-cell {
+  border-color: var(--vp-color-stroke);
+}
+
+.vp-code-block {
+  background-color: var(--vp-color-primary);
+  color: #e8e6ed;
+  font-family: var(--font-mono);
+}
+
+.vp-tag {
+  border: 1px solid var(--vp-color-stroke);
+  background-color: var(--vp-color-white);
+  color: var(--vp-color-primary);
+}
+
+.vp-tag-dark {
+  border: 1px solid var(--vp-color-nickel);
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #e8e6ed;
+}
+
+.vp-check-glow {
+  box-shadow:
+    0 0 0 1px rgba(98, 84, 254, 0.5),
+    0 0 20px rgba(108, 59, 255, 0.25);
+}

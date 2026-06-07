@@ -1,9 +1,15 @@
-"use client"
+"use client";
 
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
-import { MousePointer2 } from "lucide-react"
-import { useLocale, useMessages } from "@/app/providers/LocaleProvider"
-import type { LandingMessages } from "@/i18n"
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from "react";
+import { MousePointer2 } from "lucide-react";
+import { useLocale, useMessages } from "@/app/providers/LocaleProvider";
+import type { LandingMessages } from "@/i18n";
 import {
   ChevronDownIcon,
   formatStatCount,
@@ -11,12 +17,12 @@ import {
   SelectIcon,
   SendIcon,
   SettingsIcon,
-} from "./stitchable-mock/icons"
+} from "./stitchable-mock/icons";
 import {
   FEEDBACK_STATUS_COLOR,
   MARKER_ITEM,
   STITCHABLE_LIGHT_STYLE,
-} from "./stitchable-mock/tokens"
+} from "./stitchable-mock/tokens";
 
 const TIMING = {
   idle: 1800,
@@ -33,7 +39,7 @@ const TIMING = {
   showResolve: 900,
   resolve: 800,
   complete: 2200,
-} as const
+} as const;
 
 type AutoStep =
   | "idle"
@@ -47,82 +53,82 @@ type AutoStep =
   | "compose-reply"
   | "show-resolve"
   | "resolve"
-  | "complete"
+  | "complete";
 
-type PanelMode = "idle" | "report" | "view"
-type MarkerPos = { left: number; top: number }
-type CursorPos = { x: number; y: number }
+type PanelMode = "idle" | "report" | "view";
+type MarkerPos = { left: number; top: number };
+type CursorPos = { x: number; y: number };
 
 type MockReply = {
-  id: string
-  message: string
-  status: "suggested" | "resolved"
-  author_name: string
-}
+  id: string;
+  message: string;
+  status: "suggested" | "resolved";
+  author_name: string;
+};
 
 type MockFeedback = {
-  message: string
-  author_name: string
-  status: "open" | "resolved"
-  replies: MockReply[]
-}
+  message: string;
+  author_name: string;
+  status: "open" | "resolved";
+  replies: MockReply[];
+};
 
 function stepToProgress(step: AutoStep): number {
   switch (step) {
     case "idle":
-      return 1
+      return 1;
     case "add-feedback":
     case "report-mode":
-      return 2
+      return 2;
     case "select-target":
-      return 3
+      return 3;
     case "compose-create":
-      return 4
+      return 4;
     case "view-mode":
     case "hover-marker":
-      return 5
+      return 5;
     case "open-thread":
     case "compose-reply":
-      return 6
+      return 6;
     case "show-resolve":
     case "resolve":
     case "complete":
-      return 7
+      return 7;
     default:
-      return 1
+      return 1;
   }
 }
 
 function getCenterPos(container: HTMLElement, target: HTMLElement): MarkerPos {
-  const c = container.getBoundingClientRect()
-  const t = target.getBoundingClientRect()
+  const c = container.getBoundingClientRect();
+  const t = target.getBoundingClientRect();
   return {
     left: ((t.left + t.width / 2 - c.left) / c.width) * 100,
     top: ((t.top + t.height / 2 - c.top) / c.height) * 100,
-  }
+  };
 }
 
 function getDisplayStatus(
   feedback: MockFeedback,
   messages: LandingMessages,
 ): "currently_wait" | "suggested" | "resolved" {
-  if (feedback.status === "resolved") return "resolved"
-  if (feedback.replies.length === 0) return "currently_wait"
-  return feedback.replies[feedback.replies.length - 1].status
+  if (feedback.status === "resolved") return "resolved";
+  if (feedback.replies.length === 0) return "currently_wait";
+  return feedback.replies[feedback.replies.length - 1].status;
 }
 
 function statusIcon(status: string): string {
-  return status === "resolved" ? "✓" : "◷"
+  return status === "resolved" ? "✓" : "◷";
 }
 
 function StatusBadge({
   status,
   messages,
 }: {
-  status: "currently_wait" | "suggested" | "resolved"
-  messages: LandingMessages
+  status: "currently_wait" | "suggested" | "resolved";
+  messages: LandingMessages;
 }) {
-  const color = FEEDBACK_STATUS_COLOR[status]
+  const color = FEEDBACK_STATUS_COLOR[status];
   return (
     <div className="flex items-center gap-[6px] text-[12px] font-bold uppercase">
       <span
@@ -136,159 +142,160 @@ function StatusBadge({
         {messages.status.feedback[status]}
       </span>
     </div>
-  )
+  );
 }
 
-export function ProductPreview() {
-  const { locale } = useLocale()
-  const messages = useMessages()
+export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
+  const { locale } = useLocale();
+  const messages = useMessages();
 
-  const canvasRef = useRef<HTMLDivElement>(null)
-  const targetRef = useRef<HTMLButtonElement>(null)
-  const addBtnRef = useRef<HTMLButtonElement>(null)
-  const markerRef = useRef<HTMLButtonElement>(null)
-  const resolveBtnRef = useRef<HTMLButtonElement>(null)
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLButtonElement>(null);
+  const addBtnRef = useRef<HTMLButtonElement>(null);
+  const markerRef = useRef<HTMLButtonElement>(null);
+  const resolveBtnRef = useRef<HTMLButtonElement>(null);
 
-  const [autoStep, setAutoStep] = useState<AutoStep>("idle")
-  const [panelMode, setPanelMode] = useState<PanelMode>("idle")
-  const [feedback, setFeedback] = useState<MockFeedback | null>(null)
-  const [markerPos, setMarkerPos] = useState<MarkerPos | null>(null)
-  const [showCreateComposer, setShowCreateComposer] = useState(false)
-  const [showThreadCard, setShowThreadCard] = useState(false)
-  const [showHoverCard, setShowHoverCard] = useState(false)
-  const [draftMessage, setDraftMessage] = useState("")
-  const [cursor, setCursor] = useState<CursorPos | null>(null)
-  const [cursorClick, setCursorClick] = useState(false)
-  const [highlightTarget, setHighlightTarget] = useState(false)
-  const [resolveHighlight, setResolveHighlight] = useState(false)
-  const [demoAdded, setDemoAdded] = useState(false)
+  const [autoStep, setAutoStep] = useState<AutoStep>("idle");
+  const [panelMode, setPanelMode] = useState<PanelMode>("idle");
+  const [feedback, setFeedback] = useState<MockFeedback | null>(null);
+  const [markerPos, setMarkerPos] = useState<MarkerPos | null>(null);
+  const [showCreateComposer, setShowCreateComposer] = useState(false);
+  const [showThreadCard, setShowThreadCard] = useState(false);
+  const [showHoverCard, setShowHoverCard] = useState(false);
+  const [draftMessage, setDraftMessage] = useState("");
+  const [cursor, setCursor] = useState<CursorPos | null>(null);
+  const [cursorClick, setCursorClick] = useState(false);
+  const [highlightTarget, setHighlightTarget] = useState(false);
+  const [resolveHighlight, setResolveHighlight] = useState(false);
+  const [demoAdded, setDemoAdded] = useState(false);
 
-  const progress = stepToProgress(autoStep)
-  const preview = messages.landing.preview
+  const progress = stepToProgress(autoStep);
+  const preview = messages.landing.preview;
 
   const moveCursorTo = useCallback((el: HTMLElement | null, click = false) => {
-    const canvas = canvasRef.current
+    const canvas = canvasRef.current;
     if (!canvas || !el) {
-      setCursor(null)
-      return
+      setCursor(null);
+      return;
     }
-    const c = canvas.getBoundingClientRect()
-    const t = el.getBoundingClientRect()
+    const c = canvas.getBoundingClientRect();
+    const t = el.getBoundingClientRect();
     setCursor({
       x: t.left + t.width / 2 - c.left,
       y: t.top + t.height / 2 - c.top,
-    })
+    });
     if (click) {
-      setCursorClick(true)
-      setTimeout(() => setCursorClick(false), 350)
+      setCursorClick(true);
+      setTimeout(() => setCursorClick(false), 350);
     }
-  }, [])
+  }, []);
 
   const captureMarkerPos = useCallback(() => {
-    const canvas = canvasRef.current
-    const target = targetRef.current
-    if (!canvas || !target) return
-    setMarkerPos(getCenterPos(canvas, target))
-  }, [])
+    const canvas = canvasRef.current;
+    const target = targetRef.current;
+    if (!canvas || !target) return;
+    setMarkerPos(getCenterPos(canvas, target));
+  }, []);
 
   useEffect(() => {
-    let cancelled = false
-    const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
+    let cancelled = false;
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => setTimeout(resolve, ms));
 
     const typeText = async (text: string, charMs: number) => {
       for (let i = 1; i <= text.length; i++) {
-        if (cancelled) return
-        setDraftMessage(text.slice(0, i))
-        await wait(charMs)
+        if (cancelled) return;
+        setDraftMessage(text.slice(0, i));
+        await wait(charMs);
       }
-    }
+    };
 
     const run = async () => {
       while (!cancelled) {
-        setAutoStep("idle")
-        setPanelMode("idle")
-        setFeedback(null)
-        setMarkerPos(null)
-        setShowCreateComposer(false)
-        setShowThreadCard(false)
-        setShowHoverCard(false)
-        setDraftMessage("")
-        setCursor(null)
-        setHighlightTarget(false)
-        setResolveHighlight(false)
-        setDemoAdded(false)
-        await wait(TIMING.idle)
-        if (cancelled) return
+        setAutoStep("idle");
+        setPanelMode("idle");
+        setFeedback(null);
+        setMarkerPos(null);
+        setShowCreateComposer(false);
+        setShowThreadCard(false);
+        setShowHoverCard(false);
+        setDraftMessage("");
+        setCursor(null);
+        setHighlightTarget(false);
+        setResolveHighlight(false);
+        setDemoAdded(false);
+        await wait(TIMING.idle);
+        if (cancelled) return;
 
-        setAutoStep("add-feedback")
-        moveCursorTo(addBtnRef.current, true)
-        await wait(TIMING.addFeedback)
-        if (cancelled) return
+        setAutoStep("add-feedback");
+        moveCursorTo(addBtnRef.current, true);
+        await wait(TIMING.addFeedback);
+        if (cancelled) return;
 
-        setAutoStep("report-mode")
-        setPanelMode("report")
-        setCursor(null)
-        await wait(TIMING.reportMode)
-        if (cancelled) return
+        setAutoStep("report-mode");
+        setPanelMode("report");
+        setCursor(null);
+        await wait(TIMING.reportMode);
+        if (cancelled) return;
 
-        setAutoStep("select-target")
-        setHighlightTarget(true)
-        moveCursorTo(targetRef.current)
-        await wait(600)
-        if (cancelled) return
-        moveCursorTo(targetRef.current, true)
-        await wait(TIMING.selectTarget)
-        if (cancelled) return
+        setAutoStep("select-target");
+        setHighlightTarget(true);
+        moveCursorTo(targetRef.current);
+        await wait(600);
+        if (cancelled) return;
+        moveCursorTo(targetRef.current, true);
+        await wait(TIMING.selectTarget);
+        if (cancelled) return;
 
-        captureMarkerPos()
-        setHighlightTarget(false)
-        setShowCreateComposer(true)
-        setCursor(null)
+        captureMarkerPos();
+        setHighlightTarget(false);
+        setShowCreateComposer(true);
+        setCursor(null);
 
-        setAutoStep("compose-create")
-        setDraftMessage("")
-        await typeText(preview.feedbackMessage, TIMING.composeType)
-        if (cancelled) return
-        await wait(TIMING.composeHold)
-        if (cancelled) return
+        setAutoStep("compose-create");
+        setDraftMessage("");
+        await typeText(preview.feedbackMessage, TIMING.composeType);
+        if (cancelled) return;
+        await wait(TIMING.composeHold);
+        if (cancelled) return;
 
         setFeedback({
           message: preview.feedbackMessage,
           author_name: preview.designer,
           status: "open",
           replies: [],
-        })
-        setDemoAdded(true)
-        setShowCreateComposer(false)
-        setDraftMessage("")
-        setPanelMode("view")
-        setAutoStep("view-mode")
-        await wait(TIMING.viewTransition)
-        if (cancelled) return
+        });
+        setDemoAdded(true);
+        setShowCreateComposer(false);
+        setDraftMessage("");
+        setPanelMode("view");
+        setAutoStep("view-mode");
+        await wait(TIMING.viewTransition);
+        if (cancelled) return;
 
-        setAutoStep("hover-marker")
-        await wait(200)
-        if (cancelled) return
-        moveCursorTo(markerRef.current)
-        await wait(400)
-        if (cancelled) return
-        setShowHoverCard(true)
-        await wait(TIMING.hoverMarker)
-        if (cancelled) return
-        setShowHoverCard(false)
+        setAutoStep("hover-marker");
+        await wait(200);
+        if (cancelled) return;
+        moveCursorTo(markerRef.current);
+        await wait(400);
+        if (cancelled) return;
+        setShowHoverCard(true);
+        await wait(TIMING.hoverMarker);
+        if (cancelled) return;
+        setShowHoverCard(false);
 
-        setAutoStep("open-thread")
-        moveCursorTo(markerRef.current, true)
-        await wait(TIMING.openThread)
-        if (cancelled) return
+        setAutoStep("open-thread");
+        moveCursorTo(markerRef.current, true);
+        await wait(TIMING.openThread);
+        if (cancelled) return;
 
-        setShowThreadCard(true)
-        setAutoStep("compose-reply")
-        setDraftMessage("")
-        await typeText(preview.replyMessage, TIMING.replyType)
-        if (cancelled) return
-        await wait(TIMING.replyHold)
-        if (cancelled) return
+        setShowThreadCard(true);
+        setAutoStep("compose-reply");
+        setDraftMessage("");
+        await typeText(preview.replyMessage, TIMING.replyType);
+        if (cancelled) return;
+        await wait(TIMING.replyHold);
+        if (cancelled) return;
 
         setFeedback((prev) =>
           prev
@@ -304,20 +311,20 @@ export function ProductPreview() {
                 ],
               }
             : prev,
-        )
-        setDraftMessage("")
-        setAutoStep("show-resolve")
-        setCursor(null)
-        await wait(TIMING.showResolve)
-        if (cancelled) return
+        );
+        setDraftMessage("");
+        setAutoStep("show-resolve");
+        setCursor(null);
+        await wait(TIMING.showResolve);
+        if (cancelled) return;
 
-        setAutoStep("resolve")
-        setResolveHighlight(true)
-        await wait(150)
-        if (cancelled) return
-        moveCursorTo(resolveBtnRef.current, true)
-        await wait(TIMING.resolve)
-        if (cancelled) return
+        setAutoStep("resolve");
+        setResolveHighlight(true);
+        await wait(150);
+        if (cancelled) return;
+        moveCursorTo(resolveBtnRef.current, true);
+        await wait(TIMING.resolve);
+        if (cancelled) return;
 
         setFeedback((prev) =>
           prev
@@ -335,38 +342,53 @@ export function ProductPreview() {
                 ],
               }
             : prev,
-        )
-        setResolveHighlight(false)
-        setAutoStep("complete")
-        setCursor(null)
-        await wait(TIMING.complete)
+        );
+        setResolveHighlight(false);
+        setAutoStep("complete");
+        setCursor(null);
+        await wait(TIMING.complete);
       }
-    }
+    };
 
-    run()
+    run();
     return () => {
-      cancelled = true
-    }
-  }, [captureMarkerPos, locale, messages.resolution.issueResolvedMessage, moveCursorTo, preview])
+      cancelled = true;
+    };
+  }, [
+    captureMarkerPos,
+    locale,
+    messages.resolution.issueResolvedMessage,
+    moveCursorTo,
+    preview,
+  ]);
 
   const stats = {
     found: demoAdded ? 3 : 2,
     groups: 7,
     items: demoAdded ? 49 : 48,
-  }
+  };
 
-  const replyCount = feedback?.replies.length ?? 0
-  const showMarker = feedback !== null && markerPos !== null
+  const replyCount = feedback?.replies.length ?? 0;
+  const showMarker = feedback !== null && markerPos !== null;
 
-  const cardLeft = markerPos ? Math.min(Math.max(markerPos.left + 14, 6), 48) : 50
-  const cardTop = markerPos ? Math.min(Math.max(markerPos.top - 10, 4), 36) : 20
+  const cardLeft = markerPos
+    ? Math.min(Math.max(markerPos.left + 14, 6), 48)
+    : 50;
+  const cardTop = markerPos
+    ? Math.min(Math.max(markerPos.top - 10, 4), 36)
+    : 20;
 
   return (
-    <div className="space-y-3">
-      <div className="px-1">
-        <p className="text-sm font-semibold text-foreground">{preview.title}</p>
-        <p className="text-xs text-muted-foreground">{preview.subtitle}</p>
-      </div>
+    // <div className={embedded ? "" : "space-y-3"}>
+    <div className={"w-full"}>
+      {!embedded ? (
+        <div className="px-1">
+          <p className="text-sm font-semibold text-foreground">
+            {preview.title}
+          </p>
+          <p className="text-xs text-muted-foreground">{preview.subtitle}</p>
+        </div>
+      ) : null}
 
       <div
         data-stitchable-mock=""
@@ -382,7 +404,10 @@ export function ProductPreview() {
           <div className="mx-auto h-5 w-44 rounded-md bg-[#e5e8eb]/80" />
         </div>
 
-        <div ref={canvasRef} className="relative h-[calc(100%-36px)] overflow-hidden bg-white">
+        <div
+          ref={canvasRef}
+          className="relative h-[calc(100%-36px)] overflow-hidden bg-white"
+        >
           <SkeletonApp
             targetRef={targetRef}
             highlightTarget={highlightTarget}
@@ -422,12 +447,17 @@ export function ProductPreview() {
               }}
             >
               <div className="flex w-[260px] flex-col gap-[10px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[10px]">
-                <StatusBadge status={getDisplayStatus(feedback, messages)} messages={messages} />
+                <StatusBadge
+                  status={getDisplayStatus(feedback, messages)}
+                  messages={messages}
+                />
                 <p className="line-clamp-2 text-[16px] leading-[1.5] text-[var(--adaptive-black50)]">
                   {feedback.message}
                 </p>
                 <div className="flex items-center gap-[6px]">
-                  <p className="text-[12px] text-[var(--adaptive-black500)]">{feedback.author_name}</p>
+                  <p className="text-[12px] text-[var(--adaptive-black500)]">
+                    {feedback.author_name}
+                  </p>
                   <span className="rounded-full bg-[var(--adaptive-black800)] px-[6px] py-[2px] text-[10px] text-[var(--adaptive-black400)]">
                     {messages.author.creatorLabel}
                   </span>
@@ -440,7 +470,9 @@ export function ProductPreview() {
             <div
               className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] shadow-[0_0_90px_0_var(--adaptive-blackOpacity500)] backdrop-blur-[10px]"
               style={{
-                left: markerPos ? `${Math.min(markerPos.left + 6, 50)}%` : "38%",
+                left: markerPos
+                  ? `${Math.min(markerPos.left + 6, 50)}%`
+                  : "38%",
                 top: markerPos ? `${Math.min(markerPos.top + 10, 46)}%` : "28%",
                 width: 260,
               }}
@@ -459,11 +491,16 @@ export function ProductPreview() {
               style={{ left: `${cardLeft}%`, top: `${cardTop}%`, width: 260 }}
             >
               <section className="flex flex-col gap-[12px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[20px]">
-                <StatusBadge status={getDisplayStatus(feedback, messages)} messages={messages} />
+                <StatusBadge
+                  status={getDisplayStatus(feedback, messages)}
+                  messages={messages}
+                />
                 <p className="text-[16px] font-semibold leading-[1.5] text-[var(--adaptive-black50)]">
                   {feedback.message}
                 </p>
-                <p className="text-[12px] text-[var(--adaptive-black500)]">{feedback.author_name}</p>
+                <p className="text-[12px] text-[var(--adaptive-black500)]">
+                  {feedback.author_name}
+                </p>
               </section>
 
               {autoStep === "compose-reply" || autoStep === "open-thread" ? (
@@ -477,16 +514,23 @@ export function ProductPreview() {
               {feedback.replies.length > 0 ? (
                 <section className="max-h-[200px] overflow-auto bg-[var(--adaptive-blackOpacity900)] backdrop-blur-[10px]">
                   {[...feedback.replies].reverse().map((reply) => {
-                    const isLatest = feedback.replies[feedback.replies.length - 1]?.id === reply.id
+                    const isLatest =
+                      feedback.replies[feedback.replies.length - 1]?.id ===
+                      reply.id;
                     const showResolveBtn =
-                      isLatest && reply.status === "suggested" && feedback.status !== "resolved"
+                      isLatest &&
+                      reply.status === "suggested" &&
+                      feedback.status !== "resolved";
 
                     return (
                       <article
                         key={reply.id}
                         className="flex flex-col gap-[8px] border-t border-[var(--adaptive-black800)] p-[16px]"
                       >
-                        <StatusBadge status={reply.status} messages={messages} />
+                        <StatusBadge
+                          status={reply.status}
+                          messages={messages}
+                        />
                         <p className="text-[14px] leading-[1.5] text-[var(--adaptive-black50)]">
                           {reply.message}
                         </p>
@@ -516,7 +560,7 @@ export function ProductPreview() {
                           </div>
                         ) : null}
                       </article>
-                    )
+                    );
                   })}
                 </section>
               ) : null}
@@ -532,13 +576,21 @@ export function ProductPreview() {
             envLabel={preview.envLabel}
           />
 
-          {cursor ? <VirtualCursor x={cursor.x} y={cursor.y} clicking={cursorClick} /> : null}
+          {cursor ? (
+            <VirtualCursor x={cursor.x} y={cursor.y} clicking={cursorClick} />
+          ) : null}
         </div>
       </div>
 
-      <ProgressBar current={progress} step={autoStep} labels={preview.progress} />
+      {!embedded ? (
+        <ProgressBar
+          current={progress}
+          step={autoStep}
+          labels={preview.progress}
+        />
+      ) : null}
     </div>
-  )
+  );
 }
 
 function ProgressBar({
@@ -546,11 +598,11 @@ function ProgressBar({
   step,
   labels,
 }: {
-  current: number
-  step: AutoStep
-  labels: string[]
+  current: number;
+  step: AutoStep;
+  labels: string[];
 }) {
-  const pct = ((current - 1) / (labels.length - 1)) * 100
+  const pct = ((current - 1) / (labels.length - 1)) * 100;
 
   return (
     <div className="px-1">
@@ -565,7 +617,9 @@ function ProgressBar({
           <div key={label} className="text-center">
             <span
               className={`block text-[9px] font-medium leading-tight transition-colors sm:text-[10px] ${
-                i + 1 <= current ? "text-[var(--adaptive-blue500,#3182f6)]" : "text-muted-foreground/50"
+                i + 1 <= current
+                  ? "text-[var(--adaptive-blue500,#3182f6)]"
+                  : "text-muted-foreground/50"
               }`}
             >
               {label}
@@ -574,7 +628,7 @@ function ProgressBar({
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function SkeletonApp({
@@ -584,11 +638,11 @@ function SkeletonApp({
   exportLabel,
   selectedItemLabel,
 }: {
-  targetRef: RefObject<HTMLButtonElement | null>
-  highlightTarget: boolean
-  reportMode: boolean
-  exportLabel: string
-  selectedItemLabel: string
+  targetRef: RefObject<HTMLButtonElement | null>;
+  highlightTarget: boolean;
+  reportMode: boolean;
+  exportLabel: string;
+  selectedItemLabel: string;
 }) {
   return (
     <div
@@ -624,7 +678,9 @@ function SkeletonApp({
           tabIndex={-1}
           aria-hidden
           className={`shrink-0 rounded-lg bg-[#333d4b] px-4 py-2 text-[12px] font-[500] text-white transition-all ${
-            highlightTarget ? "ring-2 ring-[var(--adaptive-blue500)] ring-offset-2" : ""
+            highlightTarget
+              ? "ring-2 ring-[var(--adaptive-blue500)] ring-offset-2"
+              : ""
           }`}
         >
           {exportLabel}
@@ -647,7 +703,7 @@ function SkeletonApp({
         </p>
       ) : null}
     </div>
-  )
+  );
 }
 
 function ControlPanel({
@@ -658,12 +714,12 @@ function ControlPanel({
   messages,
   envLabel,
 }: {
-  mode: PanelMode
-  stats: { found: number; groups: number; items: number }
-  addBtnRef: RefObject<HTMLButtonElement | null>
-  highlightAdd: boolean
-  messages: LandingMessages
-  envLabel: string
+  mode: PanelMode;
+  stats: { found: number; groups: number; items: number };
+  addBtnRef: RefObject<HTMLButtonElement | null>;
+  highlightAdd: boolean;
+  messages: LandingMessages;
+  envLabel: string;
 }) {
   if (mode === "report") {
     return (
@@ -671,14 +727,16 @@ function ControlPanel({
         <section className="flex items-center justify-between gap-[16px] px-[12px] py-[8px]">
           <section className="flex shrink-0 items-center gap-[4px]">
             <LogoIcon className="w-[16px]" />
-            <p className="text-[14px] text-[var(--adaptive-black900)]">Stitchable°</p>
+            <p className="text-[14px] text-[var(--adaptive-black900)]">
+              Stitchable°
+            </p>
           </section>
           <p className="shrink-0 text-[14px] font-bold text-[var(--adaptive-blue500)]">
             {messages.panel.stopFeedback}
           </p>
         </section>
       </div>
-    )
+    );
   }
 
   return (
@@ -691,7 +749,9 @@ function ControlPanel({
               Stitchable°
             </p>
             <span className="inline-flex items-center gap-[4px] rounded-full border border-[var(--adaptive-black300)] bg-[var(--adaptive-black50)] px-[4px] py-[2px]">
-              <span className="text-[12px] text-[var(--adaptive-black500)]">{envLabel}</span>
+              <span className="text-[12px] text-[var(--adaptive-black500)]">
+                {envLabel}
+              </span>
               <span
                 className="inline-flex h-[4px] w-[4px] rounded-full bg-[var(--adaptive-green500)]"
                 aria-hidden
@@ -706,7 +766,9 @@ function ControlPanel({
               tabIndex={-1}
               aria-hidden
               className={`flex items-center gap-[4px] rounded-l-[8px] bg-[var(--adaptive-black900)] p-[0_8px] transition-shadow ${
-                highlightAdd ? "ring-2 ring-[var(--adaptive-blue500)] ring-offset-2" : ""
+                highlightAdd
+                  ? "ring-2 ring-[var(--adaptive-blue500)] ring-offset-2"
+                  : ""
               }`}
             >
               <SelectIcon className="w-[16px]" />
@@ -726,8 +788,13 @@ function ControlPanel({
             { label: messages.panel.statsGroup, value: stats.groups },
             { label: messages.panel.statsItem, value: stats.items },
           ].map((s) => (
-            <section key={s.label} className="flex flex-1 flex-col items-start gap-[4px]">
-              <p className="text-[12px] text-[var(--adaptive-black500)]">{s.label}</p>
+            <section
+              key={s.label}
+              className="flex flex-1 flex-col items-start gap-[4px]"
+            >
+              <p className="text-[12px] text-[var(--adaptive-black500)]">
+                {s.label}
+              </p>
               <p className="font-[Menlo] text-[14px] font-semibold tabular-nums text-[var(--adaptive-black900)]">
                 {formatStatCount(s.value)}
               </p>
@@ -742,7 +809,9 @@ function ControlPanel({
           tabIndex={-1}
           className="flex flex-1 items-center justify-center gap-[6px] bg-[var(--adaptive-black100)] px-[10px] py-[2px]"
         >
-          <p className="font-[500] text-[var(--adaptive-black800)]">{messages.panel.tabPageDetails}</p>
+          <p className="font-[500] text-[var(--adaptive-black800)]">
+            {messages.panel.tabPageDetails}
+          </p>
           <ChevronDownIcon className="h-4 w-4 rotate-180 text-[var(--adaptive-black800)]" />
         </button>
         <div className="h-full w-px bg-[var(--adaptive-black200)]" />
@@ -760,7 +829,7 @@ function ControlPanel({
         </span>
       </section>
     </div>
-  )
+  );
 }
 
 function MockComposer({
@@ -768,9 +837,9 @@ function MockComposer({
   author,
   messages,
 }: {
-  message: string
-  author: string
-  messages: LandingMessages
+  message: string;
+  author: string;
+  messages: LandingMessages;
 }) {
   return (
     <div className="flex w-full flex-col bg-[var(--adaptive-blackOpacity900)] backdrop-blur-[10px]">
@@ -797,10 +866,18 @@ function MockComposer({
       </div>
       <div className="h-px w-full bg-[var(--adaptive-black800)]" />
     </div>
-  )
+  );
 }
 
-function VirtualCursor({ x, y, clicking }: { x: number; y: number; clicking: boolean }) {
+function VirtualCursor({
+  x,
+  y,
+  clicking,
+}: {
+  x: number;
+  y: number;
+  clicking: boolean;
+}) {
   return (
     <div
       className="pointer-events-none absolute z-[60] transition-all duration-500 ease-out"
@@ -813,5 +890,5 @@ function VirtualCursor({ x, y, clicking }: { x: number; y: number; clicking: boo
         <span className="absolute left-2 top-2 size-4 animate-ping rounded-full bg-[var(--adaptive-blue500)]/40" />
       ) : null}
     </div>
-  )
+  );
 }
