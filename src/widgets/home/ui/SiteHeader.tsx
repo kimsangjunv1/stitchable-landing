@@ -13,7 +13,7 @@ export function SiteHeader() {
   const NAV = [
     { label: t.navFeatures, href: "#features" },
     { label: t.navHowItWorks, href: "#how-it-works" },
-    { label: t.navDocs, href: "#docs" },
+    { label: t.navDocs, href: "/guide" },
     { label: t.navPricing, href: "#pricing" },
   ]
 

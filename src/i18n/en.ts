@@ -1,6 +1,8 @@
 import type { LandingMessages } from "./types"
+import { guideEn } from "./guide/en"
 
 export const en: LandingMessages = {
+  guide: guideEn,
   localeOption: {
     en: "English",
     ko: "한국어",
@@ -56,6 +58,8 @@ export const en: LandingMessages = {
         "Stitchable lets teams leave feedback on real DOM elements, restore markers after UI changes, and review issues without screenshots.",
       getStarted: "Get started",
       installCmd: "npm i stitchable",
+      codeCopy: "Copy",
+      codeCopied: "Copied",
       badges: ["No signup", "Works on localhost", "Shadow Root UI", "GitHub Issue ready"],
     },
     preview: {

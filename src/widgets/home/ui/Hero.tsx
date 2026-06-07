@@ -1,13 +1,34 @@
 "use client"
 
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Button } from "@/shared/ui/button"
 import { ProductPreview } from "./ProductPreview"
-import { Check, ArrowRight } from "lucide-react"
+import { Check, ArrowRight, Copy } from "lucide-react"
 import { useMessages } from "@/app/providers/LocaleProvider"
+import { cn } from "@/shared/lib/utils"
 
 export function Hero() {
   const messages = useMessages()
   const t = messages.landing.hero
+  const [copied, setCopied] = useState(false)
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    }
+  }, [])
+
+  const handleCopyInstallCmd = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(t.installCmd)
+      setCopied(true)
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+      resetTimerRef.current = setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }, [t.installCmd])
 
   return (
     <section className="relative overflow-hidden">
@@ -45,9 +66,32 @@ export function Hero() {
                 <ArrowRight className="size-4" />
               </a>
             </Button>
-            <code className="rounded-md border border-border bg-secondary px-4 py-2.5 font-mono text-sm text-muted-foreground">
-              {t.installCmd}
-            </code>
+            <div className="inline-flex items-center gap-1 rounded-md border border-border bg-secondary py-1.5 pl-4 pr-1">
+              <code className="font-mono text-sm text-muted-foreground">{t.installCmd}</code>
+              <button
+                type="button"
+                onClick={handleCopyInstallCmd}
+                aria-label={copied ? t.codeCopied : t.codeCopy}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium transition-colors",
+                  copied
+                    ? "text-[#1a7f37]"
+                    : "text-muted-foreground hover:bg-background/80 hover:text-foreground",
+                )}
+              >
+                {copied ? (
+                  <>
+                    <Check className="size-3.5" aria-hidden />
+                    {t.codeCopied}
+                  </>
+                ) : (
+                  <>
+                    <Copy className="size-3.5" aria-hidden />
+                    {t.codeCopy}
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">

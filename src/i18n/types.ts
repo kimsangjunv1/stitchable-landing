@@ -1,6 +1,9 @@
+import type { GuideMessages } from "./guide/types"
+
 export type Locale = "en" | "ko"
 
 export type LandingMessages = {
+  guide: GuideMessages
   localeOption: {
     en: string
     ko: string
@@ -55,6 +58,8 @@ export type LandingMessages = {
       description: string
       getStarted: string
       installCmd: string
+      codeCopy: string
+      codeCopied: string
       badges: string[]
     }
     preview: {

@@ -16,7 +16,7 @@ export function SiteFooter() {
           <span className="text-xs text-muted-foreground">{t.tagline}</span>
         </div>
         <div className="flex items-center gap-5 text-sm text-muted-foreground">
-          <a href="#docs" className="transition-colors hover:text-foreground">
+          <a href="/guide" className="transition-colors hover:text-foreground">
             {t.docs}
           </a>
           <a href="#features" className="transition-colors hover:text-foreground">

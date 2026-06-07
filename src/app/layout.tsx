@@ -6,6 +6,7 @@ import { QueryProvider } from '@/app/providers/QueryProvider'
 import { AuthProvider } from '@/app/providers/AuthProvider'
 import { GlobalErrorListener } from '@/app/providers/GlobalErrorListener'
 import { PopupProvider } from '@/app/providers/PopupProvider'
+import { LocaleProvider } from '@/app/providers/LocaleProvider'
 import { Header } from '@/widgets/layout/Header'
 import { Sidebar } from '@/widgets/layout/Sidebar'
 import { Footer } from '@/widgets/layout/Footer'
@@ -63,7 +64,9 @@ export default function RootLayout({
                 <Header />
                 <Sidebar />
                 <PopupProvider>
-                  {children}
+                  <LocaleProvider>
+                    {children}
+                  </LocaleProvider>
                 </PopupProvider>
                 <Footer />
                 <Progress />

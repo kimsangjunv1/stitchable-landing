@@ -1,6 +1,8 @@
 import type { LandingMessages } from "./types"
+import { guideKo } from "./guide/ko"
 
 export const ko: LandingMessages = {
+  guide: guideKo,
   localeOption: {
     en: "English",
     ko: "한국어",
@@ -56,6 +58,8 @@ export const ko: LandingMessages = {
         "Stitchable은 실제 DOM 요소에 피드백을 남기고, UI가 바뀌어도 마커를 복원하며, 스크린샷 없이 이슈를 검토할 수 있게 해줍니다.",
       getStarted: "시작하기",
       installCmd: "npm i stitchable",
+      codeCopy: "복사",
+      codeCopied: "복사됨",
       badges: ["가입 불필요", "localhost 지원", "Shadow Root UI", "GitHub Issue 연동"],
     },
     preview: {

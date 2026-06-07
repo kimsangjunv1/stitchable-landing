@@ -15,17 +15,17 @@ type MainProps = {
 
 export function Main({ children, id, className }: MainProps) {
   const pathname = usePathname()
-  const isLanding = pathname === "/"
+  const isFullBleed = pathname === "/" || pathname === "/guide"
 
   return (
     <div
       id={id}
       className={cn(
-        isLanding ? "min-h-screen bg-background text-foreground" : "min-h-[calc(100dvh-10.8rem)]",
+        isFullBleed ? "min-h-screen bg-background text-foreground" : "min-h-[calc(100dvh-10.8rem)]",
         className?.container,
       )}
     >
-      <div className={cn(isLanding ? "" : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]", className?.inner)}>
+      <div className={cn(isFullBleed ? "" : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]", className?.inner)}>
         {children}
       </div>
     </div>
