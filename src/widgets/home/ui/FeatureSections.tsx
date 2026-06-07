@@ -3,21 +3,9 @@
 import type { ReactNode } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
+import { RichText } from "@/shared/ui/rich-text";
 import { CopyButton, TagPill, TerminalLine } from "./landing-shared";
 import { cn } from "@/shared/lib/utils";
-
-function renderBoldText(text: string) {
-  const parts = text.split(/\*\*(.*?)\*\*/g);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? (
-      <strong key={i} className="font-semibold text-[var(--vp-color-text)]">
-        {part}
-      </strong>
-    ) : (
-      part
-    ),
-  );
-}
 
 function FeatureBullets({ items }: { items: string[] }) {
   return (
@@ -28,7 +16,9 @@ function FeatureBullets({ items }: { items: string[] }) {
           className="flex items-start gap-2.5 text-sm leading-relaxed text-[var(--vp-color-text-muted)]"
         >
           <Check className="vp-feature-check mt-0.5 size-4" aria-hidden />
-          <span>{item}</span>
+          <span>
+            <RichText text={item} />
+          </span>
         </li>
       ))}
     </ul>
@@ -259,7 +249,7 @@ function FeatureRow({
   return (
     <section
       id={id}
-      className="grid border-b border-[var(--vp-color-stroke)] md:grid-cols-2"
+      className="grid min-h-[452px] border-b border-[var(--vp-color-stroke)] md:grid-cols-2"
     >
       <div
         className={cn(
@@ -273,7 +263,11 @@ function FeatureRow({
           {title}
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[var(--vp-color-text-muted)] sm:text-base">
-          {description}
+          {typeof description === "string" ? (
+            <RichText text={description} />
+          ) : (
+            description
+          )}
         </p>
         {bullets ? <FeatureBullets items={bullets} /> : null}
         {learnMoreHref ? (
@@ -286,7 +280,7 @@ function FeatureRow({
 
       <div
         className={cn(
-          "min-h-[16rem] bg-[var(--vp-color-bg-soft)]",
+          "min-h-[452px] bg-[var(--vp-color-bg-soft)]",
           reverse && "md:order-1",
         )}
       >
@@ -370,7 +364,7 @@ export function FeatureSections() {
         id="performance"
         eyebrow="performance"
         title={trust.performance.title}
-        description={renderBoldText(trust.performance.description)}
+        description={trust.performance.description}
         learnMoreHref="/guide"
         learnMoreLabel={learnMore}
       >
@@ -416,7 +410,7 @@ export function FeatureSections() {
             {fullstack.title}
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-sm text-[var(--vp-color-text-muted)]">
-            {fullstack.description}
+            <RichText text={fullstack.description} />
           </p>
         </div>
         <div className="mx-auto mt-10 grid max-w-5xl gap-px border border-[var(--vp-color-stroke)] md:grid-cols-3">
@@ -429,7 +423,7 @@ export function FeatureSections() {
                 {item.title}
               </h4>
               <p className="mt-2 text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
-                {item.description}
+                <RichText text={item.description} />
               </p>
             </div>
           ))}

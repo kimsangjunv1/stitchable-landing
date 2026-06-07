@@ -1,6 +1,7 @@
 "use client"
 
 import type { GuideBlock, GuideSection } from "@/i18n/guide/types"
+import { RichText } from "@/shared/ui/rich-text"
 import { CodeBlock } from "./CodeBlock"
 import { Callout } from "./Callout"
 import { DocTable } from "./DocTable"
@@ -8,12 +9,18 @@ import { DocTable } from "./DocTable"
 function BlockRenderer({ block }: { block: GuideBlock }) {
   switch (block.type) {
     case "paragraph":
-      return <p className="my-4 text-[15px] leading-7 text-muted-foreground">{block.text}</p>
+      return (
+        <p className="my-4 text-[15px] leading-7 text-muted-foreground">
+          <RichText text={block.text} />
+        </p>
+      )
     case "list":
       return (
         <ul className="my-4 list-disc space-y-2 pl-6 text-[15px] leading-7 text-muted-foreground">
           {block.items.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item}>
+              <RichText text={item} />
+            </li>
           ))}
         </ul>
       )
@@ -21,7 +28,9 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
       return (
         <ol className="my-4 list-decimal space-y-2 pl-6 text-[15px] leading-7 text-muted-foreground">
           {block.items.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item}>
+              <RichText text={item} />
+            </li>
           ))}
         </ol>
       )
@@ -78,7 +87,7 @@ export function Document({
       <header className="mb-10">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">{title}</h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          {description}
+          <RichText text={description} />
         </p>
       </header>
 

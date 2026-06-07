@@ -1,6 +1,7 @@
 "use client";
 
 import { useMessages } from "@/app/providers/LocaleProvider";
+import { RichText } from "@/shared/ui/rich-text";
 
 export function FoundationIntro() {
   const { showcase } = useMessages().landing;
@@ -12,7 +13,7 @@ export function FoundationIntro() {
           {showcase.title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[var(--vp-color-text-muted)] sm:text-base">
-          {showcase.subtitle}
+          <RichText text={showcase.subtitle} />
         </p>
       </div>
     </section>

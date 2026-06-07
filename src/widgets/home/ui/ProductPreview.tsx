@@ -392,7 +392,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
       <div
         data-stitchable-mock=""
-        className="h-full relative aspect-video overflow-hidden rounded-xl border border-[var(--vp-color-stroke)] bg-white shadow-[0_8px_40px_rgba(0,244,203,0.12)]"
+        className="h-full relative aspect-video overflow-hidden border border-[var(--vp-color-stroke)] bg-white shadow-[0_8px_40px_rgba(0,244,203,0.12)]"
         style={STITCHABLE_LIGHT_STYLE}
       >
         <div className="flex items-center gap-2 border-b border-[#e5e8eb] bg-[#f9fafb] px-4 py-2">

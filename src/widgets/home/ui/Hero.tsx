@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
+import { RichText } from "@/shared/ui/rich-text";
 import { ProductPreview } from "./ProductPreview";
 
 export function Hero() {
@@ -19,11 +20,11 @@ export function Hero() {
             </h1>
 
             <p className="max-w-lg text-left text-base leading-relaxed text-[var(--vp-color-text-muted)] sm:text-lg">
-              {t.description}
+              <RichText text={t.description} />
             </p>
 
             <p className="text-sm text-[var(--vp-color-text-dim)]">
-              {t.license}
+              <RichText text={t.license} />
             </p>
           </div>
 

@@ -55,8 +55,8 @@ export const ko: LandingMessages = {
       titleLine1: "UI 위에 바로 남기는",
       titleLine2: "DOM 기반 피드백 레이어",
       description:
-        "실제 DOM 요소에 피드백을 남기고, UI가 바뀌어도 마커를 복원하며, 스크린샷 없이 이슈를 검토하세요.",
-      license: "오픈 소스 · MIT 라이선스",
+        "실제 `DOM` 요소에 피드백을 남기고, UI가 바뀌어도 `마커`를 복원하며, `스크린샷` 없이 이슈를 검토하세요.",
+      license: "`MIT license` 하에 무료 오픈 소스",
       getStarted: "시작하기",
       readDocs: "문서 읽기",
       copyPrompt: "프롬프트 복사",
@@ -95,7 +95,7 @@ export const ko: LandingMessages = {
         {
           title: "실제 DOM에 피드백",
           description:
-            "data-report-id와 data-report-type으로 요소에 직접 피드백을 남깁니다.",
+            "`data-report-id`와 `data-report-type`으로 요소에 직접 피드백을 남깁니다.",
           tags: ["DOM", "마커", "선택"],
         },
         {
@@ -122,7 +122,7 @@ export const ko: LandingMessages = {
       performance: {
         title: "빠른 QA, 적은 컨텍스트 스위칭",
         description:
-          "스크린샷 대신 **DOM 마커**로 피드백하고, UI 변경 후에도 **위치를 복원**하며, **GitHub Issue**로 바로 승격할 수 있습니다.",
+          "스크린샷 대신 `DOM 마커`로 피드백하고, UI 변경 후에도 `위치를 복원`하며, `GitHub Issue`로 바로 승격할 수 있습니다.",
       },
     },
     benefits: {
@@ -277,7 +277,7 @@ export const ko: LandingMessages = {
     },
     openSource: {
       title: "무료 오픈 소스",
-      description: "오픈 소스 · MIT 라이선스",
+      description: "`MIT license` 하에 무료 오픈 소스입니다.",
     },
     footer: {
       companyTitle: "COMPANY",

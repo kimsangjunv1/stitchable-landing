@@ -55,8 +55,8 @@ export const en: LandingMessages = {
       titleLine1: "Feedback, directly",
       titleLine2: "on your UI.",
       description:
-        "Leave feedback on real DOM elements, restore markers after UI changes, and review issues without screenshots.",
-      license: "Free and open source under the MIT license.",
+        "Leave feedback on real `DOM` elements, restore `markers` after UI changes, and review issues without `screenshots`.",
+      license: "Free and open source under the `MIT license`.",
       getStarted: "Get started",
       readDocs: "Read the docs",
       copyPrompt: "Copy Prompt",
@@ -95,17 +95,18 @@ export const en: LandingMessages = {
         {
           title: "Feedback on real DOM elements",
           description:
-            "Attach feedback using data-report-id and data-report-type on any element.",
+            "Attach feedback using `data-report-id` and `data-report-type` on any element.",
           tags: ["DOM", "markers", "select"],
         },
         {
           title: "Simplifies everyday QA",
-          description: "One configuration and a consistent feedback flow across your stack.",
+          description:
+            "One configuration and a consistent feedback flow with `localStorage` or server `API`.",
           tags: ["<Report />", "localStorage", "API", "GitHub"],
         },
         {
           title: "Powering your favorite frameworks",
-          description: "Supports every framework built on React.",
+          description: "Supports every framework built on `React`.",
           tags: ["Next.js", "Vite", "Remix", "+ more"],
         },
       ],
@@ -122,7 +123,7 @@ export const en: LandingMessages = {
       performance: {
         title: "Stay fast during QA",
         description:
-          "Leave feedback with **DOM markers** instead of screenshots, **restore positions** after UI changes, and **promote to GitHub Issues** instantly.",
+          "Leave feedback with `DOM markers` instead of screenshots, `restore positions` after UI changes, and `promote to GitHub Issues` instantly.",
       },
     },
     benefits: {
@@ -137,11 +138,11 @@ export const en: LandingMessages = {
       security: {
         title: "Isolated from your host app",
         description:
-          "Panels, overlays, and markers are fully isolated from host styles via Shadow Root.",
+          "Panels, overlays, and markers are fully isolated from host styles via `Shadow Root`.",
         items: [
-          "No CSS import required — Shadow DOM isolation",
-          "localStorage first, optional server API",
-          "Separate feedback by environment, version & route",
+          "No CSS import required — `Shadow DOM` isolation",
+          "`localStorage` first, optional server `API`",
+          "Separate feedback by `environment`, `version` & `route`",
         ],
       },
     },
@@ -154,12 +155,12 @@ export const en: LandingMessages = {
           id: "install",
           label: "install",
           title: "Integrate in 5 minutes",
-          description: "Add a feedback layer to your React app with a single npm install.",
+          description: "Add a feedback layer to your `React` app with a single `npm install`.",
           bullets: [
-            "Shadow Root UI — no CSS import required",
-            "Works on localhost, staging & production",
-            "Identify elements with data-report-id",
-            "Built-in keyboard shortcuts",
+            "`Shadow Root` UI — no CSS import required",
+            "Works on `localhost`, `staging` & `production`",
+            "Identify elements with `data-report-id`",
+            "Built-in `keyboard shortcuts`",
           ],
           poweredBy: "Powered by React Shadow DOM",
           output: [
@@ -176,12 +177,12 @@ export const en: LandingMessages = {
           id: "feedback",
           label: "feedback",
           title: "Feedback directly on DOM elements",
-          description: "Click once to select an element and leave a marker.",
+          description: "Click once to select an element and leave a `marker`.",
           bullets: [
-            "Element-level feedback without screenshots",
-            "Reply, review & resolve workflow",
-            "denied / checkout / confirm states",
-            "Auto-record environment & version context",
+            "Element-level feedback without `screenshots`",
+            "`Reply`, `review` & `resolve` workflow",
+            "`denied` / `checkout` / `confirm` states",
+            "Auto-record `environment` & `version` context",
           ],
           poweredBy: "Powered by DOM Anchoring",
           output: [
@@ -197,12 +198,12 @@ export const en: LandingMessages = {
           id: "restore",
           label: "restore",
           title: "Restore markers after UI changes",
-          description: "Find the same DOM element again and restore marker positions.",
+          description: "Find the same `DOM` element again and restore `marker` positions.",
           bullets: [
-            "Track elements via data-report-id",
-            "Keep markers after UI refactors",
-            "Separate by route & environment",
-            "Import / export support",
+            "Track elements via `data-report-id`",
+            "Keep markers after `UI refactors`",
+            "Separate by `route` & `environment`",
+            "`JSON` export / import support",
           ],
           poweredBy: "Powered by Position Restoration",
           output: [
@@ -216,12 +217,12 @@ export const en: LandingMessages = {
           id: "github",
           label: "github",
           title: "Promote to GitHub Issues",
-          description: "Escalate important feedback to GitHub Issues instantly.",
+          description: "Escalate important feedback to `GitHub Issues` instantly.",
           bullets: [
-            "Connect via github.onCreate handler",
-            "Automatic feedback → Issue mapping",
-            "Team triage workflow",
-            "Status sync ready",
+            "Connect via `github.onCreate` handler",
+            "Automatic feedback → `Issue` mapping",
+            "Team `triage` workflow",
+            "`Status sync` ready",
           ],
           poweredBy: "Powered by GitHub API",
           output: [
@@ -277,7 +278,7 @@ export const en: LandingMessages = {
     },
     openSource: {
       title: "Free & open source",
-      description: "Free and open source under the MIT license.",
+      description: "Free and open source under the `MIT license`.",
     },
     footer: {
       companyTitle: "COMPANY",

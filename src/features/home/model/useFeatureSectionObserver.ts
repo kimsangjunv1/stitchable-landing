@@ -2,31 +2,41 @@
 
 import { useEffect, useState } from "react";
 
+const SITE_HEADER_HEIGHT = 72;
+const STICKY_NAV_HEIGHT = 46;
+
 export function useFeatureSectionObserver(sectionIds: string[]) {
   const [activeId, setActiveId] = useState(sectionIds[0] ?? "");
 
   useEffect(() => {
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+    if (sectionIds.length === 0) return;
 
-    if (elements.length === 0) return;
+    const anchorLine = SITE_HEADER_HEIGHT + STICKY_NAV_HEIGHT + 1;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    const update = () => {
+      let current = sectionIds[0] ?? "";
 
-        if (visible[0]?.target.id) {
-          setActiveId(visible[0].target.id);
+      for (const id of sectionIds) {
+        const element = document.getElementById(id);
+        if (!element) continue;
+
+        const { top } = element.getBoundingClientRect();
+        if (top <= anchorLine) {
+          current = id;
         }
-      },
-      { rootMargin: "-72px 0px -50% 0px", threshold: [0, 0.15, 0.35, 0.55, 0.75] },
-    );
+      }
 
-    for (const el of elements) observer.observe(el);
-    return () => observer.disconnect();
+      setActiveId((prev) => (prev === current ? prev : current));
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, [sectionIds]);
 
   return activeId;

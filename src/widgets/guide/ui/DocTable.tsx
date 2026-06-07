@@ -1,3 +1,7 @@
+"use client"
+
+import { RichText } from "@/shared/ui/rich-text"
+
 export function DocTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
     <div className="my-4 overflow-x-auto rounded-lg border border-border">
@@ -16,7 +20,7 @@ export function DocTable({ headers, rows }: { headers: string[]; rows: string[][
             <tr key={i} className="border-b border-border/70 last:border-0">
               {row.map((cell, j) => (
                 <td key={j} className="px-4 py-2.5 align-top text-muted-foreground">
-                  {cell}
+                  <RichText text={cell} />
                 </td>
               ))}
             </tr>

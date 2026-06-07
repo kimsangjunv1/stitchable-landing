@@ -3,7 +3,7 @@ import type { GuideMessages } from "./types"
 export const guideEn: GuideMessages = {
   title: "Getting Started",
   description:
-    "Stitchable is a DOM-aware feedback layer for staging, QA, and internal tools. Leave feedback on real elements, restore markers after UI changes, and review issues without screenshots.",
+    "Stitchable is a `DOM`-aware feedback layer for staging, QA, and internal tools. Leave feedback on real elements, restore `markers` after UI changes, and review issues without `screenshots`.",
   navHome: "Home",
   codeCopy: "Copy",
   codeCopied: "Copied",
@@ -22,14 +22,14 @@ export const guideEn: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Stitchable lets teams leave feedback on real DOM elements, restore markers after UI changes, and promote issues to GitHub when needed.",
+          text: "Stitchable lets teams leave feedback on real `DOM` elements, restore `markers` after UI changes, and promote issues to `GitHub` when needed.",
         },
         {
           type: "list",
           items: [
-            "data-report-id — restores marker position via querySelector even when the UI changes.",
-            "Shadow Root UI — panels, overlays, and markers are isolated from host app CSS. No separate CSS import.",
-            "localStorage or server — omit handlers for browser storage, or pass onList/onCreate/onUpdate for API persistence.",
+            "`data-report-id` — restores marker position via `querySelector` even when the UI changes.",
+            "`Shadow Root` UI — panels, overlays, and markers are isolated from host app CSS. No separate CSS import.",
+            "`localStorage` or server — omit handlers for browser storage, or pass `onList`/`onCreate`/`onUpdate` for API persistence.",
           ],
         },
       ],
@@ -50,7 +50,7 @@ export const guideEn: GuideMessages = {
         {
           type: "callout",
           variant: "info",
-          text: "Reply review flow (denied / confirm / checkout) is documented in Feedback Workflow below.",
+          text: "Reply review flow (`denied` / `confirm` / `checkout`) is documented in Feedback Workflow below.",
         },
       ],
     },
@@ -62,7 +62,7 @@ export const guideEn: GuideMessages = {
         {
           type: "callout",
           variant: "info",
-          text: "In Next.js and other SSR apps, render <Report /> on the client only (\"use client\" + dynamic import).",
+          text: "In Next.js and other SSR apps, render `<Report />` on the client only (`\"use client\"` + dynamic import).",
         },
       ],
     },
@@ -74,10 +74,10 @@ export const guideEn: GuideMessages = {
         {
           type: "list",
           items: [
-            "project.id defaults to \"my-app\" when omitted. Set project={{ id }} for stage/production or multi-app origins.",
-            "Render <Report /> once on the screen that receives feedback.",
-            "Targets need data-report-id. data-report-type defaults to item; use group for section-level targets.",
-            "No CSS import required — UI mounts inside Shadow Root with bundled Tailwind.",
+            "`project.id` defaults to `\"my-app\"` when omitted. Set `project={{ id }}` for stage/production or multi-app origins.",
+            "Render `<Report />` once on the screen that receives feedback.",
+            "Targets need `data-report-id`. `data-report-type` defaults to `item`; use `group` for section-level targets.",
+            "No CSS import required — UI mounts inside `Shadow Root` with bundled Tailwind.",
           ],
         },
       ],
@@ -103,7 +103,7 @@ export const guideEn: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Report UI renders in an open Shadow Root (#stitchable-root), isolated from host app styles.",
+          text: "Report UI renders in an open `Shadow Root` (`#stitchable-root`), isolated from host app styles.",
         },
         { type: "code", snippet: "shadowDiagram", language: "text" },
         {
