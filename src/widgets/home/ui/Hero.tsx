@@ -10,9 +10,9 @@ export function Hero() {
 
   return (
     // <section className="border-b border-[var(--vp-color-stroke)] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-    <section className="border-b border-[var(--vp-color-stroke)]">
-      <div className="grid items-center lg:grid-cols-2">
-        <div className="flex flex-col items-start gap-6 p-[52px]">
+    <section className="min-h-[80svh] border-b border-[var(--vp-color-stroke)]">
+      <div className="mx-auto grid h-full min-h-[80svh] w-full max-w-[var(--vp-layout-max-width)] grid-cols-1 items-stretch lg:grid-cols-2">
+        <div className="flex flex-col items-start justify-center gap-6 p-[52px]">
           <div className="space-y-4">
             <h1 className="text-left text-balance text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.25rem]">
               <span className="block">{t.titleLine1}</span>
@@ -45,9 +45,9 @@ export function Hero() {
           </div>
         </div>
 
-        <ProductPreview embedded />
-        {/* <div className="w-full min-w-0 h-full">
-        </div> */}
+        <div className="h-full min-h-0 w-full">
+          <ProductPreview embedded />
+        </div>
       </div>
     </section>
   );

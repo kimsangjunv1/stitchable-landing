@@ -10,6 +10,7 @@ import {
 import { MousePointer2 } from "lucide-react";
 import { useLocale, useMessages } from "@/app/providers/LocaleProvider";
 import type { LandingMessages } from "@/i18n";
+import { cn } from "@/shared/lib/utils";
 import {
   ChevronDownIcon,
   formatStatCount,
@@ -371,16 +372,23 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
   const replyCount = feedback?.replies.length ?? 0;
   const showMarker = feedback !== null && markerPos !== null;
 
-  const cardLeft = markerPos
-    ? Math.min(Math.max(markerPos.left + 14, 6), 48)
-    : 50;
+  const cardLeft = markerPos?.left ?? 50;
   const cardTop = markerPos
     ? Math.min(Math.max(markerPos.top - 10, 4), 36)
     : 20;
 
+  const markerCardStyle = (
+    marker: MarkerPos,
+    offsetTop = 8,
+  ): { left: string; top: string; width: number; transform: string } => ({
+    left: `${marker.left}%`,
+    top: `${Math.min(Math.max(marker.top + offsetTop, 8), 72)}%`,
+    width: 260,
+    transform: "translateX(-50%)",
+  });
+
   return (
-    // <div className={embedded ? "" : "space-y-3"}>
-    <div className={"w-full h-full"}>
+    <div className="flex h-full min-h-0 w-full flex-col">
       {!embedded ? (
         <div className="px-1">
           <p className="text-sm font-semibold text-foreground">
@@ -392,21 +400,26 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
       <div
         data-stitchable-mock=""
-        className="h-full relative aspect-video overflow-hidden border border-[var(--vp-color-stroke)] bg-white shadow-[0_8px_40px_rgba(0,244,203,0.12)]"
+        className={`relative flex min-h-0 w-full flex-col overflow-hidden bg-white ${
+          embedded ? "h-full flex-1" : "aspect-video h-full"
+        }`}
         style={STITCHABLE_LIGHT_STYLE}
       >
-        <div className="flex items-center gap-2 border-b border-[#e5e8eb] bg-[#f9fafb] px-4 py-2">
+        <div className="flex items-center gap-2 border-b border-[#e2e2e3] bg-[#f6f6f7] px-4 py-2">
           <div className="flex gap-1.5">
-            <span className="size-2.5 rounded-full bg-[#ff5f57]" />
-            <span className="size-2.5 rounded-full bg-[#febc2e]" />
-            <span className="size-2.5 rounded-full bg-[#28c840]" />
+            <span className="size-2 rounded-full bg-[#d1d1d6]" />
+            <span className="size-2 rounded-full bg-[#d1d1d6]" />
+            <span className="size-2 rounded-full bg-[#d1d1d6]" />
           </div>
-          <div className="mx-auto h-5 w-44 rounded-md bg-[#e5e8eb]/80" />
+          <div className="mx-auto flex h-5 w-44 items-center gap-1.5 rounded-md border border-[#e2e2e3] bg-white px-2">
+            <span className="size-1.5 rounded-full bg-[#03b26c]" />
+            <span className="h-2 flex-1 rounded bg-[#ebebeb]" />
+          </div>
         </div>
 
         <div
           ref={canvasRef}
-          className="relative h-[calc(100%-36px)] overflow-hidden bg-white"
+          className="relative min-h-0 flex-1 overflow-hidden bg-white"
         >
           <SkeletonApp
             targetRef={targetRef}
@@ -426,7 +439,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
               style={{ left: `${markerPos.left}%`, top: `${markerPos.top}%` }}
             >
               <span
-                className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60 shadow-sm"
+                className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60"
                 style={{ backgroundColor: MARKER_ITEM }}
               />
               {replyCount > 0 ? (
@@ -439,12 +452,8 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
           {showHoverCard && feedback ? (
             <div
-              className="pointer-events-none absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] shadow-[0_0_90px_0_var(--adaptive-blackOpacity500)] backdrop-blur-[10px]"
-              style={{
-                left: `${Math.min(markerPos!.left + 10, 54)}%`,
-                top: `${Math.min(markerPos!.top + 8, 52)}%`,
-                width: 260,
-              }}
+              className="pointer-events-none absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
+              style={markerCardStyle(markerPos!, 8)}
             >
               <div className="flex w-[260px] flex-col gap-[10px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[10px]">
                 <StatusBadge
@@ -468,14 +477,17 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
           {showCreateComposer ? (
             <div
-              className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] shadow-[0_0_90px_0_var(--adaptive-blackOpacity500)] backdrop-blur-[10px]"
-              style={{
-                left: markerPos
-                  ? `${Math.min(markerPos.left + 6, 50)}%`
-                  : "38%",
-                top: markerPos ? `${Math.min(markerPos.top + 10, 46)}%` : "28%",
-                width: 260,
-              }}
+              className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
+              style={
+                markerPos
+                  ? markerCardStyle(markerPos, 10)
+                  : {
+                      left: "50%",
+                      top: "28%",
+                      width: 260,
+                      transform: "translateX(-50%)",
+                    }
+              }
             >
               <MockComposer
                 message={draftMessage}
@@ -487,8 +499,17 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
           {showThreadCard && feedback ? (
             <div
-              className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] shadow-[0_0_90px_0_var(--adaptive-blackOpacity500)] backdrop-blur-[10px]"
-              style={{ left: `${cardLeft}%`, top: `${cardTop}%`, width: 260 }}
+              className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
+              style={
+                markerPos
+                  ? markerCardStyle(markerPos, -4)
+                  : {
+                      left: `${cardLeft}%`,
+                      top: `${cardTop}%`,
+                      width: 260,
+                      transform: "translateX(-50%)",
+                    }
+              }
             >
               <section className="flex flex-col gap-[12px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[20px]">
                 <StatusBadge
@@ -580,54 +601,42 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
             <VirtualCursor x={cursor.x} y={cursor.y} clicking={cursorClick} />
           ) : null}
         </div>
-      </div>
 
-      {!embedded ? (
-        <ProgressBar
-          current={progress}
-          step={autoStep}
-          labels={preview.progress}
-        />
-      ) : null}
+        <ProcessStepTabs current={progress} labels={preview.progress} />
+      </div>
     </div>
   );
 }
 
-function ProgressBar({
+function ProcessStepTabs({
   current,
-  step,
   labels,
 }: {
   current: number;
-  step: AutoStep;
   labels: string[];
 }) {
-  const pct = ((current - 1) / (labels.length - 1)) * 100;
-
   return (
-    <div className="px-1">
-      <div className="relative h-1.5 overflow-hidden rounded-full bg-secondary">
-        <div
-          className="absolute inset-y-0 left-0 rounded-full bg-[var(--adaptive-blue500,#3182f6)] transition-all duration-500 ease-out"
-          style={{ width: `${step === "complete" ? 100 : pct}%` }}
-        />
-      </div>
-      <div className="mt-2.5 grid grid-cols-7 gap-1">
-        {labels.map((label, i) => (
-          <div key={label} className="text-center">
+    <nav
+      className="shrink-0 border-t border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg)]"
+      aria-label="Preview workflow steps"
+    >
+      <div className="flex overflow-x-auto">
+        {labels.map((label, i) => {
+          const step = i + 1;
+          const isActive = step === current;
+
+          return (
             <span
-              className={`block text-[9px] font-medium leading-tight transition-colors sm:text-[10px] ${
-                i + 1 <= current
-                  ? "text-[var(--adaptive-blue500,#3182f6)]"
-                  : "text-muted-foreground/50"
-              }`}
+              key={label}
+              className={cn("vp-feature-tab shrink-0", isActive && "is-active")}
+              aria-current={isActive ? "step" : undefined}
             >
-              {label}
+              {label.toLowerCase()}
             </span>
-          </div>
-        ))}
+          );
+        })}
       </div>
-    </div>
+    </nav>
   );
 }
 
@@ -646,62 +655,56 @@ function SkeletonApp({
 }) {
   return (
     <div
-      className={`h-full px-5 py-5 transition-colors ${reportMode ? "cursor-crosshair" : ""}`}
-      style={
-        reportMode
-          ? {
-              boxShadow:
-                "inset 0 48px 64px -32px rgba(33,33,33,0.12), inset 0 -48px 64px -32px rgba(33,33,33,0.12), inset 48px 0 64px -32px rgba(33,33,33,0.12), inset -48px 0 64px -32px rgba(33,33,33,0.12)",
-            }
-          : undefined
-      }
+      className={`relative flex h-full transition-colors ${reportMode ? "cursor-crosshair" : ""}`}
     >
-      <div className="mb-5 flex items-center gap-3">
-        <div className="size-8 rounded-lg bg-[#f2f4f6]" />
-        <div className="space-y-1.5">
-          <div className="h-2.5 w-24 rounded bg-[#e5e8eb]" />
-          <div className="h-2 w-16 rounded bg-[#f2f4f6]" />
-        </div>
-      </div>
-
-      <div className="mb-4 h-24 rounded-xl bg-[#f2f4f6]" />
-
-      <div className="mb-4 flex items-end justify-between gap-4 rounded-xl border border-[#e5e8eb] bg-[#f9fafb] p-4">
+      <div className="hidden w-[24%] shrink-0 border-r border-[#e2e2e3] bg-[#f6f6f7] p-3 sm:block">
         <div className="space-y-2">
-          <div className="h-2 w-20 rounded bg-[#e5e8eb]" />
-          <div className="h-6 w-28 rounded bg-[#d1d6db]" />
-          <div className="h-2 w-24 rounded bg-[#f2f4f6]" />
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className={`h-1.5 rounded ${i === 0 ? "w-full bg-[#646cff]/20" : "w-[80%] bg-[#e2e2e3]"}`}
+            />
+          ))}
         </div>
-        <button
-          ref={targetRef}
-          type="button"
-          tabIndex={-1}
-          aria-hidden
-          className={`shrink-0 rounded-lg bg-[#333d4b] px-4 py-2 text-[12px] font-[500] text-white transition-all ${
-            highlightTarget
-              ? "ring-2 ring-[var(--adaptive-blue500)] ring-offset-2"
-              : ""
-          }`}
-        >
-          {exportLabel}
-        </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="space-y-2 rounded-lg bg-[#f9fafb] p-3">
-            <div className="h-2 w-12 rounded bg-[#e5e8eb]" />
-            <div className="h-4 w-16 rounded bg-[#d1d6db]" />
-            <div className="h-8 rounded bg-[#f2f4f6]" />
+      <div className="relative flex min-w-0 flex-1 flex-col gap-4 p-4 pr-[36%]">
+        <div className="space-y-2">
+          <div className="h-3 w-[42%] rounded bg-[#e2e2e3]" />
+          <div className="h-2 w-[58%] rounded bg-[#ebebeb]" />
+        </div>
+
+        <div className="rounded-lg border border-[#e2e2e3] bg-[#f6f6f7] p-4">
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1 space-y-2">
+              <div className="h-2 w-20 rounded bg-[#e2e2e3]" />
+              <div className="h-2 w-28 rounded bg-[#ebebeb]" />
+            </div>
+            <button
+              ref={targetRef}
+              type="button"
+              tabIndex={-1}
+              aria-hidden
+              className={`shrink-0 rounded-lg bg-[#646cff] px-3 py-1.5 text-[11px] font-[500] text-white transition-all ${
+                highlightTarget
+                  ? "ring-2 ring-[#646cff] ring-offset-2 ring-offset-[#f6f6f7]"
+                  : ""
+              }`}
+            >
+              {exportLabel}
+            </button>
           </div>
-        ))}
-      </div>
+          <div className="h-14 rounded-md bg-[#ebebeb]/70" />
+        </div>
 
-      {reportMode ? (
-        <p className="pointer-events-none absolute bottom-3 left-1/2 z-20 -translate-x-1/2 text-center text-[12px] font-medium text-[var(--adaptive-black800)]">
-          {selectedItemLabel}
-        </p>
-      ) : null}
+        <div className="min-h-0 flex-1 rounded-lg bg-[#f9f9f9]" />
+
+        {reportMode ? (
+          <p className="pointer-events-none absolute bottom-3 left-1/2 z-20 -translate-x-1/2 text-center text-[11px] font-medium text-[#6a6a71]">
+            {selectedItemLabel}
+          </p>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -723,7 +726,7 @@ function ControlPanel({
 }) {
   if (mode === "report") {
     return (
-      <div className="absolute right-4 top-4 z-50 min-w-[220px] rounded-[24px] bg-[var(--adaptive-whiteOpacity800)] p-[4px] shadow-[0_0_120px_0_var(--adaptive-blackOpacity500)] backdrop-blur-[50px]">
+      <div className="absolute right-4 top-4 z-50 min-w-[220px] rounded-[24px] border border-[var(--adaptive-black200)] bg-[var(--adaptive-whiteOpacity800)] p-[4px] backdrop-blur-[50px]">
         <section className="flex items-center justify-between gap-[16px] px-[12px] py-[8px]">
           <section className="flex shrink-0 items-center gap-[4px]">
             <LogoIcon className="w-[16px]" />
@@ -740,7 +743,7 @@ function ControlPanel({
   }
 
   return (
-    <div className="absolute right-3 top-3 z-50 w-[min(280px,58%)] rounded-[24px] bg-[var(--adaptive-whiteOpacity800)] shadow-[0_0_120px_0_var(--adaptive-blackOpacity500)] backdrop-blur-[50px]">
+    <div className="absolute right-3 top-3 z-50 w-[min(340px,82%)] min-w-[300px] rounded-[24px] border border-[var(--adaptive-black200)] bg-[var(--adaptive-whiteOpacity800)] backdrop-blur-[50px]">
       <div className="flex flex-col gap-[8px] p-[8px_0_8px_12px]">
         <section className="flex items-center justify-between gap-[8px] pr-[8px]">
           <section className="flex min-w-0 items-center gap-[4px]">
@@ -807,24 +810,26 @@ function ControlPanel({
         <button
           type="button"
           tabIndex={-1}
-          className="flex flex-1 items-center justify-center gap-[6px] bg-[var(--adaptive-black100)] px-[10px] py-[2px]"
+          className="flex min-w-0 flex-1 items-center justify-center gap-[4px] bg-[var(--adaptive-black100)] px-[8px] py-[4px]"
         >
-          <p className="font-[500] text-[var(--adaptive-black800)]">
+          <p className="truncate text-[11px] font-[500] text-[var(--adaptive-black800)]">
             {messages.panel.tabPageDetails}
           </p>
-          <ChevronDownIcon className="h-4 w-4 rotate-180 text-[var(--adaptive-black800)]" />
+          <ChevronDownIcon className="h-3.5 w-3.5 shrink-0 rotate-180 text-[var(--adaptive-black800)]" />
         </button>
         <div className="h-full w-px bg-[var(--adaptive-black200)]" />
         <button
           type="button"
           tabIndex={-1}
-          className="flex flex-1 items-center justify-center gap-[6px] px-[10px] py-[2px] text-[var(--adaptive-black600)]"
+          className="flex min-w-0 flex-1 items-center justify-center gap-[4px] px-[8px] py-[4px] text-[var(--adaptive-black600)]"
         >
-          <p className="font-[500]">{messages.panel.tabFeedbackList}</p>
-          <ChevronDownIcon className="h-4 w-4" />
+          <p className="truncate text-[11px] font-[500]">
+            {messages.panel.tabFeedbackList}
+          </p>
+          <ChevronDownIcon className="h-3.5 w-3.5 shrink-0" />
         </button>
         <div className="h-full w-px bg-[var(--adaptive-black200)]" />
-        <span className="flex items-center px-[8px] text-[var(--adaptive-black800)]">
+        <span className="flex shrink-0 items-center px-[8px] text-[var(--adaptive-black800)]">
           <SettingsIcon className="w-[16px]" />
         </span>
       </section>
@@ -884,7 +889,7 @@ function VirtualCursor({
       style={{ left: x, top: y, transform: "translate(-3px, -3px)" }}
     >
       <MousePointer2
-        className={`size-5 fill-[var(--adaptive-blue500)] text-[var(--adaptive-blue500)] drop-shadow-md ${clicking ? "scale-90" : ""}`}
+        className={`size-5 fill-[var(--adaptive-blue500)] text-[var(--adaptive-blue500)] ${clicking ? "scale-90" : ""}`}
       />
       {clicking ? (
         <span className="absolute left-2 top-2 size-4 animate-ping rounded-full bg-[var(--adaptive-blue500)]/40" />

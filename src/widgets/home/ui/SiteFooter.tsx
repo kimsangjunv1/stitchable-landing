@@ -77,6 +77,13 @@ export function SiteFooter() {
             <ArrowRight className="size-3" />
           </a>
         </div>
+
+        <p
+          aria-hidden="true"
+          className="pointer-events-none mt-10 select-none overflow-hidden font-heading text-[clamp(4rem,18vw,16rem)] font-semibold leading-[0.9] tracking-tight text-[var(--vp-color-text)]"
+        >
+          stitchable.
+        </p>
       </div>
     </footer>
   );
