@@ -253,6 +253,160 @@ export const en: LandingMessages = {
         },
       ],
     },
+    bento: {
+      eyebrow: "UI Modes",
+      title: "idle · report · view — switch in one panel",
+      description:
+        "Pick a mode from the right panel or jump in with shortcuts. Custom fields, team, and environment settings live in the same layer.",
+      modes: [
+        {
+          id: "idle",
+          label: "idle",
+          shortcut: "default",
+          description: "Choose Report / View / element preview",
+        },
+        {
+          id: "report",
+          label: "report",
+          shortcut: "⌘⇧M",
+          description: "Click elements on screen to leave feedback",
+        },
+        {
+          id: "view",
+          label: "view",
+          shortcut: "⌘⇧L",
+          description: "Browse markers, reply, review, promote to Git Issue",
+        },
+      ],
+      shortcuts: [
+        { action: "Leave feedback", mac: "⌘⇧M", win: "Ctrl+Shift+M" },
+        { action: "Preview elements", mac: "⌘⇧E", win: "Ctrl+Shift+E" },
+        { action: "View feedback", mac: "⌘⇧L", win: "Ctrl+Shift+L" },
+        { action: "Focus search", mac: "⌘⇧S", win: "Ctrl+Shift+S" },
+        { action: "Save / send", mac: "⌘↩", win: "Ctrl+Enter" },
+      ],
+      config: [
+        {
+          title: "Custom fields",
+          description: "textarea & checkbox rendered as tag pills",
+          tags: ["fields", "tags"],
+        },
+        {
+          title: "Team & reviewers",
+          description: "Configure reply & review flow via team.user & reviewers",
+          tags: ["team", "reviewers"],
+        },
+        {
+          title: "Environment scope",
+          description: "Separate scopes with devOnly, routeKey & project.env",
+          tags: ["devOnly", "routeKey", "env"],
+        },
+      ],
+    },
+    architecture: {
+      eyebrow: "UI Architecture",
+      title: "Shadow Root — fully isolated from host CSS",
+      description:
+        "Report UI mounts inside the `#stitchable-root` Shadow Root. Tailwind styles ship in the bundle — no separate CSS import required.",
+      bullets: [
+        "No style interference from host CSS reset or global styles",
+        "Supports appearance light / dark / system",
+        "Target discovery uses main document querySelector",
+      ],
+      diagram: {
+        host: "document.body",
+        root: "#stitchable-root",
+        shadow: "#shadow-root (open)",
+        ui: "Report UI — panel · overlay · markers",
+      },
+      codeLines: [
+        "import { Report } from 'stitchable'",
+        "",
+        "export default function App() {",
+        "  return (",
+        "    <>",
+        "      <Report project={{ id: 'my-app' }} />",
+        "      <main>",
+        "        <button data-report-id='cta'>Get started</button>",
+        "      </main>",
+        "    </>",
+        "  )",
+        "}",
+      ],
+    },
+    workflow: {
+      eyebrow: "Feedback Workflow",
+      title: "Write → Reply → Review → GitHub Issue",
+      description:
+        "Markers in view mode drive reply & review (denied / confirm / checkout), then promote to GitHub Issues when needed.",
+      steps: [
+        {
+          id: "write",
+          label: "01 · report",
+          title: "Select an element & write feedback",
+          description: "Register with message, author, and checkbox tags.",
+          status: "open",
+        },
+        {
+          id: "reply",
+          label: "02 · reply",
+          title: "Replies & marker badges",
+          description: "+N badge on markers; hover shows latest reply preview.",
+          status: "suggested",
+        },
+        {
+          id: "review",
+          label: "03 · review",
+          title: "denied / confirm / checkout",
+          description: "Review reject, re-check, and resolve transitions timeline status.",
+          status: "found_error",
+        },
+        {
+          id: "github",
+          label: "04 · promote",
+          title: "Promote to GitHub Issue",
+          description: "github.onCreate creates an Issue; status becomes git_issued.",
+          status: "git_issued",
+        },
+      ],
+    },
+    persistence: {
+      eyebrow: "Persistence",
+      title: "localStorage by default, server API optional",
+      description:
+        "Omit handlers for browser storage. Pass onList/onCreate/onUpdate for API sync. Import/Export only in localStorage mode.",
+      local: {
+        title: "localStorage (default)",
+        description: "Start instantly. Import/Export/Command in panel settings menu.",
+        bullets: [
+          "Key: stitchable:reports:v1:{projectId}",
+          "Scoped by project.id & env",
+          "JSON Import / Export / Replace",
+        ],
+        codeLines: [
+          "<Report project={{ id: 'my-app' }} />",
+          "",
+          "// omit handlers → localStorage",
+          "✔ Zero-config persistence",
+        ],
+      },
+      server: {
+        title: "Server API",
+        description: "Pass onList, onCreate & onUpdate together for server-primary storage.",
+        bullets: [
+          "onDelete enables UI delete",
+          "onEvent / onReply for analytics & Slack",
+          "github.onCreate is separate from persistence",
+        ],
+        codeLines: [
+          "<Report",
+          "  onList={({ pathname }) => fetch(...)}",
+          "  onCreate={(payload) => fetch(...)}",
+          "  onUpdate={(id, payload) => fetch(...)}",
+          "/>",
+        ],
+      },
+    },
     fullstack: {
       title: "Fullstack? No problem.",
       description:
@@ -261,14 +415,17 @@ export const en: LandingMessages = {
         {
           title: "Meta Frameworks",
           description: "Next.js App Router, Pages Router, Remix, and more",
+          tags: ["Next.js", "Remix", "Vite"],
         },
         {
           title: "Platform Agnostic",
           description: "First-class support on Vercel, Netlify, Cloudflare & self-hosted",
+          tags: ["Vercel", "Netlify", "Cloudflare"],
         },
         {
           title: "Any Environment",
           description: "Separate feedback by localhost, staging, and production",
+          tags: ["local", "stage", "production"],
         },
       ],
     },

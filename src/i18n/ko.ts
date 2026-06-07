@@ -252,6 +252,160 @@ export const ko: LandingMessages = {
         },
       ],
     },
+    bento: {
+      eyebrow: "UI 모드",
+      title: "idle · report · view — 한 패널에서 전환",
+      description:
+        "우측 패널에서 모드를 선택하거나 단축키로 바로 진입합니다. 커스텀 필드·팀·환경 설정도 같은 레이어에서 처리합니다.",
+      modes: [
+        {
+          id: "idle",
+          label: "idle",
+          shortcut: "기본",
+          description: "Report / View / 요소 미리보기 선택",
+        },
+        {
+          id: "report",
+          label: "report",
+          shortcut: "⌘⇧M",
+          description: "화면 요소를 클릭해 피드백 작성",
+        },
+        {
+          id: "view",
+          label: "view",
+          shortcut: "⌘⇧L",
+          description: "마커·목록 조회, 답변·검수, Git Issue 승격",
+        },
+      ],
+      shortcuts: [
+        { action: "피드백 남기기", mac: "⌘⇧M", win: "Ctrl+Shift+M" },
+        { action: "요소 미리보기", mac: "⌘⇧E", win: "Ctrl+Shift+E" },
+        { action: "피드백 보기", mac: "⌘⇧L", win: "Ctrl+Shift+L" },
+        { action: "검색 포커스", mac: "⌘⇧S", win: "Ctrl+Shift+S" },
+        { action: "저장 / 전송", mac: "⌘↩", win: "Ctrl+Enter" },
+      ],
+      config: [
+        {
+          title: "커스텀 필드",
+          description: "textarea·checkbox를 태그 pill로 표시",
+          tags: ["fields", "tags"],
+        },
+        {
+          title: "팀 & Reviewer",
+          description: "team.user·reviewers로 답변·검수 흐름 설정",
+          tags: ["team", "reviewers"],
+        },
+        {
+          title: "환경 분리",
+          description: "devOnly·routeKey·project.env로 scope 분리",
+          tags: ["devOnly", "routeKey", "env"],
+        },
+      ],
+    },
+    architecture: {
+      eyebrow: "UI Architecture",
+      title: "Shadow Root — 호스트 CSS와 완전 분리",
+      description:
+        "Report UI는 `#stitchable-root` Shadow Root에 마운트됩니다. Tailwind 스타일이 번들에 포함되어 별도 CSS import가 필요 없습니다.",
+      bullets: [
+        "호스트 앱 CSS reset·global style과 스타일 간섭 없음",
+        "appearance light / dark / system 지원",
+        "피드백 대상 탐색은 메인 document 기준 querySelector",
+      ],
+      diagram: {
+        host: "document.body",
+        root: "#stitchable-root",
+        shadow: "#shadow-root (open)",
+        ui: "Report UI — 패널 · 오버레이 · 마커",
+      },
+      codeLines: [
+        "import { Report } from 'stitchable'",
+        "",
+        "export default function App() {",
+        "  return (",
+        "    <>",
+        "      <Report project={{ id: 'my-app' }} />",
+        "      <main>",
+        "        <button data-report-id='cta'>시작</button>",
+        "      </main>",
+        "    </>",
+        "  )",
+        "}",
+      ],
+    },
+    workflow: {
+      eyebrow: "Feedback Workflow",
+      title: "작성 → 답변 → 검수 → GitHub Issue",
+      description:
+        "view 모드 마커를 기준으로 답변·검수(denied / confirm / checkout) 흐름이 이어지고, 필요 시 GitHub Issue로 승격합니다.",
+      steps: [
+        {
+          id: "write",
+          label: "01 · report",
+          title: "요소 선택 후 피드백 작성",
+          description: "메시지·작성자·checkbox 태그를 선택해 등록합니다.",
+          status: "open",
+        },
+        {
+          id: "reply",
+          label: "02 · reply",
+          title: "답변 & 마커 배지",
+          description: "replies가 쌓이면 마커에 +N 배지, hover 시 최근 답변 미리보기.",
+          status: "suggested",
+        },
+        {
+          id: "review",
+          label: "03 · review",
+          title: "denied / confirm / checkout",
+          description: "검수 거절·재확인·해결 확인으로 타임라인 상태가 전환됩니다.",
+          status: "found_error",
+        },
+        {
+          id: "github",
+          label: "04 · promote",
+          title: "GitHub Issue 승격",
+          description: "github.onCreate로 Issue 생성, status가 git_issued로 변경됩니다.",
+          status: "git_issued",
+        },
+      ],
+    },
+    persistence: {
+      eyebrow: "Persistence",
+      title: "localStorage 기본, 서버 API 선택",
+      description:
+        "handler를 생략하면 브라우저 저장. onList/onCreate/onUpdate를 넘기면 API 연동. Import/Export는 localStorage 모드에서만 활성화됩니다.",
+      local: {
+        title: "localStorage (기본)",
+        description: "설정 없이 바로 시작. 패널 설정 메뉴에서 Import/Export/Command 지원.",
+        bullets: [
+          "키: stitchable:reports:v1:{projectId}",
+          "project.id·env로 scope 분리",
+          "JSON Import / Export / Replace",
+        ],
+        codeLines: [
+          "<Report project={{ id: 'my-app' }} />",
+          "",
+          "// handler 생략 → localStorage",
+          "✔ Zero-config persistence",
+        ],
+      },
+      server: {
+        title: "Server API",
+        description: "onList·onCreate·onUpdate를 함께 넘겨 서버를 primary storage로 사용.",
+        bullets: [
+          "onDelete로 UI 삭제 지원",
+          "onEvent / onReply로 analytics·Slack",
+          "github.onCreate는 persistence와 별개",
+        ],
+        codeLines: [
+          "<Report",
+          "  onList={({ pathname }) => fetch(...)}",
+          "  onCreate={(payload) => fetch(...)}",
+          "  onUpdate={(id, payload) => fetch(...)}",
+          "/>",
+        ],
+      },
+    },
     fullstack: {
       title: "풀스택? 문제없습니다.",
       description:
@@ -260,14 +414,17 @@ export const ko: LandingMessages = {
         {
           title: "Meta Frameworks",
           description: "Next.js App Router, Pages Router, Remix 등 React 메타 프레임워크 지원",
+          tags: ["Next.js", "Remix", "Vite"],
         },
         {
           title: "Platform Agnostic",
           description: "Vercel, Netlify, Cloudflare, 자체 호스팅 모두 지원",
+          tags: ["Vercel", "Netlify", "Cloudflare"],
         },
         {
           title: "Any Environment",
           description: "localhost, 스테이징, 프로덕션 환경별 피드백 분리",
+          tags: ["local", "stage", "production"],
         },
       ],
     },

@@ -118,10 +118,73 @@ export type LandingMessages = {
         output: string[]
       }[]
     }
+    bento: {
+      eyebrow: string
+      title: string
+      description: string
+      modes: {
+        id: string
+        label: string
+        shortcut: string
+        description: string
+      }[]
+      shortcuts: {
+        action: string
+        mac: string
+        win: string
+      }[]
+      config: {
+        title: string
+        description: string
+        tags: string[]
+      }[]
+    }
+    architecture: {
+      eyebrow: string
+      title: string
+      description: string
+      bullets: string[]
+      diagram: {
+        host: string
+        root: string
+        shadow: string
+        ui: string
+      }
+      codeLines: string[]
+    }
+    workflow: {
+      eyebrow: string
+      title: string
+      description: string
+      steps: {
+        id: string
+        label: string
+        title: string
+        description: string
+        status?: string
+      }[]
+    }
+    persistence: {
+      eyebrow: string
+      title: string
+      description: string
+      local: {
+        title: string
+        description: string
+        bullets: string[]
+        codeLines: string[]
+      }
+      server: {
+        title: string
+        description: string
+        bullets: string[]
+        codeLines: string[]
+      }
+    }
     fullstack: {
       title: string
       description: string
-      items: { title: string; description: string }[]
+      items: { title: string; description: string; tags?: string[] }[]
     }
     cta: {
       title: string

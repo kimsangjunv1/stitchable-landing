@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, type MouseEvent } from "react";
 import { useMessages } from "@/app/providers/LocaleProvider";
+import { useLenis } from "@/app/providers/LenisProvider";
 import { useFeatureSectionObserver } from "@/features/home/model/useFeatureSectionObserver";
 import { cn } from "@/shared/lib/utils";
 
@@ -10,41 +11,28 @@ type NavItem = {
   label: string;
 };
 
-function buildNavItems(
-  showcaseTabs: { id: string; label: string }[],
-  capabilityTags: string[][],
-): NavItem[] {
-  const items: NavItem[] = [
-    { id: "quickstart", label: "install" },
-    ...showcaseTabs
-      .filter((tab) => tab.id !== "install")
-      .map((tab) => ({
-        id: `feature-${tab.id}`,
-        label: tab.label,
-      })),
-  ];
-
-  const capabilityIds = ["feature-dom", "feature-report", "feature-nextjs"];
-  capabilityTags.forEach((tags, index) => {
-    const id = capabilityIds[index];
-    const label = tags[0]?.toLowerCase() ?? `feature-${index}`;
-    if (id) items.push({ id, label });
-  });
-
-  return items;
-}
+const STATIC_NAV: NavItem[] = [
+  { id: "quickstart", label: "install" },
+  { id: "feature-feedback", label: "feedback" },
+  { id: "feature-restore", label: "restore" },
+  { id: "feature-bento", label: "modes" },
+  { id: "feature-architecture", label: "shadow" },
+  { id: "how-it-works", label: "workflow" },
+  { id: "feature-github", label: "github" },
+  { id: "feature-persistence", label: "storage" },
+  { id: "fullstack", label: "stack" },
+];
 
 export function FeatureStickyNav() {
-  const { showcase, capabilities } = useMessages().landing;
+  const { bento } = useMessages().landing;
+  const { scrollTo } = useLenis();
 
-  const navItems = useMemo(
-    () =>
-      buildNavItems(
-        showcase.tabs.map((tab) => ({ id: tab.id, label: tab.label })),
-        capabilities.items.map((item) => item.tags),
-      ),
-    [showcase.tabs, capabilities.items],
-  );
+  const navItems = useMemo(() => {
+    const modeLabel = bento.modes[1]?.label ?? "modes";
+    return STATIC_NAV.map((item) =>
+      item.id === "feature-bento" ? { ...item, label: modeLabel } : item,
+    );
+  }, [bento.modes]);
 
   const sectionIds = useMemo(() => navItems.map((item) => item.id), [navItems]);
   const activeId = useFeatureSectionObserver(sectionIds);
@@ -52,17 +40,14 @@ export function FeatureStickyNav() {
   const handleClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>, id: string) => {
       event.preventDefault();
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      scrollTo(`#${id}`);
       history.replaceState(null, "", `#${id}`);
     },
-    [],
+    [scrollTo],
   );
 
   return (
-    <nav
-      className="vp-feature-sticky-nav"
-      aria-label="Feature sections"
-    >
+    <nav className="vp-feature-sticky-nav" aria-label="Feature sections">
       <div className="flex overflow-x-auto">
         {navItems.map((item) => {
           const isActive = activeId === item.id;
