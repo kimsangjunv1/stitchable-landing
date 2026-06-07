@@ -127,6 +127,10 @@ export type LandingMessages = {
       title: string
       button: string
     }
+    openSource: {
+      title: string
+      description: string
+    }
     footer: {
       companyTitle: string
       companyLinks: { label: string; href: string }[]

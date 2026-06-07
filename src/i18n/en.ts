@@ -275,6 +275,10 @@ export const en: LandingMessages = {
       title: "Take your team's QA productivity to the next level with Stitchable",
       button: "Get started",
     },
+    openSource: {
+      title: "Free & open source",
+      description: "Free and open source under the MIT license.",
+    },
     footer: {
       companyTitle: "COMPANY",
       companyLinks: [

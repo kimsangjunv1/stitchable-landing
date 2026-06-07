@@ -6,13 +6,14 @@ import * as HomeLayer from "./ui";
 export default function Panel() {
   return (
     <HomePageProvider>
-      <div className="marketing-layout bg-[var(--vp-color-white)]">
+      <div className="marketing-layout">
         <HomeLayer.SiteHeader />
-        <main className="bg-[#ededed]">
+        <main>
           <HomeLayer.Hero />
-          <HomeLayer.TerminalPreview />
-          <HomeLayer.BentoSections />
-          <HomeLayer.DarkShowcase />
+          <HomeLayer.FoundationIntro />
+          <HomeLayer.FeatureStickyNav />
+          <HomeLayer.FeatureSections />
+          <HomeLayer.OpenSourceNotice />
           <HomeLayer.CtaBanner />
         </main>
         <HomeLayer.SiteFooter />

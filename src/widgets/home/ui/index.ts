@@ -1,7 +1,8 @@
-export { SiteHeader } from "./SiteHeader"
-export { Hero } from "./Hero"
-export { TerminalPreview } from "./TerminalPreview"
-export { BentoSections } from "./BentoSections"
-export { DarkShowcase } from "./DarkShowcase"
-export { CtaBanner } from "./CtaBanner"
-export { SiteFooter } from "./SiteFooter"
+export { SiteHeader } from "./SiteHeader";
+export { Hero } from "./Hero";
+export { FoundationIntro } from "./FoundationIntro";
+export { FeatureStickyNav } from "./FeatureStickyNav";
+export { FeatureSections } from "./FeatureSections";
+export { OpenSourceNotice } from "./OpenSourceNotice";
+export { CtaBanner } from "./CtaBanner";
+export { SiteFooter } from "./SiteFooter";

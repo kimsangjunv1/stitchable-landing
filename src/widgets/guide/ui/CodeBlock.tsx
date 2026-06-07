@@ -36,9 +36,9 @@ export function CodeBlock({
   }, [code])
 
   return (
-    <div className="group relative my-4 overflow-hidden rounded-lg border border-border bg-[#f6f8fa]">
-      <div className="flex items-center justify-between border-b border-border/80 bg-[#eef1f4] px-4 py-1.5">
-        <span className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
+    <div className="vp-code-block group relative my-4 overflow-hidden">
+      <div className="flex items-center justify-between border-b border-[var(--vp-color-stroke)] px-4 py-1.5">
+        <span className="font-mono text-[11px] uppercase tracking-wide text-[var(--vp-color-text-dim)]">
           {language}
         </span>
         <button
@@ -46,10 +46,10 @@ export function CodeBlock({
           onClick={handleCopy}
           aria-label={copied ? guide.codeCopied : guide.codeCopy}
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium transition-colors",
+            "inline-flex items-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-[11px] font-medium transition-colors",
             copied
-              ? "text-[#1a7f37]"
-              : "text-muted-foreground hover:bg-background/80 hover:text-foreground",
+              ? "border-[var(--vp-color-brand)] text-[var(--vp-color-brand)]"
+              : "text-[var(--vp-color-text-dim)] hover:border-[var(--vp-color-stroke)] hover:text-[var(--vp-color-brand)]",
           )}
         >
           {copied ? (
@@ -66,7 +66,7 @@ export function CodeBlock({
         </button>
       </div>
       <pre className="overflow-x-auto p-4 text-[13px] leading-relaxed">
-        <code className="font-mono text-[#24292f]">{code}</code>
+        <code className="font-mono text-[#e8e6ed]">{code}</code>
       </pre>
     </div>
   )

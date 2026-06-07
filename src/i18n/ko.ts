@@ -275,6 +275,10 @@ export const ko: LandingMessages = {
       title: "Stitchable로 팀의 QA 생산성을 한 단계 올리세요",
       button: "시작하기",
     },
+    openSource: {
+      title: "무료 오픈 소스",
+      description: "오픈 소스 · MIT 라이선스",
+    },
     footer: {
       companyTitle: "COMPANY",
       companyLinks: [
