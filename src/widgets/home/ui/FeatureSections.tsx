@@ -7,10 +7,6 @@ import {
   FeatureRow,
 } from "./features/feature-shared";
 import { FeatureBentoGrid } from "./features/FeatureBentoGrid";
-import { FeatureArchitecture } from "./features/FeatureArchitecture";
-import { FeatureWorkflowStack } from "./features/FeatureWorkflowStack";
-import { FeaturePersistenceSplit } from "./features/FeaturePersistenceSplit";
-import { FeatureFullstackGrid } from "./features/FeatureFullstackGrid";
 
 const CORE_TAB_IDS = ["feedback", "restore", "github"] as const;
 const GLOW_VARIANTS = ["teal", "purple", "cyan"] as const;
@@ -69,11 +65,6 @@ export function FeatureSections() {
       ))}
 
       <FeatureBentoGrid />
-      <FeatureArchitecture />
-      <FeatureWorkflowStack />
-
-      <FeaturePersistenceSplit />
-      <FeatureFullstackGrid />
     </div>
   );
 }

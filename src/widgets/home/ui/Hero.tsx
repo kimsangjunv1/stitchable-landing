@@ -10,8 +10,8 @@ export function Hero() {
 
   return (
     // <section className="border-b border-[var(--vp-color-stroke)] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-    <section className="min-h-[80svh] border-b border-[var(--vp-color-stroke)]">
-      <div className="mx-auto grid h-full min-h-[80svh] w-full max-w-[var(--vp-layout-max-width)] grid-cols-1 items-stretch lg:grid-cols-2">
+    <section className="vp-hero-surface min-h-[80svh] border-b border-[var(--vp-color-stroke)]">
+      <div className="relative z-10 grid h-full min-h-[80svh] w-full grid-cols-1 items-stretch lg:grid-cols-2">
         <div className="flex flex-col items-start justify-center gap-6 p-[52px]">
           <div className="space-y-4">
             <h1 className="text-left text-balance text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.25rem]">
@@ -45,7 +45,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="h-full min-h-0 w-full">
+        <div className="flex h-full min-h-[320px] w-full flex-col lg:min-h-0">
           <ProductPreview embedded />
         </div>
       </div>

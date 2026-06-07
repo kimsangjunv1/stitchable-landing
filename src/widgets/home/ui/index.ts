@@ -6,3 +6,4 @@ export { FeatureSections } from "./FeatureSections";
 export { OpenSourceNotice } from "./OpenSourceNotice";
 export { CtaBanner } from "./CtaBanner";
 export { SiteFooter } from "./SiteFooter";
+export { SectionTheme } from "./SectionTheme";

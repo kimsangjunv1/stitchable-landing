@@ -15,24 +15,31 @@ type MainProps = {
 
 export function Main({ children, id, className }: MainProps) {
   const pathname = usePathname()
+  const isHome = pathname === "/"
   const isFullBleed = pathname === "/" || pathname === "/guide"
 
   return (
     <div
       id={id}
       className={cn(
-        isFullBleed ? "min-h-screen bg-background text-foreground" : "min-h-[calc(100dvh-10.8rem)]",
+        isFullBleed ? "min-h-screen" : "min-h-[calc(100dvh-10.8rem)] bg-background text-foreground",
         className?.container,
       )}
     >
-      <div
-        className={cn(
-          isFullBleed ? "vp-page-shell min-h-screen" : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]",
-          className?.inner,
-        )}
-      >
-        {children}
-      </div>
+      {isHome ? (
+        children
+      ) : (
+        <div
+          className={cn(
+            isFullBleed
+              ? "vp-page-shell min-h-screen bg-background text-foreground"
+              : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]",
+            className?.inner,
+          )}
+        >
+          {children}
+        </div>
+      )}
     </div>
   )
 }

@@ -15,7 +15,7 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg)]/90 backdrop-blur-md">
+    <header className="border-b border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg)]/90 backdrop-blur-md">
       <div className="flex h-[72px] items-center justify-between gap-4 px-5 sm:px-10">
         <a href="#" className="flex items-center gap-2">
           <StitchableLogo className="size-6 text-[var(--vp-color-brand)]" />
