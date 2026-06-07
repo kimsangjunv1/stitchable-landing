@@ -4,7 +4,9 @@ import { motion } from "motion/react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
 import { TagPill } from "../landing-shared";
+import { Text } from "@/shared/ui/Text";
 import { ScrollReveal, StaggerItem, StaggerReveal } from "@/shared/ui/scroll-reveal";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
 import { motionTransition } from "@/shared/lib/motion";
 
 export function FeatureFullstackGrid() {
@@ -19,9 +21,14 @@ export function FeatureFullstackGrid() {
     >
       <div className="border-b border-[var(--vp-color-stroke)] px-6 py-10 sm:px-10 sm:py-14 lg:px-14">
         <ScrollReveal className="mx-auto max-w-3xl text-center">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+          <Text.Reveal
+            as="h2"
+            align="center"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
+            {...landingRevealColors}
+          >
             {fullstack.title}
-          </h2>
+          </Text.Reveal>
           <p className="mx-auto mt-3 max-w-lg text-sm text-[var(--vp-color-text-muted)] sm:text-base">
             <RichText text={fullstack.description} />
           </p>
@@ -36,9 +43,14 @@ export function FeatureFullstackGrid() {
               whileHover={{ y: -3 }}
               transition={motionTransition.fast}
             >
-              <h4 className="text-sm font-semibold text-[var(--vp-color-text)]">
+              <Text.Reveal
+                as="h4"
+                align="left"
+                className="text-sm font-semibold text-[var(--vp-color-text)]"
+                {...landingRevealColors}
+              >
                 {item.title}
-              </h4>
+              </Text.Reveal>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
                 <RichText text={item.description} />
               </p>

@@ -3,6 +3,8 @@
 import { Scale } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
+import { Text } from "@/shared/ui/Text";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
 
 export function OpenSourceNotice() {
   const t = useMessages().landing.openSource;
@@ -20,9 +22,14 @@ export function OpenSourceNotice() {
         <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[var(--vp-color-brand)]">
           MIT License
         </span>
-        <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+        <Text.Reveal
+          as="h3"
+          align="center"
+          className="text-xl font-semibold tracking-tight sm:text-2xl"
+          {...landingRevealColors}
+        >
           {t.title}
-        </h3>
+        </Text.Reveal>
         <p className="text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
           <RichText text={t.description} />
         </p>

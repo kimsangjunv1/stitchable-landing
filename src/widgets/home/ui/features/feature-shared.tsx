@@ -8,7 +8,9 @@ import { RichText } from "@/shared/ui/rich-text";
 import { CopyButton, TagPill, TerminalLine } from "../landing-shared";
 import { cn } from "@/shared/lib/utils";
 import { motionTransition } from "@/shared/lib/motion";
+import { Text } from "@/shared/ui/Text";
 import { ScrollReveal } from "@/shared/ui/scroll-reveal";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
 
 export function FeatureBullets({ items }: { items: string[] }) {
   return (
@@ -234,9 +236,14 @@ export function FeatureRow({
         )}
       >
         <span className="vp-eyebrow">{eyebrow}</span>
-        <h3 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">
+        <Text.Reveal
+          as="h3"
+          align="left"
+          className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl"
+          {...landingRevealColors}
+        >
           {title}
-        </h3>
+        </Text.Reveal>
         <p className="mt-3 text-sm leading-relaxed text-[var(--vp-color-text-muted)] sm:text-base">
           {typeof description === "string" ? (
             <RichText text={description} />

@@ -11,7 +11,7 @@ import {
   useTransform,
 } from "motion/react";
 
-type TextElement = "h1" | "h2" | "h3" | "p" | "span";
+type TextElement = "h1" | "h2" | "h3" | "h4" | "p" | "span";
 
 type RevealTextProps = {
   as?: TextElement;

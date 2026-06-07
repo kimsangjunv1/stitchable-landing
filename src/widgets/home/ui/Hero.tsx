@@ -3,6 +3,8 @@
 import { ArrowRight } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
+import { Text } from "@/shared/ui/Text";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
 import { ProductPreview } from "./ProductPreview";
 
 export function Hero() {
@@ -14,10 +16,14 @@ export function Hero() {
       <div className="relative z-10 mx-auto flex w-full max-w-[var(--vp-layout-max-width)] flex-col items-center gap-10 px-6 py-12 sm:px-10 sm:py-16 lg:gap-14 lg:py-20">
         <div className="flex w-full max-w-3xl flex-col items-center gap-6 text-center">
           <div className="space-y-4">
-            <h1 className="text-balance text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.25rem]">
-              <span className="block">{t.titleLine1}</span>
-              <span className="block">{t.titleLine2}</span>
-            </h1>
+            <Text.Reveal
+              as="h1"
+              align="center"
+              className="text-balance text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.25rem]"
+              {...landingRevealColors}
+            >
+              {`${t.titleLine1}\n${t.titleLine2}`}
+            </Text.Reveal>
 
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-[var(--vp-color-text-muted)] sm:text-lg">
               <RichText text={t.description} />

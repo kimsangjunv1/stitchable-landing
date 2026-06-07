@@ -2,7 +2,10 @@
 
 import { ChevronDown } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
+import { Text } from "@/shared/ui/Text";
 import { ScrollReveal } from "@/shared/ui/scroll-reveal";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
+import { LandingRollingStat } from "./LandingRollingStat";
 import { StitchableLogo } from "./StitchableLogo";
 
 function BundleGrowthChart({
@@ -62,18 +65,26 @@ export function LibraryGoodPoints() {
     >
       <div className="border-b border-[var(--vp-color-stroke)] px-6 py-10 sm:px-10 sm:py-14 lg:px-14">
         <ScrollReveal>
-          <h2 className="max-w-4xl text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+          <Text.Reveal
+            as="h2"
+            align="left"
+            className="max-w-4xl text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl"
+            {...landingRevealColors}
+          >
             {t.title}
-          </h2>
+          </Text.Reveal>
         </ScrollReveal>
       </div>
 
       <div className="grid border-b border-[var(--vp-color-stroke)] lg:grid-cols-2">
         <div className="flex min-h-[280px] flex-col justify-between border-b border-[var(--vp-color-stroke)] p-6 sm:min-h-[320px] sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
           <p className="text-sm text-[var(--vp-color-text-dim)]">{t.mainStat.label}</p>
-          <p className="mt-auto text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            {t.mainStat.value}
-          </p>
+          <LandingRollingStat
+            value={t.mainStat.value}
+            textSize={38}
+            containerClassName="mt-auto"
+            className="font-semibold tracking-tight"
+          />
         </div>
 
         <div className="flex min-h-[280px] flex-col p-6 sm:min-h-[320px] sm:p-8 lg:p-10">
@@ -95,9 +106,11 @@ export function LibraryGoodPoints() {
             key={stat.label}
             className="border-b border-[var(--vp-color-stroke)] p-6 last:border-b-0 sm:border-b-0 sm:border-r sm:p-8 sm:last:border-r-0 lg:p-10"
           >
-            <p className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              {stat.value}
-            </p>
+            <LandingRollingStat
+              value={stat.value}
+              textSize={24}
+              className="font-semibold tracking-tight"
+            />
             <p className="mt-2 text-sm text-[var(--vp-color-text-dim)]">{stat.label}</p>
           </div>
         ))}

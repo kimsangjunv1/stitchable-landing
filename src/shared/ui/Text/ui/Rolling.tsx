@@ -1,6 +1,9 @@
-import { util } from "@/shared/utils/util";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
+
+function formatRollingDigits(value: number) {
+    return Math.trunc(Math.abs(value)).toLocaleString("en-US");
+}
 
 interface FontSizeProps {
     textSize?: 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38;
@@ -71,8 +74,8 @@ export const Rolling = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(false);
     const normalizedLength = Math.max(digit, String(Math.trunc(Math.abs(value))).length, String(Math.trunc(Math.abs(initialValue))).length);
-    const FORMAT_VALUE = util.string.getCommaOnPrice(value).padStart(normalizedLength, "0").split("");
-    const FORMAT_INITIAL_VALUE = util.string.getCommaOnPrice(initialValue).padStart(normalizedLength, "0").split("");
+    const FORMAT_VALUE = formatRollingDigits(value).padStart(normalizedLength, "0").split("");
+    const FORMAT_INITIAL_VALUE = formatRollingDigits(initialValue).padStart(normalizedLength, "0").split("");
 
     const sizeMap = {
         12: { text: "1.2", height: "1.2" },

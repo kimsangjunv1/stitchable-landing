@@ -7,7 +7,9 @@ import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
 import { CopyButton, TerminalLine } from "../landing-shared";
 import { FeatureBullets } from "./feature-shared";
+import { Text } from "@/shared/ui/Text";
 import { ScrollReveal } from "@/shared/ui/scroll-reveal";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
 import { motionTransition } from "@/shared/lib/motion";
 
 export function FeatureArchitecture() {
@@ -36,9 +38,14 @@ export function FeatureArchitecture() {
           className="flex flex-col justify-center border-b border-[var(--vp-color-stroke)] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-14"
         >
           <span className="vp-eyebrow">{architecture.eyebrow}</span>
-          <h3 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">
+          <Text.Reveal
+            as="h3"
+            align="left"
+            className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl"
+            {...landingRevealColors}
+          >
             {architecture.title}
-          </h3>
+          </Text.Reveal>
           <p className="mt-3 text-sm leading-relaxed text-[var(--vp-color-text-muted)] sm:text-base">
             <RichText text={architecture.description} />
           </p>

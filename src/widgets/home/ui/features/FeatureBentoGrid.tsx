@@ -5,7 +5,9 @@ import { useRef } from "react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
 import { TagPill } from "../landing-shared";
+import { Text } from "@/shared/ui/Text";
 import { ScrollReveal, StaggerItem, StaggerReveal } from "@/shared/ui/scroll-reveal";
+import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
 import { motionTransition } from "@/shared/lib/motion";
 import { cn } from "@/shared/lib/utils";
 
@@ -41,9 +43,14 @@ export function FeatureBentoGrid() {
       <div className="relative border-b border-[var(--vp-color-stroke)] px-6 py-10 sm:px-10 sm:py-14 lg:px-14">
         <ScrollReveal>
           <span className="vp-eyebrow">{bento.eyebrow}</span>
-          <h3 className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
+          <Text.Reveal
+            as="h3"
+            align="left"
+            className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl"
+            {...landingRevealColors}
+          >
             {bento.title}
-          </h3>
+          </Text.Reveal>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--vp-color-text-muted)] sm:text-base">
             <RichText text={bento.description} />
           </p>
@@ -121,7 +128,14 @@ export function FeatureBentoGrid() {
                 whileHover={{ y: -2 }}
                 transition={motionTransition.fast}
               >
-                <h4 className="text-sm font-semibold">{item.title}</h4>
+                <Text.Reveal
+                  as="h4"
+                  align="left"
+                  className="text-sm font-semibold"
+                  {...landingRevealColors}
+                >
+                  {item.title}
+                </Text.Reveal>
                 <p className="text-sm leading-relaxed text-[var(--vp-color-text-muted)]">
                   <RichText text={item.description} />
                 </p>
