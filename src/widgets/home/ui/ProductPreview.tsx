@@ -23,6 +23,7 @@ import {
   type ReportAnchor,
 } from "./stitchable-mock/reportTarget";
 import { useSyncReportMarker } from "./stitchable-mock/useSyncReportMarker";
+import { useSyncReportMarkers } from "./stitchable-mock/useSyncReportMarkers";
 import { FEEDBACK_STATUS_COLOR, MARKER_ITEM, STITCHABLE_LIGHT_STYLE } from "./stitchable-mock/tokens";
 
 type DemoStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -42,6 +43,18 @@ type MockFeedback = {
     status: "open" | "resolved";
     replies: MockReply[];
 };
+
+type FeedbackEntry = MockFeedback & {
+    id: string;
+    anchor: ReportAnchor;
+};
+
+let feedbackIdCounter = 0;
+
+function createFeedbackId() {
+    feedbackIdCounter += 1;
+    return `fb_${feedbackIdCounter}`;
+}
 
 function getDisplayStatus(feedback: MockFeedback, messages: LandingMessages): "currently_wait" | "suggested" | "resolved" {
     if (feedback.status === "resolved") return "resolved";
@@ -92,45 +105,62 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
 
     const [step, setStep] = useState<DemoStep>(1);
     const [panelMode, setPanelMode] = useState<PanelMode>("idle");
-    const [feedback, setFeedback] = useState<MockFeedback | null>(null);
-    const [reportAnchor, setReportAnchor] = useState<ReportAnchor | null>(null);
-    const [markerPos, setMarkerPos] = useState<MarkerPos | null>(null);
+    const [feedbackEntries, setFeedbackEntries] = useState<FeedbackEntry[]>([]);
+    const [entryMarkerPositions, setEntryMarkerPositions] = useState<Record<string, MarkerPos | null>>({});
+    const [draftAnchor, setDraftAnchor] = useState<ReportAnchor | null>(null);
+    const [draftMarkerPos, setDraftMarkerPos] = useState<MarkerPos | null>(null);
     const [showCreateComposer, setShowCreateComposer] = useState(false);
     const [showThreadCard, setShowThreadCard] = useState(false);
-    const [showHoverCard, setShowHoverCard] = useState(false);
+    const [hoveredEntryId, setHoveredEntryId] = useState<string | null>(null);
+    const [activeEntryId, setActiveEntryId] = useState<string | null>(null);
     const [draftMessage, setDraftMessage] = useState("");
     const [composerMode, setComposerMode] = useState<"create" | "reply" | null>(null);
-    const [demoAdded, setDemoAdded] = useState(false);
 
-    useSyncReportMarker(canvasRef, scrollContainerRef, reportAnchor, setMarkerPos);
+    useSyncReportMarker(canvasRef, scrollContainerRef, draftAnchor, setDraftMarkerPos);
+    useSyncReportMarkers(
+        canvasRef,
+        scrollContainerRef,
+        feedbackEntries.map((entry) => ({ id: entry.id, anchor: entry.anchor })),
+        setEntryMarkerPositions,
+    );
 
     const resetDemo = useCallback(() => {
         setStep(1);
         setPanelMode("idle");
-        setFeedback(null);
-        setReportAnchor(null);
-        setMarkerPos(null);
+        setFeedbackEntries([]);
+        setEntryMarkerPositions({});
+        setDraftAnchor(null);
+        setDraftMarkerPos(null);
         setShowCreateComposer(false);
         setShowThreadCard(false);
-        setShowHoverCard(false);
+        setHoveredEntryId(null);
+        setActiveEntryId(null);
         setDraftMessage("");
         setComposerMode(null);
-        setDemoAdded(false);
     }, []);
 
     const handleAddFeedback = () => {
-        if (step !== 1) return;
+        const canStartReport = step === 1 || (step >= 4 && step <= 5 && feedbackEntries.length > 0);
+        if (!canStartReport) return;
         setPanelMode("report");
+        setShowCreateComposer(false);
+        setDraftAnchor(null);
+        setDraftMarkerPos(null);
+        setHoveredEntryId(null);
+        setDraftMessage("");
+        setComposerMode(null);
         setStep(2);
     };
 
     const handleStopFeedback = () => {
         if (panelMode !== "report") return;
-        setPanelMode("idle");
+        setPanelMode(feedbackEntries.length > 0 ? "view" : "idle");
         setShowCreateComposer(false);
+        setDraftAnchor(null);
+        setDraftMarkerPos(null);
         setDraftMessage("");
         setComposerMode(null);
-        setStep(1);
+        setStep(feedbackEntries.length > 0 ? 4 : 1);
     };
 
     const handleMockPageClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -143,8 +173,8 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        setReportAnchor(anchor);
-        setMarkerPos(getMarkerAnchorInContainer(canvas, anchor));
+        setDraftAnchor(anchor);
+        setDraftMarkerPos(getMarkerAnchorInContainer(canvas, anchor));
         setShowCreateComposer(true);
         setComposerMode("create");
         setDraftMessage("");
@@ -152,14 +182,21 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     };
 
     const handleSendCreate = () => {
-        if (step !== 3 || !draftMessage.trim()) return;
-        setFeedback({
-            message: draftMessage.trim(),
-            author_name: preview.designer,
-            status: "open",
-            replies: [],
-        });
-        setDemoAdded(true);
+        if (step !== 3 || !draftMessage.trim() || !draftAnchor) return;
+
+        setFeedbackEntries((entries) => [
+            ...entries,
+            {
+                id: createFeedbackId(),
+                anchor: draftAnchor,
+                message: draftMessage.trim(),
+                author_name: preview.designer,
+                status: "open",
+                replies: [],
+            },
+        ]);
+        setDraftAnchor(null);
+        setDraftMarkerPos(null);
         setShowCreateComposer(false);
         setDraftMessage("");
         setComposerMode(null);
@@ -167,19 +204,20 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setStep(4);
     };
 
-    const handleMarkerEnter = () => {
-        if (step < 4 || !feedback) return;
-        setShowHoverCard(true);
+    const handleMarkerEnter = (entryId: string) => {
+        if (step < 4) return;
+        setHoveredEntryId(entryId);
         if (step === 4) setStep(5);
     };
 
     const handleMarkerLeave = () => {
-        setShowHoverCard(false);
+        setHoveredEntryId(null);
     };
 
-    const handleMarkerClick = () => {
-        if (step < 4 || !feedback) return;
-        setShowHoverCard(false);
+    const handleMarkerClick = (entryId: string) => {
+        if (step < 4) return;
+        setHoveredEntryId(null);
+        setActiveEntryId(entryId);
         setShowThreadCard(true);
         setComposerMode("reply");
         setDraftMessage("");
@@ -187,49 +225,66 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     };
 
     const handleSendReply = () => {
-        if (step !== 6 || !draftMessage.trim() || !feedback) return;
-        setFeedback({
-            ...feedback,
-            replies: [
-                {
-                    id: "r_1",
-                    message: draftMessage.trim(),
-                    status: "suggested",
-                    author_name: preview.developer,
-                },
-            ],
-        });
+        if (step !== 6 || !draftMessage.trim() || !activeEntryId) return;
+
+        setFeedbackEntries((entries) =>
+            entries.map((entry) =>
+                entry.id === activeEntryId
+                    ? {
+                          ...entry,
+                          replies: [
+                              {
+                                  id: "r_1",
+                                  message: draftMessage.trim(),
+                                  status: "suggested",
+                                  author_name: preview.developer,
+                              },
+                          ],
+                      }
+                    : entry,
+            ),
+        );
         setDraftMessage("");
         setComposerMode(null);
         setStep(7);
     };
 
     const handleResolve = () => {
-        if (step !== 7 || !feedback) return;
-        setFeedback({
-            ...feedback,
-            status: "resolved",
-            replies: [
-                ...feedback.replies,
-                {
-                    id: "r_2",
-                    message: messages.resolution.issueResolvedMessage,
-                    status: "resolved",
-                    author_name: preview.designer,
-                },
-            ],
-        });
+        if (step !== 7 || !activeEntryId) return;
+
+        setFeedbackEntries((entries) =>
+            entries.map((entry) =>
+                entry.id === activeEntryId
+                    ? {
+                          ...entry,
+                          status: "resolved",
+                          replies: [
+                              ...entry.replies,
+                              {
+                                  id: "r_2",
+                                  message: messages.resolution.issueResolvedMessage,
+                                  status: "resolved",
+                                  author_name: preview.designer,
+                              },
+                          ],
+                      }
+                    : entry,
+            ),
+        );
         setStep(8);
     };
 
+    const addedCount = feedbackEntries.length;
     const stats = {
-        found: demoAdded ? 3 : 2,
+        found: 2 + addedCount,
         groups: 7,
-        items: demoAdded ? 49 : 48,
+        items: 48 + addedCount,
     };
 
-    const replyCount = feedback?.replies.length ?? 0;
-    const showMarker = feedback !== null && reportAnchor !== null && markerPos !== null;
+    const hoveredEntry = hoveredEntryId ? feedbackEntries.find((entry) => entry.id === hoveredEntryId) : null;
+    const hoveredMarkerPos = hoveredEntryId ? entryMarkerPositions[hoveredEntryId] : null;
+    const activeEntry = activeEntryId ? feedbackEntries.find((entry) => entry.id === activeEntryId) : null;
+    const activeMarkerPos = activeEntryId ? entryMarkerPositions[activeEntryId] : null;
     const isComplete = step === 8;
     const activeHint = isComplete ? null : preview.hints[step - 1];
 
@@ -267,41 +322,47 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                             onPageClick={handleMockPageClick}
                         />
 
-                        {showMarker && markerPos ? (
-                            <button
-                                type="button"
-                                className="absolute z-40 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-                                style={{ left: `${markerPos.left}%`, top: `${markerPos.top}%` }}
-                                onMouseEnter={handleMarkerEnter}
-                                onMouseLeave={handleMarkerLeave}
-                                onClick={handleMarkerClick}
-                                aria-label={preview.progress[4]}
-                            >
-                                <span
-                                    className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60"
-                                    style={{ backgroundColor: MARKER_ITEM }}
-                                />
-                                {replyCount > 0 ? (
-                                    <span className="absolute -right-[6px] -top-[6px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[var(--adaptive-black900)] px-[3px] text-[10px] font-semibold leading-none text-[var(--adaptive-black50)] ring-1 ring-white/80">
-                                        +{replyCount}
-                                    </span>
-                                ) : null}
-                            </button>
-                        ) : null}
+                        {feedbackEntries.map((entry) => {
+                            const markerPos = entryMarkerPositions[entry.id];
+                            if (!markerPos) return null;
 
-                        {showHoverCard && feedback && markerPos ? (
+                            return (
+                                <button
+                                    key={entry.id}
+                                    type="button"
+                                    className="absolute z-40 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+                                    style={{ left: `${markerPos.left}%`, top: `${markerPos.top}%` }}
+                                    onMouseEnter={() => handleMarkerEnter(entry.id)}
+                                    onMouseLeave={handleMarkerLeave}
+                                    onClick={() => handleMarkerClick(entry.id)}
+                                    aria-label={preview.progress[4]}
+                                >
+                                    <span
+                                        className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60"
+                                        style={{ backgroundColor: MARKER_ITEM }}
+                                    />
+                                    {entry.replies.length > 0 ? (
+                                        <span className="absolute -right-[6px] -top-[6px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[var(--adaptive-black900)] px-[3px] text-[10px] font-semibold leading-none text-[var(--adaptive-black50)] ring-1 ring-white/80">
+                                            +{entry.replies.length}
+                                        </span>
+                                    ) : null}
+                                </button>
+                            );
+                        })}
+
+                        {!showThreadCard && hoveredEntry && hoveredMarkerPos ? (
                             <div
                                 className="pointer-events-none absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
-                                style={markerCardStyle(markerPos, 8)}
+                                style={markerCardStyle(hoveredMarkerPos, 8)}
                             >
                                 <div className="flex w-[260px] flex-col gap-[10px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[10px]">
                                     <StatusBadge
-                                        status={getDisplayStatus(feedback, messages)}
+                                        status={getDisplayStatus(hoveredEntry, messages)}
                                         messages={messages}
                                     />
-                                    <p className="line-clamp-2 text-[16px] leading-[1.5] text-[var(--adaptive-black50)]">{feedback.message}</p>
+                                    <p className="line-clamp-2 text-[16px] leading-[1.5] text-[var(--adaptive-black50)]">{hoveredEntry.message}</p>
                                     <div className="flex items-center gap-[6px]">
-                                        <p className="text-[12px] text-[var(--adaptive-black500)]">{feedback.author_name}</p>
+                                        <p className="text-[12px] text-[var(--adaptive-black500)]">{hoveredEntry.author_name}</p>
                                         <span className="rounded-full bg-[var(--adaptive-black800)] px-[6px] py-[2px] text-[10px] text-[var(--adaptive-black400)]">{messages.author.creatorLabel}</span>
                                     </div>
                                 </div>
@@ -312,8 +373,8 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                             <div
                                 className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
                                 style={
-                                    markerPos
-                                        ? markerCardStyle(markerPos, 10)
+                                    draftMarkerPos
+                                        ? markerCardStyle(draftMarkerPos, 10)
                                         : {
                                               left: "50%",
                                               top: "28%",
@@ -332,18 +393,18 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                             </div>
                         ) : null}
 
-                        {showThreadCard && feedback && markerPos ? (
+                        {showThreadCard && activeEntry && activeMarkerPos ? (
                             <div
                                 className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
-                                style={markerCardStyle(markerPos, -4)}
+                                style={markerCardStyle(activeMarkerPos, -4)}
                             >
                                 <section className="flex flex-col gap-[12px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[20px]">
                                     <StatusBadge
-                                        status={getDisplayStatus(feedback, messages)}
+                                        status={getDisplayStatus(activeEntry, messages)}
                                         messages={messages}
                                     />
-                                    <p className="text-[16px] font-semibold leading-[1.5] text-[var(--adaptive-black50)]">{feedback.message}</p>
-                                    <p className="text-[12px] text-[var(--adaptive-black500)]">{feedback.author_name}</p>
+                                    <p className="text-[16px] font-semibold leading-[1.5] text-[var(--adaptive-black50)]">{activeEntry.message}</p>
+                                    <p className="text-[12px] text-[var(--adaptive-black500)]">{activeEntry.author_name}</p>
                                 </section>
 
                                 {composerMode === "reply" && step === 6 ? (
@@ -356,11 +417,11 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                                     />
                                 ) : null}
 
-                                {feedback.replies.length > 0 ? (
+                                {activeEntry.replies.length > 0 ? (
                                     <section className="max-h-[200px] overflow-auto bg-[var(--adaptive-blackOpacity900)] backdrop-blur-[10px]">
-                                        {[...feedback.replies].reverse().map((reply) => {
-                                            const isLatest = feedback.replies[feedback.replies.length - 1]?.id === reply.id;
-                                            const showResolveBtn = isLatest && reply.status === "suggested" && feedback.status !== "resolved" && step === 7;
+                                        {[...activeEntry.replies].reverse().map((reply) => {
+                                            const isLatest = activeEntry.replies[activeEntry.replies.length - 1]?.id === reply.id;
+                                            const showResolveBtn = isLatest && reply.status === "suggested" && activeEntry.status !== "resolved" && step === 7;
 
                                             return (
                                                 <article
@@ -399,7 +460,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                         <ControlPanel
                             mode={panelMode}
                             stats={stats}
-                            highlightAdd={step === 1}
+                            highlightAdd={step === 1 || (step >= 4 && step <= 5)}
                             messages={messages}
                             envLabel={preview.envLabel}
                             onAddFeedback={handleAddFeedback}
