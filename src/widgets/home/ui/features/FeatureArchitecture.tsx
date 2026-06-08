@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { useRef } from "react";
-import { Check } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
 import { CopyButton, TerminalLine } from "../landing-shared";
@@ -15,12 +14,6 @@ import { motionTransition } from "@/shared/lib/motion";
 export function FeatureArchitecture() {
   const { architecture, hero } = useMessages().landing;
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const diagramScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.92, 1, 0.96]);
-  const diagramOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.6, 1, 0.85]);
 
   const { host, root, shadow, ui } = architecture.diagram;
 
@@ -52,37 +45,36 @@ export function FeatureArchitecture() {
           <FeatureBullets items={architecture.bullets} />
         </ScrollReveal>
 
-        <div className="vp-feature-glow-panel vp-feature-glow-cyan relative flex min-h-[360px] flex-col justify-center overflow-hidden p-6 sm:p-8 lg:min-h-[480px] lg:p-10">
-          <motion.div
-            className="vp-feature-glow-orb pointer-events-none absolute inset-0"
-            style={{ opacity: diagramOpacity }}
-            aria-hidden
-          />
+        <div className="grid min-h-[360px] grid-rows-[1fr_auto] lg:min-h-[480px]">
+          <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+            <motion.div
+              className="space-y-2"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false }}
+              transition={motionTransition.medium}
+            >
+              {[host, root, shadow, ui].map((label, i) => (
+                <motion.div
+                  key={label}
+                  className="vp-arch-node"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: false }}
+                  transition={{ ...motionTransition.medium, delay: i * 0.08 }}
+                  style={{ marginLeft: `${i * 1.25}rem` }}
+                >
+                  {i > 0 ? (
+                    <span className="vp-arch-connector" aria-hidden />
+                  ) : null}
+                  <span className="font-mono text-xs sm:text-sm">{label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
           <motion.div
-            className="relative z-10 mx-auto w-full max-w-md space-y-2"
-            style={{ scale: diagramScale, opacity: diagramOpacity }}
-          >
-            {[host, root, shadow, ui].map((label, i) => (
-              <motion.div
-                key={label}
-                className="vp-arch-node"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false }}
-                transition={{ ...motionTransition.medium, delay: i * 0.08 }}
-                style={{ marginLeft: `${i * 1.25}rem` }}
-              >
-                {i > 0 ? (
-                  <span className="vp-arch-connector" aria-hidden />
-                ) : null}
-                <span className="font-mono text-xs sm:text-sm">{label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            className="vp-code-block relative z-10 mx-auto mt-8 w-full max-w-md p-4"
+            className="vp-code-block vp-code-block--flush border-t border-[var(--vp-color-stroke)] p-4 sm:p-6 lg:p-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}

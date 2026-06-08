@@ -8,7 +8,6 @@ import { TagPill } from "../landing-shared";
 import { Text } from "@/shared/ui/Text";
 import { ScrollReveal, StaggerItem, StaggerReveal } from "@/shared/ui/scroll-reveal";
 import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
-import { motionTransition } from "@/shared/lib/motion";
 import { cn } from "@/shared/lib/utils";
 
 const modeAccent = {
@@ -69,14 +68,12 @@ export function FeatureBentoGrid() {
                   modeAccent[mode.id as keyof typeof modeAccent],
                   i < bento.modes.length - 1 && "border-b border-[var(--vp-color-stroke)] sm:border-b-0 sm:border-r",
                 )}
-                whileHover={{ y: -2 }}
-                transition={motionTransition.fast}
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-mono text-xs uppercase tracking-wider text-[var(--vp-color-brand)]">
                     {mode.label}
                   </span>
-                  <span className="rounded-md border border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg-code)] px-2 py-0.5 font-mono text-[10px] text-[var(--vp-color-text-dim)]">
+                  <span className="border border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg-code)] px-2 py-0.5 font-mono text-[10px] text-[var(--vp-color-text-dim)]">
                     {mode.shortcut}
                   </span>
                 </div>
@@ -94,11 +91,11 @@ export function FeatureBentoGrid() {
             <span className="font-mono text-xs uppercase tracking-wider text-[var(--vp-color-text-dim)]">
               keyboard
             </span>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-4 divide-y divide-[var(--vp-color-stroke)] border-y border-[var(--vp-color-stroke)]">
               {bento.shortcuts.map((shortcut) => (
                 <li
                   key={shortcut.action}
-                  className="flex items-center justify-between gap-3 rounded-lg border border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg-soft)] px-3 py-2.5"
+                  className="flex items-center justify-between gap-3 px-0 py-2.5"
                 >
                   <span className="text-sm text-[var(--vp-color-text-muted)]">
                     {shortcut.action}
@@ -117,7 +114,7 @@ export function FeatureBentoGrid() {
 
         {/* Config cards — bottom row under modes */}
         <StaggerItem className="border-b border-[var(--vp-color-stroke)] md:col-span-7 md:row-start-2 md:border-b-0">
-          <div className="grid sm:grid-cols-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
             {bento.config.map((item, i) => (
               <motion.div
                 key={item.title}
@@ -125,8 +122,6 @@ export function FeatureBentoGrid() {
                   "vp-bento-cell flex h-full flex-col gap-3 p-5 sm:p-6",
                   i < bento.config.length - 1 && "border-b border-[var(--vp-color-stroke)] sm:border-b-0 sm:border-r",
                 )}
-                whileHover={{ y: -2 }}
-                transition={motionTransition.fast}
               >
                 <Text.Reveal
                   as="h4"

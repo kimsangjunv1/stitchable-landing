@@ -74,9 +74,9 @@ function PersistencePanel({
         </ul>
       </div>
 
-      <div className="border-t border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg-soft)] p-4 sm:p-6">
+      <div className="border-t border-[var(--vp-color-stroke)]">
         <motion.div
-          className="vp-code-block p-4"
+          className="vp-code-block vp-code-block--flush p-4 sm:p-6 lg:p-8"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}

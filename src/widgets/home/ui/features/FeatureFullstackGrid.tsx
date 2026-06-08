@@ -1,13 +1,11 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
 import { TagPill } from "../landing-shared";
 import { Text } from "@/shared/ui/Text";
 import { ScrollReveal, StaggerItem, StaggerReveal } from "@/shared/ui/scroll-reveal";
 import { landingRevealColors } from "@/widgets/home/lib/reveal-theme";
-import { motionTransition } from "@/shared/lib/motion";
 
 export function FeatureFullstackGrid() {
   const { fullstack } = useMessages().landing;
@@ -38,11 +36,7 @@ export function FeatureFullstackGrid() {
       <StaggerReveal className="grid md:grid-cols-3">
         {fullstack.items.map((item) => (
           <StaggerItem key={item.title}>
-            <motion.div
-              className="vp-fullstack-card flex h-full flex-col border-b border-[var(--vp-color-stroke)] p-6 sm:p-8 md:border-b-0 md:border-r md:last:border-r-0"
-              whileHover={{ y: -3 }}
-              transition={motionTransition.fast}
-            >
+            <div className="vp-fullstack-card flex h-full flex-col border-b border-[var(--vp-color-stroke)] p-6 sm:p-8 md:border-b-0 md:border-r md:last:border-r-0">
               <Text.Reveal
                 as="h4"
                 align="left"
@@ -63,7 +57,7 @@ export function FeatureFullstackGrid() {
                   ))}
                 </div>
               ) : null}
-            </motion.div>
+            </div>
           </StaggerItem>
         ))}
       </StaggerReveal>

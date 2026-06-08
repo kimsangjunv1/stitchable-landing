@@ -18,7 +18,7 @@ const stepGlow = [
 
 function WorkflowStepVisual({ index }: { index: number }) {
   return (
-    <div className="relative flex min-h-[120px] items-center justify-center overflow-hidden rounded-lg border border-[var(--vp-color-stroke)] bg-[var(--vp-color-bg-soft)] p-6">
+    <div className="relative flex min-h-[120px] items-center justify-center overflow-hidden border-t border-[var(--vp-color-stroke)] sm:border-t-0 sm:border-l">
       <div className="vp-workflow-step-glow pointer-events-none absolute inset-0" aria-hidden />
       <motion.span
         className="relative z-10 font-mono text-4xl font-semibold tabular-nums text-[var(--vp-color-brand)] opacity-20 sm:text-6xl"
@@ -79,11 +79,11 @@ export function FeatureWorkflowStack() {
           <StaggerItem key={step.id}>
             <article
               className={cn(
-                "vp-workflow-step grid gap-6 p-6 sm:grid-cols-[1fr_1.2fr] sm:p-8 lg:p-10",
+                "vp-workflow-step grid gap-0 sm:grid-cols-[1fr_1.2fr]",
                 stepGlow[index],
               )}
             >
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
                 <span className="font-mono text-xs uppercase tracking-wider text-[var(--vp-color-brand)]">
                   {step.label}
                 </span>

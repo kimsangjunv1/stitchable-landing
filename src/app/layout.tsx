@@ -1,84 +1,84 @@
-import { Analytics } from '@vercel/analytics/next'
-import type { Metadata } from 'next'
-import { Geist_Mono, Space_Grotesk } from 'next/font/google'
-import localFont from 'next/font/local'
-import { GlobalErrorBoundary } from '@/app/providers/GlobalErrorBoundary'
-import { QueryProvider } from '@/app/providers/QueryProvider'
-import { AuthProvider } from '@/app/providers/AuthProvider'
-import { GlobalErrorListener } from '@/app/providers/GlobalErrorListener'
-import { PopupProvider } from '@/app/providers/PopupProvider'
-import { LocaleProvider } from '@/app/providers/LocaleProvider'
-import { Header } from '@/widgets/layout/Header'
-import { Sidebar } from '@/widgets/layout/Sidebar'
-import { Footer } from '@/widgets/layout/Footer'
-import { Progress } from '@/widgets/layout/Progress'
-import { Toast } from '@/widgets/layout/Toast'
-import './globals.css'
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
+import { Geist_Mono, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
+import { GlobalErrorBoundary } from "@/app/providers/GlobalErrorBoundary";
+import { QueryProvider } from "@/app/providers/QueryProvider";
+import { AuthProvider } from "@/app/providers/AuthProvider";
+import { GlobalErrorListener } from "@/app/providers/GlobalErrorListener";
+import { PopupProvider } from "@/app/providers/PopupProvider";
+import { LocaleProvider } from "@/app/providers/LocaleProvider";
+import { Header } from "@/widgets/layout/Header";
+import { Sidebar } from "@/widgets/layout/Sidebar";
+import { Footer } from "@/widgets/layout/Footer";
+import { Progress } from "@/widgets/layout/Progress";
+import { Toast } from "@/widgets/layout/Toast";
+import "./globals.css";
 
 const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 const suit = localFont({
   src: [
     {
-      path: '../../public/fonts/SUIT-Regular.woff2',
-      weight: '400',
-      style: 'normal',
+      path: "../../public/fonts/SUIT-Regular.woff2",
+      weight: "400",
+      style: "normal",
     },
     {
-      path: '../../public/fonts/SUIT-Medium.woff2',
-      weight: '500',
-      style: 'normal',
+      path: "../../public/fonts/SUIT-Medium.woff2",
+      weight: "500",
+      style: "normal",
     },
     {
-      path: '../../public/fonts/SUIT-SemiBold.woff2',
-      weight: '600',
-      style: 'normal',
+      path: "../../public/fonts/SUIT-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
     },
     {
-      path: '../../public/fonts/SUIT-Bold.woff2',
-      weight: '700',
-      style: 'normal',
+      path: "../../public/fonts/SUIT-Bold.woff2",
+      weight: "700",
+      style: "normal",
     },
   ],
-  variable: '--font-suit',
-  display: 'swap',
-})
+  variable: "--font-suit",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: 'Stitchable — Feedback, directly on your UI',
+  title: "Stitchable — Feedback, directly on your UI",
   description:
-    'A DOM-aware feedback layer for QA, staging, and internal tools. Leave feedback on real DOM elements, restore markers after UI changes, and review issues without screenshots.',
-  generator: 'v0.app',
+    "A DOM-aware feedback layer for QA, staging, and internal tools. Leave feedback on real DOM elements, restore markers after UI changes, and review issues without screenshots.",
+  generator: "v0.app",
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
       },
       {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
       },
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: "/icon.svg",
+        type: "image/svg+xml",
       },
     ],
-    apple: '/apple-icon.png',
+    apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html
@@ -93,9 +93,7 @@ export default function RootLayout({
                 <Header />
                 <Sidebar />
                 <PopupProvider>
-                  <LocaleProvider>
-                    {children}
-                  </LocaleProvider>
+                  <LocaleProvider>{children}</LocaleProvider>
                 </PopupProvider>
                 <Footer />
                 <Progress />
@@ -104,8 +102,8 @@ export default function RootLayout({
             </AuthProvider>
           </QueryProvider>
         </GlobalErrorBoundary>
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
-  )
+  );
 }

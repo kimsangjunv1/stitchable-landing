@@ -88,7 +88,7 @@ export function LibraryGoodPoints() {
         </div>
 
         <div className="flex min-h-[280px] flex-col p-6 sm:min-h-[320px] sm:p-8 lg:p-10">
-          <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-md border border-[var(--vp-color-stroke)] px-3 py-1.5 text-sm">
+          <div className="mb-4 inline-flex w-fit items-center gap-2 border border-[var(--vp-color-stroke)] px-3 py-1.5 text-sm">
             <StitchableLogo className="size-4 text-[var(--vp-color-brand)]" />
             <span className="font-medium">{t.chart.label}</span>
             <ChevronDown className="size-4 text-[var(--vp-color-text-dim)]" aria-hidden />

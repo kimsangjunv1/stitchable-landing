@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ArrowRight, Check } from "lucide-react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { useRef } from "react";
 import { RichText } from "@/shared/ui/rich-text";
 import { CopyButton, TagPill, TerminalLine } from "../landing-shared";
@@ -36,7 +36,6 @@ export function CodeVisual({
   copyText,
   copyLabel,
   copiedLabel,
-  glowVariant = "teal",
 }: {
   lines: string[];
   label?: string;
@@ -46,33 +45,11 @@ export function CodeVisual({
   glowVariant?: "teal" | "purple" | "cyan" | "none";
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const glowY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "relative flex h-full min-h-[280px] items-center justify-center overflow-hidden p-4 sm:min-h-[452px] sm:p-6 lg:p-8",
-        glowVariant !== "none" && "vp-feature-glow-panel",
-        glowVariant === "teal" && "vp-feature-glow-teal",
-        glowVariant === "purple" && "vp-feature-glow-purple",
-        glowVariant === "cyan" && "vp-feature-glow-cyan",
-      )}
-    >
-      {glowVariant !== "none" ? (
-        <motion.div
-          className="vp-feature-glow-orb pointer-events-none absolute inset-0"
-          style={{ y: glowY, opacity: glowOpacity }}
-          aria-hidden
-        />
-      ) : null}
+    <div ref={ref} className="flex h-full min-h-[280px] flex-col md:min-h-[452px]">
       <motion.div
-        className="vp-code-block relative z-10 w-full max-w-lg p-4 sm:p-5"
+        className="vp-code-block vp-code-block--flush flex h-full flex-1 flex-col p-4 sm:p-6 lg:p-8"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.3 }}
@@ -132,13 +109,9 @@ export function DualCodeVisual({
   copiedLabel: string;
 }) {
   return (
-    <div className="vp-feature-glow-panel vp-feature-glow-teal relative flex h-full min-h-[280px] flex-col justify-center gap-3 overflow-hidden p-4 sm:min-h-[452px] sm:p-6 lg:p-8">
+    <div className="flex h-full min-h-[280px] flex-col md:min-h-[452px]">
       <motion.div
-        className="vp-feature-glow-orb pointer-events-none absolute inset-0"
-        aria-hidden
-      />
-      <motion.div
-        className="vp-code-block relative z-10 p-4"
+        className="vp-code-block vp-code-block--flush flex flex-1 flex-col border-b border-[var(--vp-color-stroke)] p-4 sm:p-6 lg:p-8"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
@@ -155,7 +128,7 @@ export function DualCodeVisual({
         </code>
       </motion.div>
       <motion.div
-        className="vp-code-block relative z-10 p-4"
+        className="vp-code-block vp-code-block--flush flex flex-1 flex-col p-4 sm:p-6 lg:p-8"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}

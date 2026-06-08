@@ -143,6 +143,220 @@ export const en: LandingMessages = {
         { value: "0", label: "Runtime dependencies" },
       ],
     },
+    adoptionPath: {
+      eyebrow: "Progressive adoption",
+      title: "Start local, grow into team, server & integrations",
+      description:
+        "Begin without handlers, then add fields, team, API, GitHub, and Slack as you need them.",
+      steps: [
+        {
+          label: "localStorage",
+          description: "Start instantly with a single `<Report />`.",
+        },
+        {
+          label: "Team & fields",
+          description: "Add custom fields, team.user, and reviewers.",
+        },
+        {
+          label: "Server API",
+          description: "Persist to your DB via onList/onCreate/onUpdate.",
+        },
+        {
+          label: "GitHub & Slack",
+          description: "Wire github.onCreate, onEvent, and onReply.",
+        },
+      ],
+    },
+    devOnlyCallout: {
+      title: "Hide the UI in production builds",
+      description:
+        "`visibility.devOnly` keeps Stitchable as a staging-only internal QA tool — no production render at the app code level.",
+      codeLine: '<Report visibility={{ devOnly: true }} />',
+    },
+    techTrust: {
+      eyebrow: "Developer Experience",
+      title: "Clear types, subpath exports & bundle budget",
+      description:
+        "Even with the zero-deps + full QA UI tradeoff, contracts and bundle size stay predictable.",
+      panels: [
+        {
+          title: "subpath export",
+          description:
+            "`stitchable/report` exports only Report and types. Import motion from `stitchable` only when needed.",
+          codeLines: [
+            "import { Report } from 'stitchable/report'",
+            "import type { ReportFeedback } from 'stitchable/report'",
+            "",
+            "// motion only when needed",
+            "import { motion } from 'stitchable'",
+          ],
+        },
+        {
+          title: "TypeScript contracts",
+          description:
+            "ReportFeedback, CreateReportFeedbackPayload, ReportEvent, and more are fully typed.",
+          codeLines: [
+            "import type {",
+            "  ReportFeedback,",
+            "  CreateReportFeedbackPayload,",
+            "  ReportEvent,",
+            "} from 'stitchable/report'",
+          ],
+        },
+      ],
+      stats: [
+        { value: "Own motion", label: "No Framer Motion dep" },
+        { value: "size:bundle", label: "CI bundle budget" },
+        { value: "peer only", label: "react / react-dom" },
+      ],
+    },
+    qualityAssurance: {
+      eyebrow: "Quality & trust",
+      title: "Tests, CI, docs & data contracts",
+      description:
+        "Vitest, typecheck, build, bundle size, and example build run in CI. Docs and schemas are documented.",
+      items: [
+        {
+          title: "Vitest & CI",
+          description: "Automated typecheck, build, and bundle size checks.",
+        },
+        {
+          title: "Bundle budget",
+          description: "Track minify+gzip size with `npm run size:bundle`.",
+        },
+        {
+          title: "Docs",
+          description: "README, getting-started, data model, and example app guides.",
+        },
+        {
+          title: "Data contract",
+          description: "replies, status, field_values, GitHub integrations schema.",
+        },
+      ],
+    },
+    saasComparison: {
+      eyebrow: "Positioning",
+      title: "A different layer than SaaS QA widgets",
+      description:
+        "Marker.io-style tools are all-in-one SaaS. Stitchable is an open-source QA layer embedded in your React app.",
+      positioning: {
+        headers: ["", "SaaS QA", "stitchable"],
+        rows: [
+          ["Form", "SaaS + external widget", "npm library (in-app)"],
+          ["Cost", "$39–$99+/mo (seat limits)", "MIT, no subscription"],
+          ["Data", "SaaS dashboard & cloud", "localStorage or your server/DB"],
+          ["Feedback", "Screenshot + annotation", "DOM click + markers"],
+          ["Target", "Agency & client UAT", "Internal QA, staging & dev teams"],
+        ],
+      },
+      advantages: {
+        title: "10 ways stitchable beats SaaS QA tools",
+        items: [
+          {
+            title: "No cost or vendor lock-in",
+            description: "MIT + zero runtime deps. No seat, project, or time limits.",
+          },
+          {
+            title: "You own the data",
+            description: "localStorage by default; server mode saves only to your API/DB.",
+          },
+          {
+            title: "Element-level feedback",
+            description: "Anchor to DOM via `data-report-id`. Track the same element after layout changes.",
+          },
+          {
+            title: "Embedded in your app",
+            description: "Not an external widget — `<Report />` + Shadow Root panel.",
+          },
+          {
+            title: "Hidden in production",
+            description: "`visibility.devOnly` hides UI in production builds.",
+          },
+          {
+            title: "Built-in review workflow",
+            description: "suggested → denied / confirm / checkout timeline in view mode.",
+          },
+          {
+            title: "Flexible integrations",
+            description: "Wire persistence, github.onCreate, onEvent/onReply your way.",
+          },
+          {
+            title: "Lightweight deps",
+            description: "No Framer, Radix, or MUI — react/react-dom peers only.",
+          },
+          {
+            title: "i18n & customization",
+            description: "`ui.locale: ko | en` and `ui.messages` for copy overrides.",
+          },
+          {
+            title: "Open source extensibility",
+            description: "Fork and change form fields, review policy, and panel UI.",
+          },
+        ],
+      },
+      honestLimits: {
+        title: "When SaaS is honestly better",
+        headers: ["SaaS advantage", "stitchable today"],
+        rows: [
+          ["Non-dev clients report without accounts", "Requires data-report-id markup + React"],
+          ["Auto screenshot & annotation", "DOM markers only (no screenshots)"],
+          ["Console/network logs, session replay", "Not included"],
+          ["Native Jira/Linear/Asana 2-way sync", "Implement via handlers/GitHub callbacks"],
+          ["WordPress / no-code sites", "React only"],
+          ["Browser extension for any site", "Requires `<Report />` in your app"],
+        ],
+      },
+      selectionGuide: {
+        saasTitle: "Client UAT & screenshot QA",
+        saasDescription: "When non-dev reporters and visual capture matter, SaaS fits better.",
+        saasTools: "Marker.io · BugHerd · Usersnap · Jam.dev",
+        stitchableTitle: "In-house staging, DOM QA & data ownership",
+        stitchableDescription:
+          "When your dev team wants DOM-level QA/review with no subscription and your own infra, choose stitchable.",
+        cta: "Get started",
+      },
+      tools: [
+        {
+          name: "vs Marker.io",
+          competitorStrength:
+            "Marker.io strengths: screenshots, console/network logs, session replay, Jira/Linear.",
+          stitchableWins: [
+            "Staging QA without monthly subscription",
+            "Keep feedback in your own DB",
+            "Track components/buttons by DOM id",
+          ],
+        },
+        {
+          name: "vs BugHerd",
+          competitorStrength:
+            "BugHerd strengths: agency/client pins, kanban, non-technical reporting.",
+          stitchableWins: [
+            "Internal dev team QA (not client dashboard)",
+            "denied/confirm review instead of kanban",
+            "GitHub Issue promotion + your API",
+          ],
+        },
+        {
+          name: "vs Usersnap",
+          competitorStrength:
+            "Usersnap strengths: NPS, micro-surveys, screen recording, end-user feedback.",
+          stitchableWins: [
+            "Staging bug fixes & UAT (not product surveys)",
+            "Element-level issue tracking",
+          ],
+        },
+        {
+          name: "vs Jam.dev",
+          competitorStrength:
+            "Jam strengths: one-click bug reports, auto console/network/session context.",
+          stitchableWins: [
+            "Track recurring UI element issues",
+            "Fully self-hosted without Jam cloud",
+            "Integrate QA panel inside your React app",
+          ],
+        },
+      ],
+    },
     benefits: {
       shipping: {
         title: "Focus on shipping, not tooling",
@@ -218,8 +432,9 @@ export const en: LandingMessages = {
           description: "Find the same `DOM` element again and restore `marker` positions.",
           bullets: [
             "Track elements via `data-report-id`",
+            "Coordinate fallback when the element is removed",
             "Keep markers after `UI refactors`",
-            "Separate by `route` & `environment`",
+            "Separate by `route`, `environment` & `version`",
             "`JSON` export / import support",
           ],
           poweredBy: "Powered by Position Restoration",
@@ -237,9 +452,9 @@ export const en: LandingMessages = {
           description: "Escalate important feedback to `GitHub Issues` instantly.",
           bullets: [
             "Connect via `github.onCreate` handler",
+            "Format issue body with `formatFeedbackAsGitHubIssueBody`",
             "Automatic feedback → `Issue` mapping",
             "Team `triage` workflow",
-            "`Status sync` ready",
           ],
           poweredBy: "Powered by GitHub API",
           output: [
@@ -315,8 +530,15 @@ export const en: LandingMessages = {
         },
         {
           title: "Environment scope",
-          description: "Separate scopes with devOnly, routeKey & project.env",
-          tags: ["devOnly", "routeKey", "env"],
+          description:
+            "Separate scopes with devOnly, routeKey, project.env & version",
+          tags: ["devOnly", "routeKey", "env", "version"],
+        },
+        {
+          title: "UI i18n",
+          description:
+            "ui.locale ko/en, browser auto-detect, ui.messages for copy overrides",
+          tags: ["locale", "messages", "i18n"],
         },
       ],
     },

@@ -144,6 +144,220 @@ export const ko: LandingMessages = {
         { value: "0", label: "Runtime dependencies" },
       ],
     },
+    adoptionPath: {
+      eyebrow: "점진적 확장",
+      title: "로컬만 쓰다가 팀·서버·연동까지",
+      description:
+        "handler 없이 시작하고, 필요할 때 필드·팀·API·GitHub·Slack을 단계적으로 붙일 수 있습니다.",
+      steps: [
+        {
+          label: "localStorage",
+          description: "`<Report />` 하나로 바로 시작합니다.",
+        },
+        {
+          label: "팀·필드",
+          description: "custom fields·team.user·reviewers를 추가합니다.",
+        },
+        {
+          label: "서버 API",
+          description: "onList/onCreate/onUpdate로 내 DB에 저장합니다.",
+        },
+        {
+          label: "GitHub·Slack",
+          description: "github.onCreate·onEvent·onReply로 연동합니다.",
+        },
+      ],
+    },
+    devOnlyCallout: {
+      title: "production 빌드에서는 UI를 숨깁니다",
+      description:
+        "`visibility.devOnly`로 스테이징·내부 QA 전용 도구로 쓸 수 있습니다. 앱 코드 레벨에서 production 렌더를 막습니다.",
+      codeLine: '<Report visibility={{ devOnly: true }} />',
+    },
+    techTrust: {
+      eyebrow: "Developer Experience",
+      title: "타입·subpath·번들 예산까지 명확하게",
+      description:
+        "의존성 0 + QA 풀스택 UI 트레이드오프를 감안해도, 계약과 번들은 예측 가능합니다.",
+      panels: [
+        {
+          title: "subpath export",
+          description:
+            "`stitchable/report`는 Report·타입만 export합니다. motion 등은 필요할 때만 가져옵니다.",
+          codeLines: [
+            "import { Report } from 'stitchable/report'",
+            "import type { ReportFeedback } from 'stitchable/report'",
+            "",
+            "// motion은 필요 시에만",
+            "import { motion } from 'stitchable'",
+          ],
+        },
+        {
+          title: "TypeScript contracts",
+          description:
+            "ReportFeedback, CreateReportFeedbackPayload, ReportEvent 등 스키마가 타입으로 정의되어 있습니다.",
+          codeLines: [
+            "import type {",
+            "  ReportFeedback,",
+            "  CreateReportFeedbackPayload,",
+            "  ReportEvent,",
+            "} from 'stitchable/report'",
+          ],
+        },
+      ],
+      stats: [
+        { value: "자체 motion", label: "Framer Motion 미의존" },
+        { value: "size:bundle", label: "CI 번들 예산 측정" },
+        { value: "peer only", label: "react / react-dom" },
+      ],
+    },
+    qualityAssurance: {
+      eyebrow: "품질·신뢰",
+      title: "테스트·CI·문서·데이터 계약",
+      description:
+        "Vitest, typecheck, build, bundle size, example build가 CI에서 돌아가고 문서·스키마가 정리되어 있습니다.",
+      items: [
+        {
+          title: "Vitest & CI",
+          description: "typecheck, build, bundle size를 자동 검증합니다.",
+        },
+        {
+          title: "Bundle budget",
+          description: "`npm run size:bundle`로 minify+gzip 크기를 관리합니다.",
+        },
+        {
+          title: "Docs",
+          description: "README, getting-started, data model, example app 가이드.",
+        },
+        {
+          title: "Data contract",
+          description: "replies, status, field_values, GitHub integrations 스키마.",
+        },
+      ],
+    },
+    saasComparison: {
+      eyebrow: "포지셔닝",
+      title: "SaaS QA 위젯과는 다른 레이어",
+      description:
+        "Marker.io류는 올인원 SaaS, stitchable은 React 앱에 내장하는 오픈소스 QA 레이어에 가깝습니다.",
+      positioning: {
+        headers: ["구분", "SaaS QA", "stitchable"],
+        rows: [
+          ["형태", "SaaS + 외부 위젯", "npm 라이브러리 (앱 내장)"],
+          ["비용", "월 $39~$99+ (시트/프로젝트 제한)", "MIT, 구독료 없음"],
+          ["데이터", "SaaS 대시보드·클라우드", "localStorage 또는 내 서버/DB"],
+          ["피드백", "스크린샷 + 주석", "DOM 요소 클릭 + 마커"],
+          ["타깃", "에이전시·클라이언트 UAT", "내부 QA·스테이징·개발팀"],
+        ],
+      },
+      advantages: {
+        title: "SaaS 대비 stitchable이 유리한 10가지",
+        items: [
+          {
+            title: "비용·벤더 락인 없음",
+            description: "MIT + 런타임 dependency 0. 시트·프로젝트·기간 제한이 없습니다.",
+          },
+          {
+            title: "데이터·프라이버시 소유",
+            description: "기본 localStorage, 서버 연동 시에도 내 API·내 DB에만 저장합니다.",
+          },
+          {
+            title: "요소 단위 피드백",
+            description: "`data-report-id`로 DOM에 앵커. 레이아웃이 바뀌어도 같은 요소를 추적합니다.",
+          },
+          {
+            title: "앱에 녹아든 QA",
+            description: "외부 위젯이 아닌 `<Report />` + Shadow Root 내장 패널입니다.",
+          },
+          {
+            title: "production 비노출",
+            description: "`visibility.devOnly`로 production 빌드에서 UI를 숨깁니다.",
+          },
+          {
+            title: "검수 워크플로우 내장",
+            description: "suggested → denied / confirm / checkout 타임라인이 view 모드에 있습니다.",
+          },
+          {
+            title: "연동 자유도",
+            description: "persistence handler·github.onCreate·onEvent/onReply를 내 방식으로 연결합니다.",
+          },
+          {
+            title: "가벼운 의존성",
+            description: "Framer, Radix, MUI 없이 react/react-dom peer만 사용합니다.",
+          },
+          {
+            title: "한국어·커스터마이즈",
+            description: "`ui.locale: ko | en`, `ui.messages`로 문구를 오버라이드합니다.",
+          },
+          {
+            title: "오픈소스 확장",
+            description: "폼 필드, 검수 정책, 패널 UI를 소스 수정·포크로 바꿀 수 있습니다.",
+          },
+        ],
+      },
+      honestLimits: {
+        title: "솔직히 SaaS가 더 나은 경우",
+        headers: ["SaaS가 유리한 점", "stitchable 현재"],
+        rows: [
+          ["비개발자·클라이언트가 계정 없이 리포트", "data-report-id 마크업 + React 연동 필요"],
+          ["자동 스크린샷·주석", "DOM 마커 중심 (스크린샷 없음)"],
+          ["콘솔/네트워크 로그, 세션 리플레이", "미포함"],
+          ["Jira/Linear/Asana 네이티브 2-way sync", "handler/GitHub 콜백으로 직접 구현"],
+          ["WordPress/노코드 사이트", "React 전용"],
+          ["브라우저 확장으로 아무 사이트나 QA", "앱에 `<Report />` 삽입 필요"],
+        ],
+      },
+      selectionGuide: {
+        saasTitle: "클라이언트 UAT·스크린샷 QA가 목적이라면",
+        saasDescription: "비개발자 리포터와 시각적 캡처가 중요할 때 SaaS가 맞습니다.",
+        saasTools: "Marker.io · BugHerd · Usersnap · Jam.dev",
+        stitchableTitle: "사내 스테이징·DOM QA·데이터 소유가 목적이라면",
+        stitchableDescription:
+          "개발팀이 DOM 단위로 QA·검수하고, 구독 없이 내 인프라로 운영하고 싶을 때 stitchable이 맞습니다.",
+        cta: "시작하기",
+      },
+      tools: [
+        {
+          name: "vs Marker.io",
+          competitorStrength:
+            "Marker.io 강점: 스크린샷·주석, 콘솔/네트워크 로그, 세션 리플레이, Jira/Linear 연동.",
+          stitchableWins: [
+            "월 구독 없이 스테이징 QA만 돌리고 싶을 때",
+            "피드백을 내 DB에만 두고 싶을 때",
+            "DOM id로 컴포넌트/버튼을 추적하고 싶을 때",
+          ],
+        },
+        {
+          name: "vs BugHerd",
+          competitorStrength:
+            "BugHerd 강점: 에이전시·클라이언트용 핀/칸반, 비기술자 리포팅.",
+          stitchableWins: [
+            "개발팀 내부 QA가 목적일 때",
+            "Kanban 대신 denied/confirm 검수가 필요할 때",
+            "GitHub Issue 승격 + 내 API가 맞을 때",
+          ],
+        },
+        {
+          name: "vs Usersnap",
+          competitorStrength:
+            "Usersnap 강점: NPS·마이크로서베이·스크린 녹화, 엔드유저 피드백.",
+          stitchableWins: [
+            "스테이징 버그 픽스·UAT가 목적일 때",
+            "요소 단위 이슈 추적이 목적일 때",
+          ],
+        },
+        {
+          name: "vs Jam.dev",
+          competitorStrength:
+            "Jam 강점: 원클릭 버그 리포트, 자동 콘솔/네트워크/세션 컨텍스트.",
+          stitchableWins: [
+            "그 UI 요소가 계속 문제인지 추적할 때",
+            "Jam 클라우드 없이 자체 호스팅이 필요할 때",
+            "React 앱 안에 QA 패널을 통합하고 싶을 때",
+          ],
+        },
+      ],
+    },
     benefits: {
       shipping: {
         title: "배포에 집중하고, 도구 유지보수는 최소화",
@@ -222,8 +436,9 @@ export const ko: LandingMessages = {
             "같은 DOM 요소를 다시 찾아\n마커 위치를 복원합니다.",
           bullets: [
             "data-report-id 기반으로 요소를 추적합니다",
+            "요소가 사라지면 좌표 fallback으로 위치를 복원합니다",
             "UI 리팩터링 후에도 마커를 유지합니다",
-            "라우트·환경별로 분리합니다",
+            "라우트·환경·버전별로 분리합니다",
             "import / export를 지원합니다",
           ],
           poweredBy: "Powered by Position Restoration",
@@ -242,9 +457,9 @@ export const ko: LandingMessages = {
             "중요한 피드백을\nGitHub Issue로 바로 올릴 수 있습니다.",
           bullets: [
             "github.onCreate 핸들러를 연동합니다",
+            "formatFeedbackAsGitHubIssueBody로 Issue 본문을 포맷합니다",
             "피드백 → Issue 자동 매핑을 지원합니다",
             "팀 트리아지 워크플로우에 맞춰 사용할 수 있습니다",
-            "상태 동기화도 준비되어 있습니다",
           ],
           poweredBy: "Powered by GitHub API",
           output: [
@@ -321,8 +536,15 @@ export const ko: LandingMessages = {
         },
         {
           title: "환경 분리",
-          description: "devOnly·routeKey·project.env로 scope를 분리합니다",
-          tags: ["devOnly", "routeKey", "env"],
+          description:
+            "devOnly·routeKey·project.env·version으로 scope를 분리합니다",
+          tags: ["devOnly", "routeKey", "env", "version"],
+        },
+        {
+          title: "다국어 UI",
+          description:
+            "ui.locale ko/en, 브라우저 자동 감지, ui.messages로 문구를 커스터마이즈합니다",
+          tags: ["locale", "messages", "i18n"],
         },
       ],
     },

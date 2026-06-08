@@ -7,8 +7,16 @@ import {
   FeatureRow,
 } from "./features/feature-shared";
 import { FeatureBentoGrid } from "./features/FeatureBentoGrid";
+import { AdoptionPath } from "./AdoptionPath";
+import { CapabilitiesStrip } from "./CapabilitiesStrip";
 
-const CORE_TAB_IDS = ["feedback", "restore", "github"] as const;
+const CORE_TAB_IDS = [
+  "install",
+  "feedback",
+  "restore",
+  "github",
+  "export",
+] as const;
 const GLOW_VARIANTS = ["teal", "purple", "cyan"] as const;
 
 export function FeatureSections() {
@@ -41,6 +49,8 @@ export function FeatureSections() {
         />
       </FeatureRow>
 
+      <AdoptionPath />
+
       {coreTabs.map((tab, index) => (
         <FeatureRow
           key={tab.id}
@@ -65,6 +75,7 @@ export function FeatureSections() {
       ))}
 
       <FeatureBentoGrid />
+      <CapabilitiesStrip />
     </div>
   );
 }

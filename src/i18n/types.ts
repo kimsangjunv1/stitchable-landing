@@ -104,6 +104,65 @@ export type LandingMessages = {
       }
       stats: { value: string; label: string }[]
     }
+    adoptionPath: {
+      eyebrow: string
+      title: string
+      description: string
+      steps: { label: string; description: string }[]
+    }
+    devOnlyCallout: {
+      title: string
+      description: string
+      codeLine: string
+    }
+    techTrust: {
+      eyebrow: string
+      title: string
+      description: string
+      panels: {
+        title: string
+        description: string
+        codeLines: string[]
+      }[]
+      stats: { value: string; label: string }[]
+    }
+    qualityAssurance: {
+      eyebrow: string
+      title: string
+      description: string
+      items: { title: string; description: string }[]
+    }
+    saasComparison: {
+      eyebrow: string
+      title: string
+      description: string
+      positioning: {
+        headers: string[]
+        rows: string[][]
+      }
+      advantages: {
+        title: string
+        items: { title: string; description: string }[]
+      }
+      honestLimits: {
+        title: string
+        headers: string[]
+        rows: string[][]
+      }
+      selectionGuide: {
+        saasTitle: string
+        saasDescription: string
+        saasTools: string
+        stitchableTitle: string
+        stitchableDescription: string
+        cta: string
+      }
+      tools: {
+        name: string
+        competitorStrength: string
+        stitchableWins: string[]
+      }[]
+    }
     benefits: {
       shipping: {
         title: string
