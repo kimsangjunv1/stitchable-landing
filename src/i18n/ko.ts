@@ -713,7 +713,7 @@ export const ko: LandingMessages = {
       ],
       hints: [
         "피드백 추가 버튼을 누르세요",
-        "번들 크기(~55KB) 영역을 클릭하세요",
+        "피드백을 남길 요소를 클릭하세요",
         "메시지를 입력하고 전송하세요",
         "마커에 마우스를 올려보세요",
         "마커를 클릭해 스레드를 여세요",
@@ -721,11 +721,93 @@ export const ko: LandingMessages = {
         "해결 버튼을 눌러 이슈를 종료하세요",
       ],
       retryLabel: "다시 체험하기",
-      feedbackMessage: "모바일에서 ~55KB 수치가 차트와 너무 붙어 보입니다",
+      feedbackMessage: "모바일에서 활성 세션 수치가 차트와 너무 붙어 보입니다",
       replyMessage: "모바일 레이아웃 간격을 내일 stage 배포에 반영하겠습니다",
       designer: "김디자인",
       developer: "이개발",
       envLabel: "stage",
+      mockPage: {
+        title: "스프린트 배포 현황을 한 화면에서 추적합니다",
+        mainStat: {
+          label: "Active sessions",
+          value: "1,284",
+        },
+        chart: {
+          label: "Session trend",
+          axisStart: "Mon",
+          axisEnd: "Sun",
+        },
+        stats: [
+          { value: "142ms", label: "p95 latency" },
+          { value: "0.08%", label: "Error rate" },
+          { value: "99.97%", label: "Uptime (7d)" },
+        ],
+        section: {
+          eyebrow: "Operations",
+          title: "배포 파이프라인과 큐 상태를 함께 봅니다",
+          description:
+            "스테이징 검증 후 프로덕션 승격까지 지연 구간을 빠르게 찾을 수 있습니다.",
+        },
+        panels: [
+          {
+            title: "API gateway latency",
+            description:
+              "리전별 p95가 200ms를 넘으면 알림이 울립니다. 현재 us-east-1만 임계치에 근접합니다.",
+          },
+          {
+            title: "Background queue depth",
+            description:
+              "이메일·웹훅 워커 큐가 500건 이상 쌓이면 소비자를 자동 스케일합니다.",
+          },
+        ],
+        table: {
+          title: "Recent deployments",
+          headers: ["Service", "Version", "Status", "Deployed"],
+          rows: [
+            {
+              cells: ["auth-api", "v2.14.1", "Success", "09:12"],
+            },
+            {
+              cells: ["billing-worker", "v1.8.0", "Success", "08:47"],
+            },
+            {
+              cells: ["notification-svc", "v3.2.4", "Blocked", "08:05"],
+              selectable: true,
+            },
+            {
+              cells: ["search-indexer", "v0.9.3", "Success", "07:22"],
+            },
+            {
+              cells: ["analytics-ui", "v4.1.0", "Rolling", "06:58"],
+            },
+            {
+              cells: ["cdn-proxy", "v1.2.2", "Success", "06:11"],
+            },
+          ],
+        },
+        release: {
+          eyebrow: "Release notes",
+          title: "이번 주 스프린트 변경 사항",
+          items: [
+            {
+              version: "v3.2.4",
+              note: "알림 템플릿 캐시 무효화 로직 추가",
+            },
+            {
+              version: "v2.14.1",
+              note: "OAuth 토큰 갱신 재시도 백오프 조정",
+            },
+            {
+              version: "v4.1.0",
+              note: "대시보드 필터 상태를 URL에 동기화",
+            },
+            {
+              version: "v1.8.0",
+              note: "청구 웹훅 서명 검증 강화",
+            },
+          ],
+        },
+      },
     },
   },
 }

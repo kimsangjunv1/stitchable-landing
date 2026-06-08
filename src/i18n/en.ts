@@ -700,7 +700,7 @@ export const en: LandingMessages = {
       ],
       hints: [
         "Click the Add feedback button",
-        "Click the bundle size (~55KB) stat",
+        "Click any element to leave feedback",
         "Type a message and send",
         "Hover over the marker",
         "Click the marker to open the thread",
@@ -708,11 +708,93 @@ export const en: LandingMessages = {
         "Click Resolve to close the issue",
       ],
       retryLabel: "Try again",
-      feedbackMessage: "On mobile the ~55KB stat sits too close to the chart",
+      feedbackMessage: "On mobile the active sessions stat sits too close to the chart",
       replyMessage: "Will tighten mobile spacing in tomorrow's stage deploy",
       designer: "Maya K.",
       developer: "Dev Team",
       envLabel: "stage",
+      mockPage: {
+        title: "Track sprint delivery from a single operations view",
+        mainStat: {
+          label: "Active sessions",
+          value: "1,284",
+        },
+        chart: {
+          label: "Session trend",
+          axisStart: "Mon",
+          axisEnd: "Sun",
+        },
+        stats: [
+          { value: "142ms", label: "p95 latency" },
+          { value: "0.08%", label: "Error rate" },
+          { value: "99.97%", label: "Uptime (7d)" },
+        ],
+        section: {
+          eyebrow: "Operations",
+          title: "Pipeline health and queue depth in one place",
+          description:
+            "Spot delays between staging validation and production promotion without switching tools.",
+        },
+        panels: [
+          {
+            title: "API gateway latency",
+            description:
+              "Alerts fire when regional p95 exceeds 200ms. Only us-east-1 is near the threshold today.",
+          },
+          {
+            title: "Background queue depth",
+            description:
+              "Email and webhook workers auto-scale when the queue exceeds 500 pending jobs.",
+          },
+        ],
+        table: {
+          title: "Recent deployments",
+          headers: ["Service", "Version", "Status", "Deployed"],
+          rows: [
+            {
+              cells: ["auth-api", "v2.14.1", "Success", "09:12"],
+            },
+            {
+              cells: ["billing-worker", "v1.8.0", "Success", "08:47"],
+            },
+            {
+              cells: ["notification-svc", "v3.2.4", "Blocked", "08:05"],
+              selectable: true,
+            },
+            {
+              cells: ["search-indexer", "v0.9.3", "Success", "07:22"],
+            },
+            {
+              cells: ["analytics-ui", "v4.1.0", "Rolling", "06:58"],
+            },
+            {
+              cells: ["cdn-proxy", "v1.2.2", "Success", "06:11"],
+            },
+          ],
+        },
+        release: {
+          eyebrow: "Release notes",
+          title: "Changes shipped this sprint",
+          items: [
+            {
+              version: "v3.2.4",
+              note: "Added notification template cache invalidation",
+            },
+            {
+              version: "v2.14.1",
+              note: "Adjusted OAuth token refresh retry backoff",
+            },
+            {
+              version: "v4.1.0",
+              note: "Synced dashboard filter state to the URL",
+            },
+            {
+              version: "v1.8.0",
+              note: "Hardened billing webhook signature verification",
+            },
+          ],
+        },
+      },
     },
   },
 }

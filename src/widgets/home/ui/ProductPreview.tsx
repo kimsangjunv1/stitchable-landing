@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useRef, useState, type RefObject } from "react";
+import { useCallback, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import type { LandingMessages } from "@/i18n";
-import { RichText } from "@/shared/ui/rich-text";
 import { cn } from "@/shared/lib/utils";
 import { SafariWindowChrome } from "./SafariWindowChrome";
 import {
@@ -15,8 +14,9 @@ import {
   SendIcon,
   SettingsIcon,
 } from "./stitchable-mock/icons";
-import { StitchableLogo } from "./StitchableLogo";
 import { FEEDBACK_STATUS_COLOR, MARKER_ITEM, STITCHABLE_LIGHT_STYLE } from "./stitchable-mock/tokens";
+
+type MockTargetId = "main-stat" | "chart" | "error-stat" | "deploy-row" | "api-panel";
 
 type DemoStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -91,7 +91,14 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const preview = messages.landing.preview;
 
     const canvasRef = useRef<HTMLDivElement>(null);
-    const targetRef = useRef<HTMLButtonElement>(null);
+    const targetRefs = useRef(new Map<MockTargetId, HTMLButtonElement>());
+
+    const setTargetRef = useCallback((id: MockTargetId) => {
+        return (element: HTMLButtonElement | null) => {
+            if (element) targetRefs.current.set(id, element);
+            else targetRefs.current.delete(id);
+        };
+    }, []);
 
     const [step, setStep] = useState<DemoStep>(1);
     const [panelMode, setPanelMode] = useState<PanelMode>("idle");
@@ -103,13 +110,6 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const [draftMessage, setDraftMessage] = useState("");
     const [composerMode, setComposerMode] = useState<"create" | "reply" | null>(null);
     const [demoAdded, setDemoAdded] = useState(false);
-
-    const captureMarkerPos = useCallback(() => {
-        const canvas = canvasRef.current;
-        const target = targetRef.current;
-        if (!canvas || !target) return;
-        setMarkerPos(getCenterPos(canvas, target));
-    }, []);
 
     const resetDemo = useCallback(() => {
         setStep(1);
@@ -139,9 +139,12 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setStep(1);
     };
 
-    const handleSelectTarget = () => {
+    const handleSelectTarget = (targetId: MockTargetId) => {
         if (step !== 2 || panelMode !== "report") return;
-        captureMarkerPos();
+        const canvas = canvasRef.current;
+        const target = targetRefs.current.get(targetId);
+        if (!canvas || !target) return;
+        setMarkerPos(getCenterPos(canvas, target));
         setShowCreateComposer(true);
         setComposerMode("create");
         setDraftMessage("");
@@ -248,22 +251,21 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                 style={STITCHABLE_LIGHT_STYLE}
             >
                 <SafariWindowChrome
-                    url="app.stitchable.dev/dashboard"
-                    tabTitle="Dashboard"
+                    url="ops.novadesk.io/sprint"
+                    tabTitle="Sprint"
                     className="h-full min-h-0 flex-1"
                 >
                     <div
                         ref={canvasRef}
-            className="relative h-full min-h-[380px] overflow-hidden bg-white"
-          >
-            <PreviewLandingPage
-              targetRef={targetRef}
-              highlightTarget={step === 2 && panelMode === "report"}
-              reportMode={panelMode === "report"}
-              libraryGoodPoints={messages.landing.libraryGoodPoints}
-              techTrust={messages.landing.techTrust}
-              onSelectTarget={handleSelectTarget}
-            />
+                        className="relative h-full min-h-[380px] overflow-hidden bg-white"
+                    >
+                        <PreviewMockPage
+                            setTargetRef={setTargetRef}
+                            highlightTargets={step === 2 && panelMode === "report"}
+                            reportMode={panelMode === "report"}
+                            mockPage={preview.mockPage}
+                            onSelectTarget={handleSelectTarget}
+                        />
 
                         {showMarker && markerPos ? (
                             <button
@@ -524,116 +526,242 @@ function PreviewMiniChart({
   );
 }
 
-function PreviewLandingPage({
-  targetRef,
-  highlightTarget,
+function selectableCellClass(reportMode: boolean, highlightTargets: boolean) {
+  return cn(
+    "text-left transition-colors",
+    reportMode && "cursor-crosshair hover:bg-[#00a88f]/[0.04]",
+    highlightTargets && "ring-1 ring-inset ring-[#00a88f]/30",
+  );
+}
+
+function PreviewMockPage({
+  setTargetRef,
+  highlightTargets,
   reportMode,
-  libraryGoodPoints,
-  techTrust,
+  mockPage,
   onSelectTarget,
 }: {
-  targetRef: RefObject<HTMLButtonElement | null>;
-  highlightTarget: boolean;
+  setTargetRef: (id: MockTargetId) => (element: HTMLButtonElement | null) => void;
+  highlightTargets: boolean;
   reportMode: boolean;
-  libraryGoodPoints: LandingMessages["landing"]["libraryGoodPoints"];
-  techTrust: LandingMessages["landing"]["techTrust"];
-  onSelectTarget: () => void;
+  mockPage: LandingMessages["landing"]["preview"]["mockPage"];
+  onSelectTarget: (targetId: MockTargetId) => void;
 }) {
   return (
     <div
       className={cn(
-        "h-full overflow-y-auto pb-16 text-[#0a0a0a] transition-colors",
+        "h-full overflow-y-auto pb-24 text-[#0a0a0a]",
         reportMode && "cursor-crosshair",
       )}
     >
       <div className="border-b border-black/10 px-4 py-4">
         <h2 className="text-left text-[15px] font-semibold leading-snug tracking-tight sm:text-base">
-          {libraryGoodPoints.title}
+          {mockPage.title}
         </h2>
       </div>
 
       <div className="grid grid-cols-2 border-b border-black/10">
         <button
-          ref={targetRef}
+          ref={setTargetRef("main-stat")}
           type="button"
-          onClick={onSelectTarget}
+          onClick={() => onSelectTarget("main-stat")}
           disabled={!reportMode}
           className={cn(
-            "flex min-h-[108px] flex-col justify-between border-r border-black/10 p-4 text-left transition-all",
-            reportMode && "cursor-crosshair hover:bg-[#00a88f]/[0.04]",
-            highlightTarget &&
-              "bg-[#00a88f]/[0.06] ring-2 ring-inset ring-[#00a88f]",
+            "flex min-h-[108px] flex-col justify-between border-r border-black/10 p-4",
+            selectableCellClass(reportMode, highlightTargets),
           )}
         >
-          <p className="text-[10px] text-[#737373]">
-            {libraryGoodPoints.mainStat.label}
-          </p>
+          <p className="text-[10px] text-[#737373]">{mockPage.mainStat.label}</p>
           <p className="text-2xl font-semibold tracking-tight sm:text-[28px]">
-            {libraryGoodPoints.mainStat.value}
+            {mockPage.mainStat.value}
           </p>
         </button>
 
         <div className="flex min-h-[108px] flex-col p-4">
-          <div className="mb-2 inline-flex w-fit items-center gap-1.5 border border-black/10 px-2 py-1 text-[10px]">
-            <StitchableLogo className="size-3 text-[#00a88f]" />
-            <span className="font-medium">{libraryGoodPoints.chart.label}</span>
+          <button
+            ref={setTargetRef("chart")}
+            type="button"
+            onClick={() => onSelectTarget("chart")}
+            disabled={!reportMode}
+            className={cn(
+              "mb-2 inline-flex w-fit items-center gap-1.5 border border-black/10 px-2 py-1 text-[10px]",
+              selectableCellClass(reportMode, highlightTargets),
+            )}
+          >
+            <span className="font-medium">{mockPage.chart.label}</span>
             <ChevronDown className="size-3 text-[#737373]" aria-hidden />
-          </div>
+          </button>
           <PreviewMiniChart
-            axisStart={libraryGoodPoints.chart.axisStart}
-            axisEnd={libraryGoodPoints.chart.axisEnd}
+            axisStart={mockPage.chart.axisStart}
+            axisEnd={mockPage.chart.axisEnd}
           />
         </div>
       </div>
 
       <div className="grid grid-cols-3 border-b border-black/10">
-        {libraryGoodPoints.stats.map((stat, index) => (
-          <div
-            key={stat.label}
-            className={cn(
-              "p-3 sm:p-4",
-              index < 2 && "border-r border-black/10",
-            )}
-          >
-            <p className="text-sm font-semibold tracking-tight sm:text-base">
-              {stat.value}
-            </p>
-            <p className="mt-1 text-[9px] text-[#737373] sm:text-[10px]">
-              {stat.label}
-            </p>
-          </div>
-        ))}
+        {mockPage.stats.map((stat, index) => {
+          const isErrorStat = index === 1;
+          const cellClass = cn(
+            "p-3 sm:p-4",
+            index < 2 && "border-r border-black/10",
+          );
+
+          if (isErrorStat) {
+            return (
+              <button
+                key={stat.label}
+                ref={setTargetRef("error-stat")}
+                type="button"
+                onClick={() => onSelectTarget("error-stat")}
+                disabled={!reportMode}
+                className={cn(cellClass, selectableCellClass(reportMode, highlightTargets))}
+              >
+                <p className="text-sm font-semibold tracking-tight sm:text-base">{stat.value}</p>
+                <p className="mt-1 text-[9px] text-[#737373] sm:text-[10px]">{stat.label}</p>
+              </button>
+            );
+          }
+
+          return (
+            <div key={stat.label} className={cellClass}>
+              <p className="text-sm font-semibold tracking-tight sm:text-base">{stat.value}</p>
+              <p className="mt-1 text-[9px] text-[#737373] sm:text-[10px]">{stat.label}</p>
+            </div>
+          );
+        })}
       </div>
 
       <div className="border-b border-black/10 px-4 py-4">
         <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#00a88f]">
-          {techTrust.eyebrow}
+          {mockPage.section.eyebrow}
         </span>
         <h3 className="mt-2 text-left text-sm font-semibold tracking-tight sm:text-[15px]">
-          {techTrust.title}
+          {mockPage.section.title}
         </h3>
         <p className="mt-1.5 text-left text-[10px] leading-relaxed text-[#525252] sm:text-[11px]">
-          <RichText text={techTrust.description} />
+          {mockPage.section.description}
         </p>
       </div>
 
-      <div className="grid grid-cols-2">
-        {techTrust.panels.map((panel, index) => (
-          <div
-            key={panel.title}
-            className={cn(
-              "p-4",
-              index === 0 && "border-r border-black/10",
-            )}
-          >
-            <h4 className="text-left text-[11px] font-semibold sm:text-xs">
-              {panel.title}
-            </h4>
-            <p className="mt-1.5 text-left text-[10px] leading-relaxed text-[#525252]">
-              <RichText text={panel.description} />
-            </p>
-          </div>
-        ))}
+      <div className="grid grid-cols-2 border-b border-black/10">
+        {mockPage.panels.map((panel, index) => {
+          const isApiPanel = index === 0;
+          const cellClass = cn("p-4 text-left", index === 0 && "border-r border-black/10");
+
+          if (isApiPanel) {
+            return (
+              <button
+                key={panel.title}
+                ref={setTargetRef("api-panel")}
+                type="button"
+                onClick={() => onSelectTarget("api-panel")}
+                disabled={!reportMode}
+                className={cn(cellClass, selectableCellClass(reportMode, highlightTargets))}
+              >
+                <h4 className="text-[11px] font-semibold sm:text-xs">{panel.title}</h4>
+                <p className="mt-1.5 text-[10px] leading-relaxed text-[#525252] sm:text-[11px]">
+                  {panel.description}
+                </p>
+              </button>
+            );
+          }
+
+          return (
+            <div key={panel.title} className={cellClass}>
+              <h4 className="text-[11px] font-semibold sm:text-xs">{panel.title}</h4>
+              <p className="mt-1.5 text-[10px] leading-relaxed text-[#525252] sm:text-[11px]">
+                {panel.description}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="border-b border-black/10">
+        <div className="border-b border-black/10 px-4 py-3">
+          <h4 className="text-left text-[11px] font-semibold sm:text-xs">{mockPage.table.title}</h4>
+        </div>
+        <div className="grid grid-cols-4 border-b border-black/10 bg-[#fafafa] text-[9px] font-medium uppercase tracking-wide text-[#737373]">
+          {mockPage.table.headers.map((header, index) => (
+            <div
+              key={header}
+              className={cn("px-3 py-2 sm:px-4", index < 3 && "border-r border-black/10")}
+            >
+              {header}
+            </div>
+          ))}
+        </div>
+        {mockPage.table.rows.map((row) => {
+          if (row.selectable) {
+            return (
+              <button
+                key={row.cells.join("-")}
+                ref={setTargetRef("deploy-row")}
+                type="button"
+                onClick={() => onSelectTarget("deploy-row")}
+                disabled={!reportMode}
+                className={cn(
+                  "grid w-full grid-cols-4 border-b border-black/10 text-left text-[10px] sm:text-[11px]",
+                  selectableCellClass(reportMode, highlightTargets),
+                )}
+              >
+                {row.cells.map((cell, index) => (
+                  <span
+                    key={cell}
+                    className={cn(
+                      "px-3 py-2.5 sm:px-4",
+                      index < 3 && "border-r border-black/10",
+                      index === 2 && "font-medium text-[#00a88f]",
+                    )}
+                  >
+                    {cell}
+                  </span>
+                ))}
+              </button>
+            );
+          }
+
+          return (
+            <div
+              key={row.cells.join("-")}
+              className="grid grid-cols-4 border-b border-black/10 text-[10px] sm:text-[11px]"
+            >
+              {row.cells.map((cell, index) => (
+                <span
+                  key={cell}
+                  className={cn("px-3 py-2.5 sm:px-4", index < 3 && "border-r border-black/10")}
+                >
+                  {cell}
+                </span>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="px-4 py-4">
+        <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#00a88f]">
+          {mockPage.release.eyebrow}
+        </span>
+        <h3 className="mt-2 text-left text-sm font-semibold tracking-tight sm:text-[15px]">
+          {mockPage.release.title}
+        </h3>
+        <div className="mt-3 border border-black/10">
+          {mockPage.release.items.map((item, index) => (
+            <div
+              key={item.version}
+              className={cn(
+                "grid grid-cols-[72px_1fr] text-[10px] sm:text-[11px]",
+                index < mockPage.release.items.length - 1 && "border-b border-black/10",
+              )}
+            >
+              <span className="border-r border-black/10 px-3 py-2.5 font-medium sm:px-4">
+                {item.version}
+              </span>
+              <span className="px-3 py-2.5 text-[#525252] sm:px-4">{item.note}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

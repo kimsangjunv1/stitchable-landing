@@ -280,6 +280,32 @@ export type LandingMessages = {
       designer: string
       developer: string
       envLabel: string
+      mockPage: {
+        title: string
+        mainStat: { label: string; value: string }
+        chart: {
+          label: string
+          axisStart: string
+          axisEnd: string
+        }
+        stats: { value: string; label: string }[]
+        section: {
+          eyebrow: string
+          title: string
+          description: string
+        }
+        panels: { title: string; description: string }[]
+        table: {
+          title: string
+          headers: string[]
+          rows: { cells: string[]; selectable?: boolean }[]
+        }
+        release: {
+          eyebrow: string
+          title: string
+          items: { version: string; note: string }[]
+        }
+      }
     }
   }
 }

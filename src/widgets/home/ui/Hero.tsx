@@ -11,7 +11,7 @@ export function Hero() {
     const t = useMessages().landing.hero;
 
     return (
-        <article className="vp-hero-surface border-b border-[var(--vp-color-stroke)] grid grid-cols-1 lg:grid-cols-2">
+        <article className="h-[75svh] vp-hero-surface border-b border-[var(--vp-color-stroke)] grid grid-cols-1 lg:grid-cols-2 items-end">
             <section className="flex w-full flex-col items-center gap-6 text-center p-[54px] lg:items-start lg:text-left">
                 <div className="space-y-4">
                     <Text.Reveal
