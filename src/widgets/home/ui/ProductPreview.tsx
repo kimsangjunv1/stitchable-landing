@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, type MouseEvent, type RefObject } from "react";
+import { useCallback, useMemo, useRef, useState, type MouseEvent, type RefObject } from "react";
 import { ChevronDown } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import type { LandingMessages } from "@/i18n";
@@ -96,6 +96,10 @@ function markerCardStyle(marker: MarkerPos, offsetTop = 8): { left: string; top:
     };
 }
 
+function getMarkerColor(entry: MockFeedback): string {
+    return entry.status === "resolved" ? FEEDBACK_STATUS_COLOR.resolved : MARKER_ITEM;
+}
+
 export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const messages = useMessages();
     const preview = messages.landing.preview;
@@ -116,13 +120,13 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const [draftMessage, setDraftMessage] = useState("");
     const [composerMode, setComposerMode] = useState<"create" | "reply" | null>(null);
 
-    useSyncReportMarker(canvasRef, scrollContainerRef, draftAnchor, setDraftMarkerPos);
-    useSyncReportMarkers(
-        canvasRef,
-        scrollContainerRef,
-        feedbackEntries.map((entry) => ({ id: entry.id, anchor: entry.anchor })),
-        setEntryMarkerPositions,
+    const anchoredMarkers = useMemo(
+        () => feedbackEntries.map((entry) => ({ id: entry.id, anchor: entry.anchor })),
+        [feedbackEntries],
     );
+
+    useSyncReportMarker(canvasRef, scrollContainerRef, draftAnchor, setDraftMarkerPos);
+    useSyncReportMarkers(canvasRef, scrollContainerRef, anchoredMarkers, setEntryMarkerPositions);
 
     const resetDemo = useCallback(() => {
         setStep(1);
@@ -139,9 +143,19 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setComposerMode(null);
     }, []);
 
+    const advanceStep = useCallback((next: DemoStep) => {
+        setStep((current) => (current < next ? next : current));
+    }, []);
+
+    const closeThreadCard = useCallback(() => {
+        setShowThreadCard(false);
+        setActiveEntryId(null);
+        setComposerMode(null);
+        setDraftMessage("");
+    }, []);
+
     const handleAddFeedback = () => {
-        const canStartReport = step === 1 || (step >= 4 && step <= 5 && feedbackEntries.length > 0);
-        if (!canStartReport) return;
+        if (panelMode === "report" || step === 8) return;
         setPanelMode("report");
         setShowCreateComposer(false);
         setDraftAnchor(null);
@@ -149,7 +163,8 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setHoveredEntryId(null);
         setDraftMessage("");
         setComposerMode(null);
-        setStep(2);
+        closeThreadCard();
+        advanceStep(2);
     };
 
     const handleStopFeedback = () => {
@@ -160,11 +175,15 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setDraftMarkerPos(null);
         setDraftMessage("");
         setComposerMode(null);
-        setStep(feedbackEntries.length > 0 ? 4 : 1);
+        if (feedbackEntries.length > 0) {
+            advanceStep(4);
+        } else {
+            setStep(1);
+        }
     };
 
     const handleMockPageClick = (event: MouseEvent<HTMLDivElement>) => {
-        if (step !== 2 || panelMode !== "report") return;
+        if (panelMode !== "report") return;
 
         const target = findTargetElement(event.target as HTMLElement);
         if (!target || !scrollContainerRef.current?.contains(target)) return;
@@ -178,11 +197,11 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setShowCreateComposer(true);
         setComposerMode("create");
         setDraftMessage("");
-        setStep(3);
+        advanceStep(3);
     };
 
     const handleSendCreate = () => {
-        if (step !== 3 || !draftMessage.trim() || !draftAnchor) return;
+        if (!draftMessage.trim() || !draftAnchor) return;
 
         setFeedbackEntries((entries) => [
             ...entries,
@@ -201,11 +220,11 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setDraftMessage("");
         setComposerMode(null);
         setPanelMode("view");
-        setStep(4);
+        advanceStep(4);
     };
 
     const handleMarkerEnter = (entryId: string) => {
-        if (step < 4) return;
+        if (showThreadCard) return;
         setHoveredEntryId(entryId);
         if (step === 4) setStep(5);
     };
@@ -215,17 +234,16 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     };
 
     const handleMarkerClick = (entryId: string) => {
-        if (step < 4) return;
         setHoveredEntryId(null);
         setActiveEntryId(entryId);
         setShowThreadCard(true);
         setComposerMode("reply");
         setDraftMessage("");
-        setStep(6);
+        advanceStep(6);
     };
 
     const handleSendReply = () => {
-        if (step !== 6 || !draftMessage.trim() || !activeEntryId) return;
+        if (!draftMessage.trim() || !activeEntryId) return;
 
         setFeedbackEntries((entries) =>
             entries.map((entry) =>
@@ -246,11 +264,11 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         );
         setDraftMessage("");
         setComposerMode(null);
-        setStep(7);
+        advanceStep(7);
     };
 
     const handleResolve = () => {
-        if (step !== 7 || !activeEntryId) return;
+        if (!activeEntryId) return;
 
         setFeedbackEntries((entries) =>
             entries.map((entry) =>
@@ -286,7 +304,8 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const activeEntry = activeEntryId ? feedbackEntries.find((entry) => entry.id === activeEntryId) : null;
     const activeMarkerPos = activeEntryId ? entryMarkerPositions[activeEntryId] : null;
     const isComplete = step === 8;
-    const activeHint = isComplete ? null : preview.hints[step - 1];
+    const activeHint = isComplete ? null : preview.hints[Math.min(step, 7) - 1];
+    const showReplyComposer = showThreadCard && composerMode === "reply" && activeEntry?.replies.length === 0;
 
     return (
         <div className="flex h-full min-h-0 w-full flex-col">
@@ -316,7 +335,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                     >
                         <PreviewMockPage
                             scrollContainerRef={scrollContainerRef}
-                            highlightTargets={step === 2 && panelMode === "report"}
+                            highlightTargets={panelMode === "report"}
                             reportMode={panelMode === "report"}
                             mockPage={preview.mockPage}
                             onPageClick={handleMockPageClick}
@@ -339,7 +358,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                                 >
                                     <span
                                         className="relative flex h-4 w-4 items-center justify-center rounded-full border border-white/60"
-                                        style={{ backgroundColor: MARKER_ITEM }}
+                                        style={{ backgroundColor: getMarkerColor(entry) }}
                                     />
                                     {entry.replies.length > 0 ? (
                                         <span className="absolute -right-[6px] -top-[6px] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[var(--adaptive-black900)] px-[3px] text-[10px] font-semibold leading-none text-[var(--adaptive-black50)] ring-1 ring-white/80">
@@ -393,10 +412,20 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                             </div>
                         ) : null}
 
+                        {showThreadCard ? (
+                            <button
+                                type="button"
+                                className="absolute inset-0 z-[45] cursor-default bg-transparent"
+                                onClick={closeThreadCard}
+                                aria-label="Close"
+                            />
+                        ) : null}
+
                         {showThreadCard && activeEntry && activeMarkerPos ? (
                             <div
                                 className="absolute z-50 overflow-hidden rounded-[24px] border-[2px] border-[var(--adaptive-black300)] backdrop-blur-[10px]"
                                 style={markerCardStyle(activeMarkerPos, -4)}
+                                onClick={(event) => event.stopPropagation()}
                             >
                                 <section className="flex flex-col gap-[12px] bg-[var(--adaptive-blackOpacity800)] p-[16px] backdrop-blur-[20px]">
                                     <StatusBadge
@@ -407,7 +436,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                                     <p className="text-[12px] text-[var(--adaptive-black500)]">{activeEntry.author_name}</p>
                                 </section>
 
-                                {composerMode === "reply" && step === 6 ? (
+                                {showReplyComposer ? (
                                     <MockComposer
                                         message={draftMessage}
                                         author={preview.developer}
@@ -421,7 +450,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                                     <section className="max-h-[200px] overflow-auto bg-[var(--adaptive-blackOpacity900)] backdrop-blur-[10px]">
                                         {[...activeEntry.replies].reverse().map((reply) => {
                                             const isLatest = activeEntry.replies[activeEntry.replies.length - 1]?.id === reply.id;
-                                            const showResolveBtn = isLatest && reply.status === "suggested" && activeEntry.status !== "resolved" && step === 7;
+                                            const showResolveBtn = isLatest && reply.status === "suggested" && activeEntry.status !== "resolved" && step >= 7;
 
                                             return (
                                                 <article
@@ -460,7 +489,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                         <ControlPanel
                             mode={panelMode}
                             stats={stats}
-                            highlightAdd={step === 1 || (step >= 4 && step <= 5)}
+                            highlightAdd={!isComplete && (step === 1 || (step >= 4 && step <= 5))}
                             messages={messages}
                             envLabel={preview.envLabel}
                             onAddFeedback={handleAddFeedback}

@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { Geist_Mono, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { GlobalErrorBoundary } from "@/app/providers/GlobalErrorBoundary";
@@ -52,10 +53,7 @@ const suit = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Stitchable — Feedback, directly on your UI",
-  description:
-    "A DOM-aware feedback layer for QA, staging, and internal tools. Leave feedback on real DOM elements, restore markers after UI changes, and review issues without screenshots.",
-  generator: "v0.app",
+  ...createPageMetadata(),
   icons: {
     icon: [
       {

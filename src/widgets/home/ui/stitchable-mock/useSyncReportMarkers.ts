@@ -1,4 +1,4 @@
-import { useEffect, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import {
   getMarkerAnchorInContainer,
   type MarkerPos,
@@ -10,6 +10,24 @@ export type AnchoredMarker = {
   anchor: ReportAnchor;
 };
 
+function positionsEqual(
+  a: Record<string, MarkerPos | null>,
+  b: Record<string, MarkerPos | null>,
+) {
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
+  if (aKeys.length !== bKeys.length) return false;
+
+  for (const key of aKeys) {
+    const left = a[key];
+    const right = b[key];
+    if (!left || !right) return left !== right;
+    if (left.left !== right.left || left.top !== right.top) return false;
+  }
+
+  return true;
+}
+
 /** Sync multiple report markers on scroll/resize — one position map keyed by entry id. */
 export function useSyncReportMarkers(
   canvasRef: RefObject<HTMLElement | null>,
@@ -17,6 +35,13 @@ export function useSyncReportMarkers(
   markers: AnchoredMarker[],
   onPositions: (positions: Record<string, MarkerPos | null>) => void,
 ) {
+  const markersRef = useRef(markers);
+  const onPositionsRef = useRef(onPositions);
+  const lastPositionsRef = useRef<Record<string, MarkerPos | null>>({});
+
+  markersRef.current = markers;
+  onPositionsRef.current = onPositions;
+
   const markersKey = markers
     .map(
       (m) =>
@@ -25,19 +50,25 @@ export function useSyncReportMarkers(
     .join("|");
 
   useEffect(() => {
+    const publish = (next: Record<string, MarkerPos | null>) => {
+      if (positionsEqual(lastPositionsRef.current, next)) return;
+      lastPositionsRef.current = next;
+      onPositionsRef.current(next);
+    };
+
     const sync = () => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
       const next: Record<string, MarkerPos | null> = {};
-      for (const { id, anchor } of markers) {
+      for (const { id, anchor } of markersRef.current) {
         next[id] = getMarkerAnchorInContainer(canvas, anchor);
       }
-      onPositions(next);
+      publish(next);
     };
 
-    if (markers.length === 0) {
-      onPositions({});
+    if (markersRef.current.length === 0) {
+      publish({});
       return;
     }
 
@@ -51,5 +82,5 @@ export function useSyncReportMarkers(
       scrollEl?.removeEventListener("scroll", sync);
       window.removeEventListener("resize", sync);
     };
-  }, [markersKey, markers, canvasRef, scrollContainerRef, onPositions]);
+  }, [markersKey, canvasRef, scrollContainerRef]);
 }
