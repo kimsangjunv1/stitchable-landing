@@ -689,7 +689,6 @@ export const en: LandingMessages = {
     preview: {
       title: "Feedback workflow",
       subtitle: "Add feedback → pick element → reply → resolve",
-      exportReport: "Export report",
       progress: [
         "Panel idle",
         "Add feedback",
@@ -701,7 +700,7 @@ export const en: LandingMessages = {
       ],
       hints: [
         "Click the Add feedback button",
-        "Click the Export report button",
+        "Click the bundle size (~55KB) stat",
         "Type a message and send",
         "Hover over the marker",
         "Click the marker to open the thread",
@@ -709,20 +708,11 @@ export const en: LandingMessages = {
         "Click Resolve to close the issue",
       ],
       retryLabel: "Try again",
-      feedbackMessage: "Export button overlaps the value on mobile",
-      replyMessage: "Including a flex-wrap fix in tomorrow's stage deploy",
+      feedbackMessage: "On mobile the ~55KB stat sits too close to the chart",
+      replyMessage: "Will tighten mobile spacing in tomorrow's stage deploy",
       designer: "Maya K.",
       developer: "Dev Team",
       envLabel: "stage",
-      appName: "Acme Analytics",
-      revenueLabel: "Monthly revenue",
-      revenueValue: "$48,250",
-      revenueChange: "+12.4% vs last month",
-      stats: [
-        { label: "Active users", value: "8,492" },
-        { label: "Sessions", value: "21,118" },
-        { label: "Bounce rate", value: "32.1%" },
-      ],
     },
   },
 }

@@ -272,7 +272,6 @@ export type LandingMessages = {
     preview: {
       title: string
       subtitle: string
-      exportReport: string
       progress: string[]
       hints: string[]
       retryLabel: string
@@ -281,11 +280,6 @@ export type LandingMessages = {
       designer: string
       developer: string
       envLabel: string
-      appName: string
-      revenueLabel: string
-      revenueValue: string
-      revenueChange: string
-      stats: { label: string; value: string }[]
     }
   }
 }

@@ -1,12 +1,21 @@
 "use client";
 
 import { useCallback, useRef, useState, type RefObject } from "react";
-import { Bell, Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import type { LandingMessages } from "@/i18n";
+import { RichText } from "@/shared/ui/rich-text";
 import { cn } from "@/shared/lib/utils";
 import { SafariWindowChrome } from "./SafariWindowChrome";
-import { ChevronDownIcon, formatStatCount, LogoIcon, SelectIcon, SendIcon, SettingsIcon } from "./stitchable-mock/icons";
+import {
+  ChevronDownIcon,
+  formatStatCount,
+  LogoIcon,
+  SelectIcon,
+  SendIcon,
+  SettingsIcon,
+} from "./stitchable-mock/icons";
+import { StitchableLogo } from "./StitchableLogo";
 import { FEEDBACK_STATUS_COLOR, MARKER_ITEM, STITCHABLE_LIGHT_STYLE } from "./stitchable-mock/tokens";
 
 type DemoStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -245,15 +254,16 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                 >
                     <div
                         ref={canvasRef}
-                        className="relative h-full min-h-[380px] overflow-hidden bg-[#f6f6f7]"
-                    >
-                        <DemoHostApp
-                            targetRef={targetRef}
-                            highlightTarget={step === 2 && panelMode === "report"}
-                            reportMode={panelMode === "report"}
-                            preview={preview}
-                            onSelectTarget={handleSelectTarget}
-                        />
+            className="relative h-full min-h-[380px] overflow-hidden bg-white"
+          >
+            <PreviewLandingPage
+              targetRef={targetRef}
+              highlightTarget={step === 2 && panelMode === "report"}
+              reportMode={panelMode === "report"}
+              libraryGoodPoints={messages.landing.libraryGoodPoints}
+              techTrust={messages.landing.techTrust}
+              onSelectTarget={handleSelectTarget}
+            />
 
                         {showMarker && markerPos ? (
                             <button
@@ -463,98 +473,170 @@ function ProcessStepTabs({ current, labels }: { current: number; labels: string[
     );
 }
 
-function DemoHostApp({
-    targetRef,
-    highlightTarget,
-    reportMode,
-    preview,
-    onSelectTarget,
+const PREVIEW_BRAND = "#00a88f";
+
+function PreviewMiniChart({
+  axisStart,
+  axisEnd,
 }: {
-    targetRef: RefObject<HTMLButtonElement | null>;
-    highlightTarget: boolean;
-    reportMode: boolean;
-    preview: LandingMessages["landing"]["preview"];
-    onSelectTarget: () => void;
+  axisStart: string;
+  axisEnd: string;
 }) {
-    return (
-        <div className={cn("relative flex h-full transition-colors", reportMode && "cursor-crosshair")}>
-            <div className="hidden w-[24%] shrink-0 border-r border-[#e2e2e3] bg-[#eeedef] p-3 sm:block">
-                <div className="mb-4 flex items-center gap-2">
-                    <div className="size-5 rounded-md bg-[#646cff]" />
-                    <span className="truncate text-[11px] font-semibold text-[#3c3c43]">{preview.appName}</span>
-                </div>
-                <div className="space-y-1.5">
-                    {["Dashboard", "Reports", "Settings"].map((item, i) => (
-                        <div
-                            key={item}
-                            className={cn("rounded-md px-2 py-1.5 text-[11px] font-medium", i === 0 ? "bg-[#646cff]/12 text-[#646cff]" : "text-[#6a6a71]")}
-                        >
-                            {item}
-                        </div>
-                    ))}
-                </div>
-            </div>
+  const gradientId = "preview-bundle-chart-gradient";
 
-            <div className="relative flex min-w-0 flex-1 flex-col gap-4 p-4 pb-16">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 sm:hidden">
-                        <div className="size-5 rounded-md bg-[#646cff]" />
-                        <span className="text-[12px] font-semibold text-[#3c3c43]">{preview.appName}</span>
-                    </div>
-                    <div className="ml-auto flex items-center gap-2.5 text-[#8e8e93]">
-                        <Search className="size-3.5" />
-                        <Bell className="size-3.5" />
-                        <div className="size-5 rounded-full bg-[#d1d1d6]" />
-                    </div>
-                </div>
+  return (
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className="relative min-h-[72px] flex-1">
+        <svg
+          viewBox="0 0 400 200"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+          aria-hidden
+        >
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={PREVIEW_BRAND} stopOpacity="0.35" />
+              <stop
+                offset="100%"
+                stopColor={PREVIEW_BRAND}
+                stopOpacity="0.02"
+              />
+            </linearGradient>
+          </defs>
+          <path
+            d="M 0 185 C 60 182, 120 175, 180 155 C 240 120, 300 70, 400 25 L 400 200 L 0 200 Z"
+            fill={`url(#${gradientId})`}
+          />
+          <path
+            d="M 0 185 C 60 182, 120 175, 180 155 C 240 120, 300 70, 400 25"
+            fill="none"
+            stroke={PREVIEW_BRAND}
+            strokeWidth="2.5"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+      <div className="mt-1.5 flex items-center justify-between text-[9px] text-[#737373]">
+        <span>{axisStart}</span>
+        <span>{axisEnd}</span>
+      </div>
+    </div>
+  );
+}
 
-                <div className="rounded-xl border border-[#e2e2e3] bg-white p-4 shadow-sm">
-                    <div className="mb-3 flex items-start justify-between gap-3">
-                        <div className="min-w-0 flex-1">
-                            <p className="text-[10px] font-medium uppercase tracking-wider text-[#8e8e93]">{preview.revenueLabel}</p>
-                            <p className="mt-1 text-xl font-semibold tracking-tight text-[#1c1c1e] sm:text-2xl">{preview.revenueValue}</p>
-                            <p className="mt-0.5 text-[11px] font-medium text-[#34c759]">{preview.revenueChange}</p>
-                        </div>
-                        <button
-                            ref={targetRef}
-                            type="button"
-                            onClick={onSelectTarget}
-                            disabled={!reportMode}
-                            className={cn(
-                                "shrink-0 rounded-lg bg-[#646cff] px-3 py-1.5 text-[11px] font-medium text-white transition-all",
-                                reportMode && "cursor-crosshair hover:bg-[#535bf2]",
-                                !reportMode && "opacity-90",
-                                highlightTarget && "ring-2 ring-[#646cff] ring-offset-2 ring-offset-white",
-                            )}
-                        >
-                            {preview.exportReport}
-                        </button>
-                    </div>
-                    <div className="flex h-12 items-end gap-1 rounded-lg bg-[#f6f6f7] px-2 pb-2">
-                        {[35, 55, 42, 68, 50, 78, 62, 85, 70].map((h, i) => (
-                            <span
-                                key={i}
-                                className="flex-1 rounded-sm bg-[#646cff]/25"
-                                style={{ height: `${h}%` }}
-                            />
-                        ))}
-                    </div>
-                </div>
+function PreviewLandingPage({
+  targetRef,
+  highlightTarget,
+  reportMode,
+  libraryGoodPoints,
+  techTrust,
+  onSelectTarget,
+}: {
+  targetRef: RefObject<HTMLButtonElement | null>;
+  highlightTarget: boolean;
+  reportMode: boolean;
+  libraryGoodPoints: LandingMessages["landing"]["libraryGoodPoints"];
+  techTrust: LandingMessages["landing"]["techTrust"];
+  onSelectTarget: () => void;
+}) {
+  return (
+    <div
+      className={cn(
+        "h-full overflow-y-auto pb-16 text-[#0a0a0a] transition-colors",
+        reportMode && "cursor-crosshair",
+      )}
+    >
+      <div className="border-b border-black/10 px-4 py-4">
+        <h2 className="text-left text-[15px] font-semibold leading-snug tracking-tight sm:text-base">
+          {libraryGoodPoints.title}
+        </h2>
+      </div>
 
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                    {preview.stats.map((stat) => (
-                        <div
-                            key={stat.label}
-                            className="rounded-lg border border-[#e2e2e3] bg-white p-2.5 sm:p-3"
-                        >
-                            <p className="text-[9px] font-medium uppercase tracking-wider text-[#8e8e93] sm:text-[10px]">{stat.label}</p>
-                            <p className="mt-1 text-sm font-semibold text-[#1c1c1e] sm:text-base">{stat.value}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
+      <div className="grid grid-cols-2 border-b border-black/10">
+        <button
+          ref={targetRef}
+          type="button"
+          onClick={onSelectTarget}
+          disabled={!reportMode}
+          className={cn(
+            "flex min-h-[108px] flex-col justify-between border-r border-black/10 p-4 text-left transition-all",
+            reportMode && "cursor-crosshair hover:bg-[#00a88f]/[0.04]",
+            highlightTarget &&
+              "bg-[#00a88f]/[0.06] ring-2 ring-inset ring-[#00a88f]",
+          )}
+        >
+          <p className="text-[10px] text-[#737373]">
+            {libraryGoodPoints.mainStat.label}
+          </p>
+          <p className="text-2xl font-semibold tracking-tight sm:text-[28px]">
+            {libraryGoodPoints.mainStat.value}
+          </p>
+        </button>
+
+        <div className="flex min-h-[108px] flex-col p-4">
+          <div className="mb-2 inline-flex w-fit items-center gap-1.5 border border-black/10 px-2 py-1 text-[10px]">
+            <StitchableLogo className="size-3 text-[#00a88f]" />
+            <span className="font-medium">{libraryGoodPoints.chart.label}</span>
+            <ChevronDown className="size-3 text-[#737373]" aria-hidden />
+          </div>
+          <PreviewMiniChart
+            axisStart={libraryGoodPoints.chart.axisStart}
+            axisEnd={libraryGoodPoints.chart.axisEnd}
+          />
         </div>
-    );
+      </div>
+
+      <div className="grid grid-cols-3 border-b border-black/10">
+        {libraryGoodPoints.stats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className={cn(
+              "p-3 sm:p-4",
+              index < 2 && "border-r border-black/10",
+            )}
+          >
+            <p className="text-sm font-semibold tracking-tight sm:text-base">
+              {stat.value}
+            </p>
+            <p className="mt-1 text-[9px] text-[#737373] sm:text-[10px]">
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="border-b border-black/10 px-4 py-4">
+        <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#00a88f]">
+          {techTrust.eyebrow}
+        </span>
+        <h3 className="mt-2 text-left text-sm font-semibold tracking-tight sm:text-[15px]">
+          {techTrust.title}
+        </h3>
+        <p className="mt-1.5 text-left text-[10px] leading-relaxed text-[#525252] sm:text-[11px]">
+          <RichText text={techTrust.description} />
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2">
+        {techTrust.panels.map((panel, index) => (
+          <div
+            key={panel.title}
+            className={cn(
+              "p-4",
+              index === 0 && "border-r border-black/10",
+            )}
+          >
+            <h4 className="text-left text-[11px] font-semibold sm:text-xs">
+              {panel.title}
+            </h4>
+            <p className="mt-1.5 text-left text-[10px] leading-relaxed text-[#525252]">
+              <RichText text={panel.description} />
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function ControlPanel({

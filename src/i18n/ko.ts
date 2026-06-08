@@ -702,7 +702,6 @@ export const ko: LandingMessages = {
     preview: {
       title: "피드백 워크플로우",
       subtitle: "피드백 추가 → 요소 선택 → 답변 → 해결",
-      exportReport: "리포트 보내기",
       progress: [
         "패널 대기",
         "피드백 추가",
@@ -714,7 +713,7 @@ export const ko: LandingMessages = {
       ],
       hints: [
         "피드백 추가 버튼을 누르세요",
-        "리포트 보내기 버튼을 클릭하세요",
+        "번들 크기(~55KB) 영역을 클릭하세요",
         "메시지를 입력하고 전송하세요",
         "마커에 마우스를 올려보세요",
         "마커를 클릭해 스레드를 여세요",
@@ -722,20 +721,11 @@ export const ko: LandingMessages = {
         "해결 버튼을 눌러 이슈를 종료하세요",
       ],
       retryLabel: "다시 체험하기",
-      feedbackMessage: "모바일에서 Export 버튼이 금액과 겹쳐 보입니다",
-      replyMessage: "flex-wrap 수정을 내일 stage 배포에 포함하겠습니다",
+      feedbackMessage: "모바일에서 ~55KB 수치가 차트와 너무 붙어 보입니다",
+      replyMessage: "모바일 레이아웃 간격을 내일 stage 배포에 반영하겠습니다",
       designer: "김디자인",
       developer: "이개발",
       envLabel: "stage",
-      appName: "Acme Analytics",
-      revenueLabel: "월간 매출",
-      revenueValue: "₩48,250,000",
-      revenueChange: "전월 대비 +12.4%",
-      stats: [
-        { label: "활성 사용자", value: "8,492" },
-        { label: "세션", value: "21,118" },
-        { label: "이탈률", value: "32.1%" },
-      ],
     },
   },
 }
