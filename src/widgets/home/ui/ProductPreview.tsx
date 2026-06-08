@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type MouseEvent, type RefObject } from "react";
 import { ChevronDown } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import type { LandingMessages } from "@/i18n";
@@ -14,14 +14,20 @@ import {
   SendIcon,
   SettingsIcon,
 } from "./stitchable-mock/icons";
+import {
+  createReportAnchorFromClick,
+  findTargetElement,
+  getMarkerAnchorInContainer,
+  PREVIEW_MOCK_REPORT_IDS,
+  type MarkerPos,
+  type ReportAnchor,
+} from "./stitchable-mock/reportTarget";
+import { useSyncReportMarker } from "./stitchable-mock/useSyncReportMarker";
 import { FEEDBACK_STATUS_COLOR, MARKER_ITEM, STITCHABLE_LIGHT_STYLE } from "./stitchable-mock/tokens";
-
-type MockTargetId = "main-stat" | "chart" | "error-stat" | "deploy-row" | "api-panel";
 
 type DemoStep = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 type PanelMode = "idle" | "report" | "view";
-type MarkerPos = { left: number; top: number };
 
 type MockReply = {
     id: string;
@@ -36,15 +42,6 @@ type MockFeedback = {
     status: "open" | "resolved";
     replies: MockReply[];
 };
-
-function getCenterPos(container: HTMLElement, target: HTMLElement): MarkerPos {
-    const c = container.getBoundingClientRect();
-    const t = target.getBoundingClientRect();
-    return {
-        left: ((t.left + t.width / 2 - c.left) / c.width) * 100,
-        top: ((t.top + t.height / 2 - c.top) / c.height) * 100,
-    };
-}
 
 function getDisplayStatus(feedback: MockFeedback, messages: LandingMessages): "currently_wait" | "suggested" | "resolved" {
     if (feedback.status === "resolved") return "resolved";
@@ -91,18 +88,12 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const preview = messages.landing.preview;
 
     const canvasRef = useRef<HTMLDivElement>(null);
-    const targetRefs = useRef(new Map<MockTargetId, HTMLButtonElement>());
-
-    const setTargetRef = useCallback((id: MockTargetId) => {
-        return (element: HTMLButtonElement | null) => {
-            if (element) targetRefs.current.set(id, element);
-            else targetRefs.current.delete(id);
-        };
-    }, []);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const [step, setStep] = useState<DemoStep>(1);
     const [panelMode, setPanelMode] = useState<PanelMode>("idle");
     const [feedback, setFeedback] = useState<MockFeedback | null>(null);
+    const [reportAnchor, setReportAnchor] = useState<ReportAnchor | null>(null);
     const [markerPos, setMarkerPos] = useState<MarkerPos | null>(null);
     const [showCreateComposer, setShowCreateComposer] = useState(false);
     const [showThreadCard, setShowThreadCard] = useState(false);
@@ -111,10 +102,13 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     const [composerMode, setComposerMode] = useState<"create" | "reply" | null>(null);
     const [demoAdded, setDemoAdded] = useState(false);
 
+    useSyncReportMarker(canvasRef, scrollContainerRef, reportAnchor, setMarkerPos);
+
     const resetDemo = useCallback(() => {
         setStep(1);
         setPanelMode("idle");
         setFeedback(null);
+        setReportAnchor(null);
         setMarkerPos(null);
         setShowCreateComposer(false);
         setShowThreadCard(false);
@@ -139,12 +133,18 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
         setStep(1);
     };
 
-    const handleSelectTarget = (targetId: MockTargetId) => {
+    const handleMockPageClick = (event: MouseEvent<HTMLDivElement>) => {
         if (step !== 2 || panelMode !== "report") return;
+
+        const target = findTargetElement(event.target as HTMLElement);
+        if (!target || !scrollContainerRef.current?.contains(target)) return;
+
+        const anchor = createReportAnchorFromClick(target, event.clientX, event.clientY);
         const canvas = canvasRef.current;
-        const target = targetRefs.current.get(targetId);
-        if (!canvas || !target) return;
-        setMarkerPos(getCenterPos(canvas, target));
+        if (!canvas) return;
+
+        setReportAnchor(anchor);
+        setMarkerPos(getMarkerAnchorInContainer(canvas, anchor));
         setShowCreateComposer(true);
         setComposerMode("create");
         setDraftMessage("");
@@ -229,7 +229,7 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
     };
 
     const replyCount = feedback?.replies.length ?? 0;
-    const showMarker = feedback !== null && markerPos !== null;
+    const showMarker = feedback !== null && reportAnchor !== null && markerPos !== null;
     const isComplete = step === 8;
     const activeHint = isComplete ? null : preview.hints[step - 1];
 
@@ -260,11 +260,11 @@ export function ProductPreview({ embedded = false }: { embedded?: boolean }) {
                         className="relative h-full min-h-[380px] overflow-hidden bg-white"
                     >
                         <PreviewMockPage
-                            setTargetRef={setTargetRef}
+                            scrollContainerRef={scrollContainerRef}
                             highlightTargets={step === 2 && panelMode === "report"}
                             reportMode={panelMode === "report"}
                             mockPage={preview.mockPage}
-                            onSelectTarget={handleSelectTarget}
+                            onPageClick={handleMockPageClick}
                         />
 
                         {showMarker && markerPos ? (
@@ -535,20 +535,24 @@ function selectableCellClass(reportMode: boolean, highlightTargets: boolean) {
 }
 
 function PreviewMockPage({
-  setTargetRef,
+  scrollContainerRef,
   highlightTargets,
   reportMode,
   mockPage,
-  onSelectTarget,
+  onPageClick,
 }: {
-  setTargetRef: (id: MockTargetId) => (element: HTMLButtonElement | null) => void;
+  scrollContainerRef: RefObject<HTMLDivElement | null>;
   highlightTargets: boolean;
   reportMode: boolean;
   mockPage: LandingMessages["landing"]["preview"]["mockPage"];
-  onSelectTarget: (targetId: MockTargetId) => void;
+  onPageClick: (event: MouseEvent<HTMLDivElement>) => void;
 }) {
+  const ids = PREVIEW_MOCK_REPORT_IDS;
+
   return (
     <div
+      ref={scrollContainerRef}
+      onClick={onPageClick}
       className={cn(
         "h-full overflow-y-auto pb-24 text-[#0a0a0a]",
         reportMode && "cursor-crosshair",
@@ -561,11 +565,9 @@ function PreviewMockPage({
       </div>
 
       <div className="grid grid-cols-2 border-b border-black/10">
-        <button
-          ref={setTargetRef("main-stat")}
-          type="button"
-          onClick={() => onSelectTarget("main-stat")}
-          disabled={!reportMode}
+        <div
+          data-report-id={ids.activeSessions}
+          data-report-type="item"
           className={cn(
             "flex min-h-[108px] flex-col justify-between border-r border-black/10 p-4",
             selectableCellClass(reportMode, highlightTargets),
@@ -575,14 +577,12 @@ function PreviewMockPage({
           <p className="text-2xl font-semibold tracking-tight sm:text-[28px]">
             {mockPage.mainStat.value}
           </p>
-        </button>
+        </div>
 
         <div className="flex min-h-[108px] flex-col p-4">
-          <button
-            ref={setTargetRef("chart")}
-            type="button"
-            onClick={() => onSelectTarget("chart")}
-            disabled={!reportMode}
+          <div
+            data-report-id={ids.sessionChart}
+            data-report-type="item"
             className={cn(
               "mb-2 inline-flex w-fit items-center gap-1.5 border border-black/10 px-2 py-1 text-[10px]",
               selectableCellClass(reportMode, highlightTargets),
@@ -590,7 +590,7 @@ function PreviewMockPage({
           >
             <span className="font-medium">{mockPage.chart.label}</span>
             <ChevronDown className="size-3 text-[#737373]" aria-hidden />
-          </button>
+          </div>
           <PreviewMiniChart
             axisStart={mockPage.chart.axisStart}
             axisEnd={mockPage.chart.axisEnd}
@@ -608,17 +608,15 @@ function PreviewMockPage({
 
           if (isErrorStat) {
             return (
-              <button
+              <div
                 key={stat.label}
-                ref={setTargetRef("error-stat")}
-                type="button"
-                onClick={() => onSelectTarget("error-stat")}
-                disabled={!reportMode}
+                data-report-id={ids.errorRate}
+                data-report-type="item"
                 className={cn(cellClass, selectableCellClass(reportMode, highlightTargets))}
               >
                 <p className="text-sm font-semibold tracking-tight sm:text-base">{stat.value}</p>
                 <p className="mt-1 text-[9px] text-[#737373] sm:text-[10px]">{stat.label}</p>
-              </button>
+              </div>
             );
           }
 
@@ -650,19 +648,17 @@ function PreviewMockPage({
 
           if (isApiPanel) {
             return (
-              <button
+              <div
                 key={panel.title}
-                ref={setTargetRef("api-panel")}
-                type="button"
-                onClick={() => onSelectTarget("api-panel")}
-                disabled={!reportMode}
+                data-report-id={ids.apiLatency}
+                data-report-type="item"
                 className={cn(cellClass, selectableCellClass(reportMode, highlightTargets))}
               >
                 <h4 className="text-[11px] font-semibold sm:text-xs">{panel.title}</h4>
                 <p className="mt-1.5 text-[10px] leading-relaxed text-[#525252] sm:text-[11px]">
                   {panel.description}
                 </p>
-              </button>
+              </div>
             );
           }
 
@@ -694,14 +690,12 @@ function PreviewMockPage({
         {mockPage.table.rows.map((row) => {
           if (row.selectable) {
             return (
-              <button
+              <div
                 key={row.cells.join("-")}
-                ref={setTargetRef("deploy-row")}
-                type="button"
-                onClick={() => onSelectTarget("deploy-row")}
-                disabled={!reportMode}
+                data-report-id={ids.deployRow}
+                data-report-type="item"
                 className={cn(
-                  "grid w-full grid-cols-4 border-b border-black/10 text-left text-[10px] sm:text-[11px]",
+                  "grid grid-cols-4 border-b border-black/10 text-[10px] sm:text-[11px]",
                   selectableCellClass(reportMode, highlightTargets),
                 )}
               >
@@ -717,7 +711,7 @@ function PreviewMockPage({
                     {cell}
                   </span>
                 ))}
-              </button>
+              </div>
             );
           }
 
