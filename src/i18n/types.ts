@@ -274,11 +274,18 @@ export type LandingMessages = {
       subtitle: string
       exportReport: string
       progress: string[]
+      hints: string[]
+      retryLabel: string
       feedbackMessage: string
       replyMessage: string
       designer: string
       developer: string
       envLabel: string
+      appName: string
+      revenueLabel: string
+      revenueValue: string
+      revenueChange: string
+      stats: { label: string; value: string }[]
     }
   }
 }
