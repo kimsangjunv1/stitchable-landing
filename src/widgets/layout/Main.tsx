@@ -1,45 +1,28 @@
-"use client"
+"use client";
 
-import { usePathname } from "next/navigation"
-import { cn } from "@/shared/lib/utils"
-import type { ReactNode } from "react"
+import { usePathname } from "next/navigation";
+import { cn } from "@/shared/lib/utils";
+import type { ReactNode } from "react";
 
 type MainProps = {
-  children: ReactNode
-  id?: string
-  className?: {
-    container?: string
-    inner?: string
-  }
-}
+    children: ReactNode;
+    id?: string;
+    className?: {
+        container?: string;
+        inner?: string;
+    };
+};
 
 export function Main({ children, id, className }: MainProps) {
-  const pathname = usePathname()
-  const isHome = pathname === "/"
-  const isFullBleed = pathname === "/" || pathname === "/guide"
+    const pathname = usePathname();
+    const isFullBleed = pathname === "/" || pathname.startsWith("/fivepixels");
 
-  return (
-    <div
-      id={id}
-      className={cn(
-        isFullBleed ? "min-h-screen" : "min-h-[calc(100dvh-10.8rem)] bg-background text-foreground",
-        className?.container,
-      )}
-    >
-      {isHome ? (
-        children
-      ) : (
+    return (
         <div
-          className={cn(
-            isFullBleed
-              ? "vp-page-shell min-h-screen"
-              : "mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]",
-            className?.inner,
-          )}
+            id={id}
+            className={cn(isFullBleed ? "min-h-[calc(100dvh-126px)]" : "min-h-[calc(100dvh-10.8rem)] bg-background text-foreground", className?.container)}
         >
-          {children}
+            {isFullBleed ? children : <div className={cn("mx-auto max-w-[var(--size-pc,80rem)] px-[2rem]", className?.inner)}>{children}</div>}
         </div>
-      )}
-    </div>
-  )
+    );
 }
