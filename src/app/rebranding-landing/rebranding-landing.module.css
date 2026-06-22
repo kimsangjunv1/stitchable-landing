@@ -98,6 +98,7 @@
 
 .hero h1 {
   margin: 0;
+  font-family: "Mona Sans Rebrand", sans-serif;
   font-size: clamp(32px, 3vw, 38px);
   font-variation-settings: "wdth" 125;
   font-weight: 600;
@@ -186,6 +187,7 @@
   left: 86px;
   margin: 0;
   color: #fff;
+  font-family: "Mona Sans Rebrand", sans-serif;
   font-size: 28px;
   font-variation-settings: "wdth" 125;
   font-weight: 600;
@@ -363,15 +365,13 @@
 
 .wordmarkSection {
   display: flex;
-  height: 240px;
-  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   padding: 0 20px 13px;
 }
 
 .wordmarkSection img {
-  width: min(1160px, 96vw);
+  width: min(1920px, calc(100% - 48px));
   height: auto;
 }
 
@@ -537,10 +537,6 @@
 
   .profile {
     justify-content: flex-start;
-  }
-
-  .wordmarkSection {
-    height: 180px;
   }
 
   .footer {
