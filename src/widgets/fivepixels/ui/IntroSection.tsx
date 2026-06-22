@@ -5,10 +5,11 @@ const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold 
 
 export function IntroSection() {
     return (
-        <section className="mx-auto w-[min(1920px,calc(100%-48px))] max-[720px]:w-[min(calc(100%-32px),520px)]">
-            <div className="flex min-h-[calc(50svh-63px)] flex-col justify-center max-[720px]:min-h-[285px]">
-                <h1 className={`${expandedText} m-0 text-[clamp(32px,3vw,38px)] leading-none tracking-[-1.7px] max-[720px]:text-[32px]`}>A Tool for Perfect QA</h1>
-                <p className="my-[10px] mb-[23px] leading-[1.4]">
+        <section className="mx-auto max-w-[var(--size-pc)] w-full">
+            <div className="flex h-[50svh] flex-col justify-center px-[1.2rem]">
+                <h1 className={`${expandedText} text-[5.2rem]`}>A Tool for Perfect QA</h1>
+
+                <p className="my-[10px] mb-[2.4rem] leading-[1.5]">
                     fivepixels is a <strong className={`${expandedText} text-[#ff4b2e]`}>blazing-fast ⚡</strong> qa corporate tool
                     <br />
                     that powers next-generation web applications.
@@ -27,13 +28,13 @@ export function IntroSection() {
 
                 <div className="mt-[21px] flex">
                     <a
-                        className="flex h-9 items-center gap-[17px] border border-[#050505] bg-[#050505] px-3 font-[family-name:var(--font-fira-rebrand)] text-white"
+                        className="flex h-9 items-center gap-[1.6rem] border border-[#050505] bg-[#050505] p-[1.6rem_1.2rem] font-[family-name:var(--font-fira-rebrand)] text-white"
                         href="#setup"
                     >
                         Get Started <ArrowRight size={17} />
                     </a>
                     <a
-                        className="flex h-9 items-center gap-[17px] border border-[#050505] bg-white px-3 font-[family-name:var(--font-fira-rebrand)]"
+                        className="flex h-9 items-center gap-[1.6rem] border border-[#050505] bg-white p-[1.6rem_1.2rem] font-[family-name:var(--font-fira-rebrand)]"
                         href="/fivepixels/guide"
                     >
                         View Documentation <ArrowRight size={17} />
@@ -41,17 +42,14 @@ export function IntroSection() {
                 </div>
             </div>
 
-            <div className="relative grid h-[50svh] grid-cols-2 overflow-hidden bg-[linear-gradient(105deg,#ff542f_0%,#ff4b2e_50%,#e83d17_50%,#e83d17_100%)] max-[720px]:h-[540px] max-[720px]:grid-cols-1 max-[720px]:bg-[linear-gradient(#ff542f_0_50%,#e83d17_50%)]">
-                <div className="absolute top-0 left-0 z-[3] h-[17px] w-full bg-[repeating-linear-gradient(90deg,transparent_0_15px,rgba(255,255,255,.55)_15px_16px)] opacity-80" />
+            <div className="flex h-[100svh] w-full flex-col tablet:h-[50svh] tablet:flex-row">
+                {/* <div className="absolute top-0 left-0 z-[3] h-[17px] w-full bg-[repeating-linear-gradient(90deg,transparent_0_15px,rgba(255,255,255,.55)_15px_16px)] opacity-80" /> */}
 
-                <div className="relative overflow-hidden">
-                    <h2
-                        className={`${expandedText} absolute top-11 left-[86px] z-[2] m-0 text-[28px] tracking-[-1.4px] text-white max-[720px]:top-[34px] max-[720px]:left-[30px] max-[720px]:text-[24px]`}
-                    >
-                        support screen panel ui
-                    </h2>
+                <div className="relative h-full flex-1 overflow-hidden bg-[#F9572E]">
+                    <h2 className={`${expandedText} flex h-[50%] items-center justify-center text-center text-[clamp(2.8rem,2.2vw,4.2rem)] text-white`}>support screen panel ui</h2>
+
                     <Image
-                        className="absolute top-[88px] left-[83px] h-auto w-[337px] max-[720px]:top-[75px] max-[720px]:left-[25px] max-[720px]:w-[min(330px,85vw)]"
+                        className="absolute bottom-[-20%] left-1/2 h-auto w-[85%] max-w-none -translate-x-1/2 tablet:bottom-[-30%] tablet:w-[78%]"
                         src="/rebranding/dashboard.png"
                         alt="Radar dashboard"
                         width={745}
@@ -59,18 +57,16 @@ export function IntroSection() {
                     />
                 </div>
 
-                <div className="relative overflow-hidden">
+                <div className="relative h-full flex-1 overflow-hidden bg-[#DE451F]">
                     <Image
-                        className="absolute top-[39px] left-[-29px] h-auto w-[307px] max-[720px]:top-[25px] max-[720px]:left-[5px] max-[720px]:w-[270px]"
+                        className="absolute bottom-[-10%] left-[-18%] h-auto w-[95%] max-w-none tablet:bottom-[-16%] tablet:left-[-12%] tablet:w-[64%]"
                         src="/rebranding/feedback.png"
                         alt="Suggested feedback panel"
-                        width={540}
+                        width={640}
                         height={461}
                         priority
                     />
-                    <h2
-                        className={`${expandedText} absolute right-[25px] bottom-[14px] z-[2] m-0 text-right text-[28px] tracking-[-1.4px] text-white max-[720px]:right-5 max-[720px]:bottom-3 max-[720px]:text-[24px]`}
-                    >
+                    <h2 className={`${expandedText} absolute right-[2.4rem] bottom-[2.4rem] text-[clamp(2.8rem,2.2vw,4.2rem)] text-white`}>
                         just click
                         <br />
                         everywhere
