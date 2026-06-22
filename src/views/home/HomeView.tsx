@@ -1,5 +1,5 @@
-import { HomePanel } from "@/widgets/home"
+import { HomePanel } from "@/widgets/home";
 
 export function HomeView() {
-  return <HomePanel />
+    return <HomePanel />;
 }

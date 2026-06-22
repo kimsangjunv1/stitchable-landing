@@ -1,1 +1,1 @@
-export { default as HomePanel } from "./Panel"
+export { default as HomePanel } from "./Panel";
