@@ -14,6 +14,7 @@ import { Sidebar } from "@/widgets/layout/Sidebar";
 import { Footer } from "@/widgets/layout/Footer";
 import { Progress } from "@/widgets/layout/Progress";
 import { Toast } from "@/widgets/layout/Toast";
+import "@/shared/styles/scss/index.scss";
 import "./globals.css";
 
 const geistMono = Geist_Mono({
