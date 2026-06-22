@@ -81,6 +81,7 @@ export default function RebrandingLandingPage() {
               alt="Suggested feedback panel"
               width={540}
               height={461}
+              priority
             />
             <h2 className={styles.clickCopy}>just click<br />everywhere</h2>
           </div>
