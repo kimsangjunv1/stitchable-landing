@@ -25,14 +25,24 @@ export default function RebrandingLandingPage() {
     <main className={styles.page}>
       <section className={styles.intro}>
         <header className={styles.header}>
-          <Image
-            className={styles.headerLogo}
-            src="/rebranding/fivepixels.png"
-            alt="fivepixels"
-            width={1558}
-            height={284}
-            priority
-          />
+          <div className={styles.logoStack}>
+            <Image
+              className={styles.agitLogo}
+              src="/rebranding/agit-logo.svg"
+              alt="agit"
+              width={56}
+              height={24}
+              priority
+            />
+            <Image
+              className={styles.headerLogo}
+              src="/rebranding/fivepixels.png"
+              alt="fivepixels"
+              width={1558}
+              height={284}
+              priority
+            />
+          </div>
           <nav aria-label="Primary navigation">
             <a className={styles.active} href="#guide">GUIDE</a>
             <a href="#settings">SETTINGS</a>
