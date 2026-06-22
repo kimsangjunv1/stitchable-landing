@@ -1,73 +1,110 @@
-import { CircleGauge, Zap } from "lucide-react";
+import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
 
 const codeLines = [
     <>
-        <b>import</b> {"{ Panel }"} <b>from</b> <span>&apos;fivepixels&apos;</span>;
+        <b>import</b> {"{ Report }"} <b>from</b> <span>&quot;stitchable&quot;</span>;
     </>,
     null,
-    <>
-        <b>export default function</b> App() {"{"}
-    </>,
-    <>{"  "}return (</>,
-    <>{"    "}&lt;&gt;</>,
-    <>{"      "}&lt;Report /&gt;</>,
-    <>{"      "}&lt;section data-report-id=&quot;hero&quot; data-report-type=&quot;group&quot;&gt;</>,
-    <>{"      "}&lt;/&gt;</>,
-    <>{"    "})</>,
-    <>{"}"}</>,
+    <>&lt;Report project={'{ { id: "my-app" } }'} /&gt;</>,
+    null,
+    <>&lt;section data-report-id=&quot;hero&quot; data-report-type=&quot;group&quot;&gt;</>,
+    <>{"  "}&lt;button data-report-id=&quot;hero-cta&quot;&gt;Get Started&lt;/button&gt;</>,
+    <>&lt;/section&gt;</>,
 ];
 
-const metricClass = "flex items-center gap-[10px] font-semibold [font-variation-settings:'wdth'_125]";
+const features = [
+    {
+        icon: "ads_click",
+        title: "Point at any element",
+        description: "Leave feedback directly on the UI.",
+    },
+    {
+        icon: "location_searching",
+        title: "Markers that stay",
+        description: "Restore feedback after the UI changes.",
+    },
+    {
+        icon: "forum",
+        title: "Review together",
+        description: "Reply, verify, and resolve in one flow.",
+    },
+    {
+        icon: "sync_alt",
+        title: "Use your workflow",
+        description: "Local, server, or GitHub Issue.",
+    },
+] as const;
 
 export function SetupSection() {
     return (
         <section
-            className="mx-auto min-h-[325px] w-[min(1920px,calc(100%-48px))] max-[720px]:w-[min(calc(100%-32px),520px)] max-[720px]:pt-1"
+            className="w-full bg-[#ededed] px-[1.2rem] tablet:px-[2.4rem]"
             id="setup"
         >
-            <div className="grid grid-cols-2 max-[720px]:grid-cols-1 max-[720px]:gap-[26px]">
+            <div className="mx-auto flex w-full max-w-[var(--size-pc)] flex-col gap-[6.4rem]">
+                <div className="grid mobile:grid-cols-1 tablet:grid-cols-2">
+                    <div className="flex flex-col justify-between gap-[4.8rem] bg-[#4b4b4b] p-[3.2rem] text-white tablet:min-h-[36rem] tablet:p-[4.8rem]">
+                        <div>
+                            <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.4rem]">01 / SETUP</span>
+                            <h2 className="mt-[1.6rem] max-w-[48rem] text-[4.2rem] font-semibold leading-[1] [font-variation-settings:'wdth'_115]">
+                                Add QA to your UI.
+                                <br />
+                                Three lines, done.
+                            </h2>
+                        </div>
+
+                        <a
+                            className="flex w-max items-center gap-[1.2rem] border border-white px-[1.6rem] py-[1.2rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem]"
+                            href="/fivepixels/guide"
+                        >
+                            View Documentation
+                            <MaterialIcon
+                                name="arrow_forward"
+                                size={18}
+                            />
+                        </a>
+                    </div>
+
+                    <pre className="m-0 flex min-h-[36rem] items-center overflow-x-auto bg-[#050505] p-[3.2rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] leading-[1.8] text-[#f5f5f5] tablet:p-[4.8rem]">
+                        <code className="block">
+                            {codeLines.map((line, index) => (
+                                <span
+                                    className="block whitespace-nowrap [&_b]:font-medium [&_b]:text-[#ff4b2e] [&_span]:text-[#ffb19f]"
+                                    key={index}
+                                >
+                                    {line ?? "\u00a0"}
+                                </span>
+                            ))}
+                        </code>
+                    </pre>
+                </div>
+
                 <div>
-                    <h2 className="my-[6px] mb-[7px] font-bold [font-variation-settings:'wdth'_110]">too easy setup</h2>
-                    <ol className="m-0 list-decimal pl-[18px] leading-[1.5]">
-                        <li>import “Panel” from ‘fivepixels’</li>
-                        <li>setup you globally layout file</li>
-                        <li>and enjoy :D</li>
-                    </ol>
-                </div>
+                    <div className="mb-[2.4rem] flex items-end justify-between gap-[2.4rem]">
+                        <h3 className="text-[3.2rem] font-semibold leading-none [font-variation-settings:'wdth'_115]">What you get</h3>
+                        <span className="hidden font-[family-name:var(--font-fira-rebrand)] text-[1.3rem] tablet:block">FEEDBACK / REVIEW / RESOLVE</span>
+                    </div>
 
-                <pre className="m-0 min-h-[245px] overflow-hidden bg-[#030303] p-[22px] font-[family-name:var(--font-fira-rebrand)] leading-[1.65] text-[#f5f5f5] max-[720px]:min-h-[230px]">
-                    <code className="block">
-                        {codeLines.map((line, index) => (
-                            <span
-                                className="block [&_b]:font-medium [&_b]:text-[#ff4829]"
-                                key={index}
+                    <ul className="grid mobile:grid-cols-1 tablet:grid-cols-4">
+                        {features.map((feature, index) => (
+                            <li
+                                className="flex min-h-[17rem] flex-col justify-between p-[2.4rem]"
+                                key={feature.title}
                             >
-                                {line ?? "\u00a0"}
-                            </span>
+                                <div className="flex items-center justify-between">
+                                    <MaterialIcon
+                                        name={feature.icon}
+                                        size={24}
+                                    />
+                                    <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem]">0{index + 1}</span>
+                                </div>
+                                <div>
+                                    <strong className="block font-semibold">{feature.title}</strong>
+                                    <p className="mt-[0.4rem] text-[1.5rem] leading-[1.4] text-black/60">{feature.description}</p>
+                                </div>
+                            </li>
                         ))}
-                    </code>
-                </pre>
-            </div>
-
-            <div className="mt-[27px] grid grid-cols-[1.3fr_1fr_1fr_1fr] max-[720px]:grid-cols-2 max-[720px]:gap-x-[10px] max-[720px]:gap-y-5">
-                <div className={metricClass}>
-                    <Zap
-                        size={16}
-                        fill="currentColor"
-                    />
-                    <strong className="font-semibold">blazing fast profile</strong>
-                </div>
-                <div className={metricClass}>
-                    <b className="font-semibold">60</b>
-                    <strong className="font-semibold">easy to use</strong>
-                </div>
-                <div className={metricClass}>
-                    <b className="font-semibold">60</b>
-                    <strong className="font-semibold">easy 1 way</strong>
-                </div>
-                <div className={metricClass}>
-                    <CircleGauge size={16} />
-                    <strong className="font-semibold">1 second installation</strong>
+                    </ul>
                 </div>
             </div>
         </section>
