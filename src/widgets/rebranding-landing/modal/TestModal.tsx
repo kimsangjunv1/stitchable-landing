@@ -1,0 +1,27 @@
+type TestModalProps = {
+  onClose: () => void
+}
+
+export function TestModal({ onClose }: TestModalProps) {
+  return (
+    <div
+      className="fixed inset-0 z-[100] grid place-items-center bg-black/60 p-6"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rebranding-test-modal-title"
+    >
+      <div className="w-full max-w-sm bg-white p-6 text-[#050505]">
+        <h2 className="text-2xl font-semibold" id="rebranding-test-modal-title">
+          Test modal
+        </h2>
+        <button
+          className="mt-6 border border-[#050505] px-4 py-2 font-[family-name:var(--font-fira-rebrand)]"
+          type="button"
+          onClick={onClose}
+        >
+          close
+        </button>
+      </div>
+    </div>
+  )
+}
