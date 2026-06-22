@@ -1,24 +1,30 @@
 import Image from "next/image";
 import { ArrowRight, Link as LinkIcon } from "lucide-react";
+import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
 
 const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
 
 export function IntroSection() {
     return (
-        <section className="mx-auto w-[min(1920px,calc(100%-48px))] max-[720px]:w-[min(calc(100%-32px),520px)]">
-            <div className="flex min-h-[calc(50svh-63px)] flex-col justify-center max-[720px]:min-h-[285px]">
-                <h1 className={`${expandedText} m-0 text-[clamp(32px,3vw,38px)] leading-none tracking-[-1.7px] max-[720px]:text-[32px]`}>A Tool for Perfect QA</h1>
-                <p className="my-[10px] mb-[23px] leading-[1.4]">
-                    fivepixels is a <strong className={`${expandedText} text-[#ff4b2e]`}>blazing-fast ⚡</strong> qa corporate tool
+        <section className="mx-auto max-w-[var(--size-pc)] w-full">
+            <div className="flex h-[50svh] flex-col justify-center gap-[2.4rem] px-[1.2rem]">
+                <h1 className={`font-[600] text-[5.2rem]`}>A Tool for Perfect QA</h1>
+
+                <p className="leading-[1.5]">
+                    fivepixels is a{" "}
+                    <strong className={`${expandedText} inline-flex items-center text-[#ff4b2e]`}>
+                        blazing-fast <MaterialIcon name="bolt" />
+                    </strong>{" "}
+                    QA corporate tool
                     <br />
                     that powers next-generation web applications.
                 </p>
 
                 <a
-                    className="flex w-max items-center gap-[21px] bg-[#efefef] px-[10px] py-[7px] font-[family-name:var(--font-fira-rebrand)]"
+                    className="flex w-max items-center p-[1.2rem_1.6rem] border gap-[1.6rem] font-[family-name:var(--font-fira-rebrand)]"
                     href="#setup"
                 >
-                    npm i stitchable{" "}
+                    npm i stitchable <div className="h-full w-[0.1rem] bg-black" />
                     <LinkIcon
                         size={15}
                         strokeWidth={2.4}
@@ -27,13 +33,14 @@ export function IntroSection() {
 
                 <div className="mt-[21px] flex">
                     <a
-                        className="flex h-9 items-center gap-[17px] border border-[#050505] bg-[#050505] px-3 font-[family-name:var(--font-fira-rebrand)] text-white"
+                        className="flex w-max items-center gap-[1.6rem] py-[1.2rem] px-[1.6rem] text-white bg-[#111] px-2"
                         href="#setup"
                     >
                         Get Started <ArrowRight size={17} />
                     </a>
+
                     <a
-                        className="flex h-9 items-center gap-[17px] border border-[#050505] bg-white px-3 font-[family-name:var(--font-fira-rebrand)]"
+                        className="flex w-max items-center gap-[1.6rem] py-[1.2rem] px-[1.6rem] text-black border border-[#111] px-2"
                         href="/fivepixels/guide"
                     >
                         View Documentation <ArrowRight size={17} />
@@ -41,40 +48,41 @@ export function IntroSection() {
                 </div>
             </div>
 
-            <div className="relative grid h-[50svh] grid-cols-2 overflow-hidden bg-[linear-gradient(105deg,#ff542f_0%,#ff4b2e_50%,#e83d17_50%,#e83d17_100%)] max-[720px]:h-[540px] max-[720px]:grid-cols-1 max-[720px]:bg-[linear-gradient(#ff542f_0_50%,#e83d17_50%)]">
-                <div className="absolute top-0 left-0 z-[3] h-[17px] w-full bg-[repeating-linear-gradient(90deg,transparent_0_15px,rgba(255,255,255,.55)_15px_16px)] opacity-80" />
+            <div className="flex h-[100svh] w-full flex-col tablet:h-[50svh] tablet:flex-row">
+                {/* <div className="absolute top-0 left-0 z-[3] h-[17px] w-full bg-[repeating-linear-gradient(90deg,transparent_0_15px,rgba(255,255,255,.55)_15px_16px)] opacity-80" /> */}
 
-                <div className="relative overflow-hidden">
-                    <h2
-                        className={`${expandedText} absolute top-11 left-[86px] z-[2] m-0 text-[28px] tracking-[-1.4px] text-white max-[720px]:top-[34px] max-[720px]:left-[30px] max-[720px]:text-[24px]`}
-                    >
-                        support screen panel ui
-                    </h2>
-                    <Image
-                        className="absolute top-[88px] left-[83px] h-auto w-[337px] max-[720px]:top-[75px] max-[720px]:left-[25px] max-[720px]:w-[min(330px,85vw)]"
-                        src="/rebranding/dashboard.png"
-                        alt="Radar dashboard"
-                        width={745}
-                        height={713}
-                    />
+                <div className="relative h-full flex flex-col justify-between items-center flex-1 overflow-hidden bg-[#F9572E]">
+                    <section className="flex flex-col items-start w-full mobile:py-[3.2rem] tablet:py-[3.2rem] mobile:px-[1.2rem] tablet:px-[2.4rem]">
+                        <h2 className={`${expandedText} flex items-center mobile:text-[1.8rem] tablet:text-[2.4rem] text-white`}>check today's issue</h2>
+                        <h2 className={`${expandedText} flex items-center mobile:text-[2.4rem] tablet:text-[4.2rem] text-white`}>support screen panel ui</h2>
+                    </section>
+
+                    <section className="flex justify-end w-full">
+                        <Image
+                            className="tablet:max-w-[70%] mobile:px-[1.2rem] tablet:px-0"
+                            src="/rebranding/dashboard.png"
+                            alt="Radar dashboard"
+                            width={745}
+                            height={713}
+                        />
+                    </section>
                 </div>
 
-                <div className="relative overflow-hidden">
-                    <Image
-                        className="absolute top-[39px] left-[-29px] h-auto w-[307px] max-[720px]:top-[25px] max-[720px]:left-[5px] max-[720px]:w-[270px]"
-                        src="/rebranding/feedback.png"
-                        alt="Suggested feedback panel"
-                        width={540}
-                        height={461}
-                        priority
-                    />
-                    <h2
-                        className={`${expandedText} absolute right-[25px] bottom-[14px] z-[2] m-0 text-right text-[28px] tracking-[-1.4px] text-white max-[720px]:right-5 max-[720px]:bottom-3 max-[720px]:text-[24px]`}
-                    >
-                        just click
-                        <br />
-                        everywhere
-                    </h2>
+                <div className="relative h-full flex flex-col justify-between items-center flex-1 overflow-hidden bg-[#d94824]">
+                    <section className="flex flex-col items-start w-full mobile:py-[3.2rem] tablet:py-[3.2rem] mobile:px-[1.2rem] tablet:px-[2.4rem]">
+                        <h2 className={`${expandedText} flex items-center mobile:text-[1.8rem] tablet:text-[2.4rem] text-white`}>remain issue</h2>
+                        <h2 className={`${expandedText} flex items-center mobile:text-[2.4rem] tablet:text-[4.2rem] text-white`}>click everywhere</h2>
+                    </section>
+
+                    <section className="flex justify-end w-full">
+                        <Image
+                            className="tablet:max-w-[70%] mobile:pl-[1.2rem] tablet:pl-0"
+                            src="/rebranding/feedback.png"
+                            alt="Radar dashboard"
+                            width={745}
+                            height={713}
+                        />
+                    </section>
                 </div>
             </div>
         </section>

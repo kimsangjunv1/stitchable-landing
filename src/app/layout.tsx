@@ -14,8 +14,11 @@ import { Sidebar } from "@/widgets/layout/Sidebar";
 import { Footer } from "@/widgets/layout/Footer";
 import { Progress } from "@/widgets/layout/Progress";
 import { Toast } from "@/widgets/layout/Toast";
+
+import "@/shared/styles/scss/globals.css";
 import "@/shared/styles/scss/index.scss";
-import "./globals.css";
+
+const MATERIAL_SYMBOLS_FONT_URL = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=block";
 
 const geistMono = Geist_Mono({
     variable: "--font-geist-mono",
@@ -94,6 +97,21 @@ export default function RootLayout({
             lang="en"
             className={`${geistMono.variable} ${spaceGrotesk.variable} ${suit.variable} ${monaSans.variable} ${firaCode.variable}`}
         >
+            <head>
+                <link
+                    rel="preconnect"
+                    href="https://fonts.googleapis.com"
+                />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                />
+                <link
+                    rel="stylesheet"
+                    href={MATERIAL_SYMBOLS_FONT_URL}
+                />
+            </head>
             <body className="bg-white font-sans text-[#050505] antialiased">
                 <GlobalErrorBoundary>
                     <QueryProvider>
