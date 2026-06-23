@@ -24,7 +24,7 @@ export function IntroSection() {
                     className="flex w-max items-center p-[1.2rem_1.6rem] border gap-[1.6rem] font-[family-name:var(--font-fira-rebrand)]"
                     href="#setup"
                 >
-                    npm i stitchable <div className="h-full w-[0.1rem] bg-black" />
+                    npm i @fivepixels-js/react <div className="h-full w-[0.1rem] bg-black" />
                     <LinkIcon
                         size={15}
                         strokeWidth={2.4}

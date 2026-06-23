@@ -153,14 +153,14 @@ export type LandingMessages = {
         saasTitle: string
         saasDescription: string
         saasTools: string
-        stitchableTitle: string
-        stitchableDescription: string
+        fivepixelsTitle: string
+        fivepixelsDescription: string
         cta: string
       }
       tools: {
         name: string
         competitorStrength: string
-        stitchableWins: string[]
+        fivepixelsWins: string[]
       }[]
     }
     benefits: {

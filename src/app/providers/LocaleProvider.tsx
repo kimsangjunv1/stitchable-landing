@@ -11,7 +11,7 @@ type LocaleContextValue = {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
-const STORAGE_KEY = "stitchable-landing-locale";
+const STORAGE_KEY = "fivepixels-landing-locale";
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
     const [locale, setLocaleState] = useState<Locale>("en");

@@ -61,31 +61,29 @@ export const en: LandingMessages = {
             copyPrompt: "Copy Prompt",
             codeCopy: "Copy",
             codeCopied: "Copied",
-            copyPromptText: "Integrate Stitchable into my React/Next.js app. Install with npm i stitchable and add the <Report /> component.",
+            copyPromptText: "Integrate fivepixels into my React/Next.js app. Install with npm i @fivepixels-js/react and add the <FivePixels /> component.",
         },
         terminal: {
             lines: [
-                "$ npm i stitchable",
+                "$ npm i @fivepixels-js/react",
                 "✔ Dependencies installed in 1.2s",
                 "",
-                "$ npx stitchable init",
-                "? Select framework › Next.js",
-                "? Project directory › ./my-app",
-                "✔ Stitchable configured",
+                "→ Next: import { FivePixels } from '@fivepixels-js/react'",
                 "",
-                "→ Next: import { Report } from 'stitchable'",
+                '<FivePixels project={{ id: "my-app" }} />',
+                "✔ Feedback layer ready",
             ],
         },
         gettingStarted: {
             eyebrow: "Getting started",
-            title: "Install Stitchable",
-            description: "Install once, open a new terminal session, then run `npm i stitchable`.",
+            title: "Install fivepixels",
+            description: "Install once, open a new terminal session, then run `npm i @fivepixels-js/react`.",
             ciNote: "For CI, use",
             ciLink: "GitHub Actions",
             npmLabel: "npm / pnpm / bun",
-            npmCmd: "npm i stitchable",
+            npmCmd: "npm i @fivepixels-js/react",
             yarnLabel: "yarn",
-            yarnCmd: "yarn add stitchable",
+            yarnCmd: "yarn add @fivepixels-js/react",
         },
         capabilities: {
             items: [
@@ -97,7 +95,7 @@ export const en: LandingMessages = {
                 {
                     title: "Simplifies everyday QA",
                     description: "One configuration and a consistent feedback flow with `localStorage` or server `API`.",
-                    tags: ["<Report />", "localStorage", "API", "GitHub"],
+                    tags: ["<FivePixels />", "localStorage", "API", "GitHub"],
                 },
                 {
                     title: "Powering your favorite frameworks",
@@ -126,7 +124,7 @@ export const en: LandingMessages = {
                 value: "~55KB",
             },
             chart: {
-                label: "Stitchable Bundle",
+                label: "fivepixels Bundle",
                 axisStart: "v0.1",
                 axisEnd: "Today",
             },
@@ -143,7 +141,7 @@ export const en: LandingMessages = {
             steps: [
                 {
                     label: "localStorage",
-                    description: "Start instantly with a single `<Report />`.",
+                    description: "Start instantly with a single `<FivePixels />`.",
                 },
                 {
                     label: "Team & fields",
@@ -161,8 +159,8 @@ export const en: LandingMessages = {
         },
         devOnlyCallout: {
             title: "Hide the UI in production builds",
-            description: "`visibility.devOnly` keeps Stitchable as a staging-only internal QA tool — no production render at the app code level.",
-            codeLine: "<Report visibility={{ devOnly: true }} />",
+            description: "`visibility.devOnly` keeps fivepixels as a staging-only internal QA tool — no production render at the app code level.",
+            codeLine: "<FivePixels visibility={{ devOnly: true }} />",
         },
         techTrust: {
             eyebrow: "Developer Experience",
@@ -171,19 +169,19 @@ export const en: LandingMessages = {
             panels: [
                 {
                     title: "subpath export",
-                    description: "`stitchable/report` exports only Report and types. Import motion from `stitchable` only when needed.",
+                    description: "`@fivepixels-js/react/report` exports only FivePixels and types. Import motion from `@fivepixels-js/react` only when needed.",
                     codeLines: [
-                        "import { Report } from 'stitchable/report'",
-                        "import type { ReportFeedback } from 'stitchable/report'",
+                        "import { FivePixels } from '@fivepixels-js/react/report'",
+                        "import type { ReportFeedback } from '@fivepixels-js/react/report'",
                         "",
                         "// motion only when needed",
-                        "import { motion } from 'stitchable'",
+                        "import { motion } from '@fivepixels-js/react'",
                     ],
                 },
                 {
                     title: "TypeScript contracts",
                     description: "ReportFeedback, CreateReportFeedbackPayload, ReportEvent, and more are fully typed.",
-                    codeLines: ["import type {", "  ReportFeedback,", "  CreateReportFeedbackPayload,", "  ReportEvent,", "} from 'stitchable/report'"],
+                    codeLines: ["import type {", "  ReportFeedback,", "  CreateReportFeedbackPayload,", "  ReportEvent,", "} from '@fivepixels-js/react/report'"],
                 },
             ],
             stats: [
@@ -218,9 +216,9 @@ export const en: LandingMessages = {
         saasComparison: {
             eyebrow: "Positioning",
             title: "A different layer than SaaS QA widgets",
-            description: "Marker.io-style tools are all-in-one SaaS. Stitchable is an open-source QA layer embedded in your React app.",
+            description: "Marker.io-style tools are all-in-one SaaS. fivepixels is an open-source QA layer embedded in your React app.",
             positioning: {
-                headers: ["", "SaaS QA", "stitchable"],
+                headers: ["", "SaaS QA", "fivepixels"],
                 rows: [
                     ["Form", "SaaS + external widget", "npm library (in-app)"],
                     ["Cost", "$39–$99+/mo (seat limits)", "MIT, no subscription"],
@@ -230,7 +228,7 @@ export const en: LandingMessages = {
                 ],
             },
             advantages: {
-                title: "10 ways stitchable beats SaaS QA tools",
+                title: "10 ways fivepixels beats SaaS QA tools",
                 items: [
                     {
                         title: "No cost or vendor lock-in",
@@ -246,7 +244,7 @@ export const en: LandingMessages = {
                     },
                     {
                         title: "Embedded in your app",
-                        description: "Not an external widget — `<Report />` + Shadow Root panel.",
+                        description: "Not an external widget — `<FivePixels />` + Shadow Root panel.",
                     },
                     {
                         title: "Hidden in production",
@@ -276,44 +274,44 @@ export const en: LandingMessages = {
             },
             honestLimits: {
                 title: "When SaaS is honestly better",
-                headers: ["SaaS advantage", "stitchable today"],
+                headers: ["SaaS advantage", "fivepixels today"],
                 rows: [
                     ["Non-dev clients report without accounts", "Requires data-report-id markup + React"],
                     ["Auto screenshot & annotation", "DOM markers only (no screenshots)"],
                     ["Console/network logs, session replay", "Not included"],
                     ["Native Jira/Linear/Asana 2-way sync", "Implement via handlers/GitHub callbacks"],
                     ["WordPress / no-code sites", "React only"],
-                    ["Browser extension for any site", "Requires `<Report />` in your app"],
+                    ["Browser extension for any site", "Requires `<FivePixels />` in your app"],
                 ],
             },
             selectionGuide: {
                 saasTitle: "Client UAT & screenshot QA",
                 saasDescription: "When non-dev reporters and visual capture matter, SaaS fits better.",
                 saasTools: "Marker.io · BugHerd · Usersnap · Jam.dev",
-                stitchableTitle: "In-house staging, DOM QA & data ownership",
-                stitchableDescription: "When your dev team wants DOM-level QA/review with no subscription and your own infra, choose stitchable.",
+                fivepixelsTitle: "In-house staging, DOM QA & data ownership",
+                fivepixelsDescription: "When your dev team wants DOM-level QA/review with no subscription and your own infra, choose fivepixels.",
                 cta: "Get started",
             },
             tools: [
                 {
                     name: "vs Marker.io",
                     competitorStrength: "Marker.io strengths: screenshots, console/network logs, session replay, Jira/Linear.",
-                    stitchableWins: ["Staging QA without monthly subscription", "Keep feedback in your own DB", "Track components/buttons by DOM id"],
+                    fivepixelsWins: ["Staging QA without monthly subscription", "Keep feedback in your own DB", "Track components/buttons by DOM id"],
                 },
                 {
                     name: "vs BugHerd",
                     competitorStrength: "BugHerd strengths: agency/client pins, kanban, non-technical reporting.",
-                    stitchableWins: ["Internal dev team QA (not client dashboard)", "denied/confirm review instead of kanban", "GitHub Issue promotion + your API"],
+                    fivepixelsWins: ["Internal dev team QA (not client dashboard)", "denied/confirm review instead of kanban", "GitHub Issue promotion + your API"],
                 },
                 {
                     name: "vs Usersnap",
                     competitorStrength: "Usersnap strengths: NPS, micro-surveys, screen recording, end-user feedback.",
-                    stitchableWins: ["Staging bug fixes & UAT (not product surveys)", "Element-level issue tracking"],
+                    fivepixelsWins: ["Staging bug fixes & UAT (not product surveys)", "Element-level issue tracking"],
                 },
                 {
                     name: "vs Jam.dev",
                     competitorStrength: "Jam strengths: one-click bug reports, auto console/network/session context.",
-                    stitchableWins: ["Track recurring UI element issues", "Fully self-hosted without Jam cloud", "Integrate QA panel inside your React app"],
+                    fivepixelsWins: ["Track recurring UI element issues", "Fully self-hosted without Jam cloud", "Integrate QA panel inside your React app"],
                 },
             ],
         },
@@ -330,7 +328,7 @@ export const en: LandingMessages = {
         },
         showcase: {
             title: "Everything you need in one tool",
-            subtitle: "Stitchable unifies your entire QA workflow — from collecting feedback to review and resolution — in a single layer.",
+            subtitle: "fivepixels unifies your entire QA workflow — from collecting feedback to review and resolution — in a single layer.",
             tabs: [
                 {
                     id: "install",
@@ -344,7 +342,7 @@ export const en: LandingMessages = {
                         "Built-in `keyboard shortcuts`",
                     ],
                     poweredBy: "Powered by React Shadow DOM",
-                    output: ["$ npm i stitchable", "added 1 package in 0.8s", "", "import { Report } from 'stitchable'", "", '<Report projectId="my-app" />', "✔ Feedback layer ready"],
+                    output: ["$ npm i @fivepixels-js/react", "added 1 package in 0.8s", "", "import { FivePixels } from '@fivepixels-js/react'", "", '<FivePixels project={{ id: "my-app" }} />', "✔ Feedback layer ready"],
                 },
                 {
                     id: "feedback",
@@ -380,16 +378,16 @@ export const en: LandingMessages = {
                         "`JSON` export / import support",
                     ],
                     poweredBy: "Powered by Position Restoration",
-                    output: ["$ stitchable restore --env stage", "Scanning 42 feedback items...", "✔ Restored 38 markers", "⚠ 4 items need re-anchoring"],
+                    output: ["[view] Restoring markers on /dashboard", "Scanning 42 feedback items...", "✔ Restored 38 markers", "⚠ 4 items need re-anchoring"],
                 },
                 {
                     id: "github",
                     label: "github",
                     title: "Promote to GitHub Issues",
                     description: "Escalate important feedback to `GitHub Issues` instantly.",
-                    bullets: ["Connect via `github.onCreate` handler", "Format issue body with `formatFeedbackAsGitHubIssueBody`", "Automatic feedback → `Issue` mapping", "Team `triage` workflow"],
+                    bullets: ["Connect via `github.onCreate` handler", "Promote from composer or feedback list", "Automatic feedback → `Issue` mapping", "Team `triage` workflow"],
                     poweredBy: "Powered by GitHub API",
-                    output: ["$ stitchable promote --id fb-128", "Creating GitHub Issue...", "✔ Issue #42 created", "  https://github.com/org/repo/issues/42"],
+                    output: ["[github] Promoting feedback fb-128", "Creating GitHub Issue...", "✔ Issue #42 created", "  https://github.com/org/repo/issues/42"],
                 },
                 {
                     id: "export",
@@ -398,7 +396,7 @@ export const en: LandingMessages = {
                     description: "Export feedback lists as JSON for sharing.",
                     bullets: ["JSON export / import", "Filter by environment & version", "Team-shareable reports", "AI summaries ready"],
                     poweredBy: "Powered by JSON Export",
-                    output: ["$ stitchable export --env stage", "Exporting 12 feedback items...", "✔ Saved to feedback-report.json", "  12 items · 3 resolved · 2 pending"],
+                    output: ["[export] Exporting stage feedback", "Exporting 12 feedback items...", "✔ Saved to feedback-report.json", "  12 items · 3 resolved · 2 pending"],
                 },
             ],
         },
@@ -459,21 +457,21 @@ export const en: LandingMessages = {
         architecture: {
             eyebrow: "UI Architecture",
             title: "Shadow Root — fully isolated from host CSS",
-            description: "Report UI mounts inside the `#stitchable-root` Shadow Root. Tailwind styles ship in the bundle — no separate CSS import required.",
+            description: "FivePixels UI mounts inside the `#fivepixels-root` Shadow Root. Tailwind styles ship in the bundle — no separate CSS import required.",
             bullets: ["No style interference from host CSS reset or global styles", "Supports appearance light / dark / system", "Target discovery uses main document querySelector"],
             diagram: {
                 host: "document.body",
-                root: "#stitchable-root",
+                root: "#fivepixels-root",
                 shadow: "#shadow-root (open)",
-                ui: "Report UI — panel · overlay · markers",
+                ui: "FivePixels UI — panel · overlay · markers",
             },
             codeLines: [
-                "import { Report } from 'stitchable'",
+                "import { FivePixels } from '@fivepixels-js/react'",
                 "",
                 "export default function App() {",
                 "  return (",
                 "    <>",
-                "      <Report project={{ id: 'my-app' }} />",
+                "      <FivePixels project={{ id: 'my-app' }} />",
                 "      <main>",
                 "        <button data-report-id='cta'>Get started</button>",
                 "      </main>",
@@ -524,19 +522,19 @@ export const en: LandingMessages = {
             local: {
                 title: "localStorage (default)",
                 description: "Start instantly. Import/Export/Command in panel settings menu.",
-                bullets: ["Key: stitchable:reports:v1:{projectId}", "Scoped by project.id & env", "JSON Import / Export / Replace"],
-                codeLines: ["<Report project={{ id: 'my-app' }} />", "", "// omit handlers → localStorage", "✔ Zero-config persistence"],
+                bullets: ["Key: fivepixels:reports:v1:{projectId}", "Scoped by project.id & env", "JSON Import / Export / Replace"],
+                codeLines: ["<FivePixels project={{ id: 'my-app' }} />", "", "// omit handlers → localStorage", "✔ Zero-config persistence"],
             },
             server: {
                 title: "Server API",
                 description: "Pass onList, onCreate & onUpdate together for server-primary storage.",
                 bullets: ["onDelete enables UI delete", "onEvent / onReply for analytics & Slack", "github.onCreate is separate from persistence"],
-                codeLines: ["<Report", "  onList={({ pathname }) => fetch(...)}", "  onCreate={(payload) => fetch(...)}", "  onUpdate={(id, payload) => fetch(...)}", "/>"],
+                codeLines: ["<FivePixels", "  onList={({ pathname }) => fetch(...)}", "  onCreate={(payload) => fetch(...)}", "  onUpdate={(id, payload) => fetch(...)}", "/>"],
             },
         },
         fullstack: {
             title: "Fullstack? No problem.",
-            description: "Stitchable can be the foundation of any React-based web app — from SPAs to fullstack meta frameworks.",
+            description: "fivepixels can be the foundation of any React-based web app — from SPAs to fullstack meta frameworks.",
             items: [
                 {
                     title: "Meta Frameworks",
@@ -556,7 +554,7 @@ export const en: LandingMessages = {
             ],
         },
         cta: {
-            title: "Take your team's QA productivity to the next level with Stitchable",
+            title: "Take your team's QA productivity to the next level with fivepixels",
             button: "Get started",
         },
         openSource: {
@@ -568,10 +566,10 @@ export const en: LandingMessages = {
             companyLinks: [
                 { label: "Docs", href: "/fivepixels/guide" },
                 { label: "Features", href: "#features" },
-                { label: "GitHub", href: "#" },
+                { label: "GitHub", href: "https://github.com/kimsangjunv1/fivepixels" },
             ],
             socialTitle: "SOCIAL",
-            copyright: "© 2026 Stitchable contributors.",
+            copyright: "© 2026 fivepixels contributors.",
         },
         preview: {
             title: "Feedback workflow",

@@ -3,7 +3,7 @@ import type { GuideMessages } from "./types"
 export const guideEn: GuideMessages = {
   title: "Getting Started",
   description:
-    "Stitchable is a `DOM`-aware feedback layer for staging, QA, and internal tools. Leave feedback on real elements, restore `markers` after UI changes, and review issues without `screenshots`.",
+    "fivepixels is a `DOM`-aware feedback layer for staging, QA, and internal tools. Leave feedback on real elements, restore `markers` after UI changes, and review issues without `screenshots`.",
   navHome: "Home",
   codeCopy: "Copy",
   codeCopied: "Copied",
@@ -22,7 +22,7 @@ export const guideEn: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Stitchable lets teams leave feedback on real `DOM` elements, restore `markers` after UI changes, and promote issues to `GitHub` when needed.",
+          text: "fivepixels lets teams leave feedback on real `DOM` elements, restore `markers` after UI changes, and promote issues to `GitHub` when needed.",
         },
         {
           type: "list",
@@ -62,7 +62,7 @@ export const guideEn: GuideMessages = {
         {
           type: "callout",
           variant: "info",
-          text: "In Next.js and other SSR apps, render `<Report />` on the client only (`\"use client\"` + dynamic import).",
+          text: "In Next.js and other SSR apps, render `<FivePixels />` on the client only (`\"use client\"` + dynamic import).",
         },
       ],
     },
@@ -75,7 +75,7 @@ export const guideEn: GuideMessages = {
           type: "list",
           items: [
             "`project.id` defaults to `\"my-app\"` when omitted. Set `project={{ id }}` for stage/production or multi-app origins.",
-            "Render `<Report />` once on the screen that receives feedback.",
+            "Render `<FivePixels />` once on the screen that receives feedback.",
             "Targets need `data-report-id`. `data-report-type` defaults to `item`; use `group` for section-level targets.",
             "No CSS import required — UI mounts inside `Shadow Root` with bundled Tailwind.",
           ],
@@ -103,7 +103,7 @@ export const guideEn: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Report UI renders in an open `Shadow Root` (`#stitchable-root`), isolated from host app styles.",
+          text: "FivePixels UI renders in an open `Shadow Root` (`#fivepixels-root`), isolated from host app styles.",
         },
         { type: "code", snippet: "shadowDiagram", language: "text" },
         {
@@ -111,7 +111,7 @@ export const guideEn: GuideMessages = {
           items: [
             "Target discovery still uses main document querySelector / elementFromPoint.",
             "Host Shadow DOM internals are not feedback targets by default.",
-            "appearance light | dark | system maps to data-stitchable-theme inside Shadow Root.",
+            "appearance light | dark | system maps to data-fivepixels-theme inside Shadow Root.",
           ],
         },
       ],
@@ -188,7 +188,7 @@ export const guideEn: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Without handler props, Stitchable uses browser localStorage. Keys are scoped by project.id and project.env.",
+          text: "Without handler props, fivepixels uses browser localStorage. Keys are scoped by project.id and project.env.",
         },
         { type: "code", snippet: "localStorage", language: "tsx" },
         {
@@ -303,7 +303,7 @@ export const guideEn: GuideMessages = {
             "Replace workspace with project.id.",
             "Use onList/onCreate/onUpdate/onDelete instead of removed storageAdapter.",
             "Use onEvent/onReply for analytics instead of legacy side-effect handlers.",
-            "localStorage key: stitchable:reports:v1:{projectId} or with :{environment} suffix.",
+            "localStorage key: fivepixels:reports:v1:{projectId} or with :{environment} suffix.",
           ],
         },
       ],

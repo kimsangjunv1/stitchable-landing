@@ -1,11 +1,11 @@
 export const GUIDE_SNIPPETS = {
-  install: "npm install stitchable react react-dom",
-  quickStart: `import { Report } from "stitchable";
+  install: "npm install @fivepixels-js/react react react-dom",
+  quickStart: `import { FivePixels } from "@fivepixels-js/react";
 
 export default function App() {
   return (
     <>
-      <Report />
+      <FivePixels />
 
       <main>
         <section data-report-id="hero" data-report-type="group">
@@ -15,11 +15,11 @@ export default function App() {
     </>
   );
 }`,
-  configBasic: `import { Report } from "stitchable";
+  configBasic: `import { FivePixels } from "@fivepixels-js/react";
 
 export default function App() {
   return (
-    <Report
+    <FivePixels
       project={{
         id: "multimachine-ceo",
         env: "stage",
@@ -29,7 +29,7 @@ export default function App() {
     />
   );
 }`,
-  configAdvanced: `<Report
+  configAdvanced: `<FivePixels
   project={{ id: "my-app" }}
   ui={{
     appearance: "system",
@@ -51,17 +51,17 @@ export default function App() {
     { key: "isImportant", type: "checkbox", label: "IMPORTANT" },
   ]}
 />`,
-  localStorage: `<Report project={{ id: "my-app" }} />`,
-  shortcuts: `<Report
+  localStorage: `<FivePixels project={{ id: "my-app" }} />`,
+  shortcuts: `<FivePixels
   project={{ id: "my-app" }}
   ui={{ visibleShortcutKeys: true }}
   visibility={{ devOnly: true }}
 />`,
   shadowDiagram: `document.body
-  └── #stitchable-root
+  └── #fivepixels-root
         └── #shadow-root (open)
               ├── <style>  ← purged Tailwind CSS
-              └── Report UI (panel, overlay, markers)`,
+              └── FivePixels UI (panel, overlay, markers)`,
 } as const
 
 export type GuideSnippetKey = keyof typeof GUIDE_SNIPPETS

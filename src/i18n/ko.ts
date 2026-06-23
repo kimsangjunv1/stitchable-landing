@@ -61,31 +61,29 @@ export const ko: LandingMessages = {
             copyPrompt: "프롬프트 복사",
             codeCopy: "복사",
             codeCopied: "복사되었습니다",
-            copyPromptText: "Stitchable을 React/Next.js 앱에 통합해 주세요. npm i stitchable로 설치하고 <Report /> 컴포넌트를 추가하면 됩니다.",
+            copyPromptText: "fivepixels을 React/Next.js 앱에 통합해 주세요. npm i @fivepixels-js/react로 설치하고 <FivePixels /> 컴포넌트를 추가하면 됩니다.",
         },
         terminal: {
             lines: [
-                "$ npm i stitchable",
+                "$ npm i @fivepixels-js/react",
                 "✔ Dependencies installed in 1.2s",
                 "",
-                "$ npx stitchable init",
-                "? Select framework › Next.js",
-                "? Project directory › ./my-app",
-                "✔ Stitchable configured",
+                "→ Next: import { FivePixels } from '@fivepixels-js/react'",
                 "",
-                "→ Next: import { Report } from 'stitchable'",
+                '<FivePixels project={{ id: "my-app" }} />',
+                "✔ Feedback layer ready",
             ],
         },
         gettingStarted: {
             eyebrow: "시작하기",
-            title: "Stitchable 설치",
-            description: "한 번 설치한 뒤 새 터미널 세션을 연 다음\n`npm i stitchable`을 실행하세요.",
+            title: "fivepixels 설치",
+            description: "한 번 설치한 뒤 새 터미널 세션을 연 다음\n`npm i @fivepixels-js/react`을 실행하세요.",
             ciNote: "CI에서는",
             ciLink: "GitHub Actions",
             npmLabel: "npm / pnpm / bun",
-            npmCmd: "npm i stitchable",
+            npmCmd: "npm i @fivepixels-js/react",
             yarnLabel: "yarn",
-            yarnCmd: "yarn add stitchable",
+            yarnCmd: "yarn add @fivepixels-js/react",
         },
         capabilities: {
             items: [
@@ -97,7 +95,7 @@ export const ko: LandingMessages = {
                 {
                     title: "일관된 개발 흐름",
                     description: "하나의 설정 파일로\n피드백 워크플로우를 일관되게 유지합니다.",
-                    tags: ["<Report />", "localStorage", "API", "GitHub"],
+                    tags: ["<FivePixels />", "localStorage", "API", "GitHub"],
                 },
                 {
                     title: "모든 React 스택 지원",
@@ -126,7 +124,7 @@ export const ko: LandingMessages = {
                 value: "~55KB",
             },
             chart: {
-                label: "Stitchable Bundle",
+                label: "fivepixels Bundle",
                 axisStart: "v0.1",
                 axisEnd: "Today",
             },
@@ -143,7 +141,7 @@ export const ko: LandingMessages = {
             steps: [
                 {
                     label: "localStorage",
-                    description: "`<Report />` 하나로 바로 시작합니다.",
+                    description: "`<FivePixels />` 하나로 바로 시작합니다.",
                 },
                 {
                     label: "팀·필드",
@@ -162,7 +160,7 @@ export const ko: LandingMessages = {
         devOnlyCallout: {
             title: "production 빌드에서는 UI를 숨깁니다",
             description: "`visibility.devOnly`로 스테이징·내부 QA 전용 도구로 쓸 수 있습니다. 앱 코드 레벨에서 production 렌더를 막습니다.",
-            codeLine: "<Report visibility={{ devOnly: true }} />",
+            codeLine: "<FivePixels visibility={{ devOnly: true }} />",
         },
         techTrust: {
             eyebrow: "Developer Experience",
@@ -171,19 +169,19 @@ export const ko: LandingMessages = {
             panels: [
                 {
                     title: "subpath export",
-                    description: "`stitchable/report`는 Report·타입만 export합니다. motion 등은 필요할 때만 가져옵니다.",
+                    description: "`@fivepixels-js/react/report`는 Report·타입만 export합니다. motion 등은 필요할 때만 가져옵니다.",
                     codeLines: [
-                        "import { Report } from 'stitchable/report'",
-                        "import type { ReportFeedback } from 'stitchable/report'",
+                        "import { FivePixels } from '@fivepixels-js/react/report'",
+                        "import type { ReportFeedback } from '@fivepixels-js/react/report'",
                         "",
                         "// motion은 필요 시에만",
-                        "import { motion } from 'stitchable'",
+                        "import { motion } from '@fivepixels-js/react'",
                     ],
                 },
                 {
                     title: "TypeScript contracts",
                     description: "ReportFeedback, CreateReportFeedbackPayload, ReportEvent 등 스키마가 타입으로 정의되어 있습니다.",
-                    codeLines: ["import type {", "  ReportFeedback,", "  CreateReportFeedbackPayload,", "  ReportEvent,", "} from 'stitchable/report'"],
+                    codeLines: ["import type {", "  ReportFeedback,", "  CreateReportFeedbackPayload,", "  ReportEvent,", "} from '@fivepixels-js/react/report'"],
                 },
             ],
             stats: [
@@ -218,9 +216,9 @@ export const ko: LandingMessages = {
         saasComparison: {
             eyebrow: "포지셔닝",
             title: "SaaS QA 위젯과는 다른 레이어",
-            description: "Marker.io류는 올인원 SaaS, stitchable은 React 앱에 내장하는 오픈소스 QA 레이어에 가깝습니다.",
+            description: "Marker.io류는 올인원 SaaS, fivepixels은 React 앱에 내장하는 오픈소스 QA 레이어에 가깝습니다.",
             positioning: {
-                headers: ["구분", "SaaS QA", "stitchable"],
+                headers: ["구분", "SaaS QA", "fivepixels"],
                 rows: [
                     ["형태", "SaaS + 외부 위젯", "npm 라이브러리 (앱 내장)"],
                     ["비용", "월 $39~$99+ (시트/프로젝트 제한)", "MIT, 구독료 없음"],
@@ -230,7 +228,7 @@ export const ko: LandingMessages = {
                 ],
             },
             advantages: {
-                title: "SaaS 대비 stitchable이 유리한 10가지",
+                title: "SaaS 대비 fivepixels이 유리한 10가지",
                 items: [
                     {
                         title: "비용·벤더 락인 없음",
@@ -246,7 +244,7 @@ export const ko: LandingMessages = {
                     },
                     {
                         title: "앱에 녹아든 QA",
-                        description: "외부 위젯이 아닌 `<Report />` + Shadow Root 내장 패널입니다.",
+                        description: "외부 위젯이 아닌 `<FivePixels />` + Shadow Root 내장 패널입니다.",
                     },
                     {
                         title: "production 비노출",
@@ -276,44 +274,44 @@ export const ko: LandingMessages = {
             },
             honestLimits: {
                 title: "솔직히 SaaS가 더 나은 경우",
-                headers: ["SaaS가 유리한 점", "stitchable 현재"],
+                headers: ["SaaS가 유리한 점", "fivepixels 현재"],
                 rows: [
                     ["비개발자·클라이언트가 계정 없이 리포트", "data-report-id 마크업 + React 연동 필요"],
                     ["자동 스크린샷·주석", "DOM 마커 중심 (스크린샷 없음)"],
                     ["콘솔/네트워크 로그, 세션 리플레이", "미포함"],
                     ["Jira/Linear/Asana 네이티브 2-way sync", "handler/GitHub 콜백으로 직접 구현"],
                     ["WordPress/노코드 사이트", "React 전용"],
-                    ["브라우저 확장으로 아무 사이트나 QA", "앱에 `<Report />` 삽입 필요"],
+                    ["브라우저 확장으로 아무 사이트나 QA", "앱에 `<FivePixels />` 삽입 필요"],
                 ],
             },
             selectionGuide: {
                 saasTitle: "클라이언트 UAT·스크린샷 QA가 목적이라면",
                 saasDescription: "비개발자 리포터와 시각적 캡처가 중요할 때 SaaS가 맞습니다.",
                 saasTools: "Marker.io · BugHerd · Usersnap · Jam.dev",
-                stitchableTitle: "사내 스테이징·DOM QA·데이터 소유가 목적이라면",
-                stitchableDescription: "개발팀이 DOM 단위로 QA·검수하고, 구독 없이 내 인프라로 운영하고 싶을 때 stitchable이 맞습니다.",
+                fivepixelsTitle: "사내 스테이징·DOM QA·데이터 소유가 목적이라면",
+                fivepixelsDescription: "개발팀이 DOM 단위로 QA·검수하고, 구독 없이 내 인프라로 운영하고 싶을 때 fivepixels이 맞습니다.",
                 cta: "시작하기",
             },
             tools: [
                 {
                     name: "vs Marker.io",
                     competitorStrength: "Marker.io 강점: 스크린샷·주석, 콘솔/네트워크 로그, 세션 리플레이, Jira/Linear 연동.",
-                    stitchableWins: ["월 구독 없이 스테이징 QA만 돌리고 싶을 때", "피드백을 내 DB에만 두고 싶을 때", "DOM id로 컴포넌트/버튼을 추적하고 싶을 때"],
+                    fivepixelsWins: ["월 구독 없이 스테이징 QA만 돌리고 싶을 때", "피드백을 내 DB에만 두고 싶을 때", "DOM id로 컴포넌트/버튼을 추적하고 싶을 때"],
                 },
                 {
                     name: "vs BugHerd",
                     competitorStrength: "BugHerd 강점: 에이전시·클라이언트용 핀/칸반, 비기술자 리포팅.",
-                    stitchableWins: ["개발팀 내부 QA가 목적일 때", "Kanban 대신 denied/confirm 검수가 필요할 때", "GitHub Issue 승격 + 내 API가 맞을 때"],
+                    fivepixelsWins: ["개발팀 내부 QA가 목적일 때", "Kanban 대신 denied/confirm 검수가 필요할 때", "GitHub Issue 승격 + 내 API가 맞을 때"],
                 },
                 {
                     name: "vs Usersnap",
                     competitorStrength: "Usersnap 강점: NPS·마이크로서베이·스크린 녹화, 엔드유저 피드백.",
-                    stitchableWins: ["스테이징 버그 픽스·UAT가 목적일 때", "요소 단위 이슈 추적이 목적일 때"],
+                    fivepixelsWins: ["스테이징 버그 픽스·UAT가 목적일 때", "요소 단위 이슈 추적이 목적일 때"],
                 },
                 {
                     name: "vs Jam.dev",
                     competitorStrength: "Jam 강점: 원클릭 버그 리포트, 자동 콘솔/네트워크/세션 컨텍스트.",
-                    stitchableWins: ["그 UI 요소가 계속 문제인지 추적할 때", "Jam 클라우드 없이 자체 호스팅이 필요할 때", "React 앱 안에 QA 패널을 통합하고 싶을 때"],
+                    fivepixelsWins: ["그 UI 요소가 계속 문제인지 추적할 때", "Jam 클라우드 없이 자체 호스팅이 필요할 때", "React 앱 안에 QA 패널을 통합하고 싶을 때"],
                 },
             ],
         },
@@ -330,7 +328,7 @@ export const ko: LandingMessages = {
         },
         showcase: {
             title: "하나의 도구로 필요한 모든 것",
-            subtitle: "Stitchable은 피드백 수집부터 검토·해결까지\n전체 QA 워크플로우를 하나의 레이어로 통합합니다.",
+            subtitle: "fivepixels은 피드백 수집부터 검토·해결까지\n전체 QA 워크플로우를 하나의 레이어로 통합합니다.",
             tabs: [
                 {
                     id: "install",
@@ -339,7 +337,7 @@ export const ko: LandingMessages = {
                     description: "npm install 한 번으로\nReact 앱에 피드백 레이어를 추가할 수 있습니다.",
                     bullets: ["Shadow Root UI — CSS import가 필요 없습니다", "localhost·스테이징·프로덕션 모두 지원합니다", "data-report-id로 요소를 식별합니다", "키보드 단축키가 내장되어 있습니다"],
                     poweredBy: "Powered by React Shadow DOM",
-                    output: ["$ npm i stitchable", "added 1 package in 0.8s", "", "import { Report } from 'stitchable'", "", '<Report projectId="my-app" />', "✔ Feedback layer ready"],
+                    output: ["$ npm i @fivepixels-js/react", "added 1 package in 0.8s", "", "import { FivePixels } from '@fivepixels-js/react'", "", '<FivePixels project={{ id: "my-app" }} />', "✔ Feedback layer ready"],
                 },
                 {
                     id: "feedback",
@@ -375,7 +373,7 @@ export const ko: LandingMessages = {
                         "import / export를 지원합니다",
                     ],
                     poweredBy: "Powered by Position Restoration",
-                    output: ["$ stitchable restore --env stage", "Scanning 42 feedback items...", "✔ Restored 38 markers", "⚠ 4 items need re-anchoring"],
+                    output: ["[view] /dashboard에서 마커 복원 중", "Scanning 42 feedback items...", "✔ Restored 38 markers", "⚠ 4 items need re-anchoring"],
                 },
                 {
                     id: "github",
@@ -384,12 +382,12 @@ export const ko: LandingMessages = {
                     description: "중요한 피드백을\nGitHub Issue로 바로 올릴 수 있습니다.",
                     bullets: [
                         "github.onCreate 핸들러를 연동합니다",
-                        "formatFeedbackAsGitHubIssueBody로 Issue 본문을 포맷합니다",
+                        "composer 또는 목록에서 GitHub Issue로 승격합니다",
                         "피드백 → Issue 자동 매핑을 지원합니다",
                         "팀 트리아지 워크플로우에 맞춰 사용할 수 있습니다",
                     ],
                     poweredBy: "Powered by GitHub API",
-                    output: ["$ stitchable promote --id fb-128", "Creating GitHub Issue...", "✔ Issue #42 created", "  https://github.com/org/repo/issues/42"],
+                    output: ["[github] 피드백 fb-128 승격 중", "Creating GitHub Issue...", "✔ Issue #42 created", "  https://github.com/org/repo/issues/42"],
                 },
                 {
                     id: "export",
@@ -398,7 +396,7 @@ export const ko: LandingMessages = {
                     description: "피드백 목록을 JSON으로 보내\n팀과 공유할 수 있습니다.",
                     bullets: ["JSON export / import를 지원합니다", "환경·버전 필터를 사용할 수 있습니다", "팀 공유용 리포트를 만들 수 있습니다", "AI 요약도 준비 중입니다"],
                     poweredBy: "Powered by JSON Export",
-                    output: ["$ stitchable export --env stage", "Exporting 12 feedback items...", "✔ Saved to feedback-report.json", "  12 items · 3 resolved · 2 pending"],
+                    output: ["[export] stage 피드백보내기", "Exporting 12 feedback items...", "✔ Saved to feedback-report.json", "  12 items · 3 resolved · 2 pending"],
                 },
             ],
         },
@@ -459,21 +457,21 @@ export const ko: LandingMessages = {
         architecture: {
             eyebrow: "UI Architecture",
             title: "Shadow Root — 호스트 CSS와 완전 분리",
-            description: "Report UI는 `#stitchable-root` Shadow Root에 마운트됩니다.\nTailwind 스타일이 번들에 포함되어 별도 CSS import가 필요 없습니다.",
+            description: "FivePixels UI는 `#fivepixels-root` Shadow Root에 마운트됩니다.\nTailwind 스타일이 번들에 포함되어 별도 CSS import가 필요 없습니다.",
             bullets: ["호스트 앱 CSS reset·global style과 스타일 간섭이 없습니다", "appearance light / dark / system을 지원합니다", "피드백 대상 탐색은 메인 document 기준 querySelector를 사용합니다"],
             diagram: {
                 host: "document.body",
-                root: "#stitchable-root",
+                root: "#fivepixels-root",
                 shadow: "#shadow-root (open)",
-                ui: "Report UI — 패널 · 오버레이 · 마커",
+                ui: "FivePixels UI — 패널 · 오버레이 · 마커",
             },
             codeLines: [
-                "import { Report } from 'stitchable'",
+                "import { FivePixels } from '@fivepixels-js/react'",
                 "",
                 "export default function App() {",
                 "  return (",
                 "    <>",
-                "      <Report project={{ id: 'my-app' }} />",
+                "      <FivePixels project={{ id: 'my-app' }} />",
                 "      <main>",
                 "        <button data-report-id='cta'>시작</button>",
                 "      </main>",
@@ -524,19 +522,19 @@ export const ko: LandingMessages = {
             local: {
                 title: "localStorage (기본)",
                 description: "설정 없이 바로 시작할 수 있습니다.\n패널 설정 메뉴에서 Import/Export/Command를 지원합니다.",
-                bullets: ["키: stitchable:reports:v1:{projectId}", "project.id·env로 scope를 분리합니다", "JSON Import / Export / Replace를 지원합니다"],
-                codeLines: ["<Report project={{ id: 'my-app' }} />", "", "// handler 생략 → localStorage", "✔ Zero-config persistence"],
+                bullets: ["키: fivepixels:reports:v1:{projectId}", "project.id·env로 scope를 분리합니다", "JSON Import / Export / Replace를 지원합니다"],
+                codeLines: ["<FivePixels project={{ id: 'my-app' }} />", "", "// handler 생략 → localStorage", "✔ Zero-config persistence"],
             },
             server: {
                 title: "Server API",
                 description: "onList·onCreate·onUpdate를 함께 넘기면\n서버를 primary storage로 사용할 수 있습니다.",
                 bullets: ["onDelete로 UI 삭제를 지원합니다", "onEvent / onReply로 analytics·Slack 연동이 가능합니다", "github.onCreate는 persistence와 별개입니다"],
-                codeLines: ["<Report", "  onList={({ pathname }) => fetch(...)}", "  onCreate={(payload) => fetch(...)}", "  onUpdate={(id, payload) => fetch(...)}", "/>"],
+                codeLines: ["<FivePixels", "  onList={({ pathname }) => fetch(...)}", "  onCreate={(payload) => fetch(...)}", "  onUpdate={(id, payload) => fetch(...)}", "/>"],
             },
         },
         fullstack: {
             title: "풀스택? 문제없습니다.",
-            description: "Stitchable은 SPA부터 Next.js 풀스택 앱까지\n모든 React 기반 웹앱의 기반이 될 수 있습니다.",
+            description: "fivepixels은 SPA부터 Next.js 풀스택 앱까지\n모든 React 기반 웹앱의 기반이 될 수 있습니다.",
             items: [
                 {
                     title: "Meta Frameworks",
@@ -556,7 +554,7 @@ export const ko: LandingMessages = {
             ],
         },
         cta: {
-            title: "Stitchable로 팀의 QA 생산성을\n한 단계 높여 보세요",
+            title: "fivepixels로 팀의 QA 생산성을\n한 단계 높여 보세요",
             button: "시작하기",
         },
         openSource: {
@@ -568,10 +566,10 @@ export const ko: LandingMessages = {
             companyLinks: [
                 { label: "문서", href: "/fivepixels/guide" },
                 { label: "기능", href: "#features" },
-                { label: "GitHub", href: "#" },
+                { label: "GitHub", href: "https://github.com/kimsangjunv1/fivepixels" },
             ],
             socialTitle: "SOCIAL",
-            copyright: "© 2026 Stitchable contributors.",
+            copyright: "© 2026 fivepixels contributors.",
         },
         preview: {
             title: "피드백 워크플로우",

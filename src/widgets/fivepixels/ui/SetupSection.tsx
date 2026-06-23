@@ -2,10 +2,10 @@ import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
 
 const codeLines = [
     <>
-        <b>import</b> {"{ Report }"} <b>from</b> <span>&quot;stitchable&quot;</span>;
+        <b>import</b> {"{ FivePixels }"} <b>from</b> <span>&quot;@fivepixels-js/react&quot;</span>;
     </>,
     null,
-    <>&lt;Report project={'{ { id: "my-app" } }'} /&gt;</>,
+    <>&lt;FivePixels project={'{ { id: "my-app" } }'} /&gt;</>,
     null,
     <>&lt;section data-report-id=&quot;hero&quot; data-report-type=&quot;group&quot;&gt;</>,
     <>{"  "}&lt;button data-report-id=&quot;hero-cta&quot;&gt;Get Started&lt;/button&gt;</>,

@@ -3,7 +3,7 @@ import type { GuideMessages } from "./types"
 export const guideKo: GuideMessages = {
   title: "시작하기",
   description:
-    "Stitchable은 스테이징·QA·내부 도구 화면 위에 DOM 요소 단위 피드백을 남기는 React 라이브러리입니다.\nUI가 바뀌어도 마커를 복원하고, `스크린샷` 없이도 이슈를 검토할 수 있습니다.",
+    "fivepixels은 스테이징·QA·내부 도구 화면 위에 DOM 요소 단위 피드백을 남기는 React 라이브러리입니다.\nUI가 바뀌어도 마커를 복원하고, `스크린샷` 없이도 이슈를 검토할 수 있습니다.",
   navHome: "홈",
   codeCopy: "복사",
   codeCopied: "복사되었습니다",
@@ -22,7 +22,7 @@ export const guideKo: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Stitchable은 실제 DOM 요소에 피드백을 남기고, UI 변경 후에도 마커를 복원하며, 필요하면 GitHub Issue로 승격할 수 있게 해 줍니다.",
+          text: "fivepixels은 실제 DOM 요소에 피드백을 남기고, UI 변경 후에도 마커를 복원하며, 필요하면 GitHub Issue로 승격할 수 있게 해 줍니다.",
         },
         {
           type: "list",
@@ -62,7 +62,7 @@ export const guideKo: GuideMessages = {
         {
           type: "callout",
           variant: "info",
-          text: "Next.js 등 SSR 환경에서는 <Report />를\n클라이언트에서만 렌더링하세요 (\"use client\" + dynamic import).",
+          text: "Next.js 등 SSR 환경에서는 <FivePixels />를\n클라이언트에서만 렌더링하세요 (\"use client\" + dynamic import).",
         },
       ],
     },
@@ -75,7 +75,7 @@ export const guideKo: GuideMessages = {
           type: "list",
           items: [
             "project.id를 생략하면 기본값 \"my-app\"입니다. stage/production·멀티 앱에서는 project={{ id }}를 명시하는 것을 권장합니다.",
-            "피드백을 받을 화면에 <Report />를 1회만 렌더링하세요.",
+            "피드백을 받을 화면에 <FivePixels />를 1회만 렌더링하세요.",
             "대상 요소에 data-report-id가 필요합니다. data-report-type을 생략하면 item, 섹션은 group입니다.",
             "CSS import가 필요 없습니다 — Shadow Root 안에서 Tailwind와 함께 자동으로 마운트됩니다.",
           ],
@@ -103,7 +103,7 @@ export const guideKo: GuideMessages = {
       blocks: [
         {
           type: "paragraph",
-          text: "Report UI는 open Shadow Root(#stitchable-root)에 렌더링되어\n호스트 앱 스타일과 격리됩니다.",
+          text: "FivePixels UI는 open Shadow Root(#fivepixels-root)에 렌더링되어\n호스트 앱 스타일과 격리됩니다.",
         },
         { type: "code", snippet: "shadowDiagram", language: "text" },
         {
@@ -111,7 +111,7 @@ export const guideKo: GuideMessages = {
           items: [
             "피드백 대상 탐색은 메인 document의 querySelector / elementFromPoint를 사용합니다.",
             "호스트 페이지 Shadow DOM 내부 요소는 기본 피드백 대상이 아닙니다.",
-            "appearance light | dark | system은 Shadow Root 내부 data-stitchable-theme으로 반영됩니다.",
+            "appearance light | dark | system은 Shadow Root 내부 data-fivepixels-theme으로 반영됩니다.",
           ],
         },
       ],
@@ -294,7 +294,7 @@ export const guideKo: GuideMessages = {
             "workspace 개념은 project.id로 교체합니다.",
             "storageAdapter는 제거되었습니다 — onList/onCreate/onUpdate/onDelete를 사용합니다.",
             "analytics·알림은 onEvent/onReply를 사용합니다.",
-            "localStorage 키: stitchable:reports:v1:{projectId} 또는 :{environment} 접미사.",
+            "localStorage 키: fivepixels:reports:v1:{projectId} 또는 :{environment} 접미사.",
           ],
         },
       ],
