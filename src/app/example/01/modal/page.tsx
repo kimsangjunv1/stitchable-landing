@@ -1,5 +1,13 @@
 import { Main } from "@/widgets/layout/Main";
-import { ExampleShell, ModalDemo } from "@/widgets/example01";
+import { Example01ModalView } from "@/views/example/01/modal/Example01ModalView";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+    title: "Modal Example",
+    description: "fivepixels modal overlay demo — leave feedback on elements inside an open dialog.",
+    path: "/example/01/modal",
+    keywords: ["fivepixels", "modal", "QA", "z-index", "focus trap"],
+});
 
 const mainClassName = {
     container: "min-h-screen bg-white text-[#050505]",
@@ -12,12 +20,7 @@ export default function Example01ModalPage() {
             id="example-01-modal"
             className={mainClassName}
         >
-            <ExampleShell
-                title="Modal overlay case"
-                description="모달이 열린 상태에서도 Report 모드로 내부 요소에 피드백을 남길 수 있는지 확인하는 예제입니다. z-index와 포커스 트랩 환경을 테스트해 보세요."
-            >
-                <ModalDemo />
-            </ExampleShell>
+            <Example01ModalView />
         </Main>
     );
 }

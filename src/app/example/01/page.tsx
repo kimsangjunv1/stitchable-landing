@@ -1,5 +1,14 @@
 import { Main } from "@/widgets/layout/Main";
-import { ExampleShell, MainDemo } from "@/widgets/example01";
+import { Example01View } from "@/views/example/01/Example01View";
+import { createPageMetadata } from "@/lib/seo";
+import { SITE_DESCRIPTION_KO } from "@/lib/site";
+
+export const metadata = createPageMetadata({
+    title: "Example",
+    description: `${SITE_DESCRIPTION_KO} Install-free interactive demo for DOM feedback markers.`,
+    path: "/example/01",
+    keywords: ["fivepixels", "example", "QA demo", "DOM feedback", "React"],
+});
 
 const mainClassName = {
     container: "min-h-screen bg-white text-[#050505]",
@@ -12,12 +21,7 @@ export default function Example01Page() {
             id="example-01"
             className={mainClassName}
         >
-            <ExampleShell
-                title="A Tool for Perfect QA"
-                description="fivepixels를 설치하지 않고도 이 페이지에서 바로 DOM 피드백을 체험해 볼 수 있습니다. 버튼, 섹션, 카드 어디든 클릭해 마커를 남겨 보세요."
-            >
-                <MainDemo />
-            </ExampleShell>
+            <Example01View />
         </Main>
     );
 }

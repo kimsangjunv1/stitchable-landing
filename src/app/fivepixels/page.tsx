@@ -1,5 +1,14 @@
+import { createPageMetadata } from "@/lib/seo";
+import { SITE_DESCRIPTION } from "@/lib/site";
 import { Main } from "@/widgets/layout/Main";
 import { FivepixelsView } from "@/views/fivepixels/FivepixelsView";
+
+export const metadata = createPageMetadata({
+    title: "Overview",
+    description: SITE_DESCRIPTION,
+    path: "/fivepixels",
+    keywords: ["fivepixels", "@fivepixels-js/react", "QA tool", "DOM markers", "React library"],
+});
 
 const mainClassName = {
     container: "min-h-screen bg-white text-[#050505]",

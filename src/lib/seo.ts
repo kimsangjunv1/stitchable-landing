@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ALLOW_SEARCH_INDEXING, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
+const OG_IMAGE_PATH = "/rebranding/fivepixels.png";
+
 const NO_INDEX_ROBOTS: Metadata["robots"] = {
     index: false,
     follow: false,
@@ -29,9 +31,15 @@ type PageMetadataOptions = {
     title?: string;
     description?: string;
     path?: string;
+    keywords?: string[];
 };
 
-export function createPageMetadata({ title, description = SITE_DESCRIPTION, path = "/" }: PageMetadataOptions = {}): Metadata {
+export function createPageMetadata({
+    title,
+    description = SITE_DESCRIPTION,
+    path = "/",
+    keywords,
+}: PageMetadataOptions = {}): Metadata {
     const canonicalPath = path.startsWith("/") ? path : `/${path}`;
     const defaultTitle = `${SITE_NAME} — Feedback, directly on your UI`;
     const pageTitle = title ? `${title} | ${SITE_NAME}` : defaultTitle;
@@ -45,6 +53,7 @@ export function createPageMetadata({ title, description = SITE_DESCRIPTION, path
                   template: `%s | ${SITE_NAME}`,
               },
         description,
+        keywords,
         metadataBase: new URL(SITE_URL),
         alternates: {
             canonical: canonicalPath,
@@ -59,18 +68,18 @@ export function createPageMetadata({ title, description = SITE_DESCRIPTION, path
             description,
             images: [
                 {
-                    url: "/favicon.ico",
-                    width: 512,
-                    height: 512,
-                    alt: SITE_NAME,
+                    url: OG_IMAGE_PATH,
+                    width: 1200,
+                    height: 630,
+                    alt: `${SITE_NAME} — DOM feedback for QA and staging`,
                 },
             ],
         },
         twitter: {
-            card: "summary",
+            card: "summary_large_image",
             title: pageTitle,
             description,
-            images: ["/favicon.ico"],
+            images: [OG_IMAGE_PATH],
         },
     };
 }

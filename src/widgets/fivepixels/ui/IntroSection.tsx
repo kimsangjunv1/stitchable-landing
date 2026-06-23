@@ -53,7 +53,7 @@ export function IntroSection() {
 
                 <div className="relative h-full flex flex-col justify-between items-center flex-1 overflow-hidden bg-[#F9572E]">
                     <section className="flex flex-col items-start w-full mobile:py-[3.2rem] tablet:py-[3.2rem] mobile:px-[1.2rem] tablet:px-[2.4rem]">
-                        <h2 className={`${expandedText} flex items-center mobile:text-[1.8rem] tablet:text-[2.4rem] text-white`}>check today's issue</h2>
+                        <h2 className={`${expandedText} flex items-center mobile:text-[1.8rem] tablet:text-[2.4rem] text-white`}>check today&apos;s issue</h2>
                         <h2 className={`${expandedText} flex items-center mobile:text-[2.4rem] tablet:text-[4.2rem] text-white`}>support screen panel ui</h2>
                     </section>
 

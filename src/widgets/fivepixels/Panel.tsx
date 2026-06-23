@@ -13,7 +13,6 @@ export default function Panel() {
                 <Layer.SetupSection />
                 <Layer.OpenSourceSection />
                 <Layer.WordmarkSection />
-                {/* <Layer.FooterSection /> */}
                 <Layer.Modal />
             </main>
         </FivepixelsPageProvider>

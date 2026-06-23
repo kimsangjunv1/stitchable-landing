@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
-import { InstallCommand } from "@/widgets/example01/ui/InstallCommand";
+import { InstallCommand } from "@/widgets/example/01/ui/InstallCommand";
 
 const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
 

@@ -7,6 +7,7 @@ export default function Panel() {
     return (
         <GuidePageProvider>
             <GuideLayer.Shell />
+            <GuideLayer.Modal />
         </GuidePageProvider>
     );
 }

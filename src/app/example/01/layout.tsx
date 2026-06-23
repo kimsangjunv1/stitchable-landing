@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { FivePixelsProvider } from "@/widgets/example01";
+import { FivePixelsProvider } from "@/widgets/example/01/FivePixelsProvider";
 
 export default function Example01Layout({ children }: Readonly<{ children: ReactNode }>) {
     return (

@@ -1,17 +1,8 @@
-import Image from "next/image";
-
 export function Footer() {
     return (
         <section className="min-h-[375px] bg-black text-white">
             <footer className="mx-auto grid w-[min(1920px,calc(100%-48px))] grid-cols-[1.15fr_1fr_.85fr] pt-[89px] max-[720px]:w-[min(calc(100%-32px),520px)] max-[720px]:grid-cols-2 max-[720px]:gap-x-5 max-[720px]:gap-y-[55px] max-[720px]:py-[55px] max-[720px]:pb-20">
                 <div className="flex flex-col items-start leading-none">
-                    {/* <Image
-                        className="mb-[7px] h-[89px] w-[89px] object-cover"
-                        src="/rebranding/post-profile.png"
-                        alt=""
-                        width={512}
-                        height={512}
-                    /> */}
                     <strong>CODI</strong>
                     <span>@kimsangjunv1</span>
                     <p className="mt-[34px] leading-[1.3]">

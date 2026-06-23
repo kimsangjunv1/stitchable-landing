@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { ExampleNav } from "@/widgets/example01/ui/ExampleNav";
-import { ShortcutHint } from "@/widgets/example01/ui/ShortcutHint";
+import { ExampleNav } from "@/widgets/example/01/ui/ExampleNav";
+import { ShortcutHint } from "@/widgets/example/01/ui/ShortcutHint";
 
 type ExampleShellProps = {
     title: string;

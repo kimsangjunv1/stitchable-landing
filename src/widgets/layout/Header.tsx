@@ -44,7 +44,7 @@ export function Header() {
                         priority
                     />
                     <Image
-                        src={`/rebranding/${pathname.includes("/fivepixels") || pathname.startsWith("/example/01") ? "logo" : "codi-agit"}.svg`}
+                        src="/rebranding/logo.svg"
                         alt="agit"
                         width={256}
                         height={54}
