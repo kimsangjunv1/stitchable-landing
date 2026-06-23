@@ -20,7 +20,7 @@ const navigation = [
     },
     {
         label: "EXAMPLES",
-        href: "/fivepixels#examples",
+        href: "/example/01",
     },
 ];
 
@@ -44,7 +44,7 @@ export function Header() {
                         priority
                     />
                     <Image
-                        src={`/rebranding/${pathname.includes("/fivepixels") ? "logo" : "codi-agit"}.svg`}
+                        src={`/rebranding/${pathname.includes("/fivepixels") || pathname.startsWith("/example/01") ? "logo" : "codi-agit"}.svg`}
                         alt="agit"
                         width={256}
                         height={54}
