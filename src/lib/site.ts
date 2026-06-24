@@ -17,8 +17,11 @@ export const PUBLIC_ROUTES = [
     "/fivepixels",
     "/fivepixels/guide",
     "/example/01",
-    "/example/01/list",
-    "/example/01/modal",
+    "/example/01/issues",
+    "/example/01/reviews",
+    "/example/01/releases",
+    "/example/01/modals",
+    "/example/01/settings",
 ] as const;
 
 export const GITHUB_URL = "https://github.com/kimsangjunv1/fivepixels";

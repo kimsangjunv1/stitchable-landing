@@ -27,6 +27,10 @@ const navigation = [
 export function Header() {
     const pathname = usePathname();
 
+    if (pathname.startsWith("/example/01")) {
+        return null;
+    }
+
     return (
         <header className="fixed top-0 left-0 bg-white font-[family-name:var(--font-mona-rebrand)] text-[#050505] z-[100] w-full">
             {/* <div className="mx-auto flex w-[min(1536px,calc(100%-48px))] items-start gap-[165px] pt-5 max-[720px]:h-[118px] max-[720px]:w-[calc(100%-32px)] max-[720px]:gap-8"> */}
