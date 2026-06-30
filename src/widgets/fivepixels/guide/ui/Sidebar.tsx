@@ -9,14 +9,21 @@ export function Sidebar({ groups, sections, onThisPage }: { groups: GuideNavGrou
     const sectionMap = new Map(sections.map((s) => [s.id, s]));
 
     return (
-        <aside className="hidden w-56 shrink-0 lg:block">
-            <nav className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-8 pr-4">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{onThisPage}</p>
-                <div className="space-y-6">
-                    {groups.map((group) => (
+        <aside className="hidden w-[20rem] shrink-0 lg:block">
+            <nav className="sticky top-[calc(var(--site-banner-height)+12rem)] max-h-[calc(100vh-14rem-var(--site-banner-height))] overflow-y-auto pb-[3.2rem]">
+                <p className="mb-[1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] uppercase tracking-wider text-[#969696]">{onThisPage}</p>
+                <div className="flex flex-col gap-[2.4rem]">
+                    {groups.map((group, groupIndex) => (
                         <div key={group.label}>
-                            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/80">{group.label}</p>
-                            <ul className="space-y-0.5 border-l border-border pl-3">
+                            <p
+                                className={cn(
+                                    "mb-[0.8rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] uppercase tracking-wider",
+                                    groupIndex === 0 ? "text-[#ff4b2e]" : "text-[#969696]",
+                                )}
+                            >
+                                {group.label}
+                            </p>
+                            <ul className="flex flex-col gap-[0.2rem] border-l border-black/10 pl-[1.2rem]">
                                 {group.sectionIds.map((id) => {
                                     const section = sectionMap.get(id);
                                     if (!section) return null;
@@ -26,8 +33,10 @@ export function Sidebar({ groups, sections, onThisPage }: { groups: GuideNavGrou
                                             <a
                                                 href={`#${id}`}
                                                 className={cn(
-                                                    "block py-1 text-[13px] leading-snug transition-colors",
-                                                    active ? "font-medium text-[#3182f6]" : "text-muted-foreground hover:text-foreground",
+                                                    "relative block py-[0.4rem] text-[1.4rem] leading-snug transition-colors",
+                                                    active
+                                                        ? "font-semibold text-[#050505] before:absolute before:-left-[1.3rem] before:top-[0.6rem] before:h-[1.2rem] before:w-[0.2rem] before:bg-[#ff4b2e]"
+                                                        : "text-[#969696] hover:text-[#050505]",
                                                 )}
                                             >
                                                 {section.title}

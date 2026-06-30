@@ -3,6 +3,8 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://library.cod
 
 export const SITE_NAME = "fivepixels";
 
+export const SITE_BANNER_MESSAGE = "This library is currently in development.";
+
 export const SITE_DESCRIPTION =
     "A DOM-aware feedback layer for QA, staging, and internal tools. Leave feedback on real DOM elements, restore markers after UI changes, and review issues without screenshots.";
 
@@ -16,6 +18,7 @@ export const PUBLIC_ROUTES = [
     "/",
     "/fivepixels",
     "/fivepixels/guide",
+    "/fivepixels/guide/backend-api",
     "/example/01",
     "/example/01/issues",
     "/example/01/reviews",

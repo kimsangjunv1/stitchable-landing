@@ -4,7 +4,7 @@ import { ko } from "./ko"
 
 const MESSAGES: Record<Locale, LandingMessages> = { en, ko }
 
-export type { GuideMessages, GuideBlock, GuideSection } from "./guide/types"
+export type { GuideMessages, GuideBlock, GuideSection, GuideHero } from "./guide/types"
 export type { LandingMessages, Locale }
 
 export function getMessages(locale: Locale): LandingMessages {

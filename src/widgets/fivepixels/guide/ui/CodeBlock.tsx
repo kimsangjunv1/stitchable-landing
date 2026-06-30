@@ -6,9 +6,17 @@ import { useMessages } from "@/app/providers/LocaleProvider";
 import { GUIDE_SNIPPETS, type GuideSnippetKey } from "@/i18n/guide/snippets";
 import { cn } from "@/shared/lib/utils";
 
-export function CodeBlock({ snippet, language = "tsx" }: { snippet: GuideSnippetKey; language?: string }) {
+export function CodeBlock({
+    snippet,
+    code: codeProp,
+    language = "tsx",
+}: {
+    snippet?: GuideSnippetKey;
+    code?: string;
+    language?: string;
+}) {
     const guide = useMessages().guide;
-    const code = GUIDE_SNIPPETS[snippet];
+    const code = codeProp ?? (snippet ? GUIDE_SNIPPETS[snippet] : "");
     const [copied, setCopied] = useState(false);
     const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -30,24 +38,22 @@ export function CodeBlock({ snippet, language = "tsx" }: { snippet: GuideSnippet
     }, [code]);
 
     return (
-        <div className="vp-code-block group relative my-4 overflow-hidden">
-            <div className="flex items-center justify-between border-b border-[var(--vp-color-stroke)] px-4 py-1.5">
-                <span className="font-mono text-[11px] uppercase tracking-wide text-[var(--vp-color-text-dim)]">{language}</span>
+        <div className="group relative overflow-hidden bg-[#050505]">
+            <div className="flex items-center justify-between border-b border-white/10 px-[1.6rem] py-[1rem]">
+                <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] uppercase tracking-wide text-white/50">{language}</span>
                 <button
                     type="button"
                     onClick={handleCopy}
                     aria-label={copied ? guide.codeCopied : guide.codeCopy}
                     className={cn(
-                        "inline-flex items-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-[11px] font-medium transition-colors",
-                        copied
-                            ? "border-[var(--vp-color-brand)] text-[var(--vp-color-brand)]"
-                            : "text-[var(--vp-color-text-dim)] hover:border-[var(--vp-color-stroke)] hover:text-[var(--vp-color-brand)]",
+                        "inline-flex items-center gap-[0.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] transition-colors",
+                        copied ? "text-[#ff4b2e]" : "text-white/50 hover:text-white",
                     )}
                 >
                     {copied ? (
                         <>
                             <Check
-                                className="size-3.5"
+                                className="size-[1.4rem]"
                                 aria-hidden
                             />
                             {guide.codeCopied}
@@ -55,7 +61,7 @@ export function CodeBlock({ snippet, language = "tsx" }: { snippet: GuideSnippet
                     ) : (
                         <>
                             <Copy
-                                className="size-3.5"
+                                className="size-[1.4rem]"
                                 aria-hidden
                             />
                             {guide.codeCopy}
@@ -63,8 +69,8 @@ export function CodeBlock({ snippet, language = "tsx" }: { snippet: GuideSnippet
                     )}
                 </button>
             </div>
-            <pre className="overflow-x-auto p-4 text-[13px] leading-relaxed">
-                <code className="font-mono text-[#e8e6ed]">{code}</code>
+            <pre className="overflow-x-auto p-[1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] leading-[1.8] text-[#f5f5f5] tablet:p-[2.4rem]">
+                <code>{code}</code>
             </pre>
         </div>
     );

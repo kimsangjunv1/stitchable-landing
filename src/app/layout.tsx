@@ -9,6 +9,7 @@ import { LocaleProvider } from "@/app/providers/LocaleProvider";
 import { createPageMetadata } from "@/lib/seo";
 import { Footer } from "@/widgets/layout/Footer";
 import { Header } from "@/widgets/layout/Header";
+import { SiteBanner } from "@/widgets/layout/SiteBanner";
 
 import "@/shared/styles/scss/globals.css";
 import "@/shared/styles/scss/index.scss";
@@ -84,8 +85,11 @@ export default function RootLayout({
             <body className="bg-white font-sans text-[#050505] antialiased">
                 <GlobalErrorBoundary>
                     <GlobalErrorListener>
-                        <Header />
-                        <LocaleProvider>{children}</LocaleProvider>
+                        <LocaleProvider>
+                            <SiteBanner />
+                            <Header />
+                            {children}
+                        </LocaleProvider>
                         <Footer />
                     </GlobalErrorListener>
                 </GlobalErrorBoundary>

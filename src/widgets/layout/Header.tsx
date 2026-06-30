@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/lib/utils";
+import { LocaleSwitcher } from "@/widgets/layout/LocaleSwitcher";
 
 const navigation = [
     {
@@ -14,10 +15,10 @@ const navigation = [
         label: "GUIDE",
         href: "/fivepixels/guide",
     },
-    {
-        label: "SETTINGS",
-        href: "/fivepixels#settings",
-    },
+    // {
+    //     label: "SETTINGS",
+    //     href: "/fivepixels#settings",
+    // },
     {
         label: "EXAMPLES",
         href: "/example/01",
@@ -32,7 +33,7 @@ export function Header() {
     }
 
     return (
-        <header className="fixed top-0 left-0 bg-white font-[family-name:var(--font-mona-rebrand)] text-[#050505] z-[100] w-full">
+        <header className="fixed top-[var(--site-banner-height)] left-0 z-[100] w-full bg-white font-[family-name:var(--font-mona-rebrand)] text-[#050505]">
             {/* <div className="mx-auto flex w-[min(1536px,calc(100%-48px))] items-start gap-[165px] pt-5 max-[720px]:h-[118px] max-[720px]:w-[calc(100%-32px)] max-[720px]:gap-8"> */}
             <div className="w-[var(--size-pc)] mx-auto flex items-end gap-[165px] max-w-[var(--size-pc)] w-full p-[1.2rem]">
                 <Link
@@ -74,6 +75,8 @@ export function Header() {
                         </Link>
                     ))}
                 </nav>
+
+                <LocaleSwitcher />
             </div>
         </header>
     );

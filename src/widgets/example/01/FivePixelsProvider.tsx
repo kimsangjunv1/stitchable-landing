@@ -24,7 +24,7 @@ export function FivePixelsProvider({ children }: FivePixelsProviderProps) {
         () => ({
             locale: "ko" as const,
             appearance: "system" as const,
-            showFeedbackList: isListPage,
+            showFeedbackList: true,
             visibleShortcutKeys: true,
         }),
         [isListPage],

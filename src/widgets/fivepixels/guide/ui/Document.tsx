@@ -1,22 +1,28 @@
 "use client";
 
-import type { GuideBlock, GuideSection } from "@/i18n/guide/types";
+import Link from "next/link";
+import type { GuideBlock, GuideHero, GuideSection } from "@/i18n/guide/types";
+import { BACKEND_API_SNIPPETS } from "@/i18n/guide/backend-api/snippets";
 import { RichText } from "@/shared/ui/rich-text";
 import { CodeBlock } from "./CodeBlock";
 import { Callout } from "./Callout";
 import { DocTable } from "./DocTable";
+import { GuideStep } from "./GuideStep";
+import { QuickStartHero } from "./QuickStartHero";
+
+const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
 
 function BlockRenderer({ block }: { block: GuideBlock }) {
     switch (block.type) {
         case "paragraph":
             return (
-                <p className="my-4 text-[15px] leading-7 text-muted-foreground">
+                <p className="text-[1.6rem] leading-[1.6] text-black/70">
                     <RichText text={block.text} />
                 </p>
             );
         case "list":
             return (
-                <ul className="my-4 list-disc space-y-2 pl-6 text-[15px] leading-7 text-muted-foreground">
+                <ul className="list-disc space-y-[0.8rem] pl-[2rem] text-[1.6rem] leading-[1.6] text-black/70">
                     {block.items.map((item) => (
                         <li key={item}>
                             <RichText text={item} />
@@ -26,7 +32,7 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
             );
         case "ordered":
             return (
-                <ol className="my-4 list-decimal space-y-2 pl-6 text-[15px] leading-7 text-muted-foreground">
+                <ol className="list-decimal space-y-[0.8rem] pl-[2rem] text-[1.6rem] leading-[1.6] text-black/70">
                     {block.items.map((item) => (
                         <li key={item}>
                             <RichText text={item} />
@@ -41,6 +47,30 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
                     language={block.language}
                 />
             );
+        case "codeRaw":
+            return (
+                <CodeBlock
+                    code={block.code}
+                    language={block.language}
+                />
+            );
+        case "codeSnippet":
+            return (
+                <CodeBlock
+                    code={BACKEND_API_SNIPPETS[block.snippet]}
+                    language={block.language}
+                />
+            );
+        case "link":
+            return (
+                <Link
+                    href={block.href}
+                    className="inline-flex items-center gap-[0.8rem] font-[family-name:var(--font-mona-rebrand)] text-[1.6rem] font-semibold text-[#3182f6] transition-colors hover:text-[#1b64da]"
+                >
+                    {block.label}
+                    <span aria-hidden>→</span>
+                </Link>
+            );
         case "callout":
             return <Callout text={block.text} />;
         case "table":
@@ -51,72 +81,82 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
                 />
             );
         case "subheading":
-            return <h3 className="mt-8 mb-3 text-lg font-semibold tracking-tight text-foreground">{block.text}</h3>;
+            return <h3 className={`${expandedText} text-[2rem] text-[#050505]`}>{block.text}</h3>;
         default:
             return null;
     }
 }
 
-function SectionAnchor({ id, title }: { id: string; title: string }) {
+function ReferenceSection({ section }: { section: GuideSection }) {
     return (
-        <a
-            href={`#${id}`}
-            className="group relative -ml-6 inline-flex items-center gap-2 no-underline"
+        <section
+            id={section.id}
+            className="scroll-mt-[calc(var(--site-banner-height)+12rem)] border-t border-black/10 pt-[6.4rem]"
         >
-            <span
-                aria-hidden
-                className="absolute -left-5 opacity-0 transition-opacity group-hover:opacity-100 text-muted-foreground"
-            >
-                #
-            </span>
-            <h2
-                id={id}
-                className="scroll-mt-24 border-t border-border pt-10 text-2xl font-semibold tracking-tight text-foreground first:border-t-0 first:pt-0"
-            >
-                {title}
-            </h2>
-        </a>
+            <h2 className={`${expandedText} text-[3.2rem] leading-[1.05] mobile:text-[2.4rem]`}>{section.title}</h2>
+            <div className="mt-[2.4rem] flex flex-col gap-[2.4rem]">
+                {section.blocks.map((block, i) => (
+                    <BlockRenderer
+                        key={`${section.id}-${i}`}
+                        block={block}
+                    />
+                ))}
+            </div>
+        </section>
     );
 }
 
-export function Document({ title, description, sections }: { title: string; description: string; sections: GuideSection[] }) {
-    return (
-        <article className="min-w-0 flex-1 pb-20 pt-8">
-            <header className="mb-10">
-                <h1 className="text-4xl font-bold tracking-tight text-foreground">{title}</h1>
-                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-                    <RichText text={description} />
-                </p>
-            </header>
+export function Document({
+    hero,
+    referenceDivider,
+    sections,
+}: {
+    hero: GuideHero;
+    referenceDivider: string;
+    sections: GuideSection[];
+}) {
+    const quickStartSections = sections.filter((s) => s.variant === "quick-start");
+    const referenceSections = sections.filter((s) => s.variant === "reference");
 
-            {sections.map((section, index) => (
-                <section
-                    key={section.id}
-                    className={index === 0 ? "" : "mt-2"}
-                >
-                    {index === 0 ? (
-                        <h2
-                            id={section.id}
-                            className="scroll-mt-24 text-2xl font-semibold text-foreground"
-                        >
-                            {section.title}
-                        </h2>
-                    ) : (
-                        <SectionAnchor
-                            id={section.id}
-                            title={section.title}
-                        />
-                    )}
-                    <div className="mt-2">
+    return (
+        <article className="min-w-0 flex-1 pb-[8rem] pt-[4.8rem]">
+            <QuickStartHero hero={hero} />
+
+            <div className="flex flex-col gap-[4.8rem]">
+                {quickStartSections.map((section) => (
+                    <GuideStep
+                        key={section.id}
+                        id={section.id}
+                        stepLabel={section.stepLabel ?? ""}
+                        title={section.title}
+                    >
                         {section.blocks.map((block, i) => (
                             <BlockRenderer
                                 key={`${section.id}-${i}`}
                                 block={block}
                             />
                         ))}
+                    </GuideStep>
+                ))}
+            </div>
+
+            {referenceSections.length > 0 && (
+                <div className="mt-[9.6rem]">
+                    <div className="mb-[6.4rem] flex items-center gap-[2.4rem]">
+                        <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] text-[#969696]">{referenceDivider}</span>
+                        <div className="h-[0.1rem] flex-1 bg-black/10" />
                     </div>
-                </section>
-            ))}
+
+                    <div className="flex flex-col gap-[6.4rem]">
+                        {referenceSections.map((section) => (
+                            <ReferenceSection
+                                key={section.id}
+                                section={section}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
         </article>
     );
 }

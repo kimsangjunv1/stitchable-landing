@@ -4,4 +4,5 @@ export type Locale = "en" | "ko";
 
 export type LandingMessages = {
     guide: GuideMessages;
+    backendApiGuide: GuideMessages;
 };
