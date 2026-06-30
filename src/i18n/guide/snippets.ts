@@ -1,5 +1,8 @@
 export const GUIDE_SNIPPETS = {
   install: "npm install @fivepixels-js/react react react-dom",
+  markElements: `<section data-report-id="hero" data-report-type="group">
+  <button data-report-id="hero-cta">Get Started</button>
+</section>`,
   quickStart: `import { FivePixels } from "@fivepixels-js/react";
 
 export default function App() {
@@ -56,6 +59,38 @@ export default function App() {
   project={{ id: "my-app" }}
   ui={{ visibleShortcutKeys: true }}
   visibility={{ devOnly: true }}
+/>`,
+  serverHandlers: `<FivePixels
+  project={{ id: "my-app", env: "stage", version: "1.2.0" }}
+  onList={({ pathname }) =>
+    fetch(
+      \`/api/projects/my-app/comments?pathname=\${encodeURIComponent(pathname)}&environment=stage\`,
+    ).then((r) => r.json())
+  }
+  onListReplies={(commentId) =>
+    fetch(\`/api/projects/my-app/comments/\${commentId}/replies\`).then((r) => r.json())
+  }
+  onCreate={(payload) =>
+    fetch("/api/projects/my-app/comments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).then((r) => r.json())
+  }
+  onCreateReply={(commentId, payload) =>
+    fetch(\`/api/projects/my-app/comments/\${commentId}/replies\`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).then((r) => r.json())
+  }
+  onUpdate={(id, payload) =>
+    fetch(\`/api/projects/my-app/comments/\${id}\`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).then((r) => r.json())
+  }
 />`,
   shadowDiagram: `document.body
   └── #fivepixels-root
