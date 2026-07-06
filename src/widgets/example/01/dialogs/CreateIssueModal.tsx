@@ -1,10 +1,26 @@
 "use client";
 
+import { useMessages } from "@/app/providers/LocaleProvider";
+
 type CreateIssueModalProps = {
     onClose: () => void;
 };
 
+const tagStyles = [
+    "border border-[#f04452] px-[0.8rem] py-[0.4rem] text-[1.2rem] text-[#f04452]",
+    "border border-[#2563eb] px-[0.8rem] py-[0.4rem] text-[1.2rem] text-[#2563eb]",
+    "border border-[#111] px-[0.8rem] py-[0.4rem] text-[1.2rem]",
+] as const;
+
+const tagReportIds = [
+    "example-dashboard-modal-tag-bug",
+    "example-dashboard-modal-tag-copy",
+    "example-dashboard-modal-tag-important",
+] as const;
+
 export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
+    const createIssue = useMessages().example.createIssue;
+
     return (
         <div
             className="fixed inset-0 z-[90] flex items-center justify-center bg-black/55 p-[1.6rem]"
@@ -31,14 +47,14 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-white/60"
                             data-report-id="example-dashboard-modal-eyebrow"
                         >
-                            NEW ISSUE
+                            {createIssue.eyebrow}
                         </p>
                         <h2
                             className="text-[2rem] font-semibold"
                             data-report-id="example-dashboard-modal-title"
                             id="example-dashboard-modal-title"
                         >
-                            Report an issue
+                            {createIssue.title}
                         </h2>
                     </div>
                     <button
@@ -47,7 +63,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                         onClick={onClose}
                         type="button"
                     >
-                        Close
+                        {createIssue.close}
                     </button>
                 </div>
 
@@ -64,12 +80,12 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             className="font-medium"
                             data-report-id="example-dashboard-modal-title-label"
                         >
-                            Title
+                            {createIssue.formTitle}
                         </span>
                         <input
                             className="border border-black/15 px-[1.2rem] py-[1rem] text-[1.4rem] outline-none focus:border-black"
                             data-report-id="example-dashboard-modal-title-input"
-                            placeholder="e.g. Sidebar overlap on tablet"
+                            placeholder={createIssue.titlePlaceholder}
                             type="text"
                         />
                     </label>
@@ -82,12 +98,12 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             className="font-medium"
                             data-report-id="example-dashboard-modal-message-label"
                         >
-                            Description
+                            {createIssue.formDescription}
                         </span>
                         <textarea
                             className="min-h-[10rem] resize-y border border-black/15 p-[1.2rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] outline-none focus:border-black"
                             data-report-id="example-dashboard-modal-textarea"
-                            placeholder="Describe what you found..."
+                            placeholder={createIssue.descriptionPlaceholder}
                         />
                     </label>
 
@@ -96,24 +112,15 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                         data-report-id="example-dashboard-modal-tags"
                         data-report-type="group"
                     >
-                        <span
-                            className="border border-[#f04452] px-[0.8rem] py-[0.4rem] text-[1.2rem] text-[#f04452]"
-                            data-report-id="example-dashboard-modal-tag-bug"
-                        >
-                            BUG
-                        </span>
-                        <span
-                            className="border border-[#2563eb] px-[0.8rem] py-[0.4rem] text-[1.2rem] text-[#2563eb]"
-                            data-report-id="example-dashboard-modal-tag-copy"
-                        >
-                            COPY
-                        </span>
-                        <span
-                            className="border border-[#111] px-[0.8rem] py-[0.4rem] text-[1.2rem]"
-                            data-report-id="example-dashboard-modal-tag-important"
-                        >
-                            IMPORTANT
-                        </span>
+                        {createIssue.tags.map((tag, index) => (
+                            <span
+                                className={tagStyles[index]}
+                                data-report-id={tagReportIds[index]}
+                                key={tag}
+                            >
+                                {tag}
+                            </span>
+                        ))}
                     </div>
 
                     <div
@@ -126,7 +133,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             data-report-id="example-dashboard-modal-submit"
                             type="button"
                         >
-                            Create issue
+                            {createIssue.submit}
                         </button>
                         <button
                             className="border border-black px-[1.4rem] py-[1rem] text-[1.3rem]"
@@ -134,7 +141,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             onClick={onClose}
                             type="button"
                         >
-                            Cancel
+                            {createIssue.cancel}
                         </button>
                     </div>
                 </div>

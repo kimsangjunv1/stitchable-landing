@@ -1,8 +1,30 @@
 "use client";
 
+import type { GuideTableCell } from "@/i18n/guide/types";
 import { RichText } from "@/shared/ui/rich-text";
 
-export function DocTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
+function TableCell({ cell }: { cell: GuideTableCell }) {
+    if (typeof cell === "string") {
+        return <RichText text={cell} />;
+    }
+
+    return (
+        <div className="flex flex-wrap items-center gap-x-[1.2rem] gap-y-[0.4rem]">
+            {cell.links.map((link) => (
+                <a
+                    key={`${link.href}-${link.label}`}
+                    href={link.href}
+                    className="inline-flex items-center gap-[0.4rem] font-semibold text-[#3182f6] whitespace-nowrap transition-colors hover:text-[#1b64da]"
+                >
+                    {link.label}
+                    <span aria-hidden>→</span>
+                </a>
+            ))}
+        </div>
+    );
+}
+
+export function DocTable({ headers, rows }: { headers: string[]; rows: GuideTableCell[][] }) {
     return (
         <div className="overflow-x-auto border border-black/10">
             <table className="w-full min-w-[48rem] border-collapse text-left text-[1.4rem]">
@@ -29,7 +51,7 @@ export function DocTable({ headers, rows }: { headers: string[]; rows: string[][
                                     key={j}
                                     className="px-[1.6rem] py-[1.2rem] align-top text-black/70"
                                 >
-                                    <RichText text={cell} />
+                                    <TableCell cell={cell} />
                                 </td>
                             ))}
                         </tr>
