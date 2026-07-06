@@ -1,9 +1,11 @@
 "use client";
 
+import { useMessages } from "@/app/providers/LocaleProvider";
 import { ListDemo } from "@/widgets/example/01/ui/ListDemo";
 import { useModalLabStore } from "@/widgets/example/01/model/useModalLabStore";
 
 export function IssuesContent() {
+    const issues = useMessages().example.issues;
     const open = useModalLabStore((state) => state.open);
 
     return (
@@ -13,18 +15,18 @@ export function IssuesContent() {
                 data-report-id="example-issues-header"
                 data-report-type="group"
             >
-                <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">ISSUES</p>
+                <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{issues.eyebrow}</p>
                 <h1
                     className="text-[2.8rem] font-semibold"
                     data-report-id="example-issues-title"
                 >
-                    Issue tracker
+                    {issues.title}
                 </h1>
                 <p
                     className="max-w-[64rem] text-[1.5rem] leading-[1.6] text-black/65"
                     data-report-id="example-issues-description"
                 >
-                    테이블·필터·액션 버튼과 함께 Issues 전용 모달 케이스(display:none, 가로 스크롤)를 테스트할 수 있습니다.
+                    {issues.description}
                 </p>
             </header>
 
@@ -39,7 +41,7 @@ export function IssuesContent() {
                     onClick={() => open("issues-display-none")}
                     type="button"
                 >
-                    Open display:none issue detail
+                    {issues.openDetail}
                 </button>
                 <button
                     className="border border-black/15 px-[1.4rem] py-[1.2rem] text-left text-[1.3rem] hover:bg-black/[0.03]"
@@ -47,7 +49,7 @@ export function IssuesContent() {
                     onClick={() => open("issues-scroll-x")}
                     type="button"
                 >
-                    Open horizontal scroll issue modal
+                    {issues.openModal}
                 </button>
             </section>
 

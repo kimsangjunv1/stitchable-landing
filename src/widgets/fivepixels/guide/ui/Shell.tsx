@@ -13,12 +13,13 @@ export function Shell({ guide }: { guide: GuideMessages }) {
 
     return (
         <div className="min-h-screen font-[family-name:var(--font-mona-rebrand)] text-[1.8rem] text-[#050505]">
-            <div className="mx-auto flex w-full max-w-[var(--size-pc)] gap-[4.8rem] px-[1.2rem] tablet:gap-[6.4rem] tablet:px-[2.4rem]">
+            <div className="mx-auto flex w-full max-w-[var(--size-pc)] pt-[calc(7.2rem+3.2rem)] border-x border-x-[#ededed]">
                 <Sidebar
                     groups={guide.navGroups}
                     sections={guide.sections}
                     onThisPage={guide.onThisPage}
                 />
+                <div className="w-[0.1rem] bg-[#ededed]" />
                 <div className="min-w-0 flex-1">
                     <MobileNav sections={guide.sections} />
                     <Document

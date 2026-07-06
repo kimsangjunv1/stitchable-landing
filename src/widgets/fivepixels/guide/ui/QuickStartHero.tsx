@@ -36,7 +36,7 @@ export function QuickStartHero({ hero }: { hero: GuideHero }) {
     }, [installCode]);
 
     return (
-        <header className="flex flex-col gap-[2.4rem] pb-[4.8rem]">
+        <header className="flex flex-col gap-[2.4rem] pb-[4.8rem] border-b border-b-[#ededed] p-[2.4rem]">
             <span className={cn("text-[1.4rem] text-[#ff4b2e]", "font-[family-name:var(--font-fira-rebrand)]")}>{hero.eyebrow}</span>
 
             <h1 className={`${expandedText} text-[4.2rem] leading-[1.05] mobile:text-[3.2rem]`}>{hero.title}</h1>

@@ -6,9 +6,19 @@ import { BackendApiGuideView } from "@/views/fivepixels/guide/BackendApiGuideVie
 
 export const metadata = createPageMetadata({
     title: "Backend API",
-    description: `${SITE_DESCRIPTION_KO} Self-host REST API reference for onList, onCreate, and onUpdate handlers.`,
+    description: `${SITE_DESCRIPTION_KO} Self-host REST API reference (v2) for comments, cases, replies, and team reviewers.`,
     path: "/fivepixels/guide/backend-api",
-    keywords: ["fivepixels", "backend API", "REST", "persistence", "self-host", "onList", "onCreate"],
+    keywords: [
+        "fivepixels",
+        "backend API",
+        "REST",
+        "persistence",
+        "self-host",
+        "onList",
+        "onCreate",
+        "onListReplies",
+        "cases",
+    ],
 });
 
 export default async function BackendApiGuidePage() {

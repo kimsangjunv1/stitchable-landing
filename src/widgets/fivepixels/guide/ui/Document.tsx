@@ -81,7 +81,14 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
                 />
             );
         case "subheading":
-            return <h3 className={`${expandedText} text-[2rem] text-[#050505]`}>{block.text}</h3>;
+            return (
+                <h3
+                    id={block.id}
+                    className={`${expandedText} scroll-mt-[calc(var(--site-banner-height)+12rem)] text-[2rem] text-[#050505]`}
+                >
+                    {block.text}
+                </h3>
+            );
         default:
             return null;
     }
@@ -91,7 +98,7 @@ function ReferenceSection({ section }: { section: GuideSection }) {
     return (
         <section
             id={section.id}
-            className="scroll-mt-[calc(var(--site-banner-height)+12rem)] border-t border-black/10 pt-[6.4rem]"
+            className="p-[7.2rem_2.4rem] border-b border-b-[#ededed]"
         >
             <h2 className={`${expandedText} text-[3.2rem] leading-[1.05] mobile:text-[2.4rem]`}>{section.title}</h2>
             <div className="mt-[2.4rem] flex flex-col gap-[2.4rem]">
@@ -106,20 +113,12 @@ function ReferenceSection({ section }: { section: GuideSection }) {
     );
 }
 
-export function Document({
-    hero,
-    referenceDivider,
-    sections,
-}: {
-    hero: GuideHero;
-    referenceDivider: string;
-    sections: GuideSection[];
-}) {
+export function Document({ hero, referenceDivider, sections }: { hero: GuideHero; referenceDivider: string; sections: GuideSection[] }) {
     const quickStartSections = sections.filter((s) => s.variant === "quick-start");
     const referenceSections = sections.filter((s) => s.variant === "reference");
 
     return (
-        <article className="min-w-0 flex-1 pb-[8rem] pt-[4.8rem]">
+        <article className="min-w-0 flex-1 pb-[8rem] pt-[2.8rem]">
             <QuickStartHero hero={hero} />
 
             <div className="flex flex-col gap-[4.8rem]">
@@ -141,20 +140,13 @@ export function Document({
             </div>
 
             {referenceSections.length > 0 && (
-                <div className="mt-[9.6rem]">
-                    <div className="mb-[6.4rem] flex items-center gap-[2.4rem]">
-                        <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] text-[#969696]">{referenceDivider}</span>
-                        <div className="h-[0.1rem] flex-1 bg-black/10" />
-                    </div>
-
-                    <div className="flex flex-col gap-[6.4rem]">
-                        {referenceSections.map((section) => (
-                            <ReferenceSection
-                                key={section.id}
-                                section={section}
-                            />
-                        ))}
-                    </div>
+                <div className="flex flex-col">
+                    {referenceSections.map((section) => (
+                        <ReferenceSection
+                            key={section.id}
+                            section={section}
+                        />
+                    ))}
                 </div>
             )}
         </article>

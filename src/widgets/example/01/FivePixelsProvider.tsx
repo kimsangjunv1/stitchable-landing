@@ -3,14 +3,9 @@
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useMemo, type ReactNode } from "react";
+import { useLocale, useMessages } from "@/app/providers/LocaleProvider";
 
 const FivePixels = dynamic(() => import("@fivepixels-js/react").then((mod) => mod.FivePixels), { ssr: false });
-
-const BASE_FIELDS = [
-    { key: "message", type: "textarea" as const, label: "Message", required: true },
-    { key: "isBug", type: "checkbox" as const, label: "bug" },
-    { key: "isImportant", type: "checkbox" as const, label: "IMPORTANT" },
-];
 
 type FivePixelsProviderProps = {
     children: ReactNode;
@@ -18,16 +13,27 @@ type FivePixelsProviderProps = {
 
 export function FivePixelsProvider({ children }: FivePixelsProviderProps) {
     const pathname = usePathname();
+    const { locale } = useLocale();
+    const fivePixels = useMessages().example.fivePixels;
     const isListPage = pathname.endsWith("/list");
+
+    const fields = useMemo(
+        () => [
+            { key: "message", type: "textarea" as const, label: fivePixels.messageLabel, required: true },
+            { key: "isBug", type: "checkbox" as const, label: fivePixels.bugLabel },
+            { key: "isImportant", type: "checkbox" as const, label: fivePixels.importantLabel },
+        ],
+        [fivePixels.bugLabel, fivePixels.importantLabel, fivePixels.messageLabel],
+    );
 
     const ui = useMemo(
         () => ({
-            locale: "ko" as const,
+            locale,
             appearance: "system" as const,
             showFeedbackList: true,
             visibleShortcutKeys: true,
         }),
-        [isListPage],
+        [isListPage, locale],
     );
 
     return (
@@ -43,7 +49,7 @@ export function FivePixelsProvider({ children }: FivePixelsProviderProps) {
                         { id: "2", name: "Reviewer B" },
                     ],
                 }}
-                fields={BASE_FIELDS}
+                fields={fields}
             />
             {children}
         </>

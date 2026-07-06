@@ -9,7 +9,7 @@ export function MarqueeSection() {
             {/* <div className="flex w-max translate-x-[calc((100vw-min(1920px,calc(100vw-48px)))/2)] gap-[54px] whitespace-nowrap max-[720px]:translate-x-4"> */}
             <div className="max-w-[var(--size-pc)] mx-auto flex whitespace-nowrap gap-[5.2rem]">
                 <Marquee
-                    content={"Easy to use + Performance + Silk UI + "}
+                    content={"화면 위 피드백 + 가벼운 도입 + 점진 적용 + "}
                     duration={20}
                     className={{
                         container: "w-full",
