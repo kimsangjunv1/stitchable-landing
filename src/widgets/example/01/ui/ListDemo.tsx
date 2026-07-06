@@ -1,10 +1,9 @@
-const rows = [
-    { id: "issue-01", title: "Hero CTA alignment", status: "STAGED", tag: "IMPORTANT", author: "Kim" },
-    { id: "issue-02", title: "Modal z-index overlap", status: "OPEN", tag: "BUG", author: "Lee" },
-    { id: "issue-03", title: "Table row hover state", status: "STAGED", tag: "BUG", author: "Park" },
-    { id: "issue-04", title: "Shortcut hint copy", status: "RESOLVED", tag: "IMPORTANT", author: "Choi" },
-    { id: "issue-05", title: "Mobile nav spacing", status: "OPEN", tag: "IMPORTANT", author: "Jung" },
-] as const;
+"use client";
+
+import { useMessages } from "@/app/providers/LocaleProvider";
+
+const rowIds = ["issue-01", "issue-02", "issue-03", "issue-04", "issue-05"] as const;
+const headerIds = ["issue", "status", "tag", "author", "action"] as const;
 
 const statusStyles: Record<string, string> = {
     STAGED: "bg-[#3d3d3d] text-white",
@@ -17,15 +16,9 @@ const tagStyles: Record<string, string> = {
     IMPORTANT: "border border-[#111] text-[#111]",
 };
 
-const tableHeaders = [
-    { id: "issue", label: "Issue" },
-    { id: "status", label: "Status" },
-    { id: "tag", label: "Tag" },
-    { id: "author", label: "Author" },
-    { id: "action", label: "Action" },
-] as const;
-
 export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
+    const listDemo = useMessages().example.listDemo;
+
     return (
         <div
             className="overflow-hidden border border-black/10"
@@ -42,13 +35,13 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
                         className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-white/60"
                         data-report-id="example-list-eyebrow"
                     >
-                        FEEDBACK LIST
+                        {listDemo.eyebrow}
                     </p>
                     <h2
                         className="text-[2rem] font-semibold"
                         data-report-id="example-list-title"
                     >
-                        Today&apos;s issues
+                        {listDemo.title}
                     </h2>
                 </div>
                 <button
@@ -56,7 +49,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
                     data-report-id="example-list-filter"
                     type="button"
                 >
-                    Filter
+                    {listDemo.filter}
                 </button>
             </div>
 
@@ -73,74 +66,82 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
                         data-report-id="example-list-thead"
                     >
                         <tr data-report-id="example-list-header-row">
-                            {tableHeaders.map((header) => (
-                                <th
-                                    className="px-[2rem] py-[1.2rem] font-medium"
-                                    data-report-id={`example-list-th-${header.id}`}
-                                    key={header.id}
-                                    scope="col"
-                                >
-                                    {header.label}
-                                </th>
-                            ))}
+                            {listDemo.headers.map((label, index) => {
+                                const id = headerIds[index];
+
+                                return (
+                                    <th
+                                        className="px-[2rem] py-[1.2rem] font-medium"
+                                        data-report-id={`example-list-th-${id}`}
+                                        key={id}
+                                        scope="col"
+                                    >
+                                        {label}
+                                    </th>
+                                );
+                            })}
                         </tr>
                     </thead>
                     <tbody data-report-id="example-list-tbody">
-                        {rows.map((row) => (
-                            <tr
-                                className="border-t border-black/8 transition-colors hover:bg-[#fafafa]"
-                                data-report-id={`example-list-row-${row.id}`}
-                                key={row.id}
-                            >
-                                <td
-                                    className="px-[2rem] py-[1.6rem] font-medium"
-                                    data-report-id={`example-list-title-${row.id}`}
+                        {listDemo.rows.map((row, index) => {
+                            const id = rowIds[index];
+
+                            return (
+                                <tr
+                                    className="border-t border-black/8 transition-colors hover:bg-[#fafafa]"
+                                    data-report-id={`example-list-row-${id}`}
+                                    key={id}
                                 >
-                                    {row.title}
-                                </td>
-                                <td
-                                    className="px-[2rem] py-[1.6rem]"
-                                    data-report-id={`example-list-status-cell-${row.id}`}
-                                >
-                                    <span
-                                        className={`inline-block px-[0.8rem] py-[0.3rem] text-[1.1rem] ${statusStyles[row.status]}`}
-                                        data-report-id={`example-list-status-${row.id}`}
+                                    <td
+                                        className="px-[2rem] py-[1.6rem] font-medium"
+                                        data-report-id={`example-list-title-${id}`}
                                     >
-                                        {row.status}
-                                    </span>
-                                </td>
-                                <td
-                                    className="px-[2rem] py-[1.6rem]"
-                                    data-report-id={`example-list-tag-cell-${row.id}`}
-                                >
-                                    <span
-                                        className={`inline-block px-[0.8rem] py-[0.3rem] text-[1.1rem] ${tagStyles[row.tag]}`}
-                                        data-report-id={`example-list-tag-${row.id}`}
+                                        {row.issue}
+                                    </td>
+                                    <td
+                                        className="px-[2rem] py-[1.6rem]"
+                                        data-report-id={`example-list-status-cell-${id}`}
                                     >
-                                        {row.tag}
-                                    </span>
-                                </td>
-                                <td
-                                    className="px-[2rem] py-[1.6rem] text-black/65"
-                                    data-report-id={`example-list-author-${row.id}`}
-                                >
-                                    {row.author}
-                                </td>
-                                <td
-                                    className="px-[2rem] py-[1.6rem]"
-                                    data-report-id={`example-list-action-cell-${row.id}`}
-                                >
-                                    <button
-                                        className="border border-black px-[1rem] py-[0.6rem] text-[1.2rem] hover:bg-black hover:text-white"
-                                        data-report-id={`example-list-action-${row.id}`}
-                                        onClick={() => onReview?.(row.id)}
-                                        type="button"
+                                        <span
+                                            className={`inline-block px-[0.8rem] py-[0.3rem] text-[1.1rem] ${statusStyles[row.status]}`}
+                                            data-report-id={`example-list-status-${id}`}
+                                        >
+                                            {row.status}
+                                        </span>
+                                    </td>
+                                    <td
+                                        className="px-[2rem] py-[1.6rem]"
+                                        data-report-id={`example-list-tag-cell-${id}`}
                                     >
-                                        Review
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                                        <span
+                                            className={`inline-block px-[0.8rem] py-[0.3rem] text-[1.1rem] ${tagStyles[row.tag]}`}
+                                            data-report-id={`example-list-tag-${id}`}
+                                        >
+                                            {row.tag}
+                                        </span>
+                                    </td>
+                                    <td
+                                        className="px-[2rem] py-[1.6rem] text-black/65"
+                                        data-report-id={`example-list-author-${id}`}
+                                    >
+                                        {row.author}
+                                    </td>
+                                    <td
+                                        className="px-[2rem] py-[1.6rem]"
+                                        data-report-id={`example-list-action-cell-${id}`}
+                                    >
+                                        <button
+                                            className="border border-black px-[1rem] py-[0.6rem] text-[1.2rem] hover:bg-black hover:text-white"
+                                            data-report-id={`example-list-action-${id}`}
+                                            onClick={() => onReview?.(id)}
+                                            type="button"
+                                        >
+                                            {row.action}
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

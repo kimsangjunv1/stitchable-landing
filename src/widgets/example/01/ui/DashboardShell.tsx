@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowLeft, Bell, Search } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
+import { useMessages } from "@/app/providers/LocaleProvider";
 import { CreateIssueModal } from "@/widgets/example/01/dialogs/CreateIssueModal";
 import { ModalLabModals } from "@/widgets/example/01/dialogs/ModalLabModals";
 import { DASHBOARD_NAV_ITEMS, isDashboardNavActive } from "@/widgets/example/01/model/dashboardNav";
@@ -16,6 +17,7 @@ type DashboardShellProps = {
 
 export function DashboardShell({ children }: DashboardShellProps) {
     const pathname = usePathname();
+    const { shell, nav } = useMessages().example;
     const [createIssueOpen, setCreateIssueOpen] = useState(false);
 
     const openCreateIssue = useCallback(() => setCreateIssueOpen(true), []);
@@ -40,7 +42,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                 href="/fivepixels"
             >
                 <ArrowLeft size={16} />
-                라이브러리로 돌아가기
+                {shell.backLink}
             </Link>
 
             <div
@@ -63,24 +65,25 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                     QA
                                 </span>
                                 <div>
-                                    <p className="text-[1.3rem] font-semibold">Pulse Board</p>
+                                    <p className="text-[1.3rem] font-semibold">{shell.brand}</p>
                                     <p
                                         className="text-[1.1rem] text-white/55"
                                         data-report-id="example-sidebar-workspace"
                                     >
-                                        stitchable-demo
+                                        {shell.workspace}
                                     </p>
                                 </div>
                             </div>
 
                             <nav
                                 className="flex flex-col gap-[0.4rem]"
-                                aria-label="Dashboard navigation"
+                                aria-label={shell.navAriaLabel}
                                 data-report-id="example-sidebar-nav"
                                 data-report-type="group"
                             >
                                 {DASHBOARD_NAV_ITEMS.map((item) => {
                                     const active = isDashboardNavActive(pathname, item.href);
+                                    const label = nav.find((entry) => entry.id === item.id)?.label ?? item.id;
 
                                     return (
                                         <Link
@@ -96,7 +99,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                                 name={item.icon}
                                                 size={18}
                                             />
-                                            {item.label}
+                                            {label}
                                         </Link>
                                     );
                                 })}
@@ -108,7 +111,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                 onClick={openCreateIssue}
                                 type="button"
                             >
-                                Create issue
+                                {shell.createIssue}
                             </button>
                         </div>
 
@@ -116,7 +119,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                             className="mt-[2.4rem] border-t border-white/10 pt-[2rem] text-[1.2rem] leading-[1.5] text-white/50"
                             data-report-id="example-sidebar-footer"
                         >
-                            사이드바 메뉴는 실제 라우트로 이동합니다. Create issue는 전역 모달을 엽니다.
+                            {shell.sidebarNote}
                         </p>
                     </aside>
 
@@ -141,7 +144,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                 <input
                                     className="w-full bg-transparent text-[1.4rem] outline-none placeholder:text-black/35"
                                     data-report-id="example-topbar-search-input"
-                                    placeholder="Search issues, tags, or people..."
+                                    placeholder={shell.searchPlaceholder}
                                     type="search"
                                 />
                             </div>
@@ -164,7 +167,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                     data-report-id="example-topbar-filter"
                                     type="button"
                                 >
-                                    Filter
+                                    {shell.filter}
                                 </button>
                                 <button
                                     className="flex items-center gap-[0.8rem] border border-black/10 px-[1rem] py-[0.6rem] hover:bg-black/[0.03]"
@@ -181,7 +184,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                         className="text-[1.3rem]"
                                         data-report-id="example-topbar-username"
                                     >
-                                        Sangjun
+                                        {shell.profile}
                                     </span>
                                 </button>
                             </div>

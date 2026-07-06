@@ -1,6 +1,10 @@
 import type { BackendApiSnippetKey } from "./backend-api/snippets"
 import type { GuideSnippetKey } from "./snippets"
 
+export type GuideTableCell =
+  | string
+  | { type: "anchors"; links: { href: string; label: string }[] }
+
 export type GuideBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
@@ -8,8 +12,8 @@ export type GuideBlock =
   | { type: "codeRaw"; code: string; language?: string }
   | { type: "codeSnippet"; snippet: BackendApiSnippetKey; language?: string }
   | { type: "callout"; variant: "info"; text: string }
-  | { type: "table"; headers: string[]; rows: string[][] }
-  | { type: "subheading"; text: string }
+  | { type: "table"; headers: string[]; rows: GuideTableCell[][] }
+  | { type: "subheading"; text: string; id?: string }
   | { type: "ordered"; items: string[] }
   | { type: "link"; href: string; label: string }
 

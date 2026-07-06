@@ -1,10 +1,10 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Geist_Mono, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { JsonLd } from "@/app/JsonLd";
 import { GlobalErrorBoundary } from "@/app/providers/GlobalErrorBoundary";
 import { GlobalErrorListener } from "@/app/providers/GlobalErrorListener";
+import { LenisProvider } from "@/app/providers/LenisProvider";
 import { LocaleProvider } from "@/app/providers/LocaleProvider";
 import { createPageMetadata } from "@/lib/seo";
 import { Footer } from "@/widgets/layout/Footer";
@@ -16,15 +16,6 @@ import "@/shared/styles/scss/index.scss";
 
 const MATERIAL_SYMBOLS_FONT_URL = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=block";
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
-const spaceGrotesk = Space_Grotesk({
-    variable: "--font-space-grotesk",
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
-});
 const monaSans = localFont({
     src: "../../public/fonts/rebranding/MonaSans.woff2",
     variable: "--font-mona-rebrand",
@@ -64,7 +55,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistMono.variable} ${spaceGrotesk.variable} ${monaSans.variable} ${firaCode.variable}`}
+            className={`${monaSans.variable} ${firaCode.variable}`}
         >
             <head>
                 <JsonLd />
@@ -82,17 +73,19 @@ export default function RootLayout({
                     href={MATERIAL_SYMBOLS_FONT_URL}
                 />
             </head>
-            <body className="bg-white font-sans text-[#050505] antialiased">
-                <GlobalErrorBoundary>
-                    <GlobalErrorListener>
-                        <LocaleProvider>
-                            <SiteBanner />
-                            <Header />
-                            {children}
-                        </LocaleProvider>
-                        <Footer />
-                    </GlobalErrorListener>
-                </GlobalErrorBoundary>
+            <body className="bg-white font-[family-name:var(--font-mona-rebrand)] text-[#050505] antialiased">
+                <LenisProvider>
+                    <GlobalErrorBoundary>
+                        <GlobalErrorListener>
+                            <LocaleProvider>
+                                <SiteBanner />
+                                <Header />
+                                {children}
+                                <Footer />
+                            </LocaleProvider>
+                        </GlobalErrorListener>
+                    </GlobalErrorBoundary>
+                </LenisProvider>
                 {process.env.NODE_ENV === "production" && <Analytics />}
             </body>
         </html>
