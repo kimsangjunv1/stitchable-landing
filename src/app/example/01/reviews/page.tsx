@@ -5,6 +5,7 @@ export const metadata = createPageMetadata({
     title: "Reviews",
     description: "Review queue demo with opacity and zustand modal cases.",
     path: "/example/01/reviews",
+    noIndex: true,
 });
 
 export default function Example01ReviewsPage() {

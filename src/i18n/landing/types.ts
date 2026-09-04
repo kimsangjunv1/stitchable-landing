@@ -22,7 +22,6 @@ export type MegaMenuConfigMessages = {
 export type LayoutMessages = {
     banner: string;
     header: {
-        homeNav: { label: string; href: string }[];
         installGuide: string;
         homeAriaLabel: string;
         navAriaLabel: string;
@@ -59,74 +58,6 @@ export type LayoutMessages = {
         };
     };
     megaMenus: MegaMenuConfigMessages[];
-};
-
-export type HomeMessages = {
-    productTabs: string[];
-    hero: {
-        eyebrow: string;
-        titleLine1: string;
-        titleLine2: string;
-        body: string;
-        demoCta: string;
-        guideCta: string;
-        bullets: string[];
-        mockTask: string;
-        overlay: string;
-        chips: string[];
-        dashboardAlt: string;
-        feedbackAlt: string;
-    };
-    reviewSection: {
-        eyebrow: string;
-        titleLine1: string;
-        titleLine2: string;
-        description: string;
-        subEyebrow: string;
-        heading: string;
-        body: string;
-        featureNotes: string[];
-        sessionsLabel: string;
-        sessionItems: string[];
-    };
-    agentsSection: {
-        eyebrow: string;
-        titleLine1: string;
-        titleLine2: string;
-        description: string;
-        cards: { eyebrow: string; title: string; description: string }[];
-    };
-    developersSection: {
-        eyebrow: string;
-        titleLine1: string;
-        titleLine2: string;
-        description: string;
-        facts: { title: string; body: string }[];
-        quickStartLabel: string;
-        quickStartTime: string;
-        codeSnippet: string;
-        rollout: { day: string; title: string }[];
-    };
-    compareSection: {
-        eyebrow: string;
-        titleLine1: string;
-        titleLine2: string;
-        description: string;
-        currentFlow: string;
-        fivepixels: string;
-        rows: [string, string][];
-    };
-    feedbackSection: {
-        eyebrow: string;
-        title: string;
-        body: string;
-        demoCta: string;
-        guideCta: string;
-    };
-    resourcesSection: {
-        title: string;
-        items: { title: string; body: string; href: string }[];
-    };
 };
 
 export type FivepixelsMessages = {
@@ -313,7 +244,6 @@ export type ExampleMessages = {
 
 export type LandingContentMessages = {
     layout: LayoutMessages;
-    home: HomeMessages;
     fivepixels: FivepixelsMessages;
     example: ExampleMessages;
 };

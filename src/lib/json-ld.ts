@@ -18,7 +18,7 @@ export function createSoftwareApplicationJsonLd() {
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Web",
         description: SITE_DESCRIPTION,
-        url: new URL("/fivepixels", SITE_URL).toString(),
+        url: new URL("/", SITE_URL).toString(),
         downloadUrl: GITHUB_URL,
         offers: {
             "@type": "Offer",

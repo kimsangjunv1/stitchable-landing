@@ -32,6 +32,8 @@ type PageMetadataOptions = {
     description?: string;
     path?: string;
     keywords?: string[];
+    /** When true, page is excluded from search indexing (e.g. demo routes). */
+    noIndex?: boolean;
 };
 
 export function createPageMetadata({
@@ -39,6 +41,7 @@ export function createPageMetadata({
     description = SITE_DESCRIPTION,
     path = "/",
     keywords,
+    noIndex = false,
 }: PageMetadataOptions = {}): Metadata {
     const canonicalPath = path.startsWith("/") ? path : `/${path}`;
     const defaultTitle = `${SITE_NAME} — Feedback, directly on your UI`;
@@ -46,6 +49,8 @@ export function createPageMetadata({
     const absoluteUrl = new URL(canonicalPath, SITE_URL).toString();
 
     return {
+        // Keep string titles so Next.js can apply the root `template`.
+        // Root pages omit `title` and use `default` instead.
         title: title
             ? title
             : {
@@ -57,11 +62,17 @@ export function createPageMetadata({
         metadataBase: new URL(SITE_URL),
         alternates: {
             canonical: canonicalPath,
+            languages: {
+                en: canonicalPath,
+                ko: canonicalPath,
+                "x-default": canonicalPath,
+            },
         },
-        robots: getRobotsMetadata(),
+        robots: noIndex || !ALLOW_SEARCH_INDEXING ? NO_INDEX_ROBOTS : INDEX_ROBOTS,
         openGraph: {
             type: "website",
             locale: "en_US",
+            alternateLocale: ["ko_KR"],
             url: absoluteUrl,
             siteName: SITE_NAME,
             title: pageTitle,

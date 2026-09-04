@@ -77,7 +77,7 @@ export const fivepixelsEn: FivepixelsMessages = {
         afterTitleLine1: "Right on screen",
         afterTitleLine2: "agree on before / after",
         afterEyebrow: "DIRECT MARKER",
-        searchPlaceholder: "Search Stitchable",
+        searchPlaceholder: "Search fivepixels",
         channelName: "# project-eagle",
         channelTopic: "Optional topic",
         today: "Today",

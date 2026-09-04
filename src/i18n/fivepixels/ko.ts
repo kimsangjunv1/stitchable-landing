@@ -77,7 +77,7 @@ export const fivepixelsKo: FivepixelsMessages = {
         afterTitleLine1: "화면에서 바로",
         afterTitleLine2: "before / after 합의",
         afterEyebrow: "DIRECT MARKER",
-        searchPlaceholder: "Stitchable 검색",
+        searchPlaceholder: "fivepixels 검색",
         channelName: "# project-eagle",
         channelTopic: "선택 주제",
         today: "오늘",

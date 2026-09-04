@@ -12,7 +12,7 @@ export const exampleEn: ExampleMessages = {
     shell: {
         backLink: "Back to library",
         brand: "Pulse Board",
-        workspace: "stitchable-demo",
+        workspace: "fivepixels-demo",
         createIssue: "Create issue",
         sidebarNote: "Sidebar menu items navigate to real routes. Create issue opens a global modal.",
         searchPlaceholder: "Search issues, tags, or people...",
