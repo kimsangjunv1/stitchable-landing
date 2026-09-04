@@ -1,5 +1,3 @@
-import { ClippedRevealText } from "@/shared/ui/ClippedRevealText";
-import { Text } from "@/shared/ui/Text";
 import React from "react";
 import { cn } from "@/shared/lib/utils";
 
@@ -18,7 +16,6 @@ export function TitleSection({
     value,
     className = { text: { container: "bg-[#00000010]" } },
     span = false,
-    align = "left",
     mode = "light",
     children,
 }: {
@@ -40,16 +37,8 @@ export function TitleSection({
                 <section className={cn(`${className?.text?.container} h-full px-[2rem] py-[3.2rem] tablet:px-[5.2rem] tablet:py-[4.2rem]`)}>
                     {value ? <h2 className={cn("text-[4.2rem] font-semibold leading-[1.3] whitespace-break-spaces [font-variation-settings:'wdth'_125]", className?.text?.value)}>{value}</h2> : null}
                     {children}
-                    {/* <Text.Rolling value={100} /> */}
                 </section>
                 <div className={cn("h-full w-[0.1rem]", modeStyle.divider)} />
-
-                {/* {!span ? (
-                    <section
-                        className={cn("hidden h-full w-[0.1rem] tablet:block", modeStyle.divider)}
-                        style={{ justifySelf: align === "right" ? "start" : "end" }}
-                    />
-                ) : null} */}
             </div>
         </section>
     );

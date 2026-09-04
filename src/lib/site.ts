@@ -14,17 +14,7 @@ export const SITE_DESCRIPTION_KO =
 /** Public search indexing is enabled by default; set to "false" to block crawlers. */
 export const ALLOW_SEARCH_INDEXING = process.env.NEXT_PUBLIC_ALLOW_SEARCH_INDEXING !== "false";
 
-export const PUBLIC_ROUTES = [
-    "/",
-    "/fivepixels",
-    "/fivepixels/guide",
-    "/fivepixels/guide/backend-api",
-    "/example/01",
-    "/example/01/issues",
-    "/example/01/reviews",
-    "/example/01/releases",
-    "/example/01/modals",
-    "/example/01/settings",
-] as const;
+/** Indexable marketing/docs routes only — demo apps stay out of the sitemap. */
+export const PUBLIC_ROUTES = ["/", "/guide", "/guide/backend-api"] as const;
 
 export const GITHUB_URL = "https://github.com/kimsangjunv1/fivepixels";

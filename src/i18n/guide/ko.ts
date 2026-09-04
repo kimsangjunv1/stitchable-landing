@@ -329,7 +329,7 @@ export const guideKo: GuideMessages = {
         },
         {
           type: "link",
-          href: "/fivepixels/guide/backend-api",
+          href: "/guide/backend-api",
           label: "백엔드 직접 구축 가이드 보기",
         },
       ],
@@ -368,7 +368,7 @@ export const guideKo: GuideMessages = {
         },
         {
           type: "link",
-          href: "/fivepixels/guide/backend-api",
+          href: "/guide/backend-api",
           label: "Backend API 가이드 — REST 상세·DB 스키마·체크리스트",
         },
       ],

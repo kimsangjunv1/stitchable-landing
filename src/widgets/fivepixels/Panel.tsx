@@ -54,11 +54,6 @@ export default function Panel() {
                     className={{ text: { container: "bg-white" } }}
                 />
                 <Layer.AudienceSection />
-                {/* <Layer.TitleSection
-                    value={panelTitles[7]}
-                    className={{ text: { container: "bg-white" } }}
-                /> */}
-                {/* <Layer.AdoptionSection /> */}
                 <Layer.TitleSection
                     value={panelTitles[8]}
                     className={{ text: { container: "bg-white" } }}

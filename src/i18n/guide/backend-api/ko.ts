@@ -37,7 +37,7 @@ export const backendApiGuideKo: GuideMessages = {
         },
         {
           type: "link",
-          href: "/fivepixels/guide#persistence-choice",
+          href: "/guide#persistence-choice",
           label: "저장 · 협업 가이드로 돌아가기",
         },
       ],

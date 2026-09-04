@@ -5,6 +5,7 @@ export const metadata = createPageMetadata({
     title: "Releases",
     description: "Release notes demo with scrollable modal triggers.",
     path: "/example/01/releases",
+    noIndex: true,
 });
 
 export default function Example01ReleasesPage() {

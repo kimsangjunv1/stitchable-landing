@@ -61,7 +61,7 @@ function DescriptionPanel({ step, guideLink }: { step: AdoptionStep; guideLink: 
             {step.showGuideLink ? (
                 <Link
                     className="mt-[2.4rem] inline-flex w-fit items-center gap-[0.8rem] border border-black/15 px-[1.4rem] py-[1rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/70 transition-colors hover:border-black/30 hover:text-black"
-                    href="/fivepixels/guide"
+                    href="/guide"
                 >
                     {guideLink}
                     <MaterialIcon

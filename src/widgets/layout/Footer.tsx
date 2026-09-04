@@ -40,8 +40,8 @@ export function Footer() {
                         <div className="border-b border-[#e9e7e2] px-[2rem] py-[2.4rem] tablet:border-b-0 tablet:border-r">
                             <small className="text-[1.15rem] font-semibold uppercase tracking-[0.16em] text-black/42">{home.explore}</small>
                             <div className="mt-[1.2rem] flex flex-col gap-[0.7rem] text-[1.35rem] text-black/62">
-                                <Link href="/fivepixels">{home.links.overview}</Link>
-                                <Link href="/fivepixels/guide">{home.links.guide}</Link>
+                                <Link href="/">{home.links.overview}</Link>
+                                <Link href="/guide">{home.links.guide}</Link>
                                 <Link href="/example/01">{home.links.demo}</Link>
                             </div>
                         </div>
