@@ -12,7 +12,7 @@ export const exampleKo: ExampleMessages = {
     shell: {
         backLink: "라이브러리로 돌아가기",
         brand: "Pulse Board",
-        workspace: "stitchable-demo",
+        workspace: "fivepixels-demo",
         createIssue: "이슈 생성",
         sidebarNote: "사이드바 메뉴는 실제 라우트로 이동합니다. Create issue는 전역 모달을 엽니다.",
         searchPlaceholder: "이슈, 태그, 담당자 검색...",

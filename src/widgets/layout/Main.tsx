@@ -15,7 +15,7 @@ type MainProps = {
 
 export function Main({ children, id, className }: MainProps) {
     const pathname = usePathname();
-    const isFullBleed = pathname === "/" || pathname.startsWith("/fivepixels") || pathname.startsWith("/example/01");
+    const isFullBleed = pathname === "/" || pathname.startsWith("/guide") || pathname.startsWith("/example/01");
 
     return (
         <div

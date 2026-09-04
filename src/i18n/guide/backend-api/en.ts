@@ -37,7 +37,7 @@ export const backendApiGuideEn: GuideMessages = {
         },
         {
           type: "link",
-          href: "/fivepixels/guide#persistence-choice",
+          href: "/guide#persistence-choice",
           label: "Back to Storage & Collaboration guide",
         },
       ],

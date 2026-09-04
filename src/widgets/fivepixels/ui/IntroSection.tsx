@@ -68,7 +68,7 @@ export function IntroSection() {
 
                             <a
                                 className="flex w-max items-center gap-[1.6rem] border border-[#ededed] px-[1.6rem] py-[1.2rem] text-black rounded-[1.6rem]"
-                                href="/fivepixels/guide"
+                                href="/guide"
                             >
                                 {intro.guideCta} <ArrowRight size={17} />
                             </a>

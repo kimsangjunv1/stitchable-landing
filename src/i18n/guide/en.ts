@@ -329,7 +329,7 @@ export const guideEn: GuideMessages = {
         },
         {
           type: "link",
-          href: "/fivepixels/guide/backend-api",
+          href: "/guide/backend-api",
           label: "Build your own backend guide",
         },
       ],
@@ -368,7 +368,7 @@ export const guideEn: GuideMessages = {
         },
         {
           type: "link",
-          href: "/fivepixels/guide/backend-api",
+          href: "/guide/backend-api",
           label: "Backend API guide — REST details, DB schema, checklist",
         },
       ],
