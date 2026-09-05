@@ -79,42 +79,47 @@
 :root[data-theme="light"] {
     color-scheme: light;
 
-    --adaptive-surface: #ffffff;
-    --adaptive-surface-muted: #f5f5f5;
-    --adaptive-surface-overlay: rgba(255, 255, 255, 0.91);
-    --adaptive-surface-inverse: #212121;
-    --adaptive-text-primary: #212121;
-    --adaptive-text-secondary: #616161;
-    --adaptive-text-muted: #999999;
-    --adaptive-text-inverse: #fafafa;
-    --adaptive-overlay-surface: rgba(0, 0, 0, 0.91);
-    --adaptive-overlay-text: #fafafa;
-    --adaptive-overlay-text-muted: #bdbdbd;
-    --adaptive-border: #eeeeee;
-    --adaptive-border-subtle: rgba(0, 0, 0, 0.1);
+    /* Landing palette — single source of truth */
+    --fp-bg: #fefefe;
+    --fp-text-emphasis: #030303;
+    --fp-text-description: #696969;
+
+    --adaptive-surface: var(--fp-bg);
+    --adaptive-surface-muted: var(--fp-bg);
+    --adaptive-surface-overlay: rgba(254, 254, 254, 0.91);
+    --adaptive-surface-inverse: var(--fp-text-emphasis);
+    --adaptive-text-primary: var(--fp-text-emphasis);
+    --adaptive-text-secondary: var(--fp-text-description);
+    --adaptive-text-muted: var(--fp-text-description);
+    --adaptive-text-inverse: var(--fp-bg);
+    --adaptive-overlay-surface: rgba(3, 3, 3, 0.91);
+    --adaptive-overlay-text: var(--fp-bg);
+    --adaptive-overlay-text-muted: var(--fp-text-description);
+    --adaptive-border: #e8e8e8;
+    --adaptive-border-subtle: rgba(3, 3, 3, 0.1);
     --adaptive-popup-shadow:
-        rgba(17, 24, 39, 0.1) 0px 0px 0px 1px, rgba(17, 24, 39, 0.04) 0px 1px 1px -0.5px, rgba(17, 24, 39, 0.04) 0px 3px 3px -1.5px, rgba(17, 24, 39, 0.04) 0px 6px 6px -3px,
-        rgba(17, 24, 39, 0.04) 0px 12px 12px -6px, rgba(17, 24, 39, 0.04) 0px 24px 24px -12px;
+        rgba(3, 3, 3, 0.1) 0px 0px 0px 1px, rgba(3, 3, 3, 0.04) 0px 1px 1px -0.5px, rgba(3, 3, 3, 0.04) 0px 3px 3px -1.5px, rgba(3, 3, 3, 0.04) 0px 6px 6px -3px,
+        rgba(3, 3, 3, 0.04) 0px 12px 12px -6px, rgba(3, 3, 3, 0.04) 0px 24px 24px -12px;
     /* --adaptive-popup-shadow: 0 24px 64px rgba(0, 0, 0, 0.18); */
 
-    --adaptive-background: #ffffff;
-    --adaptive-layeredBackground: #ffffff;
-    --adaptive-floatBackground: #ffffff;
-    --adaptive-tableBackground: #f9fafb;
-    --adaptive-hairlineBorder: #e5e8eb;
-    --adaptive-greyBackground: #f2f4f6;
-    --adaptive-grey50: #f9fafb;
-    --adaptive-grey100: #f2f4f6;
-    --adaptive-grey200: #e5e8eb;
-    --adaptive-grey300: #d1d6db;
-    --adaptive-grey400: #b0b8c1;
-    --adaptive-grey500: #8b95a1;
-    --adaptive-grey600: #6b7684;
-    --adaptive-grey700: #4e5968;
-    --adaptive-grey800: #333d4b;
-    --adaptive-grey900: #191f28;
+    --adaptive-background: var(--fp-bg);
+    --adaptive-layeredBackground: var(--fp-bg);
+    --adaptive-floatBackground: var(--fp-bg);
+    --adaptive-tableBackground: var(--fp-bg);
+    --adaptive-hairlineBorder: #e8e8e8;
+    --adaptive-greyBackground: var(--fp-bg);
+    --adaptive-grey50: var(--fp-bg);
+    --adaptive-grey100: #f2f2f2;
+    --adaptive-grey200: #e8e8e8;
+    --adaptive-grey300: #d4d4d4;
+    --adaptive-grey400: #b0b0b0;
+    --adaptive-grey500: #8a8a8a;
+    --adaptive-grey600: #696969;
+    --adaptive-grey700: #4a4a4a;
+    --adaptive-grey800: #2a2a2a;
+    --adaptive-grey900: #030303;
 
-    --adaptive-black: #ffffff;
+    --adaptive-black: var(--fp-bg);
     --adaptive-black50: #fafafa;
     --adaptive-black100: #f5f5f5;
     --adaptive-black200: #eeeeee;
@@ -122,9 +127,9 @@
     --adaptive-black400: #bdbdbd;
     --adaptive-black500: #999999;
     --adaptive-black600: #757575;
-    --adaptive-black700: #616161;
+    --adaptive-black700: #696969;
     --adaptive-black800: #424242;
-    --adaptive-black900: #212121;
+    --adaptive-black900: #030303;
 
     /* Surface/glass fill: white in light, black in dark */
     --adaptive-fillOpacity50: rgba(255, 255, 255, 0.02);
@@ -162,16 +167,16 @@
     --adaptive-neutralTintOpacity800: rgba(237, 237, 237, 0.8);
     --adaptive-neutralTintOpacity900: rgba(237, 237, 237, 0.9);
 
-    --adaptive-greyOpacity50: rgba(0, 23, 51, 0.02);
-    --adaptive-greyOpacity100: rgba(2, 32, 71, 0.05);
-    --adaptive-greyOpacity200: rgba(0, 27, 55, 0.1);
-    --adaptive-greyOpacity300: rgba(0, 29, 58, 0.18);
-    --adaptive-greyOpacity400: rgba(0, 25, 54, 0.31);
-    --adaptive-greyOpacity500: rgba(3, 24, 50, 0.46);
-    --adaptive-greyOpacity600: rgba(0, 19, 43, 0.58);
-    --adaptive-greyOpacity700: rgba(3, 18, 40, 0.7);
-    --adaptive-greyOpacity800: rgba(0, 12, 30, 0.8);
-    --adaptive-greyOpacity900: rgba(2, 9, 19, 0.91);
+    --adaptive-greyOpacity50: rgba(3, 3, 3, 0.02);
+    --adaptive-greyOpacity100: rgba(3, 3, 3, 0.05);
+    --adaptive-greyOpacity200: rgba(3, 3, 3, 0.1);
+    --adaptive-greyOpacity300: rgba(3, 3, 3, 0.18);
+    --adaptive-greyOpacity400: rgba(3, 3, 3, 0.31);
+    --adaptive-greyOpacity500: rgba(3, 3, 3, 0.46);
+    --adaptive-greyOpacity600: rgba(3, 3, 3, 0.58);
+    --adaptive-greyOpacity700: rgba(3, 3, 3, 0.7);
+    --adaptive-greyOpacity800: rgba(3, 3, 3, 0.8);
+    --adaptive-greyOpacity900: rgba(3, 3, 3, 0.91);
 
     --adaptive-whiteOpacity50: rgba(255, 255, 255, 0.02);
     --adaptive-whiteOpacity100: rgba(255, 255, 255, 0.05);
@@ -281,68 +286,73 @@
     --adaptive-accent-coral-hover: #c4431f;
     --adaptive-accent-pink: #e03a8a;
 
-    --adaptive-backgroundDimmed: rgba(0, 0, 0, 0.2);
-    --adaptive-backgroundLevelB01: #f2f4f6;
-    --adaptive-backgroundLevel01: #ffffff;
-    --adaptive-backgroundLevel02: #ffffff;
-    --adaptive-backgroundLevel03: #ffffff;
-    --adaptive-backgroundLevel04: #ffffff;
-    --adaptive-backgroundScreen: #f6f7f9;
-    --adaptive-shadowMedium00: rgba(2, 32, 71, 0.05);
-    --adaptive-shadowMedium01: rgba(2, 32, 71, 0.05);
-    --adaptive-shadowMedium02: rgba(0, 23, 51, 0.02);
-    --adaptive-shadowLarge00: rgba(2, 32, 71, 0.05);
-    --adaptive-shadowLarge01: rgba(2, 32, 71, 0.05);
-    --adaptive-shadowLarge02: rgba(0, 23, 51, 0.02);
-    --adaptive-__internal__focusRing: rgba(255, 255, 255, 0.5);
+    --adaptive-backgroundDimmed: rgba(3, 3, 3, 0.2);
+    --adaptive-backgroundLevelB01: var(--fp-bg);
+    --adaptive-backgroundLevel01: var(--fp-bg);
+    --adaptive-backgroundLevel02: var(--fp-bg);
+    --adaptive-backgroundLevel03: var(--fp-bg);
+    --adaptive-backgroundLevel04: var(--fp-bg);
+    --adaptive-backgroundScreen: var(--fp-bg);
+    --adaptive-shadowMedium00: rgba(3, 3, 3, 0.05);
+    --adaptive-shadowMedium01: rgba(3, 3, 3, 0.05);
+    --adaptive-shadowMedium02: rgba(3, 3, 3, 0.02);
+    --adaptive-shadowLarge00: rgba(3, 3, 3, 0.05);
+    --adaptive-shadowLarge01: rgba(3, 3, 3, 0.05);
+    --adaptive-shadowLarge02: rgba(3, 3, 3, 0.02);
+    --adaptive-__internal__focusRing: rgba(254, 254, 254, 0.5);
 }
 
 :root[data-theme="dark"] {
     color-scheme: dark;
 
-    --adaptive-surface: #212121;
-    --adaptive-surface-muted: #2c2c35;
-    --adaptive-surface-overlay: rgba(0, 0, 0, 0.91);
-    --adaptive-surface-inverse: #fafafa;
-    --adaptive-text-primary: #fafafa;
-    --adaptive-text-secondary: #eeeeee;
-    --adaptive-text-muted: #bdbdbd;
-    --adaptive-text-inverse: #212121;
-    --adaptive-overlay-surface: rgba(0, 0, 0, 0.91);
-    --adaptive-overlay-text: #fafafa;
-    --adaptive-overlay-text-muted: #bdbdbd;
-    --adaptive-border: #3c3c47;
-    --adaptive-border-subtle: rgba(255, 255, 255, 0.1);
+    /* Landing palette — single source of truth */
+    --fp-bg: #131413;
+    --fp-text-emphasis: #edefee;
+    --fp-text-description: #999a99;
+
+    --adaptive-surface: var(--fp-bg);
+    --adaptive-surface-muted: var(--fp-bg);
+    --adaptive-surface-overlay: rgba(19, 20, 19, 0.91);
+    --adaptive-surface-inverse: var(--fp-text-emphasis);
+    --adaptive-text-primary: var(--fp-text-emphasis);
+    --adaptive-text-secondary: var(--fp-text-description);
+    --adaptive-text-muted: var(--fp-text-description);
+    --adaptive-text-inverse: var(--fp-bg);
+    --adaptive-overlay-surface: rgba(19, 20, 19, 0.91);
+    --adaptive-overlay-text: var(--fp-text-emphasis);
+    --adaptive-overlay-text-muted: var(--fp-text-description);
+    --adaptive-border: #2a2b2a;
+    --adaptive-border-subtle: rgba(237, 239, 238, 0.12);
     --adaptive-popup-shadow: 0 24px 64px rgba(0, 0, 0, 0.42);
 
-    --adaptive-background: #17171c;
-    --adaptive-layeredBackground: #202027;
-    --adaptive-floatBackground: #2c2c35;
-    --adaptive-tableBackground: #1c1c22;
-    --adaptive-hairlineBorder: #3c3c47;
-    --adaptive-greyBackground: #101013;
-    --adaptive-grey50: #202027;
-    --adaptive-grey100: #2c2c35;
-    --adaptive-grey200: #3c3c47;
-    --adaptive-grey300: #4d4d59;
-    --adaptive-grey400: #62626d;
-    --adaptive-grey500: #7e7e87;
-    --adaptive-grey600: #9e9ea4;
-    --adaptive-grey700: #c3c3c6;
-    --adaptive-grey800: #e4e4e5;
-    --adaptive-grey900: #ffffff;
+    --adaptive-background: var(--fp-bg);
+    --adaptive-layeredBackground: var(--fp-bg);
+    --adaptive-floatBackground: var(--fp-bg);
+    --adaptive-tableBackground: var(--fp-bg);
+    --adaptive-hairlineBorder: #2a2b2a;
+    --adaptive-greyBackground: var(--fp-bg);
+    --adaptive-grey50: #1c1d1c;
+    --adaptive-grey100: #2a2b2a;
+    --adaptive-grey200: #3a3b3a;
+    --adaptive-grey300: #4d4e4d;
+    --adaptive-grey400: #626362;
+    --adaptive-grey500: #7e7f7e;
+    --adaptive-grey600: #999a99;
+    --adaptive-grey700: #c3c4c3;
+    --adaptive-grey800: #e4e5e4;
+    --adaptive-grey900: #edefee;
 
     --adaptive-black: #000000;
-    --adaptive-black50: #212121;
-    --adaptive-black100: #424242;
+    --adaptive-black50: #131413;
+    --adaptive-black100: #2a2b2a;
     --adaptive-black200: #616161;
     --adaptive-black300: #757575;
-    --adaptive-black400: #999999;
+    --adaptive-black400: #999a99;
     --adaptive-black500: #bdbdbd;
     --adaptive-black600: #e0e0e0;
     --adaptive-black700: #eeeeee;
     --adaptive-black800: #f5f5f5;
-    --adaptive-black900: #fafafa;
+    --adaptive-black900: #edefee;
 
     /* Surface/glass fill: white in light, black in dark */
     --adaptive-fillOpacity50: rgba(0, 0, 0, 0.05);
@@ -380,16 +390,16 @@
     --adaptive-neutralTintOpacity800: rgba(51, 51, 51, 0.8);
     --adaptive-neutralTintOpacity900: rgba(51, 51, 51, 0.9);
 
-    --adaptive-greyOpacity50: rgba(209, 209, 253, 0.05);
-    --adaptive-greyOpacity100: rgba(217, 217, 255, 0.11);
-    --adaptive-greyOpacity200: rgba(222, 222, 255, 0.19);
-    --adaptive-greyOpacity300: rgba(224, 224, 255, 0.27);
-    --adaptive-greyOpacity400: rgba(232, 232, 253, 0.36);
-    --adaptive-greyOpacity500: rgba(242, 242, 255, 0.47);
-    --adaptive-greyOpacity600: rgba(248, 248, 255, 0.6);
-    --adaptive-greyOpacity700: rgba(253, 253, 255, 0.75);
-    --adaptive-greyOpacity800: rgba(253, 253, 254, 0.89);
-    --adaptive-greyOpacity900: #ffffff;
+    --adaptive-greyOpacity50: rgba(237, 239, 238, 0.05);
+    --adaptive-greyOpacity100: rgba(237, 239, 238, 0.11);
+    --adaptive-greyOpacity200: rgba(237, 239, 238, 0.19);
+    --adaptive-greyOpacity300: rgba(237, 239, 238, 0.27);
+    --adaptive-greyOpacity400: rgba(237, 239, 238, 0.36);
+    --adaptive-greyOpacity500: rgba(237, 239, 238, 0.47);
+    --adaptive-greyOpacity600: rgba(237, 239, 238, 0.6);
+    --adaptive-greyOpacity700: rgba(237, 239, 238, 0.75);
+    --adaptive-greyOpacity800: rgba(237, 239, 238, 0.89);
+    --adaptive-greyOpacity900: #edefee;
 
     --adaptive-whiteOpacity50: rgba(0, 0, 0, 0.05);
     --adaptive-whiteOpacity100: rgba(0, 0, 0, 0.1);
@@ -500,17 +510,17 @@
     --adaptive-accent-pink: #fb328b;
 
     --adaptive-backgroundDimmed: rgba(0, 0, 0, 0.56);
-    --adaptive-backgroundLevelB01: #101013;
-    --adaptive-backgroundLevel01: #202027;
-    --adaptive-backgroundLevel02: #2c2c35;
-    --adaptive-backgroundLevel03: #3c3c47;
-    --adaptive-backgroundLevel04: #4d4d59;
-    --adaptive-backgroundScreen: #101013;
-    --adaptive-shadowMedium00: rgba(222, 222, 255, 0.19);
+    --adaptive-backgroundLevelB01: var(--fp-bg);
+    --adaptive-backgroundLevel01: var(--fp-bg);
+    --adaptive-backgroundLevel02: var(--fp-bg);
+    --adaptive-backgroundLevel03: var(--fp-bg);
+    --adaptive-backgroundLevel04: var(--fp-bg);
+    --adaptive-backgroundScreen: var(--fp-bg);
+    --adaptive-shadowMedium00: rgba(237, 239, 238, 0.12);
     --adaptive-shadowMedium01: rgba(0, 0, 0, 0.15);
     --adaptive-shadowMedium02: rgba(0, 0, 0, 0.12);
-    --adaptive-shadowLarge00: rgba(222, 222, 255, 0.19);
+    --adaptive-shadowLarge00: rgba(237, 239, 238, 0.12);
     --adaptive-shadowLarge01: rgba(0, 0, 0, 0.15);
     --adaptive-shadowLarge02: rgba(0, 0, 0, 0.12);
-    --adaptive-__internal__focusRing: rgba(23, 23, 28, 0.5);
+    --adaptive-__internal__focusRing: rgba(19, 20, 19, 0.5);
 }

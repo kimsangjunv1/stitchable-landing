@@ -75,7 +75,7 @@ export default function RootLayout({
                 />
                 <JsonLd />
             </head>
-            <body className="bg-[var(--adaptive-background)] font-[family-name:var(--font-pretendard)] text-[var(--adaptive-text-primary)] antialiased">
+            <body className="bg-[var(--fp-bg)] font-[family-name:var(--font-pretendard)] text-[var(--fp-text-emphasis)] antialiased">
                 <LenisProvider>
                     <GlobalErrorBoundary>
                         <GlobalErrorListener>

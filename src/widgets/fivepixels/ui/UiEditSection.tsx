@@ -245,10 +245,10 @@ export function UiEditSection() {
     return (
         <section
             ref={sectionRef}
-            className="w-full px-[1.2rem] tablet:px-[2.4rem] bg-black"
+            className="w-full bg-[var(--fp-bg)] px-[1.2rem] tablet:px-[2.4rem]"
             id="ui-edit"
         >
-            <div className="mx-auto w-full max-w-[var(--size-pc)] overflow-hidden border-x border-x-[#333333]">
+            <div className="mx-auto w-full max-w-[var(--size-pc)] overflow-hidden border-x border-[var(--adaptive-border)]">
                 <Message
                     isInView={isInView}
                     prefersReducedMotion={!!prefersReducedMotion}
@@ -284,10 +284,10 @@ function Message({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean
         <div className="flex">
             <div className="flex-1">
                 <div>
-                    <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-white/42">{uiEdit.beforeLabel}</span>
-                    <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-white">{uiEdit.beforeTitle}</h3>
+                    <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.beforeLabel}</span>
+                    <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-[var(--fp-text-emphasis)]">{uiEdit.beforeTitle}</h3>
                 </div>
-                <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-white/35">{uiEdit.beforeEyebrow}</span>
+                <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.beforeEyebrow}</span>
             </div>
 
             <div className="flex-1 overflow-hidden relative">
@@ -348,17 +348,17 @@ function FeedbackMarker({ isInView, prefersReducedMotion, uiEdit }: { isInView: 
                 </video>
             </motion.div>
 
-            <div className="flex-1 flex items-end justify-between gap-[1.6rem] border-b border-b-[#333333]">
+            <div className="flex-1 flex items-end justify-between gap-[1.6rem] border-b border-[var(--adaptive-border)]">
                 <div>
-                    <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-white/42">{uiEdit.afterLabel}</span>
-                    <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-white">
+                    <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.afterLabel}</span>
+                    <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-[var(--fp-text-emphasis)]">
                         {uiEdit.afterTitleLine1}
                         <br />
                         {uiEdit.afterTitleLine2}
                     </h3>
                 </div>
 
-                <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-white/35">{uiEdit.afterEyebrow}</span>
+                <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.afterEyebrow}</span>
             </div>
         </div>
     );

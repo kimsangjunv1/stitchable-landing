@@ -12,10 +12,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    background: var(--adaptive-background);
+    background: var(--fp-bg);
 
-    color: #000;
-    // color: var(--adaptive-text-primary);
+    color: var(--fp-text-emphasis);
     // 4F5B78
 }
 
@@ -24,7 +23,7 @@ html {
     -webkit-text-size-adjust: 100%; /* 2 */
     max-width: 100%;
     // overflow-x: hidden;
-    background: var(--adaptive-background);
+    background: var(--fp-bg);
     scrollbar-width: none;
     // scrollbar-color: rgba(0,29,58,0.18) transparent;
 }
@@ -43,7 +42,7 @@ body {
     position: relative;
     // overflow-y: hidden;
     width: 100%;
-    background-color: var(--adaptive-background);
+    background-color: var(--fp-bg);
 
     &::-webkit-scrollbar {
         display: none;

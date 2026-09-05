@@ -87,7 +87,7 @@ export function DeveloperReliefSection() {
         >
             <div className="mx-auto w-full max-w-[var(--size-pc)] overflow-hidden border-x border-x-[var(--adaptive-border)]">
                 <div className="grid tablet:grid-cols-2">
-                    <div className="border-b border-b-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2.4rem] tablet:border-b-0 tablet:border-r tablet:p-[4.8rem]">
+                    <div className="border-b border-b-[var(--adaptive-border)] bg-[var(--fp-bg)] p-[2.4rem] tablet:border-b-0 tablet:border-r tablet:p-[4.8rem]">
                         <FadePanel
                             panelKey={activeStep.id}
                             prefersReducedMotion={!!prefersReducedMotion}
@@ -99,7 +99,7 @@ export function DeveloperReliefSection() {
                         </FadePanel>
                     </div>
 
-                    <div className="flex flex-col bg-[#111017]">
+                    <div className="flex flex-col bg-[var(--fp-bg)]">
                         <div
                             className="grid grid-cols-1 mobile:grid-cols-1 tablet:grid-cols-3"
                             role="tablist"
@@ -118,7 +118,9 @@ export function DeveloperReliefSection() {
                                         aria-controls={`adoption-panel-${step.id}`}
                                         className={[
                                             "px-[1.6rem] py-[1.4rem] text-left font-[family-name:var(--font-pretendard)] text-[1.4rem] transition-colors tablet:px-[1.8rem] tablet:py-[1.6rem] tablet:text-[1.6rem]",
-                                            isActive ? "bg-[#F6572E] text-white" : "bg-transparent text-white/42 hover:bg-white/[0.04] hover:text-white/72",
+                                            isActive
+                                                ? "bg-[#F6572E] text-white"
+                                                : "bg-transparent text-[var(--fp-text-description)] hover:bg-[var(--adaptive-greyOpacity100)] hover:text-[var(--fp-text-emphasis)]",
                                         ].join(" ")}
                                         onClick={() => setActiveStepIndex(index)}
                                     >
