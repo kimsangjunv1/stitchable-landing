@@ -5,6 +5,7 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { emphasisEase, revealEase, revealViewport } from "@/shared/lib/motion";
 import type { FivepixelsMessages } from "@/i18n/landing/types";
+import { FivePixelsDemo } from "@fivepixels-js/react/demo";
 
 type SlackMessage = FivepixelsMessages["uiEdit"]["messages"][number];
 
@@ -97,15 +98,7 @@ function SlackMessageRow({
     );
 }
 
-function SlackSkeleton({
-    isInView,
-    prefersReducedMotion,
-    uiEdit,
-}: {
-    isInView: boolean;
-    prefersReducedMotion: boolean;
-    uiEdit: FivepixelsMessages["uiEdit"];
-}) {
+function SlackSkeleton({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean; prefersReducedMotion: boolean; uiEdit: FivepixelsMessages["uiEdit"] }) {
     return (
         <div className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[100] flex w-[calc(100%-(1.6rem*4))] h-[calc(100%-(1.6rem*4))] overflow-hidden rounded-[0.8rem] font-['Helvetica_Neue',Helvetica,'Segoe_UI',Arial,sans-serif] shadow-[0_8px_24px_rgba(0,0,0,0.18)] border-[1px] border-[#ffffff90] p-[0.2rem]">
             <section className="flex rounded-[0.8rem] overflow-hidden">
@@ -286,15 +279,7 @@ export function UiEditSection() {
     );
 }
 
-function Message({
-    isInView,
-    prefersReducedMotion,
-    uiEdit,
-}: {
-    isInView: boolean;
-    prefersReducedMotion: boolean;
-    uiEdit: FivepixelsMessages["uiEdit"];
-}) {
+function Message({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean; prefersReducedMotion: boolean; uiEdit: FivepixelsMessages["uiEdit"] }) {
     return (
         <div className="flex">
             <div className="flex-1">
@@ -306,10 +291,15 @@ function Message({
             </div>
 
             <div className="flex-1 overflow-hidden relative">
-                <SlackSkeleton
+                {/* <SlackSkeleton
                     isInView={isInView}
                     prefersReducedMotion={prefersReducedMotion}
                     uiEdit={uiEdit}
+                /> */}
+                <FivePixelsDemo
+                    scene="marker-tooltip"
+                    locale="ko"
+                    className="absolute left-[60%] top-[55%]"
                 />
                 <video
                     autoPlay
@@ -329,15 +319,7 @@ function Message({
     );
 }
 
-function FeedbackMarker({
-    isInView,
-    prefersReducedMotion,
-    uiEdit,
-}: {
-    isInView: boolean;
-    prefersReducedMotion: boolean;
-    uiEdit: FivepixelsMessages["uiEdit"];
-}) {
+function FeedbackMarker({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean; prefersReducedMotion: boolean; uiEdit: FivepixelsMessages["uiEdit"] }) {
     return (
         <div className="flex h-[50svh]">
             <motion.div
