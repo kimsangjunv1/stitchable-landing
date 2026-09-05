@@ -30,7 +30,7 @@ export function ModalsLabContent() {
                 data-report-id="example-modals-header"
                 data-report-type="group"
             >
-                <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{modalsLab.eyebrow}</p>
+                <p className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45">{modalsLab.eyebrow}</p>
                 <h1
                     className="text-[2.8rem] font-semibold"
                     data-report-id="example-modals-title"
@@ -61,7 +61,7 @@ export function ModalsLabContent() {
                         >
                             <div>
                                 <p
-                                    className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-black/45"
+                                    className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-black/45"
                                     data-report-id={`example-modals-technique-${id}`}
                                 >
                                     {item.technique}

@@ -33,7 +33,7 @@ export function CopyBlock({ label, text }: { label: string; text: string }) {
                     {copied ? codeCopied : label}
                 </button>
             </div>
-            <pre className="whitespace-pre-wrap p-[1.6rem] font-[family-name:var(--font-mona-rebrand)] text-[1.5rem] leading-[1.7] text-black/70">{text}</pre>
+            <pre className="whitespace-pre-wrap p-[1.6rem] font-[family-name:var(--font-pretendard)] text-[1.5rem] leading-[1.7] text-black/70">{text}</pre>
         </div>
     );
 }

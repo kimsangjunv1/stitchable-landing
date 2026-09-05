@@ -109,7 +109,7 @@ export function TailwindSyntaxCode({ code }: { code: string }) {
     const lines = code.replace(/\n$/, "").split("\n");
 
     return (
-        <div className="overflow-x-auto rounded-[1.2rem] border border-white/10 bg-[#0f172a] p-[1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.3rem] leading-[1.85] tablet:p-[2rem] tablet:text-[1.4rem]">
+        <div className="overflow-x-auto rounded-[1.2rem] border border-white/10 bg-[#0f172a] p-[1.6rem] font-[family-name:var(--font-pretendard)] text-[1.3rem] leading-[1.85] tablet:p-[2rem] tablet:text-[1.4rem]">
             <pre className="m-0">
                 <code>
                     {lines.map((line, lineIndex) => (

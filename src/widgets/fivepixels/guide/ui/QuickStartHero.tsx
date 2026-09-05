@@ -8,7 +8,7 @@ import { useMessages } from "@/app/providers/LocaleProvider";
 import { RichText } from "@/shared/ui/rich-text";
 import { cn } from "@/shared/lib/utils";
 
-const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
+const expandedText = "font-[family-name:var(--font-pretendard)] font-semibold";
 
 export function QuickStartHero({ hero }: { hero: GuideHero }) {
     const guide = useMessages().guides;
@@ -37,7 +37,7 @@ export function QuickStartHero({ hero }: { hero: GuideHero }) {
 
     return (
         <header className="flex flex-col gap-[2.4rem] pb-[4.8rem] border-b border-b-[#ededed] p-[2.4rem]">
-            <span className={cn("text-[1.4rem] text-[#ff4b2e]", "font-[family-name:var(--font-fira-rebrand)]")}>{hero.eyebrow}</span>
+            <span className={cn("text-[1.4rem] text-[#ff4b2e]", "font-[family-name:var(--font-pretendard)]")}>{hero.eyebrow}</span>
 
             <h1 className={`${expandedText} text-[4.2rem] leading-[1.05] mobile:text-[3.2rem]`}>{hero.title}</h1>
 
@@ -47,7 +47,7 @@ export function QuickStartHero({ hero }: { hero: GuideHero }) {
 
             <div className="flex flex-wrap items-center gap-[1.6rem]">
                 {showInstall && (
-                    <div className="flex items-center border border-[#111] p-[1.2rem_1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem]">
+                    <div className="flex items-center border border-[#111] p-[1.2rem_1.6rem] font-[family-name:var(--font-pretendard)] text-[1.4rem]">
                         <code className="whitespace-nowrap">{installCode}</code>
                         <div className="mx-[1.6rem] h-[1.6rem] w-[0.1rem] bg-black" />
                         <button
@@ -73,7 +73,7 @@ export function QuickStartHero({ hero }: { hero: GuideHero }) {
 
                 <a
                     href={ctaHref}
-                    className="flex w-max items-center gap-[1.6rem] bg-[#111] px-[1.6rem] py-[1.2rem] text-[1.4rem] text-white font-[family-name:var(--font-fira-rebrand)]"
+                    className="flex w-max items-center gap-[1.6rem] bg-[#111] px-[1.6rem] py-[1.2rem] text-[1.4rem] text-white font-[family-name:var(--font-pretendard)]"
                 >
                     {hero.cta}
                     <ArrowRight size={17} />

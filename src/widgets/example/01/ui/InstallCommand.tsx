@@ -16,7 +16,7 @@ export function InstallCommand() {
 
     return (
         <button
-            className="flex w-max max-w-full items-center gap-[1.6rem] border border-black p-[1.2rem_1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] transition-colors hover:bg-black/[0.03]"
+            className="flex w-max max-w-full items-center gap-[1.6rem] border border-black p-[1.2rem_1.6rem] font-[family-name:var(--font-pretendard)] text-[1.4rem] transition-colors hover:bg-black/[0.03]"
             onClick={handleCopy}
             type="button"
         >

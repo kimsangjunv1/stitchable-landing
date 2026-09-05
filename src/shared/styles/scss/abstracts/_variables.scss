@@ -1,10 +1,10 @@
 :root {
     /* 폰트 */
-    --custom-font: "Helvetica Neue", "Noto Sans KR", "Segoe UI", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --custom-font: var(--font-pretendard);
     --root-font-size: 62.5%;
     --default-font-size: 1.8rem;
 
-    --preview-font: "Helvetica Neue", "Noto Sans KR", "Segoe UI", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --preview-font: var(--font-pretendard);
 
     /* 배경 색상 */
     --color-background-light: #ffffff;

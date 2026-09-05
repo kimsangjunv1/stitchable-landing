@@ -22,7 +22,7 @@ export function OpenSourceSection() {
                         {openSource.bodyLine2}
                     </p>
                     <a
-                        className="flex w-max items-center gap-[1.6rem] py-[1.2rem] px-[1.6rem] text-white bg-[#111] px-2 font-[family-name:var(--font-fira-rebrand)]"
+                        className="flex w-max items-center gap-[1.6rem] py-[1.2rem] px-[1.6rem] text-white bg-[#111] px-2 font-[family-name:var(--font-pretendard)]"
                         href="#contribute"
                     >
                         {openSource.cta} <ArrowRight size={16} />

@@ -19,7 +19,7 @@ export function Footer() {
 
         return (
             <section className="border-t border-[#e9e7e2] bg-white text-[#111]">
-                <footer className="mx-auto w-full max-w-[112rem] border-x border-[#e9e7e2] font-[family-name:var(--font-mona-rebrand)]">
+                <footer className="mx-auto w-full max-w-[112rem] border-x border-[#e9e7e2] font-[family-name:var(--font-pretendard)]">
                     <div className="grid tablet:grid-cols-[minmax(0,1.2fr)_repeat(3,minmax(0,0.8fr))]">
                         <div className="border-b border-[#e9e7e2] px-[2rem] py-[2.4rem] tablet:border-b-0 tablet:border-r">
                             <strong className="text-[2.4rem] font-semibold text-black">{home.brand}</strong>
@@ -82,7 +82,7 @@ export function Footer() {
 
                 <div>
                     <small className="my-[7px] mb-[14px] block text-[18px]">{site.currentLibrary}</small>
-                    <strong className="block text-[26px] leading-[1.45] [font-variation-settings:'wdth'_110]">
+                    <strong className="block text-[26px] leading-[1.45]">
                         {libraryLine1}
                         <br />
                         {libraryLine2}
@@ -93,13 +93,13 @@ export function Footer() {
                     <small className="my-[7px] mb-[14px] block text-[18px]">{site.currentLibrary}</small>
                     <div className="flex gap-2 text-[#bcbcbc]">
                         <span
-                            className="grid h-[27px] w-[27px] place-items-center rounded-full bg-[#bcbcbc] font-[Arial,sans-serif] font-extrabold text-black"
+                            className="grid h-[27px] w-[27px] place-items-center rounded-full bg-[#bcbcbc] font-extrabold text-black"
                             aria-label={site.githubAria}
                         >
                             GH
                         </span>
                         <span
-                            className="grid h-[27px] w-[27px] place-items-center rounded-full bg-[#bcbcbc] font-[Arial,sans-serif] font-extrabold text-black"
+                            className="grid h-[27px] w-[27px] place-items-center rounded-full bg-[#bcbcbc] font-extrabold text-black"
                             aria-label={site.linkedInAria}
                         >
                             in

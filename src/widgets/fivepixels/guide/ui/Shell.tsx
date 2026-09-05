@@ -12,7 +12,7 @@ export function Shell({ collection, page }: { collection: GuideCollectionMessage
     useGuideSectionObserver(sectionIds);
 
     return (
-        <div className="min-h-screen font-[family-name:var(--font-mona-rebrand)] text-[1.8rem] text-[#050505]">
+        <div className="min-h-screen font-[family-name:var(--font-pretendard)] text-[1.8rem] text-[#050505]">
             <div className="mx-auto flex w-full max-w-[var(--size-pc)] pt-[calc(7.2rem+3.2rem)] border-x border-x-[#ededed]">
                 <Sidebar collection={collection} page={page} />
                 <div className="w-[0.1rem] bg-[#ededed]" />

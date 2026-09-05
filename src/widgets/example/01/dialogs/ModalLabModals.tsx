@@ -55,7 +55,7 @@ function LabModalFrame({
             >
                 <div className="flex items-start justify-between gap-[1.2rem] border-b border-black/8 bg-[#1e293b] px-[2rem] py-[1.4rem] text-white">
                     <div>
-                        <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-white/60">{id}</p>
+                        <p className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-white/60">{id}</p>
                         <h2
                             className="text-[2rem] font-semibold"
                             id={`example-modal-lab-title-${id}`}

@@ -107,7 +107,7 @@ export function OverviewContent() {
                                     {kanbanColumn.column}
                                 </h3>
                                 <span
-                                    className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45"
+                                    className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45"
                                     data-report-id={`example-kanban-count-${column.id}`}
                                 >
                                     {kanbanColumn.cards.length}

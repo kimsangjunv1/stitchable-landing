@@ -41,8 +41,8 @@ function DescriptionPanel({ step, guideLink }: { step: AdoptionStep; guideLink: 
             aria-labelledby={`adoption-tab-${step.id}`}
             className="flex h-full flex-col"
         >
-            <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{step.eyebrow}</span>
-            <h3 className="mt-[1rem] text-[3rem] font-semibold leading-[1.08] tracking-[-0.02em] [font-variation-settings:'wdth'_125]">{step.title}</h3>
+            <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45">{step.eyebrow}</span>
+            <h3 className="mt-[1rem] text-[3rem] font-semibold leading-[1.08] tracking-[-0.02em]">{step.title}</h3>
             <p className="mt-[1.4rem] max-w-[40rem] text-[1.6rem] leading-[1.55] text-black/58">{step.description}</p>
             {step.note ? <p className="mt-[1rem] max-w-[40rem] text-[1.45rem] leading-[1.5] text-black/45 whitespace-pre-line">{step.note}</p> : null}
 
@@ -60,7 +60,7 @@ function DescriptionPanel({ step, guideLink }: { step: AdoptionStep; guideLink: 
 
             {step.showGuideLink ? (
                 <Link
-                    className="mt-[2.4rem] inline-flex w-fit items-center gap-[0.8rem] border border-black/15 px-[1.4rem] py-[1rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/70 transition-colors hover:border-black/30 hover:text-black"
+                    className="mt-[2.4rem] inline-flex w-fit items-center gap-[0.8rem] border border-black/15 px-[1.4rem] py-[1rem] font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/70 transition-colors hover:border-black/30 hover:text-black"
                     href="/docs/setup"
                 >
                     {guideLink}
@@ -117,7 +117,7 @@ export function DeveloperReliefSection() {
                                         aria-selected={isActive}
                                         aria-controls={`adoption-panel-${step.id}`}
                                         className={[
-                                            "px-[1.6rem] py-[1.4rem] text-left font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] transition-colors tablet:px-[1.8rem] tablet:py-[1.6rem] tablet:text-[1.6rem]",
+                                            "px-[1.6rem] py-[1.4rem] text-left font-[family-name:var(--font-pretendard)] text-[1.4rem] transition-colors tablet:px-[1.8rem] tablet:py-[1.6rem] tablet:text-[1.6rem]",
                                             isActive ? "bg-[#F6572E] text-white" : "bg-transparent text-white/42 hover:bg-white/[0.04] hover:text-white/72",
                                         ].join(" ")}
                                         onClick={() => setActiveStepIndex(index)}

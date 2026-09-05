@@ -8,7 +8,7 @@ export default function Example01Layout({ children }: Readonly<{ children: React
     return (
         <FivePixelsProvider>
             <Example01PageProvider>
-                <div className="h-dvh overflow-hidden bg-[#f4f6f8] font-[family-name:var(--font-mona-rebrand)] text-[18px] text-[#050505]">
+                <div className="h-dvh overflow-hidden bg-[#f4f6f8] font-[family-name:var(--font-pretendard)] text-[18px] text-[#050505]">
                     <DashboardShell>{children}</DashboardShell>
                     <Modal />
                 </div>

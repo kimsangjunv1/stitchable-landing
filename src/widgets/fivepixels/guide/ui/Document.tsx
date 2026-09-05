@@ -11,7 +11,7 @@ import { QuickStartHero } from "./QuickStartHero";
 import { CopyBlock } from "./CopyBlock";
 import { GuideTabs } from "./GuideTabs";
 
-const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
+const expandedText = "font-[family-name:var(--font-pretendard)] font-semibold";
 
 function renderBlocks(blocks: GuideBlock[]) {
     return blocks.map((block, index) => <BlockRenderer key={`${block.type}-${index}`} block={block} />);
@@ -63,7 +63,7 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
             return (
                 <Link
                     href={block.href}
-                    className="inline-flex items-center gap-[0.8rem] font-[family-name:var(--font-mona-rebrand)] text-[1.6rem] font-semibold text-[#3182f6] transition-colors hover:text-[#1b64da]"
+                    className="inline-flex items-center gap-[0.8rem] font-[family-name:var(--font-pretendard)] text-[1.6rem] font-semibold text-[#3182f6] transition-colors hover:text-[#1b64da]"
                 >
                     {block.label}
                     <span aria-hidden>→</span>

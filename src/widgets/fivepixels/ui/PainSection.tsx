@@ -13,7 +13,7 @@ export function PainSection() {
             <div className="mx-auto grid w-full max-w-[var(--size-pc)] tablet:grid-cols-2">
                 <div className="flex flex-col justify-between bg-black text-white">
                     <div className="max-w-[50%] p-[52px]">
-                        <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] text-white/50">{pain.eyebrow}</span>
+                        <span className="font-[family-name:var(--font-pretendard)] text-[1.4rem] text-white/50">{pain.eyebrow}</span>
                         <h2 className="mt-[1.6rem] text-[4.2rem] font-semibold leading-[1.3]">
                             {pain.titleLine1}
                             <br />
@@ -94,7 +94,7 @@ export function PainSection() {
                             className="flex min-h-[22.95rem] flex-col justify-between bg-white p-[2.4rem] tablet:p-[3.2rem]"
                             key={card.title}
                         >
-                            <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{card.eyebrow}</span>
+                            <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45">{card.eyebrow}</span>
                             <div>
                                 <h3 className="text-[2.8rem] font-semibold leading-[1]">{card.title}</h3>
                                 <p className="mt-[1.2rem] text-[1.6rem] leading-[1.3] text-black/60">{card.description}</p>

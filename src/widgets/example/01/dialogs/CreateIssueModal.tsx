@@ -44,7 +44,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                 >
                     <div>
                         <p
-                            className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-white/60"
+                            className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-white/60"
                             data-report-id="example-dashboard-modal-eyebrow"
                         >
                             {createIssue.eyebrow}
@@ -101,7 +101,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             {createIssue.formDescription}
                         </span>
                         <textarea
-                            className="min-h-[10rem] resize-y border border-black/15 p-[1.2rem] font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] outline-none focus:border-black"
+                            className="min-h-[10rem] resize-y border border-black/15 p-[1.2rem] font-[family-name:var(--font-pretendard)] text-[1.4rem] outline-none focus:border-black"
                             data-report-id="example-dashboard-modal-textarea"
                             placeholder={createIssue.descriptionPlaceholder}
                         />

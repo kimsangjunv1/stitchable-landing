@@ -11,11 +11,11 @@ export function Sidebar({ collection, page }: { collection: GuideCollectionMessa
     return (
         <aside className="hidden w-[24rem] shrink-0 lg:block">
             <nav className="sticky top-[calc(var(--site-banner-height)+12rem)] max-h-[calc(100vh-14rem-var(--site-banner-height))] overflow-y-auto px-[2rem] pb-[3.2rem]">
-                <p className="mb-[1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] uppercase tracking-wider text-[#969696]">{collection.onThisPage}</p>
+                <p className="mb-[1.6rem] font-[family-name:var(--font-pretendard)] text-[1.2rem] uppercase tracking-wider text-[#969696]">{collection.onThisPage}</p>
                 <div className="flex flex-col gap-[2.4rem]">
                     {collection.navGroups.map((group, groupIndex) => (
                         <div key={group.label}>
-                            <p className={cn("mb-[0.8rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] uppercase tracking-wider", groupIndex === 0 ? "text-[#ff4b2e]" : "text-[#969696]")}>{group.label}</p>
+                            <p className={cn("mb-[0.8rem] font-[family-name:var(--font-pretendard)] text-[1.2rem] uppercase tracking-wider", groupIndex === 0 ? "text-[#ff4b2e]" : "text-[#969696]")}>{group.label}</p>
                             <ul className="flex flex-col gap-[0.2rem] border-l border-black/10 pl-[1.2rem]">
                                 {group.items.map((item) => {
                                     const active = page.slug === item.slug;

@@ -13,16 +13,15 @@ import { SiteBanner } from "@/widgets/layout/SiteBanner";
 import "@/shared/styles/scss/globals.css";
 import "@/shared/styles/scss/index.scss";
 
-const MATERIAL_SYMBOLS_FONT_URL = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=block";
-
-const monaSans = localFont({
-    src: "../../public/fonts/rebranding/MonaSans.woff2",
-    variable: "--font-mona-rebrand",
-    display: "swap",
-});
-const firaCode = localFont({
-    src: "../../public/fonts/rebranding/FiraCode.woff2",
-    variable: "--font-fira-rebrand",
+const pretendard = localFont({
+    src: [
+        { path: "../../public/fonts/pretendard/woff2/Pretendard-Regular.subset.woff2", weight: "400", style: "normal" },
+        { path: "../../public/fonts/pretendard/woff2/Pretendard-Medium.subset.woff2", weight: "500", style: "normal" },
+        { path: "../../public/fonts/pretendard/woff2/Pretendard-SemiBold.subset.woff2", weight: "600", style: "normal" },
+        { path: "../../public/fonts/pretendard/woff2/Pretendard-Bold.subset.woff2", weight: "700", style: "normal" },
+        { path: "../../public/fonts/pretendard/woff2/Pretendard-ExtraBold.subset.woff2", weight: "800", style: "normal" },
+    ],
+    variable: "--font-pretendard",
     display: "swap",
 });
 
@@ -54,25 +53,12 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${monaSans.variable} ${firaCode.variable}`}
+            className={pretendard.variable}
         >
             <head>
                 <JsonLd />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.googleapis.com"
-                />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="stylesheet"
-                    href={MATERIAL_SYMBOLS_FONT_URL}
-                />
             </head>
-            <body className="bg-white font-[family-name:var(--font-mona-rebrand)] text-[#050505] antialiased">
+            <body className="bg-white font-[family-name:var(--font-pretendard)] text-[#050505] antialiased">
                 <LenisProvider>
                     <GlobalErrorBoundary>
                         <GlobalErrorListener>

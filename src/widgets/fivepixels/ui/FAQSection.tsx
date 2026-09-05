@@ -26,7 +26,7 @@ export function FAQSection() {
                                 aria-expanded={openIndex === index}
                                 aria-controls={`faq-panel-${index}`}
                             >
-                                <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45 tablet:pt-[0.4rem]">0{index + 1}</span>
+                                <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45 tablet:pt-[0.4rem]">0{index + 1}</span>
                                 <span className="text-[2rem] font-semibold leading-[1.2] tracking-[-0.02em] tablet:text-[2.4rem] tablet:leading-[1.3]">{faq.question}</span>
                                 <span
                                     className="justify-self-end text-[2.6rem] leading-none text-black/35 transition-transform duration-300"

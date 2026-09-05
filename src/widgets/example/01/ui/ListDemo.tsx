@@ -32,7 +32,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
             >
                 <div>
                     <p
-                        className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-white/60"
+                        className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-white/60"
                         data-report-id="example-list-eyebrow"
                     >
                         {listDemo.eyebrow}

@@ -86,7 +86,7 @@ export function MegaMenuBar({ menus, activeMenuId, onOpenChange, openMenuId }: M
                         <button
                             type="button"
                             className={cn(
-                                "relative z-[1] inline-flex items-center gap-[0.4rem] rounded-[0.8rem] px-[1.6rem] py-[0.8rem] font-[family-name:var(--font-mona-rebrand)] text-[1.8rem] leading-none transition-colors tablet:text-[1.8rem]",
+                                "relative z-[1] inline-flex items-center gap-[0.4rem] rounded-[0.8rem] px-[1.6rem] py-[0.8rem] font-[family-name:var(--font-pretendard)] text-[1.8rem] leading-none transition-colors tablet:text-[1.8rem]",
                                 isHighlighted ? " text-[#000000]" : "text-[#969696] hover:text-black",
                             )}
                             aria-expanded={isOpen}
@@ -143,8 +143,8 @@ function MegaMenuPanelContent({ menu, onNavigate }: { menu: MegaMenuConfig; onNa
                     key={group.title}
                 >
                     <div className="mb-[1.4rem]">
-                        <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-[#f6572e]">{group.eyebrow}</span>
-                        <h3 className="mt-[0.5rem] text-[1.7rem] font-semibold leading-[1.1] [font-variation-settings:'wdth'_125]">{group.title}</h3>
+                        <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-[#f6572e]">{group.eyebrow}</span>
+                        <h3 className="mt-[0.5rem] text-[1.7rem] font-semibold leading-[1.1]">{group.title}</h3>
                     </div>
 
                     <ul className="flex flex-1 flex-col gap-[0.2rem]">
@@ -160,7 +160,7 @@ function MegaMenuPanelContent({ menu, onNavigate }: { menu: MegaMenuConfig; onNa
 
                     {group.viewAll ? (
                         <Link
-                            className="mt-[1rem] inline-flex items-center gap-[0.5rem] rounded-[0.6rem] px-[0.6rem] py-[0.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] font-semibold text-[#f6572e] transition-colors hover:bg-[#fff0eb] hover:text-[#c74420]"
+                            className="mt-[1rem] inline-flex items-center gap-[0.5rem] rounded-[0.6rem] px-[0.6rem] py-[0.6rem] font-[family-name:var(--font-pretendard)] text-[1.2rem] font-semibold text-[#f6572e] transition-colors hover:bg-[#fff0eb] hover:text-[#c74420]"
                             href={group.viewAll.href}
                             onClick={onNavigate}
                         >

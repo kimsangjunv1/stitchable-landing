@@ -56,7 +56,7 @@ function FivepixelsSiteHeader({ pathname, megaMenus }: { pathname: string; megaM
             className="fixed top-0 z-[100] w-full"
             onMouseLeave={closeMenu}
         >
-            <header className="border-b border-[#ededed] bg-white pt-[3.2rem] font-[family-name:var(--font-mona-rebrand)] text-[#050505]">
+            <header className="border-b border-[#ededed] bg-white pt-[3.2rem] font-[family-name:var(--font-pretendard)] text-[#050505]">
                 <div className="mx-auto flex w-full max-w-[var(--size-pc)] items-center justify-between border-x border-x-[#ededed] px-[2.4rem]">
                     <section className="flex items-center gap-[2.4rem]">
                         <Link

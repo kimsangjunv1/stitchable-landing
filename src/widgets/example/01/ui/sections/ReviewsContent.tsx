@@ -16,7 +16,7 @@ export function ReviewsContent() {
                 data-report-id="example-reviews-header"
                 data-report-type="group"
             >
-                <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{reviews.eyebrow}</p>
+                <p className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45">{reviews.eyebrow}</p>
                 <h1
                     className="text-[2.8rem] font-semibold"
                     data-report-id="example-reviews-title"

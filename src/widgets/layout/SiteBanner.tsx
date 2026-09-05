@@ -13,7 +13,7 @@ export function SiteBanner() {
 
     return (
         <div
-            className="fixed top-0 left-0 z-[110] flex h-[var(--site-banner-height)] w-full items-center justify-center bg-black px-[1.2rem] font-[family-name:var(--font-mona-rebrand)] text-[1.4rem] font-medium text-white"
+            className="fixed top-0 left-0 z-[110] flex h-[var(--site-banner-height)] w-full items-center justify-center bg-black px-[1.2rem] font-[family-name:var(--font-pretendard)] text-[1.4rem] font-medium text-white"
             role="status"
         >
             {banner}

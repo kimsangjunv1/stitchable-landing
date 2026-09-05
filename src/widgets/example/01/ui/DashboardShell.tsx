@@ -61,7 +61,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                 className="flex items-center gap-[1rem]"
                                 data-report-id="example-sidebar-brand"
                             >
-                                <span className="inline-flex h-[3.2rem] w-[3.2rem] items-center justify-center bg-[#3b82f6] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem]">
+                                <span className="inline-flex h-[3.2rem] w-[3.2rem] items-center justify-center bg-[#3b82f6] font-[family-name:var(--font-pretendard)] text-[1.2rem]">
                                     QA
                                 </span>
                                 <div>

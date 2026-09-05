@@ -1,17 +1,101 @@
+import {
+    ArrowRight,
+    Braces,
+    Bug,
+    CalendarDays,
+    ChevronDown,
+    Circle,
+    CircleHelp,
+    ClipboardCheck,
+    Code2,
+    Columns2,
+    Contact,
+    Database,
+    Download,
+    Frown,
+    GitBranch,
+    GitMerge,
+    HardDrive,
+    Hourglass,
+    House,
+    Layers,
+    LayoutDashboard,
+    Lightbulb,
+    ListChecks,
+    ListFilter,
+    LocateFixed,
+    LockOpen,
+    MessageSquare,
+    MessageSquareText,
+    MessagesSquare,
+    MousePointerClick,
+    PanelRight,
+    Pencil,
+    Rocket,
+    Send,
+    Settings,
+    TextCursorInput,
+    ToggleRight,
+    TriangleAlert,
+    Users,
+    UsersRound,
+    Zap,
+    type LucideIcon,
+} from "lucide-react";
+
 type MaterialIconProps = {
     name: string;
     className?: string;
     size?: number;
 };
 
+const icons: Record<string, LucideIcon> = {
+    account_tree: GitBranch,
+    ads_click: MousePointerClick,
+    api: Braces,
+    arrow_forward: ArrowRight,
+    assignment_turned_in: ClipboardCheck,
+    bolt: Zap,
+    bug_report: Bug,
+    calendar_month: CalendarDays,
+    chat: MessageSquare,
+    checklist: ListChecks,
+    code: Code2,
+    compare: Columns2,
+    dashboard: LayoutDashboard,
+    data_object: Braces,
+    database: Database,
+    dock_to_right: PanelRight,
+    download: Download,
+    edit: Pencil,
+    expand_more: ChevronDown,
+    filter_1: ListFilter,
+    forum: MessagesSquare,
+    group: Users,
+    groups: UsersRound,
+    help: CircleHelp,
+    home: House,
+    hourglass_top: Hourglass,
+    input: TextCursorInput,
+    layers: Layers,
+    lightbulb: Lightbulb,
+    location_searching: LocateFixed,
+    lock_open: LockOpen,
+    merge: GitMerge,
+    person_pin: Contact,
+    rate_review: MessageSquareText,
+    rocket_launch: Rocket,
+    rule: ListChecks,
+    sd_storage: HardDrive,
+    send: Send,
+    sentiment_dissatisfied: Frown,
+    settings: Settings,
+    toggle_on: ToggleRight,
+    warning: TriangleAlert,
+};
+
 export function MaterialIcon({ name, className = "", size = 20 }: MaterialIconProps) {
-    return (
-        <span
-            aria-hidden
-            className={`material-symbols-outlined leading-none ${className}`}
-            style={{ fontSize: `${size}px` }}
-        >
-            {name}
-        </span>
-    );
+    const Icon = icons[name] ?? Circle;
+
+    return <Icon aria-hidden className={className} size={size} strokeWidth={1.8} />;
 }
