@@ -1,69 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useMessages } from "@/app/providers/LocaleProvider";
 
 export function Footer() {
-    const pathname = usePathname();
     const { footer } = useMessages().layout;
-    const isHome = pathname === "/";
-
-    if (pathname.startsWith("/example/01")) {
-        return null;
-    }
-
-    if (isHome) {
-        const { home } = footer;
-
-        return (
-            <section className="border-t border-[var(--adaptive-border)] bg-[var(--adaptive-background)] text-[var(--adaptive-text-primary)]">
-                <footer className="mx-auto w-full max-w-[112rem] border-x border-[var(--adaptive-border)] font-[family-name:var(--font-pretendard)]">
-                    <div className="grid tablet:grid-cols-[minmax(0,1.2fr)_repeat(3,minmax(0,0.8fr))]">
-                        <div className="border-b border-[var(--adaptive-border)] px-[2rem] py-[2.4rem] tablet:border-b-0 tablet:border-r">
-                            <strong className="text-[2.4rem] font-semibold text-[var(--adaptive-text-primary)]">{home.brand}</strong>
-                            <p className="mt-[1rem] max-w-[30rem] text-[1.4rem] leading-[1.65] text-[var(--adaptive-text-secondary)]">
-                                {home.description}
-                            </p>
-                        </div>
-
-                        <div className="border-b border-[var(--adaptive-border)] px-[2rem] py-[2.4rem] tablet:border-b-0 tablet:border-r">
-                            <small className="text-[1.15rem] font-semibold uppercase tracking-[0.16em] text-[var(--adaptive-text-muted)]">{home.product}</small>
-                            <div className="mt-[1.2rem] flex flex-col gap-[0.7rem] text-[1.35rem] text-[var(--adaptive-text-secondary)]">
-                                <Link href="/#developers">{home.links.forDevelopers}</Link>
-                                <Link href="/#compare">{home.links.compare}</Link>
-                                <Link href="/#faq">{home.links.resources}</Link>
-                            </div>
-                        </div>
-
-                        <div className="border-b border-[var(--adaptive-border)] px-[2rem] py-[2.4rem] tablet:border-b-0 tablet:border-r">
-                            <small className="text-[1.15rem] font-semibold uppercase tracking-[0.16em] text-[var(--adaptive-text-muted)]">{home.explore}</small>
-                            <div className="mt-[1.2rem] flex flex-col gap-[0.7rem] text-[1.35rem] text-[var(--adaptive-text-secondary)]">
-                                <Link href="/">{home.links.overview}</Link>
-                                <Link href="/guides/quickstart">{home.links.guide}</Link>
-                                <Link href="/docs/setup">{home.links.docs}</Link>
-                                <Link href="/example/01">{home.links.demo}</Link>
-                            </div>
-                        </div>
-
-                        <div className="px-[2rem] py-[2.4rem]">
-                            <small className="text-[1.15rem] font-semibold uppercase tracking-[0.16em] text-[var(--adaptive-text-muted)]">{home.builtBy}</small>
-                            <p className="mt-[1.2rem] text-[1.35rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
-                                {home.builtByCopy}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col gap-[0.8rem] border-t border-[var(--adaptive-border)] px-[2rem] py-[1.4rem] text-[1.2rem] text-[var(--adaptive-text-muted)] tablet:flex-row tablet:items-center tablet:justify-between">
-                        <span>{home.copyright}</span>
-                        <span>{home.tagline}</span>
-                    </div>
-                </footer>
-            </section>
-        );
-    }
-
     const { site } = footer;
     const [libraryLine1, libraryLine2] = site.libraries.split("\n");
 
