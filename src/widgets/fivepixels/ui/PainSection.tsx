@@ -88,16 +88,16 @@ export function PainSection() {
                     </svg>
                 </div>
 
-                <div className="grid gap-[1px] bg-black/10">
+                <div className="grid gap-[1px] bg-[var(--adaptive-border)]">
                     {pain.cards.map((card) => (
                         <article
-                            className="flex min-h-[22.95rem] flex-col justify-between bg-white p-[2.4rem] tablet:p-[3.2rem]"
+                            className="flex min-h-[22.95rem] flex-col justify-between bg-[var(--adaptive-surface)] p-[2.4rem] tablet:p-[3.2rem]"
                             key={card.title}
                         >
-                            <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45">{card.eyebrow}</span>
+                            <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-[var(--adaptive-text-muted)]">{card.eyebrow}</span>
                             <div>
                                 <h3 className="text-[2.8rem] font-semibold leading-[1]">{card.title}</h3>
-                                <p className="mt-[1.2rem] text-[1.6rem] leading-[1.3] text-black/60">{card.description}</p>
+                                <p className="mt-[1.2rem] text-[1.6rem] leading-[1.3] text-[var(--adaptive-text-secondary)]">{card.description}</p>
                             </div>
                         </article>
                     ))}

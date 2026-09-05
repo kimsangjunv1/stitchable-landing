@@ -1,6 +1,6 @@
 export function HeroImageSection() {
     return (
-        <section className="relative w-full h-[calc(50svh-(8.0rem/2))] overflow-hidden border-b border-b-[#ededed]">
+        <section className="relative w-full h-[calc(50svh-(8.0rem/2))] overflow-hidden border-b border-b-[var(--adaptive-border)]">
             <video
                 autoPlay
                 className="h-full min-h-[32rem] w-full object-cover"

@@ -9,12 +9,12 @@ export default function Panel() {
 
     return (
         <FivepixelsPageProvider>
-            <main className="relative min-h-screen overflow-hidden bg-white font-[family-name:var(--font-pretendard)] text-[18px] text-[#050505] flex flex-col pt-[9.2rem]">
+            <main className="relative min-h-screen overflow-hidden bg-[var(--adaptive-background)] font-[family-name:var(--font-pretendard)] text-[18px] text-[var(--adaptive-text-primary)] flex flex-col pt-[9.2rem]">
                 <Layer.IntroSection />
                 <Layer.HeroImageSection />
                 <Layer.TitleSection
                     value={panelTitles[0]}
-                    className={{ text: { container: "bg-white" } }}
+                    className={{ text: { container: "bg-[var(--adaptive-surface)]" } }}
                 />
                 <Layer.PainSection />
                 <Layer.TitleSection
@@ -35,28 +35,28 @@ export default function Panel() {
                 <Layer.UiEditSection />
                 <Layer.TitleSection
                     value={panelTitles[3]}
-                    className={{ inner: "bg-black", text: { container: "bg-white" } }}
+                    className={{ inner: "bg-black", text: { container: "bg-[var(--adaptive-surface)]" } }}
                 />
                 <Layer.FeatureSection />
                 <Layer.TitleSection
                     value={panelTitles[4]}
-                    className={{ text: { container: "bg-white" } }}
+                    className={{ text: { container: "bg-[var(--adaptive-surface)]" } }}
                     span={false}
                 />
                 <Layer.DeveloperReliefSection />
                 <Layer.TitleSection
                     value={panelTitles[5]}
-                    className={{ text: { container: "bg-white" } }}
+                    className={{ text: { container: "bg-[var(--adaptive-surface)]" } }}
                 />
                 <Layer.CompareSection />
                 <Layer.TitleSection
                     value={panelTitles[6]}
-                    className={{ text: { container: "bg-white" } }}
+                    className={{ text: { container: "bg-[var(--adaptive-surface)]" } }}
                 />
                 <Layer.AudienceSection />
                 <Layer.TitleSection
                     value={panelTitles[8]}
-                    className={{ text: { container: "bg-white" } }}
+                    className={{ text: { container: "bg-[var(--adaptive-surface)]" } }}
                 />
                 <Layer.FAQSection />
                 <Layer.OpenSourceSection />

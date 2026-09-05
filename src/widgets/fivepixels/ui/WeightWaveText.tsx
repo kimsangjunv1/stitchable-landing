@@ -38,7 +38,7 @@ export function WeightWaveText({ lines, className, as: Tag = "div" }: WeightWave
                 @keyframes weight-wave {
                     0% {
                         font-weight: 50;
-                        color: black;
+                        color: var(--adaptive-text-primary);
                     }
                     50% {
                         font-weight: 700;
@@ -46,7 +46,7 @@ export function WeightWaveText({ lines, className, as: Tag = "div" }: WeightWave
                     }
                     100% {
                         font-weight: 50;
-                        color: black;
+                        color: var(--adaptive-text-primary);
                     }
                 }
 

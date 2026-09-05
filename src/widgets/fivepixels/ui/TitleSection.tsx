@@ -3,8 +3,8 @@ import { cn } from "@/shared/lib/utils";
 
 const titleSectionModeStyles = {
     light: {
-        border: "border-[#ededed]",
-        divider: "bg-[#ededed]",
+        border: "border-[var(--adaptive-border)]",
+        divider: "bg-[var(--adaptive-border)]",
     },
     dark: {
         border: "border-[#333333]",
@@ -14,7 +14,7 @@ const titleSectionModeStyles = {
 
 export function TitleSection({
     value,
-    className = { text: { container: "bg-[#00000010]" } },
+    className = { text: { container: "bg-[var(--adaptive-greyOpacity100)]" } },
     span = false,
     mode = "light",
     children,

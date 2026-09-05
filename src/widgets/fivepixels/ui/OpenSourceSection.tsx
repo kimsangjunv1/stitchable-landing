@@ -12,7 +12,7 @@ export function OpenSourceSection() {
             className=""
             id="open-source"
         >
-            <div className="mx-auto max-w-[var(--size-pc)] w-full grid grid-cols-2 border border-[#ededed]">
+            <div className="mx-auto grid w-full max-w-[var(--size-pc)] grid-cols-2 border border-[var(--adaptive-border)]">
                 <section className="flex flex-col gap-[1.6rem] p-[5.2rem]">
                     <h2 className="text-[2.4rem] font-bold">{openSource.title}</h2>
 
@@ -22,7 +22,7 @@ export function OpenSourceSection() {
                         {openSource.bodyLine2}
                     </p>
                     <a
-                        className="flex w-max items-center gap-[1.6rem] py-[1.2rem] px-[1.6rem] text-white bg-[#111] px-2 font-[family-name:var(--font-pretendard)]"
+                        className="flex w-max items-center gap-[1.6rem] bg-[var(--adaptive-surface-inverse)] px-[1.6rem] py-[1.2rem] font-[family-name:var(--font-pretendard)] text-[var(--adaptive-text-inverse)]"
                         href="#contribute"
                     >
                         {openSource.cta} <ArrowRight size={16} />

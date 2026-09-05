@@ -13,7 +13,7 @@ export function IntroSection() {
 
     return (
         <section
-            className="mx-auto w-full h-[calc(50svh-(8.0rem/2))] max-w-[var(--size-pc)] border-x border-x-[#ededed] border-b border-b-[#ededed]"
+            className="mx-auto w-full h-[calc(50svh-(8.0rem/2))] max-w-[var(--size-pc)] border-x border-x-[var(--adaptive-border)] border-b border-b-[var(--adaptive-border)]"
             id="intro"
         >
             <section className="flex items-end gap-[2.4rem] h-full">
@@ -25,7 +25,7 @@ export function IntroSection() {
                     />
                 </section>
 
-                <div className="bg-[#ededed] h-full w-[0.1rem]" />
+                <div className="h-full w-[0.1rem] bg-[var(--adaptive-border)]" />
 
                 <section className="flex-1 p-[5.2rem]">
                     <section className="flex items-center gap-[0.8rem]">
@@ -37,7 +37,7 @@ export function IntroSection() {
                         <p className="text-[1.4rem]">{intro.announcement}</p>
                     </section>
 
-                    <p className="max-w-[48rem] leading-[1.5] text-black/72">
+                    <p className="max-w-[48rem] leading-[1.5] text-[var(--adaptive-text-secondary)]">
                         {intro.bodyLine1}
                         <br />
                         <strong className={`${expandedText} inline-flex items-center text-[#ff4b2e]`}>
@@ -48,11 +48,11 @@ export function IntroSection() {
 
                     <div className="flex flex-col gap-[2.4rem]">
                         <Link
-                            className="flex w-max items-center p-[1.2rem_1.6rem] border border-[#ededed] gap-[1.6rem] font-[family-name:var(--font-pretendard)]  rounded-[1.6rem]"
+                            className="flex w-max items-center gap-[1.6rem] rounded-[1.6rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[1.2rem_1.6rem] font-[family-name:var(--font-pretendard)]"
                             href="/docs/setup#install"
                         >
-                            npm i @fivepixels-js/react <div className="h-full w-[0.1rem] bg-black" />
-                            <div className="h-[1.8rem] w-[0.1rem] bg-[#ededed]" />
+                            npm i @fivepixels-js/react <div className="h-full w-[0.1rem] bg-[var(--adaptive-text-primary)]" />
+                            <div className="h-[1.8rem] w-[0.1rem] bg-[var(--adaptive-border)]" />
                             <LinkIcon
                                 size={15}
                                 strokeWidth={2.4}
@@ -61,14 +61,14 @@ export function IntroSection() {
 
                         <section className="flex gap-[0.8rem]">
                             <Link
-                                className="flex w-max items-center gap-[1.6rem] px-[1.6rem] py-[1.2rem] text-black rounded-[1.6rem] shadow-[var(--shadow-popup)]"
+                                className="flex w-max items-center gap-[1.6rem] rounded-[1.6rem] bg-[var(--adaptive-surface)] px-[1.6rem] py-[1.2rem] text-[var(--adaptive-text-primary)] shadow-[var(--shadow-popup)]"
                                 href="/example/01"
                             >
                                 {intro.demoCta} <ArrowRight size={17} />
                             </Link>
 
                             <Link
-                                className="flex w-max items-center gap-[1.6rem] px-[1.6rem] py-[1.2rem] text-black rounded-[1.6rem] shadow-[var(--shadow-popup)]"
+                                className="flex w-max items-center gap-[1.6rem] rounded-[1.6rem] bg-[var(--adaptive-surface)] px-[1.6rem] py-[1.2rem] text-[var(--adaptive-text-primary)] shadow-[var(--shadow-popup)]"
                                 href="/guides/quickstart"
                             >
                                 {intro.guideCta} <ArrowRight size={17} />
