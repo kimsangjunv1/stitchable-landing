@@ -2,15 +2,20 @@
 
 import Link from "next/link";
 import type { GuideBlock, GuideHero, GuideSection } from "@/i18n/guide/types";
-import { BACKEND_API_SNIPPETS } from "@/i18n/guide/backend-api/snippets";
 import { RichText } from "@/shared/ui/rich-text";
 import { CodeBlock } from "./CodeBlock";
 import { Callout } from "./Callout";
 import { DocTable } from "./DocTable";
 import { GuideStep } from "./GuideStep";
 import { QuickStartHero } from "./QuickStartHero";
+import { CopyBlock } from "./CopyBlock";
+import { GuideTabs } from "./GuideTabs";
 
 const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
+
+function renderBlocks(blocks: GuideBlock[]) {
+    return blocks.map((block, index) => <BlockRenderer key={`${block.type}-${index}`} block={block} />);
+}
 
 function BlockRenderer({ block }: { block: GuideBlock }) {
     switch (block.type) {
@@ -54,13 +59,6 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
                     language={block.language}
                 />
             );
-        case "codeSnippet":
-            return (
-                <CodeBlock
-                    code={BACKEND_API_SNIPPETS[block.snippet]}
-                    language={block.language}
-                />
-            );
         case "link":
             return (
                 <Link
@@ -72,7 +70,7 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
                 </Link>
             );
         case "callout":
-            return <Callout text={block.text} />;
+            return <Callout text={block.text} variant={block.variant} />;
         case "table":
             return (
                 <DocTable
@@ -89,6 +87,10 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
                     {block.text}
                 </h3>
             );
+        case "copy":
+            return <CopyBlock label={block.label} text={block.text} />;
+        case "tabs":
+            return <GuideTabs tabs={block.tabs} renderBlocks={renderBlocks} />;
         default:
             return null;
     }
@@ -113,7 +115,7 @@ function ReferenceSection({ section }: { section: GuideSection }) {
     );
 }
 
-export function Document({ hero, referenceDivider, sections }: { hero: GuideHero; referenceDivider: string; sections: GuideSection[] }) {
+export function Document({ hero, sections }: { hero: GuideHero; sections: GuideSection[] }) {
     const quickStartSections = sections.filter((s) => s.variant === "quick-start");
     const referenceSections = sections.filter((s) => s.variant === "reference");
 

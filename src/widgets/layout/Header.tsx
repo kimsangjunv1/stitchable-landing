@@ -5,13 +5,13 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useMessages } from "@/app/providers/LocaleProvider";
-import { LocaleSwitcher } from "@/widgets/layout/LocaleSwitcher";
 import { MegaMenuBar, MegaMenuFloatingPanel, getMegaMenuSlideDirection } from "@/widgets/layout/MegaMenu";
 import type { MegaMenuSlideDirection } from "@/widgets/layout/MegaMenu";
 import type { MegaMenuConfig } from "@/widgets/layout/megaMenuNav";
 
 function getActiveMegaMenuId(pathname: string) {
-    if (pathname.startsWith("/guide")) return "guide";
+    if (pathname.startsWith("/guides")) return "guides";
+    if (pathname.startsWith("/docs")) return "docs";
     if (pathname.startsWith("/example")) return "examples";
     if (pathname === "/") return "main";
     return undefined;
@@ -96,9 +96,6 @@ function FivepixelsSiteHeader({ pathname, megaMenus }: { pathname: string; megaM
                         />
                     </nav>
 
-                    <div className="flex items-center gap-[1.2rem]">
-                        <LocaleSwitcher />
-                    </div>
                 </div>
             </header>
 

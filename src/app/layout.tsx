@@ -5,7 +5,6 @@ import { JsonLd } from "@/app/JsonLd";
 import { GlobalErrorBoundary } from "@/app/providers/GlobalErrorBoundary";
 import { GlobalErrorListener } from "@/app/providers/GlobalErrorListener";
 import { LenisProvider } from "@/app/providers/LenisProvider";
-import { LocaleProvider } from "@/app/providers/LocaleProvider";
 import { createPageMetadata } from "@/lib/seo";
 import { Footer } from "@/widgets/layout/Footer";
 import { Header } from "@/widgets/layout/Header";
@@ -77,12 +76,10 @@ export default function RootLayout({
                 <LenisProvider>
                     <GlobalErrorBoundary>
                         <GlobalErrorListener>
-                            <LocaleProvider>
-                                <SiteBanner />
-                                <Header />
-                                {children}
-                                <Footer />
-                            </LocaleProvider>
+                            <SiteBanner />
+                            <Header />
+                            {children}
+                            <Footer />
                         </GlobalErrorListener>
                     </GlobalErrorBoundary>
                 </LenisProvider>

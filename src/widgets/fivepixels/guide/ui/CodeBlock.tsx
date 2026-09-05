@@ -15,7 +15,7 @@ export function CodeBlock({
     code?: string;
     language?: string;
 }) {
-    const guide = useMessages().guide;
+    const guide = useMessages().guides;
     const code = codeProp ?? (snippet ? GUIDE_SNIPPETS[snippet] : "");
     const [copied, setCopied] = useState(false);
     const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);

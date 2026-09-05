@@ -2,7 +2,7 @@
 
 import { useMessages } from "@/app/providers/LocaleProvider";
 
-const toggleIds = ["notifications", "markers", "shortcuts"] as const;
+const toggleIds = ["notifications", "markers"] as const;
 
 export function SettingsContent() {
     const settings = useMessages().example.settings;
@@ -60,7 +60,7 @@ export function SettingsContent() {
                             <input
                                 className="mt-[0.4rem] h-[1.8rem] w-[1.8rem] accent-[#1e293b]"
                                 data-report-id={`example-settings-toggle-${id}`}
-                                defaultChecked={id !== "shortcuts"}
+                                defaultChecked
                                 type="checkbox"
                             />
                         </label>

@@ -9,7 +9,7 @@ import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
 import type { MegaMenuConfig, MegaMenuLink } from "@/widgets/layout/megaMenuNav";
 
 const MEGA_MENU_PILL_LAYOUT_ID = "mega-menu-trigger-pill";
-const MEGA_MENU_ORDER = ["main", "guide", "examples"] as const;
+const MEGA_MENU_ORDER = ["main", "guides", "docs", "examples"] as const;
 const MEGA_MENU_SLIDE_OFFSET = 56;
 
 export type MegaMenuSlideDirection = 1 | -1;
@@ -75,7 +75,8 @@ export function MegaMenuBar({ menus, activeMenuId, onOpenChange, openMenuId }: M
                     >
                         {isHighlighted ? (
                             <motion.span
-                                className="absolute inset-0 rounded-[0.8rem] bg-[#F6572E10]"
+                                className="absolute inset-0 rounded-[0.8rem]"
+                                // className="absolute inset-0 rounded-[0.8rem] bg-[#F6572E10]"
                                 layoutId={prefersReducedMotion ? undefined : MEGA_MENU_PILL_LAYOUT_ID}
                                 transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 28 }}
                                 // transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 34 }}
@@ -85,8 +86,8 @@ export function MegaMenuBar({ menus, activeMenuId, onOpenChange, openMenuId }: M
                         <button
                             type="button"
                             className={cn(
-                                "relative z-[1] inline-flex items-center gap-[0.4rem] rounded-[0.8rem] px-[1.6rem] py-[0.8rem] font-[family-name:var(--font-mona-rebrand)] text-[1.4rem] leading-none transition-colors tablet:text-[1.4rem]",
-                                isHighlighted ? " text-[#F6572E]" : "text-[#969696] hover:text-black",
+                                "relative z-[1] inline-flex items-center gap-[0.4rem] rounded-[0.8rem] px-[1.6rem] py-[0.8rem] font-[family-name:var(--font-mona-rebrand)] text-[1.8rem] leading-none transition-colors tablet:text-[1.8rem]",
+                                isHighlighted ? " text-[#000000]" : "text-[#969696] hover:text-black",
                             )}
                             aria-expanded={isOpen}
                             aria-haspopup="true"

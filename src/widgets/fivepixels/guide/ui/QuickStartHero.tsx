@@ -11,7 +11,7 @@ import { cn } from "@/shared/lib/utils";
 const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
 
 export function QuickStartHero({ hero }: { hero: GuideHero }) {
-    const guide = useMessages().guide;
+    const guide = useMessages().guides;
     const installCode = hero.installCommand ?? GUIDE_SNIPPETS.install;
     const ctaHref = hero.ctaHref ?? "#install";
     const showInstall = hero.installCommand !== "";

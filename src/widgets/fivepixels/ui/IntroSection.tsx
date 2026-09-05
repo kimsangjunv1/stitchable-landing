@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, Link as LinkIcon } from "lucide-react";
+import Link from "next/link";
 import { useMessages } from "@/app/providers/LocaleProvider";
 import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
 import { WeightWaveText } from "@/widgets/fivepixels/ui/WeightWaveText";
@@ -46,9 +47,9 @@ export function IntroSection() {
                     </p>
 
                     <div className="flex flex-col gap-[2.4rem]">
-                        <a
+                        <Link
                             className="flex w-max items-center p-[1.2rem_1.6rem] border border-[#ededed] gap-[1.6rem] font-[family-name:var(--font-fira-rebrand)]  rounded-[1.6rem]"
-                            href="#setup"
+                            href="/docs/setup#install"
                         >
                             npm i @fivepixels-js/react <div className="h-full w-[0.1rem] bg-black" />
                             <div className="h-[1.8rem] w-[0.1rem] bg-[#ededed]" />
@@ -56,22 +57,22 @@ export function IntroSection() {
                                 size={15}
                                 strokeWidth={2.4}
                             />
-                        </a>
+                        </Link>
 
                         <section className="flex gap-[0.8rem]">
-                            <a
-                                className="flex w-max items-center gap-[1.6rem] bg-[#111] px-[1.6rem] py-[1.2rem] text-white rounded-[1.6rem]"
-                                href="#setup"
+                            <Link
+                                className="flex w-max items-center gap-[1.6rem] px-[1.6rem] py-[1.2rem] text-black rounded-[1.6rem] shadow-[var(--shadow-popup)]"
+                                href="/example/01"
                             >
                                 {intro.demoCta} <ArrowRight size={17} />
-                            </a>
+                            </Link>
 
-                            <a
-                                className="flex w-max items-center gap-[1.6rem] border border-[#ededed] px-[1.6rem] py-[1.2rem] text-black rounded-[1.6rem]"
-                                href="/guide"
+                            <Link
+                                className="flex w-max items-center gap-[1.6rem] px-[1.6rem] py-[1.2rem] text-black rounded-[1.6rem] shadow-[var(--shadow-popup)]"
+                                href="/guides/quickstart"
                             >
                                 {intro.guideCta} <ArrowRight size={17} />
-                            </a>
+                            </Link>
                         </section>
                     </div>
                 </section>

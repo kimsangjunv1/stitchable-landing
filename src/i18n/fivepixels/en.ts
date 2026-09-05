@@ -5,7 +5,7 @@ export const fivepixelsEn: FivepixelsMessages = {
         "Why do so many teams\nstill struggle to adopt QA tools?",
         "Three steps is enough now",
         "No more explaining things in words",
-        "Packed with features",
+        "Only the review features you need",
         "Flexible ways to work",
         "Built for individuals",
         "Teams that need QA right now",
@@ -13,20 +13,20 @@ export const fivepixelsEn: FivepixelsMessages = {
         "Questions before you adopt",
     ],
     intro: {
-        headline: ["A Tool for", "Comfortable QA"],
-        announcement: "May 29: We've added 3 new solution pages",
-        bodyLine1: "Leave feedback right on the screen you're reviewing.",
-        bodyHighlight: "Start light",
-        bodyLine2: "pin it where you click, and escalate to an issue only when you need to.",
-        demoCta: "View on 2'm",
-        guideCta: "5'm guide",
+        headline: ["Skip screenshots and Slack,", "review on the real screen"],
+        announcement: "React 18+ · MIT · @fivepixels-js/react 0.2.24",
+        bodyLine1: "You do not need a heavyweight QA platform.",
+        bodyHighlight: "Click the exact location",
+        bodyLine2: "review it with the team, and promote it to an issue only when needed.",
+        demoCta: "Live demo",
+        guideCta: "5-minute guide",
     },
     pain: {
         eyebrow: "WHY TEAMS MISS THINGS",
-        titleLine1: "A learning curve",
-        titleLine2: "that's too steep",
-        bodyLine1: "The QA tool you adopted to help the team",
-        bodyLine2: "becomes the bottleneck—and adoption gets abandoned",
+        titleLine1: "Why does feedback",
+        titleLine2: "keep losing context?",
+        bodyLine1: "The moment feedback leaves the screen for screenshots and chat,",
+        bodyLine2: "the team starts explaining the location and intent all over again.",
         cards: [
             {
                 eyebrow: "01 / CONTEXT",
@@ -244,7 +244,7 @@ npm install @fivepixels-js/react react react-dom
                 description:
                     "Leave feedback on staging without a backend, then pass JSON import/export files between teammates.",
                 note: "* This is file-based collaboration, not real-time sync.\nThat's why QA works without a backend.",
-                code: `// No handler = localStorage persistence
+                code: `// No adapter = localStorage persistence
 <FivePixels
   project={{ id: "my-app", env: "stage" }}
 />
@@ -273,12 +273,11 @@ npm install @fivepixels-js/react react react-dom
                 eyebrow: "FOR PRODUCT TEAMS",
                 title: "Connect to your infrastructure",
                 description:
-                    "As the team grows, connect handlers to your API, GitHub, and notification channels. Serverless is enough to start.",
+                    "As the team grows, connect shared persistence through FivePixelsAdapter and promote only selected feedback to GitHub Issues.",
                 code: `<FivePixels
   project={{ id: "my-app", env: "stage" }}
-  onList={fetchFeedbacks}
-  onCreate={createFeedback}
-  onUpdate={updateFeedback}
+  sync="api"
+  adapter={adapter}
   onEvent={(event) => notifyTeam(event)}
   github={{
     enabled: true,
@@ -288,8 +287,8 @@ npm install @fivepixels-js/react react react-dom
 />`,
                 highlights: [
                     {
-                        title: "Your own REST API",
-                        detail: "Wire up your existing backend with onList / onCreate / onUpdate.",
+                        title: "FivePixelsAdapter",
+                        detail: "Connect the markers, feedback, cases, and other domains your workflow needs.",
                     },
                     {
                         title: "GitHub Issues",
@@ -368,7 +367,7 @@ npm install @fivepixels-js/react react react-dom
             },
             {
                 day: "DAY 2+",
-                title: "Add handlers and rules",
+                title: "Add an Adapter and rules",
                 description: "Add persistence, triage rules, and existing issue flows only when you need them.",
             },
         ],
@@ -379,7 +378,7 @@ npm install @fivepixels-js/react react react-dom
     faq: [
         {
             question: "Does it change code automatically?",
-            answer: "No. It helps you leave precise feedback, confirm it, and hand off into the issue flow your team already uses.",
+            answer: "No. UI Edit lasts only for the current tab session and resets on refresh. fivepixels supports review and communication; it never edits the codebase automatically.",
         },
         {
             question: "Can clients use it right away?",
@@ -387,7 +386,7 @@ npm install @fivepixels-js/react react react-dom
         },
         {
             question: "Do I need a backend from day one?",
-            answer: "Not necessarily. Start with the localStorage flow, then connect handlers when you need shared persistence.",
+            answer: "Not necessarily. Start with localStorage, then connect FivePixelsAdapter when you need shared persistence.",
         },
         {
             question: "How much setup is involved?",

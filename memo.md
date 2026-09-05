@@ -284,7 +284,7 @@ GitHub · NPM (외부)
 
 ### `/guides/quickstart`
 
-- **비개발자:** URL → 피드백 추가 → 클릭 → 작성 (단축키 카드 이미지)
+- **비개발자:** URL → 패널에서 피드백 추가 → 클릭 → 작성
 - **개발자:** install → `FivePixels` → `data-report-id` 1개 (5분)
 
 ### `/guides/rollout` — 1주

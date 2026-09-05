@@ -298,7 +298,7 @@ function Message({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean
                 /> */}
                 <FivePixelsDemo
                     scene="marker-tooltip"
-                    locale="ko"
+                    locale="en"
                     className="absolute left-[60%] top-[55%]"
                 />
                 <video
