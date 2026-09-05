@@ -18,7 +18,7 @@ export const Shimmer = ({
     className = "",
     style = {},
     color = {
-        start: "var(--color-brand-500)",
+        start: "var(--adaptive-accent-coral)",
         end: "rgba(0,0,0,1)",
     },
     duration = 2,
