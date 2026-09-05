@@ -29,7 +29,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
             role="presentation"
         >
             <div
-                className="w-full max-w-[48rem] overflow-hidden border border-black/10 bg-white shadow-[0_24px_48px_rgba(0,0,0,0.2)]"
+                className="w-full max-w-[48rem] overflow-hidden border border-black/10 bg-white shadow-[var(--shadow-popup)]"
                 data-report-id="example-dashboard-modal-dialog"
                 data-report-type="group"
                 onClick={(event) => event.stopPropagation()}

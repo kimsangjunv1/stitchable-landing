@@ -136,7 +136,7 @@ export function ModalsLabContent() {
                         role="presentation"
                     >
                         <div
-                            className="w-full max-w-[40rem] border border-black/10 bg-white p-[2rem] shadow-lg"
+                            className="w-full max-w-[40rem] border border-black/10 bg-white p-[2rem] shadow-[var(--shadow-popup)]"
                             data-report-id="example-modal-lab-dialog-inline-positioned"
                             data-report-type="group"
                             onClick={(event) => event.stopPropagation()}

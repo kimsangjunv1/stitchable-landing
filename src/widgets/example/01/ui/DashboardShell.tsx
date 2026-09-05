@@ -37,7 +37,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
     return (
         <>
             <Link
-                className="fixed left-1/2 top-[1.6rem] z-[80] flex -translate-x-1/2 items-center gap-[0.8rem] border border-black/10 bg-white px-[1.6rem] py-[1rem] text-[1.3rem] font-medium shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-colors hover:border-black/25 hover:bg-[#fafafa]"
+                className="fixed left-1/2 top-[1.6rem] z-[80] flex -translate-x-1/2 items-center gap-[0.8rem] border border-black/10 bg-white px-[1.6rem] py-[1rem] text-[1.3rem] font-medium shadow-[var(--shadow-popup)] transition-colors hover:border-black/25 hover:bg-[#fafafa]"
                 data-report-id="example-dashboard-back"
                 href="/"
             >

@@ -91,7 +91,7 @@ export function ChangelogFeed({ entries }: { entries: ChangelogEntry[] }) {
                         key={entry.slug}
                     >
                         <div className="relative col-span-12 mb-[2.8rem] self-start lg:sticky lg:top-[12rem] lg:col-span-4 lg:mb-0">
-                            <span className="absolute left-[-3.45rem] top-[0.15rem] hidden h-[2rem] w-[2rem] items-center justify-center rounded-[0.45rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] text-[var(--adaptive-text-muted)] shadow-sm lg:flex">
+                            <span className="absolute left-[-3.45rem] top-[0.15rem] hidden h-[2rem] w-[2rem] items-center justify-center rounded-[0.45rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] text-[var(--adaptive-text-muted)] shadow-[var(--shadow-popup)] lg:flex">
                                 <GitCommitHorizontal size={13} />
                             </span>
                             <Link

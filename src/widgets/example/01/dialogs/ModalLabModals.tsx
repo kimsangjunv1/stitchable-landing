@@ -43,7 +43,7 @@ function LabModalFrame({
         >
             <div
                 className={cn(
-                    "w-full max-w-[52rem] overflow-hidden border border-black/10 bg-white shadow-[0_24px_48px_rgba(0,0,0,0.2)]",
+                    "w-full max-w-[52rem] overflow-hidden border border-black/10 bg-white shadow-[var(--shadow-popup)]",
                     className,
                 )}
                 data-report-id={`example-modal-lab-dialog-${id}`}
@@ -173,7 +173,7 @@ export function ModalLabModals() {
                 aria-hidden={!isOpen("visibility-hidden")}
             >
                 <div
-                    className="w-full max-w-[48rem] border border-black/10 bg-white p-[2rem] shadow-[0_24px_48px_rgba(0,0,0,0.2)]"
+                    className="w-full max-w-[48rem] border border-black/10 bg-white p-[2rem] shadow-[var(--shadow-popup)]"
                     data-report-id="example-modal-lab-dialog-visibility-hidden"
                     data-report-type="group"
                     onClick={(event) => event.stopPropagation()}
