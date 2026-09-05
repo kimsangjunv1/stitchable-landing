@@ -35,6 +35,9 @@ export const PUBLIC_ROUTES = [
     "/docs/custom-ui",
     "/docs/api",
     "/docs/edge-cases",
+    "/newsletter",
+    "/roadmap",
+    "/changelog",
 ] as const;
 
 export const GITHUB_URL = "https://github.com/kimsangjunv1/fivepixels";

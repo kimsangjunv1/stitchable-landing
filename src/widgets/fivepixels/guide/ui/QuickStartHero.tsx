@@ -41,20 +41,20 @@ export function QuickStartHero({ hero }: { hero: GuideHero }) {
 
             <h1 className={`${expandedText} text-[4.2rem] leading-[1.05] mobile:text-[3.2rem]`}>{hero.title}</h1>
 
-            <p className="max-w-[56rem] text-[1.8rem] leading-[1.5] text-black/70">
+            <p className="max-w-[56rem] text-[1.8rem] leading-[1.5] text-[var(--adaptive-text-secondary)]">
                 <RichText text={hero.description} />
             </p>
 
             <div className="flex flex-wrap items-center gap-[1.6rem]">
                 {showInstall && (
-                    <div className="flex items-center border border-[#111] p-[1.2rem_1.6rem] font-[family-name:var(--font-pretendard)] text-[1.4rem]">
+                    <div className="flex items-center border border-[var(--adaptive-border)] p-[1.2rem_1.6rem] font-[family-name:var(--font-pretendard)] text-[1.4rem]">
                         <code className="whitespace-nowrap">{installCode}</code>
                         <div className="mx-[1.6rem] h-[1.6rem] w-[0.1rem] bg-black" />
                         <button
                             type="button"
                             onClick={handleCopy}
                             aria-label={copied ? guide.codeCopied : guide.codeCopy}
-                            className="text-black/60 transition-colors hover:text-black"
+                            className="text-[var(--adaptive-text-secondary)] transition-colors hover:text-[var(--adaptive-text-primary)]"
                         >
                             {copied ? (
                                 <Check
@@ -73,7 +73,7 @@ export function QuickStartHero({ hero }: { hero: GuideHero }) {
 
                 <a
                     href={ctaHref}
-                    className="flex w-max items-center gap-[1.6rem] bg-[#111] px-[1.6rem] py-[1.2rem] text-[1.4rem] text-white font-[family-name:var(--font-pretendard)]"
+                    className="flex w-max items-center gap-[1.6rem] bg-[var(--adaptive-surface-inverse)] px-[1.6rem] py-[1.2rem] text-[1.4rem] text-[var(--adaptive-text-inverse)] font-[family-name:var(--font-pretendard)]"
                 >
                     {hero.cta}
                     <ArrowRight size={17} />

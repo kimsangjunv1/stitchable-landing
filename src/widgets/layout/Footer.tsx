@@ -68,7 +68,7 @@ export function Footer() {
     const [libraryLine1, libraryLine2] = site.libraries.split("\n");
 
     return (
-        <section className="min-h-[375px] flex flex-col gap-[15.2rem] border-t border-t-[#ededed]">
+        <section className="min-h-[375px] flex flex-col gap-[15.2rem] border-t border-t-[var(--adaptive-border)] bg-[var(--adaptive-background)] text-[var(--adaptive-text-primary)]">
             <footer className="mx-auto grid w-[min(1920px,calc(100%-48px))] grid-cols-[1.15fr_1fr_.85fr] pt-[89px] max-[720px]:w-[min(calc(100%-32px),520px)] max-[720px]:grid-cols-2 max-[720px]:gap-x-5 max-[720px]:gap-y-[55px] max-[720px]:py-[55px] max-[720px]:pb-20">
                 <div className="flex flex-col items-start leading-none">
                     <strong>{site.codi}</strong>
@@ -109,7 +109,7 @@ export function Footer() {
             </footer>
 
             <Image
-                className="h-auto w-[min(1920px,calc(100%-48px))] mx-auto"
+                className="theme-adaptive-logo h-auto w-[min(1920px,calc(100%-48px))] mx-auto"
                 src="/rebranding/logo-single-black.svg"
                 alt={site.logoAlt}
                 width={1558}

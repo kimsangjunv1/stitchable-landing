@@ -9,8 +9,8 @@ export function GuideTabs({ tabs, renderBlocks }: { tabs: { label: string; block
     const activeTab = tabs[activeIndex];
 
     return (
-        <div className="overflow-hidden border border-black/10 bg-white">
-            <div className="flex border-b border-black/10" role="tablist">
+        <div className="overflow-hidden border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]">
+            <div className="flex border-b border-[var(--adaptive-border)]" role="tablist">
                 {tabs.map((tab, index) => (
                     <button
                         key={tab.label}
@@ -19,7 +19,7 @@ export function GuideTabs({ tabs, renderBlocks }: { tabs: { label: string; block
                         aria-selected={activeIndex === index}
                         className={cn(
                             "flex-1 px-[1.6rem] py-[1.2rem] text-[1.4rem] font-semibold transition-colors",
-                            activeIndex === index ? "bg-[#111] text-white" : "text-black/55 hover:bg-black/[0.03] hover:text-black",
+                            activeIndex === index ? "bg-[var(--adaptive-surface-inverse)] text-[var(--adaptive-text-inverse)]" : "text-[var(--adaptive-text-secondary)] hover:bg-[var(--adaptive-greyOpacity50)] hover:text-[var(--adaptive-text-primary)]",
                         )}
                         onClick={() => setActiveIndex(index)}
                     >

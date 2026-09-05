@@ -75,7 +75,7 @@ export function MegaMenuBar({ menus, activeMenuId, onOpenChange, openMenuId }: M
                     >
                         {isHighlighted ? (
                             <motion.span
-                                className="absolute inset-0 rounded-[0.8rem]"
+                                className="absolute inset-0 rounded-[0.8rem] bg-[var(--adaptive-greyOpacity100)]"
                                 // className="absolute inset-0 rounded-[0.8rem] bg-[#F6572E10]"
                                 layoutId={prefersReducedMotion ? undefined : MEGA_MENU_PILL_LAYOUT_ID}
                                 transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 28 }}
@@ -87,7 +87,7 @@ export function MegaMenuBar({ menus, activeMenuId, onOpenChange, openMenuId }: M
                             type="button"
                             className={cn(
                                 "relative z-[1] inline-flex items-center gap-[0.4rem] rounded-[0.8rem] px-[1.6rem] py-[0.8rem] font-[family-name:var(--font-pretendard)] text-[1.8rem] leading-none transition-colors tablet:text-[1.8rem]",
-                                isHighlighted ? " text-[#000000]" : "text-[#969696] hover:text-black",
+                                isHighlighted ? "text-[var(--adaptive-text-primary)]" : "text-[var(--adaptive-text-muted)] hover:text-[var(--adaptive-text-primary)]",
                             )}
                             aria-expanded={isOpen}
                             aria-haspopup="true"
@@ -116,19 +116,19 @@ function getPanelGridClass(groupCount: number) {
 function MegaMenuLinkRow({ link, onNavigate }: { link: MegaMenuLink; onNavigate: () => void }) {
     return (
         <Link
-            className="group flex items-start gap-[1.2rem] rounded-[0.8rem] px-[0.6rem] py-[0.8rem] transition-colors hover:bg-[#ededed]"
+            className="group flex items-start gap-[1.2rem] rounded-[0.8rem] px-[0.6rem] py-[0.8rem] transition-colors hover:bg-[var(--adaptive-greyOpacity100)]"
             href={link.href}
             onClick={onNavigate}
         >
-            <span className="flex h-[3.6rem] w-[3.6rem] shrink-0 items-center justify-center rounded-[0.8rem] border border-[#ededed] text-[#050505] transition-colors group-hover:border-[#ededed]">
+            <span className="flex h-[3.6rem] w-[3.6rem] shrink-0 items-center justify-center rounded-[0.8rem] border border-[var(--adaptive-border)] text-[var(--adaptive-text-primary)] transition-colors">
                 <MaterialIcon
                     name={link.icon}
                     size={20}
                 />
             </span>
             <span className="min-w-0 pt-[0.2rem]">
-                <strong className="block text-[1.45rem] font-semibold leading-[1.2] text-[#050505] group-hover:text-[#c74420]">{link.label}</strong>
-                <span className="mt-[0.25rem] block text-[1.25rem] leading-[1.4] text-black/48">{link.description}</span>
+                <strong className="block text-[1.45rem] font-semibold leading-[1.2] text-[var(--adaptive-text-primary)] group-hover:text-[#c74420]">{link.label}</strong>
+                <span className="mt-[0.25rem] block text-[1.25rem] leading-[1.4] text-[var(--adaptive-text-muted)]">{link.description}</span>
             </span>
         </Link>
     );
@@ -139,7 +139,7 @@ function MegaMenuPanelContent({ menu, onNavigate }: { menu: MegaMenuConfig; onNa
         <div className={cn("grid mobile:grid-cols-1", getPanelGridClass(menu.groups.length))}>
             {menu.groups.map((group, groupIndex) => (
                 <section
-                    className={cn("flex min-h-[22rem] flex-col p-[2rem] tablet:min-h-[24rem] tablet:p-[2.4rem]", groupIndex < menu.groups.length - 1 && "tablet:border-r tablet:border-r-[#ededed]")}
+                    className={cn("flex min-h-[22rem] flex-col p-[2rem] tablet:min-h-[24rem] tablet:p-[2.4rem]", groupIndex < menu.groups.length - 1 && "tablet:border-r tablet:border-r-[var(--adaptive-border)]")}
                     key={group.title}
                 >
                     <div className="mb-[1.4rem]">
@@ -197,7 +197,7 @@ export function MegaMenuFloatingPanel({ menu, direction, onNavigate }: { menu: M
 
     return (
         <motion.div
-            className="overflow-hidden border border-[#ededed] bg-white"
+            className="overflow-hidden border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] text-[var(--adaptive-text-primary)] shadow-[var(--shadow-popup)]"
             // layout={"size"}
             layout={!prefersReducedMotion}
             transition={{ layout: { duration: 0.28, ease: revealEase } }}

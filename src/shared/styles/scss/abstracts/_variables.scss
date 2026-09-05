@@ -59,8 +59,7 @@
     --scroll-top: 0;
 }
 
-:root,
-[data-fivepixels-mount] {
+:root {
     --shadow-popup:
         0 1px 1px 0.5px #2929290a, 0 3px 3px -1.5px #29292905, 0 6px 6px -3px #2929290a, 0 12px 12px -6px #2929290a, 0 24px 24px -12px #2929290a, 0 48px 48px -24px #5e5e6a94, 0 0 0 1px #2929290a,
         inset 0 -1px 1px -0.5px #3333330f;
@@ -77,8 +76,7 @@
 }
 
 :root,
-[data-fivepixels-mount][data-fivepixels-theme="light"],
-[data-fivepixels-theme-scope][data-fivepixels-theme="light"] {
+:root[data-theme="light"] {
     color-scheme: light;
 
     --adaptive-surface: #ffffff;
@@ -299,8 +297,7 @@
     --adaptive-__internal__focusRing: rgba(255, 255, 255, 0.5);
 }
 
-[data-fivepixels-mount][data-fivepixels-theme="dark"],
-[data-fivepixels-theme-scope][data-fivepixels-theme="dark"] {
+:root[data-theme="dark"] {
     color-scheme: dark;
 
     --adaptive-surface: #212121;

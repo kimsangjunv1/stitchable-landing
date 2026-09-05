@@ -21,13 +21,13 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
     switch (block.type) {
         case "paragraph":
             return (
-                <p className="text-[1.6rem] leading-[1.6] text-black/70">
+                <p className="text-[1.6rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
                     <RichText text={block.text} />
                 </p>
             );
         case "list":
             return (
-                <ul className="list-disc space-y-[0.8rem] pl-[2rem] text-[1.6rem] leading-[1.6] text-black/70">
+                <ul className="list-disc space-y-[0.8rem] pl-[2rem] text-[1.6rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
                     {block.items.map((item) => (
                         <li key={item}>
                             <RichText text={item} />
@@ -37,7 +37,7 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
             );
         case "ordered":
             return (
-                <ol className="list-decimal space-y-[0.8rem] pl-[2rem] text-[1.6rem] leading-[1.6] text-black/70">
+                <ol className="list-decimal space-y-[0.8rem] pl-[2rem] text-[1.6rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
                     {block.items.map((item) => (
                         <li key={item}>
                             <RichText text={item} />
@@ -82,7 +82,7 @@ function BlockRenderer({ block }: { block: GuideBlock }) {
             return (
                 <h3
                     id={block.id}
-                    className={`${expandedText} scroll-mt-[calc(var(--site-banner-height)+12rem)] text-[2rem] text-[#050505]`}
+                    className={`${expandedText} scroll-mt-[calc(var(--site-banner-height)+12rem)] text-[2rem] text-[var(--adaptive-text-primary)]`}
                 >
                     {block.text}
                 </h3>
@@ -100,7 +100,7 @@ function ReferenceSection({ section }: { section: GuideSection }) {
     return (
         <section
             id={section.id}
-            className="p-[7.2rem_2.4rem] border-b border-b-[#ededed]"
+            className="border-b border-b-[var(--adaptive-border)] p-[7.2rem_2.4rem]"
         >
             <h2 className={`${expandedText} text-[3.2rem] leading-[1.05] mobile:text-[2.4rem]`}>{section.title}</h2>
             <div className="mt-[2.4rem] flex flex-col gap-[2.4rem]">

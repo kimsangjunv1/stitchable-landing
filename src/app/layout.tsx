@@ -25,6 +25,18 @@ const pretendard = localFont({
     display: "swap",
 });
 
+const themeScript = `
+    (function () {
+        try {
+            var storedTheme = localStorage.getItem("fivepixels-theme:v1");
+            var systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.dataset.theme = storedTheme === "dark" || storedTheme === "light" ? storedTheme : systemTheme;
+        } catch (error) {
+            document.documentElement.dataset.theme = "light";
+        }
+    })();
+`;
+
 export const metadata: Metadata = {
     ...createPageMetadata(),
     icons: {
@@ -54,11 +66,16 @@ export default function RootLayout({
         <html
             lang="en"
             className={pretendard.variable}
+            suppressHydrationWarning
         >
             <head>
+                <script
+                    dangerouslySetInnerHTML={{ __html: themeScript }}
+                    id="fivepixels-theme"
+                />
                 <JsonLd />
             </head>
-            <body className="bg-white font-[family-name:var(--font-pretendard)] text-[#050505] antialiased">
+            <body className="bg-[var(--adaptive-background)] font-[family-name:var(--font-pretendard)] text-[var(--adaptive-text-primary)] antialiased">
                 <LenisProvider>
                     <GlobalErrorBoundary>
                         <GlobalErrorListener>

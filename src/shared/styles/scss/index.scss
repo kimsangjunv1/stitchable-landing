@@ -4,4 +4,34 @@
 @use "base/resets";
 
 // abstracts 전역변수
-@use "abstracts/variables";
+@use "./abstracts/variables";
+
+body {
+    transition:
+        background-color 180ms ease,
+        color 180ms ease;
+}
+
+.theme-toggle__sun {
+    display: none;
+}
+
+:root[data-theme="dark"] {
+    .theme-toggle__moon {
+        display: none;
+    }
+
+    .theme-toggle__sun {
+        display: block;
+    }
+
+    .theme-adaptive-logo {
+        filter: brightness(0) invert(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body {
+        transition: none;
+    }
+}

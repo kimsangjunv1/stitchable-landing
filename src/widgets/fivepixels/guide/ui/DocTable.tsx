@@ -26,14 +26,14 @@ function TableCell({ cell }: { cell: GuideTableCell }) {
 
 export function DocTable({ headers, rows }: { headers: string[]; rows: GuideTableCell[][] }) {
     return (
-        <div className="overflow-x-auto border border-black/10">
+        <div className="overflow-x-auto border border-[var(--adaptive-border)]">
             <table className="w-full min-w-[48rem] border-collapse text-left text-[1.4rem]">
                 <thead>
-                    <tr className="border-b border-black/10 bg-[#ededed]">
+                    <tr className="border-b border-[var(--adaptive-border)] bg-[var(--adaptive-surface-muted)]">
                         {headers.map((h) => (
                             <th
                                 key={h}
-                                className="px-[1.6rem] py-[1.2rem] font-semibold text-[#050505]"
+                                className="px-[1.6rem] py-[1.2rem] font-semibold text-[var(--adaptive-text-primary)]"
                             >
                                 {h}
                             </th>
@@ -44,12 +44,12 @@ export function DocTable({ headers, rows }: { headers: string[]; rows: GuideTabl
                     {rows.map((row, i) => (
                         <tr
                             key={i}
-                            className="border-b border-black/10 last:border-0"
+                            className="border-b border-[var(--adaptive-border)] last:border-0"
                         >
                             {row.map((cell, j) => (
                                 <td
                                     key={j}
-                                    className="px-[1.6rem] py-[1.2rem] align-top text-black/70"
+                                    className="px-[1.6rem] py-[1.2rem] align-top text-[var(--adaptive-text-secondary)]"
                                 >
                                     <TableCell cell={cell} />
                                 </td>

@@ -8,8 +8,8 @@ export function Callout({ text, variant = "info" }: { text: string; variant?: "i
     return (
         <div
             className={cn(
-                "flex gap-[1.2rem] border px-[1.6rem] py-[1.2rem] text-[1.5rem] leading-[1.5] text-black/70",
-                variant === "warning" ? "border-[#f6572e]/30 bg-[#fff7f4]" : "border-black/10 bg-white",
+                "flex gap-[1.2rem] border px-[1.6rem] py-[1.2rem] text-[1.5rem] leading-[1.5] text-[var(--adaptive-text-secondary)]",
+                variant === "warning" ? "border-[#f6572e]/30 bg-[var(--adaptive-orange50)]" : "border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]",
             )}
         >
             <Icon
