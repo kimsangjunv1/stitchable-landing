@@ -23,15 +23,15 @@ const REVIEWERS = [
 ] as const;
 
 const SHARED_FEATURES: { key: FeatureKey; label: string; description: string }[] = [
-    { key: "fields", label: "Custom fields", description: "Add reproduction steps and a release-blocker checkbox." },
-    { key: "reviewerKey", label: "Reviewer key", description: "Require each reviewer to use the matching personal key." },
-    { key: "navigation", label: "SPA navigation", description: "Restore feedback from another route with the app router." },
-    { key: "events", label: "Event callback", description: "Receive create, update, reply, and GitHub events." },
+    { key: "fields", label: "Extra questions", description: "Ask for steps to reproduce the issue and whether it blocks a release." },
+    { key: "reviewerKey", label: "Reviewer key", description: "Give each reviewer a personal key." },
+    { key: "navigation", label: "Page navigation", description: "Open the right page when someone selects feedback." },
+    { key: "events", label: "Send app events", description: "Run your code when feedback is created, updated, or replied to." },
 ];
 
 const API_FEATURES: { key: FeatureKey; label: string; description: string }[] = [
     { key: "github", label: "GitHub Issues", description: "Promote feedback to an Issue from the panel." },
-    { key: "networkPrivacy", label: "Disable network capture", description: "Keep the API flow tab from inspecting host traffic." },
+    { key: "networkPrivacy", label: "Keep network requests private", description: "Stop Fivepixels from inspecting your app's network requests." },
 ];
 
 const INITIAL_FEATURES: Record<FeatureKey, boolean> = {
@@ -177,12 +177,12 @@ export function CustomSetupBuilder({ mode }: { mode: SetupMode }) {
                         className="mt-[0.2rem] size-[1.6rem] accent-[var(--adaptive-accent-coral)]"
                     />
                     <span>
-                        <span className="block text-[1.35rem] font-medium text-[var(--adaptive-text-primary)]">Include initial project setup</span>
-                        <span className="mt-[0.4rem] block text-[1.2rem] leading-[1.45] text-[var(--adaptive-text-muted)]">Add project scope and staging visibility settings.</span>
+                        <span className="block text-[1.35rem] font-medium text-[var(--adaptive-text-primary)]">Add recommended project settings</span>
+                        <span className="mt-[0.4rem] block text-[1.2rem] leading-[1.45] text-[var(--adaptive-text-muted)]">Add an app id, staging name, version, and live-site visibility setting.</span>
                     </span>
                 </label>
                 <fieldset className="grid gap-[0.8rem] tablet:col-span-2 tablet:grid-cols-2">
-                    <legend className="mb-[0.4rem] text-[1.3rem] font-medium text-[var(--adaptive-text-primary)]">Features</legend>
+                    <legend className="mb-[0.4rem] text-[1.3rem] font-medium text-[var(--adaptive-text-primary)]">Add features</legend>
                     {availableFeatures.map((feature) => (
                         <label key={feature.key} className="flex cursor-pointer items-start gap-[1.2rem] rounded-[0.8rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[1.4rem]">
                             <input

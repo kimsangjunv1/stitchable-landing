@@ -41,7 +41,7 @@ function PromptCard() {
                 <Copy className="size-[1.5rem] text-[var(--adaptive-text-muted)]" strokeWidth={1.6} />
             </div>
             <p className="p-[1.6rem] text-[1.35rem] leading-[1.5] text-[var(--adaptive-text-muted)]">
-                Help me get set up with fivepixels. Install the package, review the project, mount the component once, and suggest the most relevant guide for this team.
+                Help me set up Fivepixels. Install the package, add the component once, and suggest the best next step for this team.
             </p>
         </div>
     );
@@ -81,21 +81,21 @@ function PersistenceLinks() {
     const modes = [
         {
             title: "localStorage",
-            description: "Start immediately in one browser with no API or Adapter.",
+            description: "Try Fivepixels in this browser. No backend needed.",
             href: "/docs/persistence#local-storage",
             icon: "database",
             badge: "Default",
         },
         {
             title: "API",
-            description: "Connect your own backend and share feedback with your team.",
+            description: "Save feedback through your backend and share it with your team.",
             href: "/docs/persistence#api",
             icon: "api",
             badge: "Team sync",
         },
         {
             title: "Artemis72",
-            description: "A managed Fivepixels SaaS for teams. Currently in preparation.",
+            description: "A hosted service for teams. Currently in preparation.",
             href: "/docs/persistence#artemis72",
             icon: "rocket_launch",
             badge: "Coming soon",
@@ -214,11 +214,11 @@ export function GuideHome({ guides, docs }: { guides: GuideCollectionMessages; d
                     <FrameworkLinks collection={guides} group={guides.navGroups[1]} />
                 </HomeSection>
 
-                <HomeSection title="Choose Your Corporate" description="Choose how Fivepixels stores and shares feedback for your team.">
+                <HomeSection title="Choose your setup" description="Start without a backend, or connect your API when the team needs shared feedback.">
                     <PersistenceLinks />
                 </HomeSection>
 
-                <HomeSection title="Start with fivepixels" description="Choose a guide for a quick, low-risk rollout with your team.">
+                <HomeSection title="Start with Fivepixels" description="Choose a simple way to start with your team.">
                     <CompactLinks collection={guides} group={guides.navGroups[0]} />
                 </HomeSection>
 
@@ -230,7 +230,7 @@ export function GuideHome({ guides, docs }: { guides: GuideCollectionMessages; d
                     <CompactLinks collection={guides} group={guides.navGroups[3]} />
                 </HomeSection>
 
-                <HomeSection title="Developer documentation" description="Install the library, configure shared state, and integrate the complete workflow.">
+                <HomeSection title="Developer documentation" description="Install Fivepixels, save feedback, and add team features when you need them.">
                     <div className="space-y-[3.2rem]">
                         {docs.navGroups.map((group) => (
                             <div key={group.label}>
@@ -247,7 +247,7 @@ export function GuideHome({ guides, docs }: { guides: GuideCollectionMessages; d
                             { href: "/example/01", title: "Live demo", description: "Leave and review feedback in a working product screen.", icon: MousePointer2 },
                             { href: "/changelog", title: "Changelog", description: "See the latest fivepixels product updates.", icon: Clipboard },
                             { href: "/roadmap", title: "Roadmap", description: "See what is planned and currently in progress.", icon: Check },
-                            { href: "/docs/api", title: "API reference", description: "Review props, adapters, and integration boundaries.", icon: Braces },
+                            { href: "/docs/api", title: "API reference", description: "Find available settings and backend connection options.", icon: Braces },
                         ].map((item) => {
                             const Icon = item.icon;
                             return (

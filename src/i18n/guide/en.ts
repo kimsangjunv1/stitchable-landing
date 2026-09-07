@@ -73,7 +73,7 @@ const quickstart = makePage(
                                     type: "list",
                                     items: [
                                         "Use a React 18+ browser runtime.",
-                                        "Mount FivePixels once.",
+                                        "Add FivePixels once near the root of the app.",
                                         "Add data-report-id to the highest-value review targets first.",
                                         "The UI renders in Shadow DOM, so no CSS import is required.",
                                     ],
@@ -101,7 +101,7 @@ const react = makePage(
     "react",
     "FRAMEWORK QUICKSTART",
     "Use fivepixels with React",
-    "Install fivepixels, mount it once in your React application, and mark the first interface elements your team wants to review.",
+    "Install Fivepixels, add it once to your React app, and mark the first parts your team wants to review.",
     [
         {
             id: "install",
@@ -115,7 +115,7 @@ const react = makePage(
         },
         {
             id: "mount",
-            title: "Mount FivePixels once",
+            title: "Add FivePixels once",
             variant: "reference",
             blocks: [
                 {
@@ -123,7 +123,7 @@ const react = makePage(
                     language: "tsx",
                     code: 'import { FivePixels } from "@fivepixels-js/react";\n\nexport default function App() {\n  return (\n    <>\n      <FivePixels\n        project={{ id: "my-app" }}\n        visibility={{ devOnly: true }}\n      />\n      <main>{/* Your application */}</main>\n    </>\n  );\n}',
                 },
-                { type: "callout", variant: "info", text: "Mount FivePixels once near the root of the application so it can follow every reviewable screen." },
+                { type: "callout", variant: "info", text: "Add FivePixels once near the root of the app so it can follow every page your team reviews." },
             ],
         },
         {
@@ -143,7 +143,7 @@ const nextjs = makePage(
     "nextjs",
     "FRAMEWORK QUICKSTART",
     "Use fivepixels with Next.js",
-    "Add fivepixels to a Next.js App Router project with a small client component and mount it once from the root layout.",
+    "Add Fivepixels to a Next.js App Router project with a small Client Component, then include it once in the root layout.",
     [
         {
             id: "install",
@@ -167,7 +167,7 @@ const nextjs = makePage(
         },
         {
             id: "layout",
-            title: "Mount it from the root layout",
+            title: "Add it to the root layout",
             variant: "reference",
             blocks: [
                 {
@@ -182,7 +182,7 @@ const nextjs = makePage(
     { installCommand: "npm install @fivepixels-js/react react react-dom" },
 );
 
-const rollout = makePage("rollout", "ONE WEEK", "A small, one-week rollout", "Build the habit on one high-review page before you expand across the application.", [
+const rollout = makePage("rollout", "ONE WEEK", "A simple one-week plan", "Start on one busy review page before adding Fivepixels to more of the app.", [
     {
         id: "week",
         title: "Day 1 through Day 6+",
@@ -398,24 +398,40 @@ const domTagging = makePage("dom-tagging", "DOM TAGGING", "Use stable data-repor
 
 const setup = makePage(
     "setup",
-    "INSTALL & SETUP",
-    "Install fivepixels in a React app",
-    "Start locally, apply the recommended staging settings, then add remote persistence only when the team needs it.",
+    "GET STARTED",
+    "Add Fivepixels to your React app",
+    "Install Fivepixels, check that it appears, then choose where to save feedback.",
     [
         {
             id: "install",
-            title: "Install and mount",
+            title: "Install and add Fivepixels",
             variant: "quick-start",
             stepLabel: "01 / INSTALL",
             blocks: [
                 { type: "codeRaw", language: "bash", code: "npm install @fivepixels-js/react react react-dom" },
+                { type: "paragraph", text: "Add FivePixels once near the root of App.tsx. In Next.js, place it in a small Client Component and render that component from app/layout.tsx." },
                 { type: "codeRaw", language: "tsx", code: 'import { FivePixels } from "@fivepixels-js/react";\n\n<FivePixels project={{ id: "my-app" }} />' },
-                { type: "callout", variant: "info", text: "Mount FivePixels once. Its UI ships inside Shadow DOM, so no CSS import is required." },
+                { type: "callout", variant: "info", text: "You should now see the Fivepixels button in a corner of the screen. No CSS import is needed." },
+            ],
+        },
+        {
+            id: "choose-storage",
+            title: "Choose where to save feedback",
+            variant: "reference",
+            blocks: [
+                { type: "paragraph", text: "Pick the option that fits how you work today. You can change it later." },
+                {
+                    type: "actions",
+                    links: [
+                        { href: "/docs/persistence#local-storage", label: "localStorage", description: "Personal use · No backend needed" },
+                        { href: "/docs/persistence#api", label: "API", description: "Team use · Share through your backend" },
+                    ],
+                },
             ],
         },
         {
             id: "staging",
-            title: "Recommended staging setup",
+            title: "Safe setup for staging",
             variant: "reference",
             blocks: [
                 {
@@ -423,14 +439,15 @@ const setup = makePage(
                     language: "tsx",
                     code: '<FivePixels\n  project={{ id: "my-app", env: "stage", version: "1.2.0" }}\n  visibility={{ enabled: true, devOnly: true }}\n  ui={{ appearance: "system", locale: "en" }}\n/>',
                 },
-                { type: "callout", variant: "warning", text: "devOnly:true hides the UI in production builds. Confirm this is intended if staging uses a production build." },
+                { type: "callout", variant: "warning", text: "devOnly: true hides Fivepixels in production builds. Turn it off if your staging site is built in production mode." },
             ],
         },
         {
             id: "remote",
-            title: "Remote persistence Adapter",
+            title: "Connect your API",
             variant: "reference",
             blocks: [
+                { type: "paragraph", text: "Only use this step when feedback must be shared across browsers. A FivePixelsAdapter connects Fivepixels to your backend." },
                 {
                     type: "codeRaw",
                     language: "tsx",
@@ -460,22 +477,7 @@ const setup = makePage(
                         '<FivePixels sync="api" adapter={adapter} project={{ id: "my-app", env: "stage" }} />',
                     ].join("\n"),
                 },
-                { type: "callout", variant: "warning", text: "Keep the Adapter reference stable with useMemo or module scope. Recreating it inside JSX can repeat list requests." },
-            ],
-        },
-        {
-            id: "explore-persistence",
-            title: "Now, explore the code in action",
-            variant: "reference",
-            blocks: [
-                { type: "paragraph", text: "Choose your preferred integration method." },
-                {
-                    type: "actions",
-                    links: [
-                        { href: "/docs/persistence#local-storage", label: "localStorage", description: "No Backend" },
-                        { href: "/docs/persistence#api", label: "API", description: "Real-time Sync" },
-                    ],
-                },
+                { type: "callout", variant: "warning", text: "Create the Adapter once with useMemo or outside the component. Creating it again on every render can repeat requests." },
             ],
         },
     ],
@@ -719,57 +721,67 @@ const apiFullSetup = [
 
 const persistence = makePage(
     "persistence",
-    "PERSISTENCE",
-    "Choose storage for the team you have",
-    "Start in one browser with localStorage, connect your own API when the team needs shared feedback, or follow the upcoming Artemis72 managed service.",
+    "SAVE FEEDBACK",
+    "Choose where to save feedback",
+    "Save feedback in your browser, share it through your own API, or follow the upcoming Artemis72 service.",
     [
         {
             id: "storage-modes",
-            title: "Choose a storage mode",
+            title: "Pick a setup",
             variant: "quick-start",
             stepLabel: "CHOOSE",
             blocks: [
                 {
                     type: "table",
-                    headers: ["Mode", "Best for", "How it works"],
+                    headers: ["Option", "Choose this when", "What you need"],
                     rows: [
-                        ["localStorage", "Trials and single-browser review", "Default local mode; no backend or Adapter"],
-                        ["API", "Shared team feedback", "Your backend through FivePixelsAdapter"],
-                        ["Artemis72", "Managed team service", "Coming soon"],
+                        ["localStorage", "You work alone or want to try it", "No backend"],
+                        ["API", "Your team needs shared feedback", "Your own backend"],
+                        ["Artemis72", "You want a managed service", "Coming soon"],
                     ],
                 },
-                { type: "paragraph", text: "Start with localStorage on one staging page. Move to API mode when feedback must follow the team across browsers and devices." },
+                { type: "paragraph", text: "Not sure which one to choose? Start with localStorage. Move to API later when the team needs to see the same feedback across browsers." },
             ],
         },
         {
             id: "local-storage",
-            title: "Start with localStorage",
+            title: "Use localStorage without a backend",
             variant: "quick-start",
             stepLabel: "DEFAULT",
             blocks: [
-                { type: "paragraph", text: "The default local mode stores feedback in the current browser. Mount FivePixels once and add a stable project id; no API or Adapter is required." },
-                { type: "codeRaw", language: "tsx", code: ["<FivePixels", '  project={{ id: "my-app" }}', "  visibility={{ devOnly: true }}", "/>"].join("\n") },
                 {
                     type: "tabs",
                     tabs: [
                         {
-                            label: "Full setup",
+                            label: "Quick start",
+                            blocks: [
+                                { type: "paragraph", text: "Add this once near the root of your app. Feedback will be saved in the current browser." },
+                                { type: "codeRaw", language: "tsx", code: ["<FivePixels", '  project={{ id: "my-app" }}', "  visibility={{ devOnly: true }}", "/>"].join("\n") },
+                                {
+                                    type: "callout",
+                                    variant: "info",
+                                    text: "No API or Adapter is needed. You should see the Fivepixels button after the page loads.",
+                                },
+                            ],
+                        },
+                        {
+                            label: "Build your setup",
+                            blocks: [{ type: "customSetup", mode: "local" }],
+                        },
+                        {
+                            label: "Complete example",
                             blocks: [
                                 {
                                     type: "paragraph",
-                                    text: "See how project scope, six reviewers, custom fields, visibility, navigation, and events fit together in a Next.js App Router project.",
+                                    text: "See how six reviewers, extra fields, display settings, page navigation, and events work together in a Next.js app.",
                                 },
                                 { type: "codeRaw", language: "tsx", code: localStorageFullSetup },
                             ],
                         },
                         {
-                            label: "Custom setup",
-                            blocks: [{ type: "customSetup", mode: "local" }],
-                        },
-                        {
-                            label: "Project scope",
+                            label: "Project settings",
                             blocks: [
-                                { type: "paragraph", text: "Declare local mode and separate feedback by environment and application version." },
+                                { type: "paragraph", text: "Keep feedback separate for each app, environment, and version." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -778,9 +790,9 @@ const persistence = makePage(
                             ],
                         },
                         {
-                            label: "Review setup",
+                            label: "Reviewers and fields",
                             blocks: [
-                                { type: "paragraph", text: "Add project-specific fields and a reviewer roster while keeping persistence local." },
+                                { type: "paragraph", text: "Add the people who review your app and the extra questions they should answer." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -803,9 +815,9 @@ const persistence = makePage(
                             ],
                         },
                         {
-                            label: "App state",
+                            label: "Page navigation",
                             blocks: [
-                                { type: "paragraph", text: "Connect cross-page feedback navigation to the host application's router." },
+                                { type: "paragraph", text: "Use your app's router when a feedback item opens another page." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -821,11 +833,11 @@ const persistence = makePage(
                         },
                     ],
                 },
-                { type: "callout", variant: "info", text: "localStorage is device-local and does not automatically sync with another browser. Use API mode for shared team state." },
+                { type: "callout", variant: "info", text: "localStorage only saves data in the current browser. Use API mode when teammates need to see the same feedback." },
                 {
                     type: "callout",
                     variant: "warning",
-                    text: "visibility.devOnly hides Fivepixels whenever NODE_ENV is production. Confirm this is intended if your staging site uses a production build.",
+                    text: "visibility.devOnly hides Fivepixels in production builds. Turn it off if your staging site is built in production mode.",
                 },
             ],
         },
@@ -836,15 +848,15 @@ const persistence = makePage(
             blocks: [
                 {
                     type: "paragraph",
-                    text: 'API mode keeps Fivepixels in your React application while your backend owns persistence. Implement the three minimum handlers, keep the Adapter reference stable, and pass it with sync="api".',
+                    text: 'API mode saves feedback through your backend so the team can share it. A FivePixelsAdapter is the small connection between Fivepixels and your API. Add the three basic handlers below and use sync="api".',
                 },
                 {
                     type: "tabs",
                     tabs: [
                         {
-                            label: "Minimum setup",
+                            label: "Basic setup",
                             blocks: [
-                                { type: "paragraph", text: "Use the three required persistence handlers when the team only needs shared marker creation and updates." },
+                                { type: "paragraph", text: "Start with these three required functions to load, create, and update shared feedback." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -893,37 +905,37 @@ const persistence = makePage(
                             ],
                         },
                         {
-                            label: "Full setup",
+                            label: "Build your setup",
+                            blocks: [{ type: "customSetup", mode: "api" }],
+                        },
+                        {
+                            label: "Complete example",
                             blocks: [
                                 {
                                     type: "paragraph",
-                                    text: "See the final shape with company login, the full review Adapter, six reviewers, custom fields, navigation, GitHub, events, and network privacy controls.",
+                                    text: "See one complete example with company login, six reviewers, extra fields, page navigation, GitHub, events, and network privacy settings.",
                                 },
                                 { type: "codeRaw", language: "tsx", code: apiFullSetup },
                             ],
                         },
-                        {
-                            label: "Custom setup",
-                            blocks: [{ type: "customSetup", mode: "api" }],
-                        },
                     ],
                 },
-                { type: "callout", variant: "warning", text: "Keep the Adapter reference stable with useMemo or module scope. Recreating it inside JSX can repeat list requests." },
+                { type: "callout", variant: "warning", text: "Create the Adapter once with useMemo or outside the component. Creating it again on every render can repeat requests." },
             ],
         },
         {
             id: "api-recipes",
-            title: "API integration recipes",
+            title: "More API examples",
             variant: "reference",
             blocks: [
-                { type: "subheading", text: "Choose an identity policy" },
+                { type: "subheading", text: "Choose how reviewers sign in" },
                 {
                     type: "tabs",
                     tabs: [
                         {
                             label: "Company login",
                             blocks: [
-                                { type: "paragraph", text: "Remote sync requires authentication by default. Extend the persistence Adapter above with auth.login." },
+                                { type: "paragraph", text: "API sharing asks reviewers to sign in by default. Add auth.login to the Adapter above." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -951,7 +963,7 @@ const persistence = makePage(
                         {
                             label: "No login",
                             blocks: [
-                                { type: "paragraph", text: "For a shared staging environment without company login, explicitly disable both identity gates." },
+                                { type: "paragraph", text: "Turn off both sign-in checks when anyone with the staging link may leave feedback." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -962,7 +974,7 @@ const persistence = makePage(
                         {
                             label: "Reviewer key",
                             blocks: [
-                                { type: "paragraph", text: "Require a reviewer key when the team needs stable reviewer identity without company login." },
+                                { type: "paragraph", text: "Use a reviewer key when each person needs a stable name but your app has no company login." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -983,14 +995,14 @@ const persistence = makePage(
                         },
                     ],
                 },
-                { type: "subheading", text: "Connect the review workflow" },
+                { type: "subheading", text: "Connect your team tools" },
                 {
                     type: "tabs",
                     tabs: [
                         {
-                            label: "Events & GitHub",
+                            label: "Notifications and GitHub",
                             blocks: [
-                                { type: "paragraph", text: "Observe persistence events and optionally promote implementation work to a GitHub Issue." },
+                                { type: "paragraph", text: "Run your code when feedback changes, and send selected work to a GitHub Issue." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -1017,9 +1029,9 @@ const persistence = makePage(
                             ],
                         },
                         {
-                            label: "SPA navigation",
+                            label: "Page navigation",
                             blocks: [
-                                { type: "paragraph", text: "Connect View-mode navigation to your SPA router so feedback can restore its original route." },
+                                { type: "paragraph", text: "Connect your router so a feedback item can open the page where it was created." },
                                 {
                                     type: "codeRaw",
                                     language: "tsx",
@@ -1030,9 +1042,9 @@ const persistence = makePage(
                             ],
                         },
                         {
-                            label: "Network privacy",
+                            label: "Keep requests private",
                             blocks: [
-                                { type: "paragraph", text: "Disable host fetch/XHR capture when the API flow tab should not inspect application traffic." },
+                                { type: "paragraph", text: "Turn off network capture when Fivepixels should not inspect your app's requests." },
                                 { type: "codeRaw", language: "tsx", code: ["<FivePixels", '  sync="api"', "  adapter={adapter}", "  networkMonitor={false}", "/>"].join("\n") },
                             ],
                         },
@@ -1042,12 +1054,12 @@ const persistence = makePage(
         },
         {
             id: "migration",
-            title: "Move from localStorage to API",
+            title: "Share existing feedback with your team",
             variant: "reference",
             blocks: [
                 {
                     type: "paragraph",
-                    text: "Keep the same project id when the team graduates from a local trial to shared API persistence. Add environment and version values deliberately so everyone agrees on the data scope.",
+                    text: "Keep the same project id when you move from localStorage to API. Choose the environment and version together so everyone sees the expected feedback.",
                 },
                 {
                     type: "codeRaw",
@@ -1067,24 +1079,24 @@ const persistence = makePage(
                 {
                     type: "callout",
                     variant: "warning",
-                    text: "Changing modes does not upload existing localStorage feedback automatically. Transfer it with JSON Export/Import or recreate the required feedback in the shared API.",
+                    text: "Switching to API does not copy old browser feedback automatically. Move it with JSON Export/Import, or create it again in the shared API.",
                 },
             ],
         },
         {
             id: "artemis72",
-            title: "Artemis72 and Adapter boundaries",
+            title: "Artemis72 and what you build",
             variant: "reference",
             blocks: [
-                { type: "callout", variant: "info", text: "Artemis72 is a managed SaaS planned for Fivepixels. It is currently in preparation, so setup and integration code are not available yet." },
-                { type: "subheading", text: "Minimum API Adapter contract" },
+                { type: "callout", variant: "info", text: "Artemis72 is a planned hosted service for Fivepixels. It is still in preparation, so setup code is not available yet." },
+                { type: "subheading", text: "Required API functions" },
                 {
                     type: "ordered",
                     items: ["markers.list({ pathname }) returns ReportFeedback[].", "feedback.create(payload) returns ReportFeedback with a server id.", "Implement feedback.update or cases.update."],
                 },
                 {
                     type: "table",
-                    headers: ["Adapter domain", "Requirement"],
+                    headers: ["Function", "What it does"],
                     rows: [
                         ["markers.list", "Required for markers on the current pathname"],
                         ["feedback.create", "Required to persist new feedback"],
@@ -1099,7 +1111,7 @@ const persistence = makePage(
                 },
                 {
                     type: "paragraph",
-                    text: "REST URL design, database schema, authentication server implementation, and response authorization belong to your infrastructure. Fivepixels stops at the frontend Adapter interface.",
+                    text: "You build and run the API routes, database, sign-in, and permissions. Fivepixels connects to them through the frontend Adapter.",
                 },
             ],
         },
@@ -1345,8 +1357,8 @@ const selfHosting = makePage(
 );
 
 export const guidesEn: GuideCollectionMessages = {
-    title: "Adoption guides",
-    description: "Start and establish fivepixels with your team",
+    title: "Getting started guides",
+    description: "Start using Fivepixels with your team",
     basePath: "/guides",
     navHome: "Home",
     codeCopy: "Copy",
@@ -1357,7 +1369,7 @@ export const guidesEn: GuideCollectionMessages = {
             label: "Start",
             items: [
                 { slug: "quickstart", label: "Quick start" },
-                { slug: "rollout", label: "One-week rollout" },
+                { slug: "rollout", label: "One-week plan" },
                 { slug: "rules", label: "Team rules" },
             ],
         },
@@ -1400,7 +1412,7 @@ export const docsEn: GuideCollectionMessages = {
         {
             label: "Start",
             items: [
-                { slug: "setup", label: "Install and setup" },
+                { slug: "setup", label: "Install Fivepixels" },
                 { slug: "dom-attributes", label: "DOM attributes" },
                 { slug: "modes", label: "Modes" },
             ],
@@ -1409,7 +1421,7 @@ export const docsEn: GuideCollectionMessages = {
             label: "Features",
             items: [
                 { slug: "ui-edit", label: "UI Edit" },
-                { slug: "persistence", label: "Persistence" },
+                { slug: "persistence", label: "Save feedback" },
                 { slug: "auth-and-team", label: "Auth and team" },
                 { slug: "github", label: "GitHub" },
             ],

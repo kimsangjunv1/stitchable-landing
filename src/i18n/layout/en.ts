@@ -10,7 +10,7 @@ export const layoutEn: LayoutMessages = {
             product: "Product",
             explore: "Explore",
             builtBy: "Built by",
-            links: { forDevelopers: "For developers", compare: "Compare", resources: "FAQ", overview: "Overview", guide: "Adoption guide", docs: "Developer docs", demo: "Live demo" },
+            links: { forDevelopers: "For developers", compare: "Compare", resources: "FAQ", overview: "Overview", guide: "Getting started", docs: "Developer docs", demo: "Live demo" },
             builtByCopy: "MIT open source, designed to start with one high-value page.",
             copyright: "© 2026 fivepixels. MIT License.",
             tagline: "Feedback on the screen, not in a screenshot",
@@ -64,7 +64,7 @@ export const layoutEn: LayoutMessages = {
                     title: "Start",
                     links: [
                         { label: "Quick start", description: "Reviewer and developer paths", href: "/guides/quickstart", icon: "bolt" },
-                        { label: "One-week rollout", description: "Expand from one page", href: "/guides/rollout", icon: "calendar_month" },
+                        { label: "One-week plan", description: "Start with one page", href: "/guides/rollout", icon: "calendar_month" },
                         { label: "Team rules", description: "Status and ownership", href: "/guides/rules", icon: "rule" },
                     ],
                 },
@@ -97,7 +97,7 @@ export const layoutEn: LayoutMessages = {
                     eyebrow: "START",
                     title: "Foundations",
                     links: [
-                        { label: "Install and setup", description: "Local, staging, Adapter", href: "/docs/setup", icon: "download" },
+                        { label: "Install Fivepixels", description: "Start in a few minutes", href: "/docs/setup", icon: "download" },
                         { label: "DOM attributes", description: "Markers and hidden UI", href: "/docs/dom-attributes", icon: "data_object" },
                         { label: "Modes", description: "Report and View states", href: "/docs/modes", icon: "toggle_on" },
                     ],
@@ -107,7 +107,7 @@ export const layoutEn: LayoutMessages = {
                     title: "Features",
                     links: [
                         { label: "UI Edit", description: "Workflow and session limits", href: "/docs/ui-edit", icon: "edit" },
-                        { label: "Persistence", description: "local, api, artemis", href: "/docs/persistence", icon: "database" },
+                        { label: "Save feedback", description: "Use this browser or your API", href: "/docs/persistence", icon: "database" },
                         { label: "Auth and team", description: "Login and reviewer keys", href: "/docs/auth-and-team", icon: "group" },
                         { label: "GitHub", description: "Promote to an Issue", href: "/docs/github", icon: "merge" },
                     ],
@@ -118,7 +118,7 @@ export const layoutEn: LayoutMessages = {
                     links: [
                         { label: "Panel and tabs", description: "Stable and experimental tabs", href: "/docs/panel-and-tabs", icon: "dock_to_right" },
                         { label: "Threads and mentions", description: "Cases and replies", href: "/docs/mentions-and-thread", icon: "forum" },
-                        { label: "Props API", description: "Props and Adapter domains", href: "/docs/api", icon: "api" },
+                        { label: "Props API", description: "Settings and backend connections", href: "/docs/api", icon: "api" },
                         { label: "Edge cases", description: "Pre-rollout checks", href: "/docs/edge-cases", icon: "warning" },
                     ],
                     viewAll: { label: "Open developer docs", description: "Start with setup", href: "/docs/setup", icon: "arrow_forward" },
