@@ -20,10 +20,6 @@ export const exampleEn: ExampleMessages = {
         profile: "Sangjun",
         navAriaLabel: "Dashboard navigation",
     },
-    shortcutHint: {
-        report: "In the right panel, click elements in Report mode (⌘⇧M) to leave feedback.",
-        view: "Use View mode (⌘⇧L) to see saved markers.",
-    },
     overview: {
         stats: [
             { label: "Open issues", delta: "+3 today" },
@@ -49,7 +45,7 @@ export const exampleEn: ExampleMessages = {
             {
                 column: "Done",
                 cards: [
-                    { title: "Shortcut hint wording", tag: "COPY" },
+                    { title: "Filter hint wording", tag: "COPY" },
                     { title: "Filter button alignment", tag: "UI" },
                 ],
             },
@@ -110,10 +106,6 @@ export const exampleEn: ExampleMessages = {
             {
                 label: "Persist markers",
                 description: "Keep feedback markers after route changes within the demo.",
-            },
-            {
-                label: "Keyboard shortcuts",
-                description: "Enable quick actions for Report mode.",
             },
         ],
         webhookLabel: "Webhook URL",
@@ -214,7 +206,7 @@ export const exampleEn: ExampleMessages = {
                 action: "Review",
             },
             {
-                issue: "Shortcut hint copy",
+                issue: "Filter hint copy",
                 status: "RESOLVED",
                 tag: "IMPORTANT",
                 author: "Choi",

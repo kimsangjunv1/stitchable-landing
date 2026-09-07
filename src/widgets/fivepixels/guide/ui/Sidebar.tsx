@@ -1,46 +1,30 @@
 "use client";
 
-import type { GuideNavGroup, GuideSection } from "@/i18n/guide/types";
-import { useGuideProvider } from "@/widgets/fivepixels/guide/model/GuideContext";
+import Link from "next/link";
+import { Play } from "lucide-react";
+import type { GuideCollectionMessages, GuidePageMessages } from "@/i18n/guide/types";
 import { cn } from "@/shared/lib/utils";
 
-export function Sidebar({ groups, sections, onThisPage }: { groups: GuideNavGroup[]; sections: GuideSection[]; onThisPage: string }) {
-    const { activeSectionId } = useGuideProvider();
-    const sectionMap = new Map(sections.map((s) => [s.id, s]));
-
+export function Sidebar({ collection, page }: { collection: GuideCollectionMessages; page: GuidePageMessages }) {
     return (
-        <aside className="hidden w-[20rem] shrink-0 lg:block">
-            <nav className="sticky top-[calc(var(--site-banner-height)+12rem)] max-h-[calc(100vh-14rem-var(--site-banner-height))] overflow-y-auto pb-[3.2rem]">
-                <p className="mb-[1.6rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] uppercase tracking-wider text-[#969696]">{onThisPage}</p>
-                <div className="flex flex-col gap-[2.4rem]">
-                    {groups.map((group, groupIndex) => (
+        <aside className="hidden w-[29.6rem] shrink-0 border-r border-[var(--adaptive-border)] min-[1100px]:block">
+            <nav className="sticky top-[7.2rem] max-h-[calc(100vh-7.2rem)] overflow-y-auto px-[3.2rem] py-[4.8rem]">
+                <Link href={collection.basePath} className="flex items-center gap-[1.4rem] font-[family-name:var(--font-manrope)] text-[2rem] font-semibold tracking-[-0.025em] text-[var(--adaptive-text-primary)]">
+                    <Play className="size-[1.7rem] text-[var(--adaptive-accent-coral)]" strokeWidth={1.8} />
+                    {collection.title}
+                </Link>
+                <div className="mt-[3.6rem] flex flex-col gap-[3.2rem]">
+                    {collection.navGroups.map((group, groupIndex) => (
                         <div key={group.label}>
-                            <p
-                                className={cn(
-                                    "mb-[0.8rem] font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] uppercase tracking-wider",
-                                    groupIndex === 0 ? "text-[#ff4b2e]" : "text-[#969696]",
-                                )}
-                            >
-                                {group.label}
-                            </p>
-                            <ul className="flex flex-col gap-[0.2rem] border-l border-black/10 pl-[1.2rem]">
-                                {group.sectionIds.map((id) => {
-                                    const section = sectionMap.get(id);
-                                    if (!section) return null;
-                                    const active = activeSectionId === id;
+                            <p className={cn("mb-[1.2rem] font-[family-name:var(--font-manrope)] text-[1.2rem] font-semibold uppercase tracking-[0.12em]", groupIndex === 0 ? "text-[var(--adaptive-accent-coral)]" : "text-[var(--adaptive-text-secondary)]")}>{group.label}</p>
+                            <ul className="flex flex-col gap-[0.2rem]">
+                                {group.items.map((item) => {
+                                    const active = page.slug === item.slug;
                                     return (
-                                        <li key={id}>
-                                            <a
-                                                href={`#${id}`}
-                                                className={cn(
-                                                    "relative block py-[0.4rem] text-[1.4rem] leading-snug transition-colors",
-                                                    active
-                                                        ? "font-semibold text-[#050505] before:absolute before:-left-[1.3rem] before:top-[0.6rem] before:h-[1.2rem] before:w-[0.2rem] before:bg-[#ff4b2e]"
-                                                        : "text-[#969696] hover:text-[#050505]",
-                                                )}
-                                            >
-                                                {section.title}
-                                            </a>
+                                        <li key={item.slug}>
+                                            <Link className={cn("block py-[0.7rem] text-[1.45rem] leading-[1.35] transition-colors", active ? "font-medium text-[var(--adaptive-accent-coral)]" : "text-[var(--adaptive-text-muted)] hover:text-[var(--adaptive-text-primary)]")} href={`${collection.basePath}/${item.slug}`}>
+                                                {item.label}
+                                            </Link>
                                         </li>
                                     );
                                 })}

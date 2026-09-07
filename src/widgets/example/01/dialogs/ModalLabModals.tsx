@@ -43,7 +43,7 @@ function LabModalFrame({
         >
             <div
                 className={cn(
-                    "w-full max-w-[52rem] overflow-hidden border border-black/10 bg-white shadow-[0_24px_48px_rgba(0,0,0,0.2)]",
+                    "w-full max-w-[52rem] overflow-hidden border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] shadow-[var(--adaptive-popup-shadow)]",
                     className,
                 )}
                 data-report-id={`example-modal-lab-dialog-${id}`}
@@ -53,9 +53,9 @@ function LabModalFrame({
                 aria-modal={open}
                 aria-labelledby={`example-modal-lab-title-${id}`}
             >
-                <div className="flex items-start justify-between gap-[1.2rem] border-b border-black/8 bg-[#1e293b] px-[2rem] py-[1.4rem] text-white">
+                <div className="flex items-start justify-between gap-[1.2rem] border-b border-[var(--adaptive-border)] bg-[#1e293b] px-[2rem] py-[1.4rem] text-white">
                     <div>
-                        <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-white/60">{id}</p>
+                        <p className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-white/60">{id}</p>
                         <h2
                             className="text-[2rem] font-semibold"
                             id={`example-modal-lab-title-${id}`}
@@ -99,69 +99,68 @@ export function ModalLabModals() {
         <>
             {isOpen("zustand") || isOpen("reviews-zustand") ? (
                 <LabModalFrame
-                    description="Zustand boolean으로 마운트/언마운트되는 모달입니다."
+                    description="This modal mounts and unmounts from a Zustand boolean."
                     id={isOpen("reviews-zustand") ? "reviews-zustand" : "zustand"}
                     onClose={() => close(isOpen("reviews-zustand") ? "reviews-zustand" : "zustand")}
                     open
                     title="Zustand boolean modal"
                 >
-                    <p className="text-[1.4rem] leading-[1.6] text-black/70">
-                        전역 스토어의 open 상태가 true일 때만 DOM에 렌더됩니다. Report 모드에서 열린 뒤 내부 요소를
-                        선택해 보세요.
+                    <p className="text-[1.4rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
+                        It renders in the DOM only while the global store&apos;s open state is true. Open it in Report mode and select an element inside.
                     </p>
                 </LabModalFrame>
             ) : null}
 
             <LabModalFrame
                 alwaysMounted
-                description="opacity와 pointer-events로만 숨깁니다. DOM에는 항상 남아 있습니다."
+                description="Hidden using only opacity and pointer-events; it always remains in the DOM."
                 id="opacity"
                 onClose={() => close("opacity")}
                 open={isOpen("opacity")}
                 title="Opacity modal"
             >
-                <p className="text-[1.4rem] leading-[1.6] text-black/70">
-                    닫혀 있어도 요소가 DOM에 남아 있어 마커·히트 테스트에 유용합니다.
+                <p className="text-[1.4rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
+                    The element stays in the DOM while closed, which is useful for marker and hit-testing scenarios.
                 </p>
             </LabModalFrame>
 
             <LabModalFrame
                 alwaysMounted
-                description="Reviews 페이지에서 트리거하는 opacity 케이스입니다."
+                description="An opacity case triggered from the Reviews page."
                 id="reviews-opacity"
                 onClose={() => close("reviews-opacity")}
                 open={isOpen("reviews-opacity")}
                 title="Reviews opacity modal"
             >
-                <p className="text-[1.4rem] leading-[1.6] text-black/70">
-                    리뷰 승인 흐름을 가정한 opacity 기반 모달입니다.
+                <p className="text-[1.4rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
+                    An opacity-based modal that simulates a review approval flow.
                 </p>
             </LabModalFrame>
 
             {isOpen("display-none") ? (
                 <LabModalFrame
-                    description="display: none (Tailwind hidden) 토글로 완전히 제거됩니다."
+                    description="Completely removed with a display: none (Tailwind hidden) toggle."
                     id="display-none"
                     onClose={() => close("display-none")}
                     open
                     title="Display none modal"
                 >
-                    <p className="text-[1.4rem] leading-[1.6] text-black/70">
-                        열릴 때만 DOM에 존재합니다. 레이아웃·접근성 트리 차이를 확인하세요.
+                    <p className="text-[1.4rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
+                        It exists in the DOM only while open. Check the differences in layout and the accessibility tree.
                     </p>
                 </LabModalFrame>
             ) : null}
 
             {isOpen("issues-display-none") ? (
                 <LabModalFrame
-                    description="Issues 테이블 Review 버튼에서 여는 display:none 케이스입니다."
+                    description="A display:none case opened from the Review button in the Issues table."
                     id="issues-display-none"
                     onClose={() => close("issues-display-none")}
                     open
                     title="Issues display none modal"
                 >
-                    <p className="text-[1.4rem] leading-[1.6] text-black/70">
-                        이슈 상세를 가정한 display:none 기반 모달입니다.
+                    <p className="text-[1.4rem] leading-[1.6] text-[var(--adaptive-text-secondary)]">
+                        A display:none-based modal that simulates issue details.
                     </p>
                 </LabModalFrame>
             ) : null}
@@ -174,7 +173,7 @@ export function ModalLabModals() {
                 aria-hidden={!isOpen("visibility-hidden")}
             >
                 <div
-                    className="w-full max-w-[48rem] border border-black/10 bg-white p-[2rem] shadow-[0_24px_48px_rgba(0,0,0,0.2)]"
+                    className="w-full max-w-[48rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem] shadow-[var(--adaptive-popup-shadow)]"
                     data-report-id="example-modal-lab-dialog-visibility-hidden"
                     data-report-type="group"
                     onClick={(event) => event.stopPropagation()}
@@ -182,7 +181,7 @@ export function ModalLabModals() {
                     aria-modal={isOpen("visibility-hidden")}
                 >
                     <h2 className="text-[2rem] font-semibold">Visibility hidden modal</h2>
-                    <p className="mt-[1rem] text-[1.4rem] text-black/70">공간은 차지하지만 보이지 않을 수 있습니다.</p>
+                    <p className="mt-[1rem] text-[1.4rem] text-[var(--adaptive-text-secondary)]">It may take up space while remaining invisible.</p>
                 </div>
             </div>
 
@@ -196,7 +195,7 @@ export function ModalLabModals() {
                 role="presentation"
             >
                 <div
-                    className="w-full max-w-[48rem] border border-black/10 bg-white p-[2rem]"
+                    className="w-full max-w-[48rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                     data-report-id="example-modal-lab-dialog-transform-offscreen"
                     data-report-type="group"
                     onClick={(event) => event.stopPropagation()}
@@ -204,14 +203,14 @@ export function ModalLabModals() {
                     aria-modal={isOpen("transform-offscreen")}
                 >
                     <h2 className="text-[2rem] font-semibold">Transform off-screen modal</h2>
-                    <p className="mt-[1rem] text-[1.4rem] text-black/70">translate로 화면 밖으로 밀어낸 뒤 다시 복원합니다.</p>
+                    <p className="mt-[1rem] text-[1.4rem] text-[var(--adaptive-text-secondary)]">It moves off-screen with translate and then returns to its original position.</p>
                 </div>
             </div>
 
             {isOpen("scroll-vertical") ? (
                 <LabModalFrame
                     className="max-h-[min(80dvh,64rem)]"
-                    description="모달 본문만 세로 스크롤됩니다."
+                    description="Only the modal body scrolls vertically."
                     id="scroll-vertical"
                     onClose={() => close("scroll-vertical")}
                     open
@@ -221,7 +220,7 @@ export function ModalLabModals() {
                         <div className="flex flex-col gap-[1.2rem]">
                             {longParagraphs.map((paragraph) => (
                                 <p
-                                    className="text-[1.4rem] leading-[1.6] text-black/70"
+                                    className="text-[1.4rem] leading-[1.6] text-[var(--adaptive-text-secondary)]"
                                     data-report-id={`example-modal-lab-scroll-y-${paragraph.id}`}
                                     key={paragraph.id}
                                 >
@@ -236,7 +235,7 @@ export function ModalLabModals() {
             {isOpen("scroll-horizontal") || isOpen("issues-scroll-x") ? (
                 <LabModalFrame
                     className="max-w-[min(92vw,72rem)]"
-                    description="모달 내부 테이블이 가로로 스크롤됩니다."
+                    description="The table inside the modal scrolls horizontally."
                     id={isOpen("issues-scroll-x") ? "issues-scroll-x" : "scroll-horizontal"}
                     onClose={() => close(isOpen("issues-scroll-x") ? "issues-scroll-x" : "scroll-horizontal")}
                     open
@@ -245,7 +244,7 @@ export function ModalLabModals() {
                     <div className="overflow-x-auto">
                         <table className="min-w-[96rem] border-collapse text-left text-[1.4rem]">
                             <thead>
-                                <tr className="bg-[#f4f4f4]">
+                                <tr className="bg-[var(--adaptive-grey50)]">
                                     {wideColumns.map((column) => (
                                         <th
                                             className="px-[1.6rem] py-[1rem]"
@@ -259,7 +258,7 @@ export function ModalLabModals() {
                             <tbody>
                                 {Array.from({ length: 6 }, (_, rowIndex) => (
                                     <tr
-                                        className="border-t border-black/8"
+                                        className="border-t border-[var(--adaptive-border)]"
                                         key={`row-${rowIndex}`}
                                     >
                                         {wideColumns.map((column) => (
@@ -287,7 +286,7 @@ export function ModalLabModals() {
                     role="presentation"
                 >
                     <div
-                        className="mx-auto min-h-[140vh] w-full max-w-[52rem] border border-black/10 bg-white p-[2rem]"
+                        className="mx-auto min-h-[140vh] w-full max-w-[52rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                         data-report-id="example-modal-lab-dialog-nested-scroll"
                         data-report-type="group"
                         onClick={(event) => event.stopPropagation()}
@@ -295,13 +294,13 @@ export function ModalLabModals() {
                         aria-modal="true"
                     >
                         <h2 className="text-[2rem] font-semibold">Nested scroll modal</h2>
-                        <p className="mt-[1rem] text-[1.4rem] text-black/70">
-                            오버레이 자체가 스크롤됩니다. 페이지 스크롤과 겹치는 케이스를 재현합니다.
+                        <p className="mt-[1rem] text-[1.4rem] text-[var(--adaptive-text-secondary)]">
+                            The overlay itself scrolls, reproducing a case where it competes with page scrolling.
                         </p>
                         <div className="mt-[2rem] flex flex-col gap-[1.2rem]">
                             {longParagraphs.map((paragraph) => (
                                 <p
-                                    className="text-[1.4rem] text-black/65"
+                                    className="text-[1.4rem] text-[var(--adaptive-text-muted)]"
                                     key={paragraph.id}
                                 >
                                     {paragraph.text}
@@ -315,7 +314,7 @@ export function ModalLabModals() {
             {isOpen("nested-stack") ? (
                 <>
                     <LabModalFrame
-                        description="첫 번째 레이어"
+                        description="First layer"
                         id="nested-stack"
                         onClose={() => {
                             close("nested-stack-2");
@@ -324,7 +323,7 @@ export function ModalLabModals() {
                         open
                         title="Nested modal (layer 1)"
                     >
-                        <p className="text-[1.4rem] text-black/70">아래 버튼으로 두 번째 모달을 열 수 있습니다.</p>
+                        <p className="text-[1.4rem] text-[var(--adaptive-text-secondary)]">Use the button below to open a second modal.</p>
                         <button
                             className="mt-[1.6rem] bg-[#1e293b] px-[1.4rem] py-[1rem] text-[1.3rem] text-white"
                             data-report-id="example-modal-lab-open-nested-stack-2"
@@ -341,7 +340,7 @@ export function ModalLabModals() {
                             role="presentation"
                         >
                             <div
-                                className="w-full max-w-[40rem] border border-black/10 bg-white p-[2rem]"
+                                className="w-full max-w-[40rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                                 data-report-id="example-modal-lab-dialog-nested-stack-2"
                                 data-report-type="group"
                                 role="dialog"
@@ -349,7 +348,7 @@ export function ModalLabModals() {
                             >
                                 <h3 className="text-[1.8rem] font-semibold">Nested modal (layer 2)</h3>
                                 <button
-                                    className="mt-[1.6rem] border border-black px-[1.2rem] py-[0.8rem] text-[1.3rem]"
+                                    className="mt-[1.6rem] border border-[var(--adaptive-text-primary)] px-[1.2rem] py-[0.8rem] text-[1.3rem]"
                                     data-report-id="example-modal-lab-close-nested-stack-2"
                                     onClick={() => close("nested-stack-2")}
                                     type="button"

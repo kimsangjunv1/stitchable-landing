@@ -4,4 +4,43 @@
 @use "base/resets";
 
 // abstracts 전역변수
-@use "abstracts/variables";
+@use "./abstracts/variables";
+
+body {
+    transition:
+        background-color 180ms ease,
+        color 180ms ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-manrope);
+}
+
+.theme-toggle__sun {
+    display: none;
+}
+
+:root[data-theme="dark"] {
+    .theme-toggle__moon {
+        display: none;
+    }
+
+    .theme-toggle__sun {
+        display: block;
+    }
+
+    .theme-adaptive-logo {
+        filter: brightness(0) invert(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body {
+        transition: none;
+    }
+}

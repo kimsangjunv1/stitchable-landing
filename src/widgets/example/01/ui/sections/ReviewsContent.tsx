@@ -16,7 +16,7 @@ export function ReviewsContent() {
                 data-report-id="example-reviews-header"
                 data-report-type="group"
             >
-                <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{reviews.eyebrow}</p>
+                <p className="font-[family-name:var(--font-inter)] text-[1.2rem] text-[var(--adaptive-text-muted)]">{reviews.eyebrow}</p>
                 <h1
                     className="text-[2.8rem] font-semibold"
                     data-report-id="example-reviews-title"
@@ -24,7 +24,7 @@ export function ReviewsContent() {
                     {reviews.title}
                 </h1>
                 <p
-                    className="max-w-[64rem] text-[1.5rem] leading-[1.6] text-black/65"
+                    className="max-w-[64rem] text-[1.5rem] leading-[1.6] text-[var(--adaptive-text-secondary)]"
                     data-report-id="example-reviews-description"
                 >
                     {reviews.description}
@@ -32,12 +32,12 @@ export function ReviewsContent() {
             </header>
 
             <section
-                className="grid gap-[1.2rem] border border-black/8 bg-white p-[2rem] mobile:grid-cols-1 tablet:grid-cols-2"
+                className="grid gap-[1.2rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem] mobile:grid-cols-1 tablet:grid-cols-2"
                 data-report-id="example-reviews-modal-triggers"
                 data-report-type="group"
             >
                 <button
-                    className="border border-black/15 px-[1.4rem] py-[1.2rem] text-left text-[1.3rem] hover:bg-black/[0.03]"
+                    className="border border-[var(--adaptive-border)] px-[1.4rem] py-[1.2rem] text-left text-[1.3rem] hover:bg-[var(--adaptive-greyOpacity100)]"
                     data-report-id="example-reviews-open-opacity"
                     onClick={() => open("reviews-opacity")}
                     type="button"
@@ -45,7 +45,7 @@ export function ReviewsContent() {
                     {reviews.openModal}
                 </button>
                 <button
-                    className="border border-black/15 px-[1.4rem] py-[1.2rem] text-left text-[1.3rem] hover:bg-black/[0.03]"
+                    className="border border-[var(--adaptive-border)] px-[1.4rem] py-[1.2rem] text-left text-[1.3rem] hover:bg-[var(--adaptive-greyOpacity100)]"
                     data-report-id="example-reviews-open-zustand"
                     onClick={() => open("reviews-zustand")}
                     type="button"
@@ -64,7 +64,7 @@ export function ReviewsContent() {
 
                     return (
                         <li
-                            className="flex flex-wrap items-center justify-between gap-[1.2rem] border border-black/8 bg-white p-[2rem]"
+                            className="flex flex-wrap items-center justify-between gap-[1.2rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                             data-report-id={`example-review-card-${id}`}
                             key={id}
                         >
@@ -76,7 +76,7 @@ export function ReviewsContent() {
                                     {item.title}
                                 </p>
                                 <p
-                                    className="mt-[0.4rem] text-[1.3rem] text-black/55"
+                                    className="mt-[0.4rem] text-[1.3rem] text-[var(--adaptive-text-muted)]"
                                     data-report-id={`example-review-meta-${id}`}
                                 >
                                     {item.author} · {item.status}
@@ -84,7 +84,7 @@ export function ReviewsContent() {
                             </div>
                             <div className="flex gap-[0.8rem]">
                                 <button
-                                    className="border border-black/15 px-[1.2rem] py-[0.8rem] text-[1.3rem] hover:bg-black/[0.03]"
+                                    className="border border-[var(--adaptive-border)] px-[1.2rem] py-[0.8rem] text-[1.3rem] hover:bg-[var(--adaptive-greyOpacity100)]"
                                     data-report-id={`example-review-request-${id}`}
                                     onClick={() => open("reviews-opacity")}
                                     type="button"

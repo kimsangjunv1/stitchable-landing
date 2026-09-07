@@ -13,7 +13,7 @@ const statusStyles: Record<string, string> = {
 
 const tagStyles: Record<string, string> = {
     BUG: "border border-[#f04452] text-[#f04452]",
-    IMPORTANT: "border border-[#111] text-[#111]",
+    IMPORTANT: "border border-[var(--adaptive-text-primary)] text-[var(--adaptive-text-primary)]",
 };
 
 export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
@@ -21,7 +21,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
 
     return (
         <div
-            className="overflow-hidden border border-black/10"
+            className="overflow-hidden border border-[var(--adaptive-border)]"
             data-report-id="example-list-panel"
             data-report-type="group"
         >
@@ -32,7 +32,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
             >
                 <div>
                     <p
-                        className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-white/60"
+                        className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-white/60"
                         data-report-id="example-list-eyebrow"
                     >
                         {listDemo.eyebrow}
@@ -54,7 +54,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
             </div>
 
             <div
-                className="overflow-x-auto bg-white"
+                className="overflow-x-auto bg-[var(--adaptive-surface)]"
                 data-report-id="example-list-table-wrap"
             >
                 <table
@@ -62,7 +62,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
                     data-report-id="example-list-table"
                 >
                     <thead
-                        className="bg-[#f4f4f4] text-[1.2rem] uppercase tracking-[0.04em] text-black/55"
+                        className="bg-[var(--adaptive-grey50)] text-[1.2rem] uppercase tracking-[0.04em] text-[var(--adaptive-text-muted)]"
                         data-report-id="example-list-thead"
                     >
                         <tr data-report-id="example-list-header-row">
@@ -88,7 +88,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
 
                             return (
                                 <tr
-                                    className="border-t border-black/8 transition-colors hover:bg-[#fafafa]"
+                                    className="border-t border-[var(--adaptive-border)] transition-colors hover:bg-[var(--adaptive-grey50)]"
                                     data-report-id={`example-list-row-${id}`}
                                     key={id}
                                 >
@@ -121,7 +121,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
                                         </span>
                                     </td>
                                     <td
-                                        className="px-[2rem] py-[1.6rem] text-black/65"
+                                        className="px-[2rem] py-[1.6rem] text-[var(--adaptive-text-muted)]"
                                         data-report-id={`example-list-author-${id}`}
                                     >
                                         {row.author}
@@ -131,7 +131,7 @@ export function ListDemo({ onReview }: { onReview?: (rowId: string) => void }) {
                                         data-report-id={`example-list-action-cell-${id}`}
                                     >
                                         <button
-                                            className="border border-black px-[1rem] py-[0.6rem] text-[1.2rem] hover:bg-black hover:text-white"
+                                            className="border border-[var(--adaptive-text-primary)] px-[1rem] py-[0.6rem] text-[1.2rem] hover:bg-[var(--adaptive-surface-inverse)] hover:text-[var(--adaptive-text-inverse)]"
                                             data-report-id={`example-list-action-${id}`}
                                             onClick={() => onReview?.(id)}
                                             type="button"

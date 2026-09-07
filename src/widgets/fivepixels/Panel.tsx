@@ -9,55 +9,24 @@ export default function Panel() {
 
     return (
         <FivepixelsPageProvider>
-            <main className="relative min-h-screen overflow-hidden bg-white font-[family-name:var(--font-mona-rebrand)] text-[18px] text-[#050505] flex flex-col pt-[9.2rem]">
+            <main className="relative min-h-screen overflow-hidden bg-[var(--fp-bg)] font-[family-name:var(--font-inter)] text-[18px] text-[var(--fp-text-emphasis)] flex flex-col pt-[10.5rem]">
                 <Layer.IntroSection />
                 <Layer.HeroImageSection />
-                <Layer.TitleSection
-                    value={panelTitles[0]}
-                    className={{ text: { container: "bg-white" } }}
-                />
+                <Layer.TitleSection value={panelTitles[0]} />
                 <Layer.PainSection />
-                <Layer.TitleSection
-                    value={panelTitles[1]}
-                    span={true}
-                    align="center"
-                    className={{ text: { container: "bg-black", value: "text-white" } }}
-                    mode="dark"
-                />
+                <Layer.TitleSection value={panelTitles[1]} span={true} align="center" />
                 <Layer.HowItWorksSection />
-                <Layer.TitleSection
-                    value={panelTitles[2]}
-                    span={true}
-                    align="center"
-                    className={{ container: "bg-black", text: { container: "bg-black", value: "text-white" } }}
-                    mode="dark"
-                />
+                <Layer.TitleSection value={panelTitles[2]} span={true} align="center" />
                 <Layer.UiEditSection />
-                <Layer.TitleSection
-                    value={panelTitles[3]}
-                    className={{ inner: "bg-black", text: { container: "bg-white" } }}
-                />
+                <Layer.TitleSection value={panelTitles[3]} />
                 <Layer.FeatureSection />
-                <Layer.TitleSection
-                    value={panelTitles[4]}
-                    className={{ text: { container: "bg-white" } }}
-                    span={false}
-                />
+                <Layer.TitleSection value={panelTitles[4]} span={false} />
                 <Layer.DeveloperReliefSection />
-                <Layer.TitleSection
-                    value={panelTitles[5]}
-                    className={{ text: { container: "bg-white" } }}
-                />
+                <Layer.TitleSection value={panelTitles[5]} />
                 <Layer.CompareSection />
-                <Layer.TitleSection
-                    value={panelTitles[6]}
-                    className={{ text: { container: "bg-white" } }}
-                />
+                <Layer.TitleSection value={panelTitles[6]} />
                 <Layer.AudienceSection />
-                <Layer.TitleSection
-                    value={panelTitles[8]}
-                    className={{ text: { container: "bg-white" } }}
-                />
+                <Layer.TitleSection value={panelTitles[8]} />
                 <Layer.FAQSection />
                 <Layer.OpenSourceSection />
                 <Layer.Modal />

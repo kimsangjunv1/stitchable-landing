@@ -1,33 +1,30 @@
 "use client";
 
-import type { GuideMessages } from "@/i18n/guide/types";
+import type { GuideCollectionMessages, GuidePageMessages } from "@/i18n/guide/types";
 import { useGuideSectionObserver } from "@/widgets/fivepixels/guide/model/useGuideSectionObserver";
 import { Document } from "./Document";
 import { MobileNav } from "./MobileNav";
+import { OnThisPage } from "./OnThisPage";
 import { Sidebar } from "./Sidebar";
 
-export function Shell({ guide }: { guide: GuideMessages }) {
-    const sectionIds = guide.sections.map((s) => s.id);
+export function Shell({ collection, page }: { collection: GuideCollectionMessages; page: GuidePageMessages }) {
+    const sectionIds = page.sections.map((section) => section.id);
 
     useGuideSectionObserver(sectionIds);
 
     return (
-        <div className="min-h-screen font-[family-name:var(--font-mona-rebrand)] text-[1.8rem] text-[#050505]">
-            <div className="mx-auto flex w-full max-w-[var(--size-pc)] pt-[calc(7.2rem+3.2rem)] border-x border-x-[#ededed]">
-                <Sidebar
-                    groups={guide.navGroups}
-                    sections={guide.sections}
-                    onThisPage={guide.onThisPage}
-                />
-                <div className="w-[0.1rem] bg-[#ededed]" />
+        <div className="min-h-screen bg-[var(--adaptive-background)] font-[family-name:var(--font-inter)] text-[1.8rem] text-[var(--adaptive-text-primary)]">
+            <div className="mx-auto flex w-full max-w-[var(--size-pc)] border-x border-[var(--adaptive-border)] pt-[7.2rem]">
+                <Sidebar collection={collection} page={page} />
                 <div className="min-w-0 flex-1">
-                    <MobileNav sections={guide.sections} />
+                    <MobileNav collection={collection} page={page} />
                     <Document
-                        hero={guide.hero}
-                        referenceDivider={guide.referenceDivider}
-                        sections={guide.sections}
+                        collection={collection}
+                        hero={page.hero}
+                        sections={page.sections}
                     />
                 </div>
+                <OnThisPage collection={collection} page={page} />
             </div>
         </div>
     );

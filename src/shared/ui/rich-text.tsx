@@ -12,7 +12,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
             return (
                 <span
                     key={key}
-                    className="font-mono text-[1.4rem] text-[#d9391f] bg-[#ff4b2e20] p-[0.1rem_0.2rem] rounded-[0.4rem]"
+                    className="text-[1.4rem] text-[#d9391f] bg-[#ff4b2e20] p-[0.1rem_0.2rem] rounded-[0.4rem]"
                 >
                     {part.slice(1, -1)}
                 </span>

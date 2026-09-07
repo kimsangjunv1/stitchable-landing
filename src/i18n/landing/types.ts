@@ -39,6 +39,7 @@ export type LayoutMessages = {
                 resources: string;
                 overview: string;
                 guide: string;
+                docs: string;
                 demo: string;
             };
             builtByCopy: string;
@@ -161,10 +162,6 @@ export type ExampleMessages = {
         filter: string;
         profile: string;
         navAriaLabel: string;
-    };
-    shortcutHint: {
-        report: string;
-        view: string;
     };
     overview: {
         stats: { label: string; delta: string }[];

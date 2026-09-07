@@ -38,7 +38,7 @@ const tagStyles: Record<string, string> = {
     BUG: "border border-[#f04452] text-[#f04452]",
     COPY: "border border-[#2563eb] text-[#2563eb]",
     A11Y: "border border-[#7c3aed] text-[#7c3aed]",
-    UI: "border border-[#111] text-[#111]",
+    UI: "border border-[var(--adaptive-text-primary)] text-[var(--adaptive-text-primary)]",
 };
 
 export function OverviewContent() {
@@ -57,12 +57,12 @@ export function OverviewContent() {
 
                     return (
                         <article
-                            className="flex flex-col gap-[0.8rem] border border-black/8 bg-white p-[2rem]"
+                            className="flex flex-col gap-[0.8rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                             data-report-id={`example-stat-card-${stat.id}`}
                             key={stat.id}
                         >
                             <p
-                                className="text-[1.3rem] text-black/55"
+                                className="text-[1.3rem] text-[var(--adaptive-text-muted)]"
                                 data-report-id={`example-stat-label-${stat.id}`}
                             >
                                 {label}
@@ -94,7 +94,7 @@ export function OverviewContent() {
 
                     return (
                         <div
-                            className="flex flex-col gap-[1.2rem] border border-black/8 bg-white p-[1.6rem]"
+                            className="flex flex-col gap-[1.2rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[1.6rem]"
                             data-report-id={`example-kanban-column-${column.id}`}
                             data-report-type="group"
                             key={column.id}
@@ -107,7 +107,7 @@ export function OverviewContent() {
                                     {kanbanColumn.column}
                                 </h3>
                                 <span
-                                    className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45"
+                                    className="font-[family-name:var(--font-inter)] text-[1.2rem] text-[var(--adaptive-text-muted)]"
                                     data-report-id={`example-kanban-count-${column.id}`}
                                 >
                                     {kanbanColumn.cards.length}
@@ -121,7 +121,7 @@ export function OverviewContent() {
                                     return (
                                         <li key={card.id}>
                                             <button
-                                                className="w-full border border-black/8 bg-[#f8fafc] p-[1.2rem] text-left transition-colors hover:border-black/20 hover:bg-white"
+                                                className="w-full border border-[var(--adaptive-border)] bg-[var(--adaptive-grey50)] p-[1.2rem] text-left transition-colors hover:border-[var(--adaptive-grey400)] hover:bg-[var(--adaptive-surface)]"
                                                 data-report-id={`example-kanban-card-${card.id}`}
                                                 onClick={() => openModal("zustand")}
                                                 type="button"
@@ -140,7 +140,7 @@ export function OverviewContent() {
                                                         {kanbanCard.tag}
                                                     </span>
                                                     <span
-                                                        className="text-[1.2rem] text-black/55"
+                                                        className="text-[1.2rem] text-[var(--adaptive-text-muted)]"
                                                         data-report-id={`example-kanban-card-assignee-${card.id}`}
                                                     >
                                                         {card.assignee}
@@ -157,7 +157,7 @@ export function OverviewContent() {
             </section>
 
             <section
-                className="border border-black/8 bg-white p-[2rem]"
+                className="border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                 data-report-id="example-activity-panel"
                 data-report-type="group"
             >
@@ -170,7 +170,7 @@ export function OverviewContent() {
                 <ul className="flex flex-col gap-[1.2rem]">
                     {overview.activities.map((activity, index) => (
                         <li
-                            className="flex items-start justify-between gap-[1.2rem] border-b border-black/6 pb-[1.2rem] last:border-0 last:pb-0"
+                            className="flex items-start justify-between gap-[1.2rem] border-b border-[var(--adaptive-border)] pb-[1.2rem] last:border-0 last:pb-0"
                             data-report-id={`example-activity-item-act-${String(index + 1).padStart(2, "0")}`}
                             key={activity}
                         >

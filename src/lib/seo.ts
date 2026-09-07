@@ -44,7 +44,7 @@ export function createPageMetadata({
     noIndex = false,
 }: PageMetadataOptions = {}): Metadata {
     const canonicalPath = path.startsWith("/") ? path : `/${path}`;
-    const defaultTitle = `${SITE_NAME} — Feedback, directly on your UI`;
+    const defaultTitle = `${SITE_NAME} — Feedback directly on your interface`;
     const pageTitle = title ? `${title} | ${SITE_NAME}` : defaultTitle;
     const absoluteUrl = new URL(canonicalPath, SITE_URL).toString();
 
@@ -62,17 +62,12 @@ export function createPageMetadata({
         metadataBase: new URL(SITE_URL),
         alternates: {
             canonical: canonicalPath,
-            languages: {
-                en: canonicalPath,
-                ko: canonicalPath,
-                "x-default": canonicalPath,
-            },
+            languages: { en: canonicalPath, "x-default": canonicalPath },
         },
         robots: noIndex || !ALLOW_SEARCH_INDEXING ? NO_INDEX_ROBOTS : INDEX_ROBOTS,
         openGraph: {
             type: "website",
             locale: "en_US",
-            alternateLocale: ["ko_KR"],
             url: absoluteUrl,
             siteName: SITE_NAME,
             title: pageTitle,
@@ -82,7 +77,7 @@ export function createPageMetadata({
                     url: OG_IMAGE_PATH,
                     width: 1200,
                     height: 630,
-                    alt: `${SITE_NAME} — DOM feedback for QA and staging`,
+                    alt: `${SITE_NAME} — DOM feedback for staging and QA`,
                 },
             ],
         },

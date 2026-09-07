@@ -2,7 +2,7 @@
 
 import { useMessages } from "@/app/providers/LocaleProvider";
 
-const toggleIds = ["notifications", "markers", "shortcuts"] as const;
+const toggleIds = ["notifications", "markers"] as const;
 
 export function SettingsContent() {
     const settings = useMessages().example.settings;
@@ -14,7 +14,7 @@ export function SettingsContent() {
                 data-report-id="example-settings-header"
                 data-report-type="group"
             >
-                <p className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-black/45">{settings.eyebrow}</p>
+                <p className="font-[family-name:var(--font-inter)] text-[1.2rem] text-[var(--adaptive-text-muted)]">{settings.eyebrow}</p>
                 <h1
                     className="text-[2.8rem] font-semibold"
                     data-report-id="example-settings-title"
@@ -22,7 +22,7 @@ export function SettingsContent() {
                     {settings.title}
                 </h1>
                 <p
-                    className="max-w-[64rem] text-[1.5rem] leading-[1.6] text-black/65"
+                    className="max-w-[64rem] text-[1.5rem] leading-[1.6] text-[var(--adaptive-text-secondary)]"
                     data-report-id="example-settings-description"
                 >
                     {settings.description}
@@ -30,7 +30,7 @@ export function SettingsContent() {
             </header>
 
             <div
-                className="flex flex-col gap-[1.6rem] border border-black/8 bg-white p-[2rem]"
+                className="flex flex-col gap-[1.6rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                 data-report-id="example-settings-panel"
                 data-report-type="group"
             >
@@ -39,7 +39,7 @@ export function SettingsContent() {
 
                     return (
                         <label
-                            className="flex items-start justify-between gap-[1.6rem] border-b border-black/6 pb-[1.6rem] last:border-0 last:pb-0"
+                            className="flex items-start justify-between gap-[1.6rem] border-b border-[var(--adaptive-border)] pb-[1.6rem] last:border-0 last:pb-0"
                             data-report-id={`example-settings-row-${id}`}
                             key={id}
                         >
@@ -51,7 +51,7 @@ export function SettingsContent() {
                                     {setting.label}
                                 </span>
                                 <span
-                                    className="mt-[0.4rem] block text-[1.3rem] text-black/55"
+                                    className="mt-[0.4rem] block text-[1.3rem] text-[var(--adaptive-text-muted)]"
                                     data-report-id={`example-settings-desc-${id}`}
                                 >
                                     {setting.description}
@@ -60,7 +60,7 @@ export function SettingsContent() {
                             <input
                                 className="mt-[0.4rem] h-[1.8rem] w-[1.8rem] accent-[#1e293b]"
                                 data-report-id={`example-settings-toggle-${id}`}
-                                defaultChecked={id !== "shortcuts"}
+                                defaultChecked
                                 type="checkbox"
                             />
                         </label>
@@ -73,7 +73,7 @@ export function SettingsContent() {
                 >
                     <span className="font-medium">{settings.webhookLabel}</span>
                     <input
-                        className="border border-black/15 px-[1.2rem] py-[1rem] text-[1.4rem] outline-none focus:border-black"
+                        className="border border-[var(--adaptive-border)] px-[1.2rem] py-[1rem] text-[1.4rem] outline-none focus:border-[var(--adaptive-text-primary)]"
                         data-report-id="example-settings-webhook-input"
                         placeholder={settings.webhookPlaceholder}
                         type="url"

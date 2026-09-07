@@ -15,12 +15,32 @@ const nextConfig = {
       },
       {
         source: "/fivepixels/guide",
-        destination: "/guide",
+        destination: "/guides/quickstart",
         permanent: true,
       },
       {
         source: "/fivepixels/guide/backend-api",
-        destination: "/guide/backend-api",
+        destination: "/docs/persistence",
+        permanent: true,
+      },
+      {
+        source: "/guide",
+        destination: "/guides/quickstart",
+        permanent: true,
+      },
+      {
+        source: "/guide/backend-api",
+        destination: "/docs/persistence",
+        permanent: true,
+      },
+      {
+        source: "/guides/shortcuts",
+        destination: "/docs/modes",
+        permanent: true,
+      },
+      {
+        source: "/docs/modes-and-shortcuts",
+        destination: "/docs/modes",
         permanent: true,
       },
     ];
