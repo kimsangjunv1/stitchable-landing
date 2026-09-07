@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-const expandedText = "font-[family-name:var(--font-mona-rebrand)] font-semibold [font-variation-settings:'wdth'_125]";
+const expandedText = "font-[family-name:var(--font-manrope)] font-semibold tracking-[-0.025em]";
 
 export function GuideStep({
     id,
@@ -16,13 +16,11 @@ export function GuideStep({
     return (
         <section
             id={id}
-            className="scroll-mt-[calc(var(--site-banner-height)+12rem)]"
+            className="scroll-mt-[7.2rem] border-b border-[var(--adaptive-border)] px-[3.2rem] py-[5.6rem] lg:px-[5.6rem] lg:py-[7.2rem]"
         >
-            <div className="border border-black/10 bg-[#ededed] p-[2.4rem] tablet:p-[3.2rem]">
-                <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.4rem] text-[#969696]">{stepLabel}</span>
-                <h2 className={`${expandedText} mt-[1.6rem] text-[3.2rem] leading-[1.05] mobile:text-[2.4rem]`}>{title}</h2>
-                <div className="mt-[2.4rem] flex flex-col gap-[2.4rem]">{children}</div>
-            </div>
+            {stepLabel ? <span className="text-[1.2rem] font-medium uppercase tracking-[0.12em] text-[var(--adaptive-text-muted)]">{stepLabel}</span> : null}
+            <h2 className={`${expandedText} mt-[1.2rem] text-[3rem] leading-[1.25] mobile:text-[2.4rem]`}>{title}</h2>
+            <div className="mt-[3.2rem] flex flex-col gap-[2.4rem]">{children}</div>
         </section>
     );
 }

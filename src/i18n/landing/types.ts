@@ -39,6 +39,7 @@ export type LayoutMessages = {
                 resources: string;
                 overview: string;
                 guide: string;
+                docs: string;
                 demo: string;
             };
             builtByCopy: string;
@@ -63,7 +64,7 @@ export type LayoutMessages = {
 export type FivepixelsMessages = {
     panelTitles: string[];
     intro: {
-        headline: [string, string];
+        headline: [string];
         announcement: string;
         bodyLine1: string;
         bodyHighlight: string;
@@ -85,10 +86,12 @@ export type FivepixelsMessages = {
     uiEdit: {
         beforeLabel: string;
         beforeTitle: string;
+        beforeDescription: string;
         beforeEyebrow: string;
         afterLabel: string;
         afterTitleLine1: string;
         afterTitleLine2: string;
+        afterDescription: string;
         afterEyebrow: string;
         searchPlaceholder: string;
         channelName: string;
@@ -161,10 +164,6 @@ export type ExampleMessages = {
         filter: string;
         profile: string;
         navAriaLabel: string;
-    };
-    shortcutHint: {
-        report: string;
-        view: string;
     };
     overview: {
         stats: { label: string; delta: string }[];

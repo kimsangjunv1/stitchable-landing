@@ -4,27 +4,6 @@
 
 @import "tailwindcss";
 
-.material-symbols-outlined {
-    font-family: "Material Symbols Outlined";
-    font-weight: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    font-variation-settings:
-        "FILL" 1,
-        "wght" 400,
-        "GRAD" 0,
-        "opsz" 20;
-}
-
 @theme {
     --breakpoint-mobile: 9.375rem; /* 344px 이상 */
     --breakpoint-tablet: 48rem; /* 768px 이상 */

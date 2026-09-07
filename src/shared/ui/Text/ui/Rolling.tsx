@@ -37,7 +37,7 @@ interface NumberColumnProps extends FontSizeProps {
     className: string;
     initialDigit: number;
     rollingCount: number;
-    size: any;
+    size: { text: string; height: string };
     delay: number;
     staggerDelay: number;
     columnIndex: number;

@@ -1,9 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
 import { useMemo, type ReactNode } from "react";
-import { useLocale, useMessages } from "@/app/providers/LocaleProvider";
+import { useMessages } from "@/app/providers/LocaleProvider";
 
 const FivePixels = dynamic(() => import("@fivepixels-js/react").then((mod) => mod.FivePixels), { ssr: false });
 
@@ -12,10 +11,7 @@ type FivePixelsProviderProps = {
 };
 
 export function FivePixelsProvider({ children }: FivePixelsProviderProps) {
-    const pathname = usePathname();
-    const { locale } = useLocale();
     const fivePixels = useMessages().example.fivePixels;
-    const isListPage = pathname.endsWith("/list");
 
     const fields = useMemo(
         () => [
@@ -28,12 +24,11 @@ export function FivePixelsProvider({ children }: FivePixelsProviderProps) {
 
     const ui = useMemo(
         () => ({
-            locale,
+            locale: "en" as const,
             appearance: "system" as const,
             showFeedbackList: true,
-            visibleShortcutKeys: true,
         }),
-        [isListPage, locale],
+        [],
     );
 
     return (

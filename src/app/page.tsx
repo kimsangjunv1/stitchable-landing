@@ -19,7 +19,7 @@ export const metadata = createPageMetadata({
 });
 
 const mainClassName = {
-    container: "min-h-screen bg-white text-[#050505]",
+    container: "min-h-screen bg-[var(--adaptive-background)] text-[var(--adaptive-text-primary)]",
     inner: "mx-0 max-w-none px-0",
 };
 

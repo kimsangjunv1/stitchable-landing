@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { useMessages } from "@/app/providers/LocaleProvider";
-import { emphasisEase, revealEase, revealViewport } from "@/shared/lib/motion";
+import { revealEase } from "@/shared/lib/motion";
 import type { FivepixelsMessages } from "@/i18n/landing/types";
+import { FivePixelsDemo } from "@fivepixels-js/react/demo";
 
 type SlackMessage = FivepixelsMessages["uiEdit"]["messages"][number];
 
@@ -97,17 +97,9 @@ function SlackMessageRow({
     );
 }
 
-function SlackSkeleton({
-    isInView,
-    prefersReducedMotion,
-    uiEdit,
-}: {
-    isInView: boolean;
-    prefersReducedMotion: boolean;
-    uiEdit: FivepixelsMessages["uiEdit"];
-}) {
+function SlackSkeleton({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean; prefersReducedMotion: boolean; uiEdit: FivepixelsMessages["uiEdit"] }) {
     return (
-        <div className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[100] flex w-[calc(100%-(1.6rem*4))] h-[calc(100%-(1.6rem*4))] overflow-hidden rounded-[0.8rem] font-['Helvetica_Neue',Helvetica,'Segoe_UI',Arial,sans-serif] shadow-[0_8px_24px_rgba(0,0,0,0.18)] border-[1px] border-[#ffffff90] p-[0.2rem]">
+        <div className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[100] flex w-[calc(100%-(1.6rem*4))] h-[calc(100%-(1.6rem*4))] overflow-hidden rounded-[0.8rem] font-['Helvetica_Neue',Helvetica,'Segoe_UI',Arial,sans-serif] shadow-[var(--shadow-popup)] border-[1px] border-[#ffffff90] p-[0.2rem]">
             <section className="flex rounded-[0.8rem] overflow-hidden">
                 {/* workspace rail */}
                 <div className="flex w-[5.4rem] shrink-0 flex-col items-center gap-[1.2rem] bg-[#350d36] py-[1.2rem]">
@@ -244,41 +236,19 @@ function SlackSkeleton({
 }
 
 export function UiEditSection() {
-    const sectionRef = useRef<HTMLElement>(null);
-    const isInView = useInView(sectionRef, revealViewport);
-    const prefersReducedMotion = useReducedMotion();
     const uiEdit = useMessages().fivepixels.uiEdit;
 
     return (
         <section
-            ref={sectionRef}
-            className="w-full px-[1.2rem] tablet:px-[2.4rem] bg-black"
+            className="w-full bg-[var(--fp-bg)] px-[1.2rem] tablet:px-[2.4rem]"
             id="ui-edit"
         >
-            <div className="mx-auto w-full max-w-[var(--size-pc)] overflow-hidden border-x border-x-[#333333]">
+            <div className="mx-auto w-full max-w-[var(--size-pc)] overflow-hidden border-x border-[var(--adaptive-border)]">
                 <Message
-                    isInView={isInView}
-                    prefersReducedMotion={!!prefersReducedMotion}
                     uiEdit={uiEdit}
                 />
 
-                <div
-                    className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 tablet:flex"
-                    aria-hidden="true"
-                >
-                    <motion.div
-                        className="flex h-[4.4rem] w-[4.4rem] items-center justify-center rounded-full border border-[#ededed] bg-white text-[1.2rem] font-[family-name:var(--font-fira-rebrand)] text-black/45 shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
-                        initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.85 }}
-                        animate={prefersReducedMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
-                        transition={prefersReducedMotion ? undefined : { delay: 1.6, duration: 0.5, ease: emphasisEase }}
-                    >
-                        →
-                    </motion.div>
-                </div>
-
                 <FeedbackMarker
-                    isInView={isInView}
-                    prefersReducedMotion={!!prefersReducedMotion}
                     uiEdit={uiEdit}
                 />
             </div>
@@ -286,34 +256,22 @@ export function UiEditSection() {
     );
 }
 
-function Message({
-    isInView,
-    prefersReducedMotion,
-    uiEdit,
-}: {
-    isInView: boolean;
-    prefersReducedMotion: boolean;
-    uiEdit: FivepixelsMessages["uiEdit"];
-}) {
+function Message({ uiEdit }: { uiEdit: FivepixelsMessages["uiEdit"] }) {
     return (
-        <div className="flex">
-            <div className="flex-1">
-                <div>
-                    <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-white/42">{uiEdit.beforeLabel}</span>
-                    <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-white [font-variation-settings:'wdth'_125]">{uiEdit.beforeTitle}</h3>
+        <div className="grid border-b border-[var(--adaptive-border)] tablet:grid-cols-2">
+            <article className="flex min-h-[24rem] flex-col justify-between p-[2.4rem] tablet:min-h-[42rem] tablet:p-[5.2rem]">
+                <div className="max-w-[42rem]">
+                    <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.beforeLabel}</span>
+                    <h3 className="mt-[1.2rem] text-[2.8rem] font-semibold leading-[1.2] text-[var(--fp-text-emphasis)] tablet:text-[3.2rem]">{uiEdit.beforeTitle}</h3>
+                    <p className="mt-[1.6rem] text-[1.6rem] leading-[1.55] text-[var(--fp-text-description)]">{uiEdit.beforeDescription}</p>
                 </div>
-                <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-white/35">{uiEdit.beforeEyebrow}</span>
-            </div>
+                <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.beforeEyebrow}</span>
+            </article>
 
-            <div className="flex-1 overflow-hidden relative">
-                <SlackSkeleton
-                    isInView={isInView}
-                    prefersReducedMotion={prefersReducedMotion}
-                    uiEdit={uiEdit}
-                />
+            <div className="relative flex min-h-[32rem] items-center justify-center overflow-hidden border-t border-[var(--adaptive-border)] p-[2.4rem] tablet:min-h-[42rem] tablet:border-l tablet:border-t-0">
                 <video
                     autoPlay
-                    className="h-full min-h-[32rem] w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                     loop
                     muted
                     playsInline
@@ -324,36 +282,25 @@ function Message({
                         type="video/mp4"
                     />
                 </video>
+                <FivePixelsDemo
+                    scene="marker-tooltip"
+                    locale="en"
+                    interaction="showcase"
+                    className="relative z-10"
+                    ariaLabel="Marker tooltip demo"
+                />
             </div>
         </div>
     );
 }
 
-function FeedbackMarker({
-    isInView,
-    prefersReducedMotion,
-    uiEdit,
-}: {
-    isInView: boolean;
-    prefersReducedMotion: boolean;
-    uiEdit: FivepixelsMessages["uiEdit"];
-}) {
+function FeedbackMarker({ uiEdit }: { uiEdit: FivepixelsMessages["uiEdit"] }) {
     return (
-        <div className="flex h-[50svh]">
-            <motion.div
-                className="relative flex-1 bg-[#444444] flex items-center justify-center"
-                // initial={prefersReducedMotion ? false : { opacity: 0, x: 24 }}
-                // animate={prefersReducedMotion || isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
-                // transition={prefersReducedMotion ? undefined : { delay: 1.4, duration: 0.65, ease: revealEase }}
-            >
-                <img
-                    src={"/test-screenshot.png"}
-                    alt=""
-                    className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] w-[calc(100%-(1.6rem*4))] h-[calc(100%-(1.6rem*4))] object-contain bg-[#ededed] rounded-[1.6rem]"
-                />
+        <div className="grid tablet:grid-cols-2">
+            <div className="order-2 relative flex min-h-[32rem] items-center justify-center overflow-hidden border-t border-[var(--adaptive-border)] p-[2.4rem] tablet:order-1 tablet:min-h-[42rem] tablet:border-r tablet:border-t-0 tablet:p-[4rem]">
                 <video
                     autoPlay
-                    className="h-full min-h-[32rem] w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                     loop
                     muted
                     playsInline
@@ -364,20 +311,29 @@ function FeedbackMarker({
                         type="video/mp4"
                     />
                 </video>
-            </motion.div>
+                <FivePixelsDemo
+                    scene="feedback-composer"
+                    locale="en"
+                    interaction="showcase"
+                    className="absolute left-1/2 top-1/2 z-10 origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.73] tablet:scale-100"
+                    style={{ maxWidth: "none" }}
+                    ariaLabel="Feedback composer demo"
+                />
+            </div>
 
-            <div className="flex-1 flex items-end justify-between gap-[1.6rem] border-b border-b-[#333333]">
-                <div>
-                    <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.2rem] text-white/42">{uiEdit.afterLabel}</span>
-                    <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-white [font-variation-settings:'wdth'_125]">
+            <article className="order-1 flex min-h-[24rem] flex-col justify-between p-[2.4rem] tablet:order-2 tablet:min-h-[42rem] tablet:p-[5.2rem]">
+                <div className="max-w-[42rem]">
+                    <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.afterLabel}</span>
+                    <h3 className="mt-[1.2rem] text-[2.8rem] font-semibold leading-[1.2] text-[var(--fp-text-emphasis)] tablet:text-[3.2rem]">
                         {uiEdit.afterTitleLine1}
                         <br />
                         {uiEdit.afterTitleLine2}
                     </h3>
+                    <p className="mt-[1.6rem] text-[1.6rem] leading-[1.55] text-[var(--fp-text-description)]">{uiEdit.afterDescription}</p>
                 </div>
 
-                <span className="font-[family-name:var(--font-fira-rebrand)] text-[1.1rem] text-white/35">{uiEdit.afterEyebrow}</span>
-            </div>
+                <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.afterEyebrow}</span>
+            </article>
         </div>
     );
 }

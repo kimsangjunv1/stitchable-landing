@@ -5,7 +5,7 @@ export const fivepixelsEn: FivepixelsMessages = {
         "Why do so many teams\nstill struggle to adopt QA tools?",
         "Three steps is enough now",
         "No more explaining things in words",
-        "Packed with features",
+        "Only the review features you need",
         "Flexible ways to work",
         "Built for individuals",
         "Teams that need QA right now",
@@ -13,20 +13,20 @@ export const fivepixelsEn: FivepixelsMessages = {
         "Questions before you adopt",
     ],
     intro: {
-        headline: ["A Tool for", "Comfortable QA"],
-        announcement: "May 29: We've added 3 new solution pages",
-        bodyLine1: "Leave feedback right on the screen you're reviewing.",
-        bodyHighlight: "Start light",
-        bodyLine2: "pin it where you click, and escalate to an issue only when you need to.",
-        demoCta: "View on 2'm",
-        guideCta: "5'm guide",
+        headline: ["Excellence Easy Way For QA"],
+        announcement: "React 18+ · MIT · @fivepixels-js/react 0.2.24",
+        bodyLine1: "You do not need a heavyweight QA platform.",
+        bodyHighlight: "Click the exact location",
+        bodyLine2: "review it with the team, and promote it to an issue only when needed.",
+        demoCta: "Live demo",
+        guideCta: "5-minute guide",
     },
     pain: {
         eyebrow: "WHY TEAMS MISS THINGS",
-        titleLine1: "A learning curve",
-        titleLine2: "that's too steep",
-        bodyLine1: "The QA tool you adopted to help the team",
-        bodyLine2: "becomes the bottleneck—and adoption gets abandoned",
+        titleLine1: "Why does feedback",
+        titleLine2: "keep losing context?",
+        bodyLine1: "The moment feedback leaves the screen for screenshots and chat,",
+        bodyLine2: "the team starts explaining the location and intent all over again.",
         cards: [
             {
                 eyebrow: "01 / CONTEXT",
@@ -70,13 +70,15 @@ export const fivepixelsEn: FivepixelsMessages = {
         ],
     },
     uiEdit: {
-        beforeLabel: "BEFORE",
-        beforeTitle: "The chat loop",
-        beforeEyebrow: "CHAT LOOP",
-        afterLabel: "AFTER",
-        afterTitleLine1: "Right on screen",
-        afterTitleLine2: "agree on before / after",
-        afterEyebrow: "DIRECT MARKER",
+        beforeLabel: "01 / PINPOINT",
+        beforeTitle: "Click the exact spot",
+        beforeDescription: "Place feedback on the element itself, so nobody has to decode screenshots or ask which button you meant.",
+        beforeEyebrow: "MARKER TOOLTIP",
+        afterLabel: "02 / DESCRIBE",
+        afterTitleLine1: "Add the context once",
+        afterTitleLine2: "right where it matters",
+        afterDescription: "Write the change, intent, and owner in one place, then return to the same screen for confirmation.",
+        afterEyebrow: "FEEDBACK COMPOSER",
         searchPlaceholder: "Search fivepixels",
         channelName: "# project-eagle",
         channelTopic: "Optional topic",
@@ -168,8 +170,8 @@ export const fivepixelsEn: FivepixelsMessages = {
         },
         {
             icon: "rocket_launch",
-            title: "Half-day setup",
-            description: "Mount it on a React app in half a day",
+            title: "Quick setup",
+            description: "Add it once near the root of your React app",
         },
         {
             icon: "person_pin",
@@ -183,8 +185,8 @@ export const fivepixelsEn: FivepixelsMessages = {
         },
         {
             icon: "sd_storage",
-            title: "localStorage demo",
-            description: "Try it in the browser with no backend",
+            title: "Try without a backend",
+            description: "Save feedback in your current browser",
         },
         {
             icon: "filter_1",
@@ -193,17 +195,17 @@ export const fivepixelsEn: FivepixelsMessages = {
         },
         {
             icon: "lock_open",
-            title: "devOnly setting",
-            description: "Limit exposure before production with `visibility.devOnly`",
+            title: "Hide it on your live site",
+            description: "Use `visibility.devOnly` while your team reviews staging",
         },
     ],
     developerRelief: {
         tabAriaLabel: "Adoption paths",
-        guideLink: "Install guide",
+        guideLink: "Start setup",
         steps: [
             {
                 id: "solo",
-                tabLabel: "Solo, without a backend",
+                tabLabel: "Just me · No backend",
                 eyebrow: "FOR SOLO",
                 title: "Install once and you're done",
                 description: "Use it personally without an API or server",
@@ -238,13 +240,12 @@ npm install @fivepixels-js/react react react-dom
             },
             {
                 id: "team",
-                tabLabel: "Team collaboration without a backend",
+                tabLabel: "Small team · Share a file",
                 eyebrow: "FOR FE TEAMS",
                 title: "Collaborate even without a server",
-                description:
-                    "Leave feedback on staging without a backend, then pass JSON import/export files between teammates.",
+                description: "Leave feedback on staging without a backend, then pass JSON import/export files between teammates.",
                 note: "* This is file-based collaboration, not real-time sync.\nThat's why QA works without a backend.",
-                code: `// No handler = localStorage persistence
+                code: `// No adapter = saved in this browser
 <FivePixels
   project={{ id: "my-app", env: "stage" }}
 />
@@ -269,16 +270,14 @@ npm install @fivepixels-js/react react react-dom
             },
             {
                 id: "api",
-                tabLabel: "Team collaboration with API integration",
+                tabLabel: "Team · Connect API",
                 eyebrow: "FOR PRODUCT TEAMS",
                 title: "Connect to your infrastructure",
-                description:
-                    "As the team grows, connect handlers to your API, GitHub, and notification channels. Serverless is enough to start.",
+                description: "As the team grows, connect Fivepixels to your backend with FivePixelsAdapter and share the same feedback across browsers.",
                 code: `<FivePixels
   project={{ id: "my-app", env: "stage" }}
-  onList={fetchFeedbacks}
-  onCreate={createFeedback}
-  onUpdate={updateFeedback}
+  sync="api"
+  adapter={adapter}
   onEvent={(event) => notifyTeam(event)}
   github={{
     enabled: true,
@@ -288,8 +287,8 @@ npm install @fivepixels-js/react react react-dom
 />`,
                 highlights: [
                     {
-                        title: "Your own REST API",
-                        detail: "Wire up your existing backend with onList / onCreate / onUpdate.",
+                        title: "Connect your backend",
+                        detail: "FivePixelsAdapter connects feedback and review data to your API.",
                     },
                     {
                         title: "GitHub Issues",
@@ -346,8 +345,8 @@ npm install @fivepixels-js/react react react-dom
                 detail: "Closer to attaching what you need than counting seats or seat limits.",
             },
             {
-                label: "Try locally first",
-                detail: "Validate the localStorage flow before wiring full persistence.",
+                label: "Start without a backend",
+                detail: "Try the localStorage setup before connecting your API.",
             },
             {
                 label: "Client-ready handoff",
@@ -358,8 +357,8 @@ npm install @fivepixels-js/react react react-dom
         rolloutSteps: [
             {
                 day: "DAY 0",
-                title: "Install and mount once",
-                description: "Attach at the app root and use visibility.devOnly so it only shows in review environments.",
+                title: "Install and add it once",
+                description: "Add Fivepixels near the app root and use visibility.devOnly so it only shows during review.",
             },
             {
                 day: "DAY 1",
@@ -368,18 +367,17 @@ npm install @fivepixels-js/react react react-dom
             },
             {
                 day: "DAY 2+",
-                title: "Add handlers and rules",
-                description: "Add persistence, triage rules, and existing issue flows only when you need them.",
+                title: "Connect your backend when needed",
+                description: "Add shared saving, team rules, and GitHub Issues only when the team needs them.",
             },
         ],
         clientNoteEyebrow: "CLIENT NOTE",
-        clientNote:
-            "Open the staging link, click where a change is needed, and leave feedback right on the screen. No extra tool training required.",
+        clientNote: "Open the staging link, click where a change is needed, and leave feedback right on the screen. No extra tool training required.",
     },
     faq: [
         {
             question: "Does it change code automatically?",
-            answer: "No. It helps you leave precise feedback, confirm it, and hand off into the issue flow your team already uses.",
+            answer: "No. UI Edit lasts only for the current tab session and resets on refresh. fivepixels supports review and communication; it never edits the codebase automatically.",
         },
         {
             question: "Can clients use it right away?",
@@ -387,7 +385,7 @@ npm install @fivepixels-js/react react react-dom
         },
         {
             question: "Do I need a backend from day one?",
-            answer: "Not necessarily. Start with the localStorage flow, then connect handlers when you need shared persistence.",
+            answer: "No. Start with localStorage, then connect your API when teammates need to see the same feedback.",
         },
         {
             question: "How much setup is involved?",
