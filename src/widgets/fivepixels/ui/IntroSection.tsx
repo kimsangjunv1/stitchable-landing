@@ -18,11 +18,12 @@ export function IntroSection() {
         >
             <section className="flex items-end gap-[2.4rem] h-full">
                 <section className="flex-1 p-[5.2rem]">
-                    <WeightWaveText
+                    {/* <WeightWaveText
                         as="h1"
                         className="text-[7.8rem] leading-[1.3] font-semibold"
                         lines={intro.headline}
-                    />
+                    /> */}
+                    <h1 className="text-[7.8rem] leading-[1.2] font-semibold">{intro.headline}</h1>
                 </section>
 
                 <div className="h-full w-[0.1rem] bg-[var(--adaptive-border)]" />
