@@ -13,7 +13,7 @@ export const fivepixelsEn: FivepixelsMessages = {
         "Questions before you adopt",
     ],
     intro: {
-        headline: ["Skip screenshots and Slack,", "review on the real screen"],
+        headline: ["Excellence Easy Way For QA"],
         announcement: "React 18+ · MIT · @fivepixels-js/react 0.2.24",
         bodyLine1: "You do not need a heavyweight QA platform.",
         bodyHighlight: "Click the exact location",
@@ -70,13 +70,15 @@ export const fivepixelsEn: FivepixelsMessages = {
         ],
     },
     uiEdit: {
-        beforeLabel: "BEFORE",
-        beforeTitle: "The chat loop",
-        beforeEyebrow: "CHAT LOOP",
-        afterLabel: "AFTER",
-        afterTitleLine1: "Right on screen",
-        afterTitleLine2: "agree on before / after",
-        afterEyebrow: "DIRECT MARKER",
+        beforeLabel: "01 / PINPOINT",
+        beforeTitle: "Click the exact spot",
+        beforeDescription: "Place feedback on the element itself, so nobody has to decode screenshots or ask which button you meant.",
+        beforeEyebrow: "MARKER TOOLTIP",
+        afterLabel: "02 / DESCRIBE",
+        afterTitleLine1: "Add the context once",
+        afterTitleLine2: "right where it matters",
+        afterDescription: "Write the change, intent, and owner in one place, then return to the same screen for confirmation.",
+        afterEyebrow: "FEEDBACK COMPOSER",
         searchPlaceholder: "Search fivepixels",
         channelName: "# project-eagle",
         channelTopic: "Optional topic",
@@ -241,8 +243,7 @@ npm install @fivepixels-js/react react react-dom
                 tabLabel: "Small team · Share a file",
                 eyebrow: "FOR FE TEAMS",
                 title: "Collaborate even without a server",
-                description:
-                    "Leave feedback on staging without a backend, then pass JSON import/export files between teammates.",
+                description: "Leave feedback on staging without a backend, then pass JSON import/export files between teammates.",
                 note: "* This is file-based collaboration, not real-time sync.\nThat's why QA works without a backend.",
                 code: `// No adapter = saved in this browser
 <FivePixels
@@ -272,8 +273,7 @@ npm install @fivepixels-js/react react react-dom
                 tabLabel: "Team · Connect API",
                 eyebrow: "FOR PRODUCT TEAMS",
                 title: "Connect to your infrastructure",
-                description:
-                    "As the team grows, connect Fivepixels to your backend with FivePixelsAdapter and share the same feedback across browsers.",
+                description: "As the team grows, connect Fivepixels to your backend with FivePixelsAdapter and share the same feedback across browsers.",
                 code: `<FivePixels
   project={{ id: "my-app", env: "stage" }}
   sync="api"
@@ -372,8 +372,7 @@ npm install @fivepixels-js/react react react-dom
             },
         ],
         clientNoteEyebrow: "CLIENT NOTE",
-        clientNote:
-            "Open the staging link, click where a change is needed, and leave feedback right on the screen. No extra tool training required.",
+        clientNote: "Open the staging link, click where a change is needed, and leave feedback right on the screen. No extra tool training required.",
     },
     faq: [
         {
