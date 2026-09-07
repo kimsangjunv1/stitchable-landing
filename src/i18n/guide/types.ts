@@ -14,7 +14,9 @@ export type GuideBlock =
     | { type: "table"; headers: string[]; rows: GuideTableCell[][] }
     | { type: "subheading"; text: string; id?: string }
     | { type: "link"; href: string; label: string }
+    | { type: "actions"; links: { href: string; label: string; description?: string }[] }
     | { type: "copy"; label: string; text: string }
+    | { type: "customSetup"; mode: "local" | "api" }
     | { type: "tabs"; tabs: { label: string; blocks: GuideBlock[] }[] };
 
 export type GuideSectionVariant = "quick-start" | "reference";

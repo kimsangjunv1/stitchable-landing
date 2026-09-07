@@ -18,7 +18,7 @@ export function TestModal({ onClose }: TestModalProps) {
                     Test modal
                 </h2>
                 <button
-                    className="mt-6 border border-[#050505] px-4 py-2 font-[family-name:var(--font-pretendard)]"
+                    className="mt-6 border border-[#050505] px-4 py-2 font-[family-name:var(--font-manrope)]"
                     type="button"
                     onClick={onClose}
                 >

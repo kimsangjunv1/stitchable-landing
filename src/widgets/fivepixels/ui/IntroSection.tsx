@@ -6,7 +6,7 @@ import { useMessages } from "@/app/providers/LocaleProvider";
 import { MaterialIcon } from "@/widgets/layout/MaterialIcon";
 import { WeightWaveText } from "@/widgets/fivepixels/ui/WeightWaveText";
 
-const expandedText = "font-[family-name:var(--font-pretendard)] font-semibold";
+const expandedText = "font-[family-name:var(--font-manrope)] font-semibold";
 
 export function IntroSection() {
     const intro = useMessages().fivepixels.intro;
@@ -48,7 +48,7 @@ export function IntroSection() {
 
                     <div className="flex flex-col gap-[2.4rem]">
                         <Link
-                            className="flex w-max items-center gap-[1.6rem] rounded-[1.6rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[1.2rem_1.6rem] font-[family-name:var(--font-pretendard)]"
+                            className="flex w-max items-center gap-[1.6rem] rounded-[1.6rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[1.2rem_1.6rem] font-[family-name:var(--font-manrope)]"
                             href="/docs/setup#install"
                         >
                             npm i @fivepixels-js/react <div className="h-full w-[0.1rem] bg-[var(--adaptive-text-primary)]" />

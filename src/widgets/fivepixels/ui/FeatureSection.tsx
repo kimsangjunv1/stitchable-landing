@@ -24,7 +24,7 @@ export function FeatureSection() {
                                     size={26}
                                     className="text-primary"
                                 />
-                                <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-[var(--adaptive-text-muted)]">{String(index + 1).padStart(2, "0")}</span>
+                                <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--adaptive-text-muted)]">{String(index + 1).padStart(2, "0")}</span>
                             </div>
                         </div>
                         <div className="flex flex-col gap-[0.4rem]">

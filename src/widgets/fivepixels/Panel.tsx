@@ -9,7 +9,7 @@ export default function Panel() {
 
     return (
         <FivepixelsPageProvider>
-            <main className="relative min-h-screen overflow-hidden bg-[var(--fp-bg)] font-[family-name:var(--font-pretendard)] text-[18px] text-[var(--fp-text-emphasis)] flex flex-col pt-[10.5rem]">
+            <main className="relative min-h-screen overflow-hidden bg-[var(--fp-bg)] font-[family-name:var(--font-inter)] text-[18px] text-[var(--fp-text-emphasis)] flex flex-col pt-[10.5rem]">
                 <Layer.IntroSection />
                 <Layer.HeroImageSection />
                 <Layer.TitleSection value={panelTitles[0]} />

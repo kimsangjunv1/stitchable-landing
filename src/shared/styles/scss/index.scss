@@ -12,6 +12,15 @@ body {
         color 180ms ease;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-manrope);
+}
+
 .theme-toggle__sun {
     display: none;
 }

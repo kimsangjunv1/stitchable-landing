@@ -8,12 +8,12 @@ export function Callout({ text, variant = "info" }: { text: string; variant?: "i
     return (
         <div
             className={cn(
-                "flex gap-[1.2rem] border px-[1.6rem] py-[1.2rem] text-[1.5rem] leading-[1.5] text-[var(--adaptive-text-secondary)]",
-                variant === "warning" ? "border-[#f6572e]/30 bg-[var(--adaptive-orange50)]" : "border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]",
+                "flex gap-[1.2rem] rounded-[0.8rem] border px-[1.8rem] py-[1.6rem] text-[1.5rem] leading-[1.5] text-[var(--adaptive-text-secondary)]",
+                variant === "warning" ? "border-[var(--adaptive-accent-coral)]/30 bg-[var(--adaptive-grey50)]" : "border-[var(--adaptive-border)] bg-[var(--adaptive-grey50)]",
             )}
         >
             <Icon
-                className="mt-[0.2rem] size-[1.6rem] shrink-0 text-[#ff4b2e]"
+                className="mt-[0.2rem] size-[1.6rem] shrink-0 text-[var(--adaptive-accent-coral)]"
                 aria-hidden
             />
             <p>

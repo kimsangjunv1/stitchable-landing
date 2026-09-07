@@ -31,6 +31,7 @@ function FivepixelsSiteHeader({ pathname, megaMenus }: { pathname: string; megaM
     const previousMenuIdRef = useRef<string | null>(null);
     const { header } = useMessages().layout;
     const activeMegaMenuId = getActiveMegaMenuId(pathname);
+    const isDocumentation = pathname.startsWith("/guides") || pathname.startsWith("/docs") || pathname === "/guide";
     const openMenu = megaMenus.find((menu) => menu.id === openMenuId) ?? null;
     const closeMenu = useCallback(() => {
         previousMenuIdRef.current = null;
@@ -64,7 +65,7 @@ function FivepixelsSiteHeader({ pathname, megaMenus }: { pathname: string; megaM
             className="fixed top-0 z-[100] w-full"
             onMouseLeave={closeMenu}
         >
-            <header className="border-b border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] pt-[3.2rem] font-[family-name:var(--font-pretendard)] text-[var(--adaptive-text-primary)] transition-colors">
+            <header className={cn("border-b border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] font-[family-name:var(--font-manrope)] text-[var(--adaptive-text-primary)] transition-colors", !isDocumentation && "pt-[3.2rem]")}>
                 <div className="mx-auto flex w-full max-w-[var(--size-pc)] items-center justify-between border-x border-x-[var(--adaptive-border)] px-[1.6rem] tablet:px-[2.4rem]">
                     <section className="flex items-center gap-[2.4rem]">
                         <Link
@@ -92,19 +93,22 @@ function FivepixelsSiteHeader({ pathname, megaMenus }: { pathname: string; megaM
                         </Link>
 
                         <div className="h-[7.2rem] w-[0.1rem] bg-[var(--adaptive-border)]" />
+                        <nav
+                            className={cn("ml-[1.6rem] flex min-w-0 items-center leading-none", isDocumentation && "max-[900px]:hidden")}
+                            aria-label={header.navAriaLabel}
+                        >
+                            <MegaMenuBar
+                                activeMenuId={activeMegaMenuId}
+                                menus={megaMenus}
+                                onOpenChange={handleOpenChange}
+                                openMenuId={openMenuId}
+                            />
+                        </nav>
                     </section>
 
-                    <nav
-                        className="ml-[1.6rem] flex min-w-0 items-center overflow-x-auto leading-none"
-                        aria-label={header.navAriaLabel}
-                    >
-                        <MegaMenuBar
-                            activeMenuId={activeMegaMenuId}
-                            menus={megaMenus}
-                            onOpenChange={handleOpenChange}
-                            openMenuId={openMenuId}
-                        />
+                    <section className={cn("flex items-center gap-[0.4rem]", isDocumentation && "max-[900px]:hidden")}>
                         <span className="mx-[1rem] h-[2.4rem] w-px shrink-0 bg-[var(--adaptive-border)]" />
+
                         <div className="flex shrink-0 items-center gap-[0.2rem]">
                             {contentNavItems.map((item) => {
                                 const isActive = pathname.startsWith(item.href);
@@ -124,14 +128,14 @@ function FivepixelsSiteHeader({ pathname, megaMenus }: { pathname: string; megaM
                                 );
                             })}
                         </div>
-                        <ThemeToggle />
-                    </nav>
 
+                        <ThemeToggle />
+                    </section>
                 </div>
             </header>
 
             {openMenu ? (
-                <div className="pointer-events-none absolute top-[9.2rem] inset-x-0 px-[1.2rem] pt-[1.2rem] tablet:px-[2.4rem]">
+                <div className={cn("pointer-events-none absolute inset-x-0 px-[1.2rem] pt-[1.2rem] tablet:px-[2.4rem]", isDocumentation ? "top-[7.2rem]" : "top-[9.2rem]")}>
                     <div className="pointer-events-auto mx-auto w-full max-w-[var(--size-pc)]">
                         <MegaMenuFloatingPanel
                             direction={slideDirection}

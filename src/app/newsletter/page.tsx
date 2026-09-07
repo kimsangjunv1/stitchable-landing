@@ -14,7 +14,7 @@ export default function NewsletterPage() {
         <main className="min-h-screen bg-[var(--adaptive-background)] pt-[calc(var(--site-banner-height)+7.2rem)] text-[var(--adaptive-text-primary)]">
             <div className="mx-auto w-full max-w-[115.2rem] px-[1.6rem] py-[5.6rem] tablet:px-[6.4rem] tablet:py-[8rem] pc:px-[9.6rem]">
                 <header className="max-w-[72rem] border-b border-[var(--adaptive-border)] pb-[4.8rem]">
-                    <span className="text-[1.1rem] font-semibold uppercase tracking-[0.16em] text-[#f6572e]">Field notes</span>
+                    <span className="text-[1.1rem] font-semibold uppercase tracking-[0.16em] text-[var(--adaptive-accent-coral)]">Field notes</span>
                     <h1 className="mt-[1.4rem] text-[4.4rem] font-semibold tracking-[-0.055em] tablet:text-[6.4rem]">Newsletter</h1>
                     <p className="mt-[1.6rem] text-[1.8rem] leading-[1.7] text-[var(--adaptive-text-muted)]">Short, practical notes on keeping product feedback close to the interface.</p>
                 </header>

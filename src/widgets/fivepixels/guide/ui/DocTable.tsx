@@ -14,7 +14,7 @@ function TableCell({ cell }: { cell: GuideTableCell }) {
                 <a
                     key={`${link.href}-${link.label}`}
                     href={link.href}
-                    className="inline-flex items-center gap-[0.4rem] font-semibold text-[#3182f6] whitespace-nowrap transition-colors hover:text-[#1b64da]"
+                    className="inline-flex items-center gap-[0.4rem] font-medium text-[var(--adaptive-accent-coral)] whitespace-nowrap transition-colors hover:text-[var(--adaptive-accent-coral-hover)]"
                 >
                     {link.label}
                     <span aria-hidden>→</span>
@@ -26,14 +26,14 @@ function TableCell({ cell }: { cell: GuideTableCell }) {
 
 export function DocTable({ headers, rows }: { headers: string[]; rows: GuideTableCell[][] }) {
     return (
-        <div className="overflow-x-auto border border-[var(--adaptive-border)]">
+        <div className="overflow-x-auto rounded-[0.8rem] border border-[var(--adaptive-border)]">
             <table className="w-full min-w-[48rem] border-collapse text-left text-[1.4rem]">
                 <thead>
-                    <tr className="border-b border-[var(--adaptive-border)] bg-[var(--adaptive-surface-muted)]">
+                    <tr className="border-b border-[var(--adaptive-border)] bg-[var(--adaptive-grey50)]">
                         {headers.map((h) => (
                             <th
                                 key={h}
-                                className="px-[1.6rem] py-[1.2rem] font-semibold text-[var(--adaptive-text-primary)]"
+                                className="px-[1.6rem] py-[1.4rem] font-[family-name:var(--font-manrope)] font-semibold text-[var(--adaptive-text-primary)]"
                             >
                                 {h}
                             </th>
@@ -49,7 +49,7 @@ export function DocTable({ headers, rows }: { headers: string[]; rows: GuideTabl
                             {row.map((cell, j) => (
                                 <td
                                     key={j}
-                                    className="px-[1.6rem] py-[1.2rem] align-top text-[var(--adaptive-text-secondary)]"
+                                    className="px-[1.6rem] py-[1.4rem] align-top leading-[1.5] text-[var(--adaptive-text-secondary)]"
                                 >
                                     <TableCell cell={cell} />
                                 </td>

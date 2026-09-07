@@ -13,8 +13,8 @@ export function CompareSection() {
             <div className="mx-auto flex w-full max-w-[var(--size-pc)] flex-col gap-[2.4rem]">
                 <div className="overflow-hidden border border-[var(--adaptive-border)]">
                     <div className="grid grid-cols-2 bg-[var(--fp-bg)] text-[var(--fp-text-emphasis)]">
-                        <div className="p-[1.6rem] font-[family-name:var(--font-pretendard)] text-[1.3rem]">{compare.beforeHeader}</div>
-                        <div className="border-l border-[var(--adaptive-border)] p-[1.6rem] font-[family-name:var(--font-pretendard)] text-[1.3rem]">{compare.afterHeader}</div>
+                        <div className="p-[1.6rem] font-[family-name:var(--font-manrope)] text-[1.3rem]">{compare.beforeHeader}</div>
+                        <div className="border-l border-[var(--adaptive-border)] p-[1.6rem] font-[family-name:var(--font-manrope)] text-[1.3rem]">{compare.afterHeader}</div>
                     </div>
 
                     <div className="grid gap-[1px] bg-[var(--adaptive-border)]">

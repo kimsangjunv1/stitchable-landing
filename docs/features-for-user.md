@@ -381,7 +381,6 @@ fields={[
 | `onDelete` | 삭제 handler |
 | `onListAll` | 전체 페이지 목록 + cursor 페이지네이션 |
 | `onNavigate` | View 모드에서 다른 경로 피드백 클릭 시 이동 |
-| `onRevealTarget` | 숨겨진 UI(모달·탭 등)를 열어 대상 요소 노출 |
 | `onEvent` | create / update / delete / reply / github 이벤트 |
 | `onReply` | 답변 작성 시 side effect |
 | `github` | GitHub Issue 연동 설정 |
@@ -424,18 +423,6 @@ const adapter = createLocalStorageReportAdapter({
 ```
 
 `ReportStorageAdapter` 인터페이스: `list`, `create`, `update`, `remove?`, `listAll?`
-
-### onRevealTarget — 숨겨진 요소 열기
-
-모달·아코디언·탭 안에 있는 요소는 처음에 DOM에 없을 수 있습니다. 피드백 클릭 시 호스트 앱이 해당 UI를 열어 주면 위치 복원이 정확해집니다.
-
-```tsx
-onRevealTarget={async (report) => {
-    // 예: 모달 id가 report.report_id와 같으면 모달 열기
-    openModal(report.report_id);
-    return true; // 열기 성공
-}}
-```
 
 ### motion 유틸
 

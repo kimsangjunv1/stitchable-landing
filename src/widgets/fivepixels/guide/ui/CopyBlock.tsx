@@ -25,15 +25,15 @@ export function CopyBlock({ label, text }: { label: string; text: string }) {
     }, [text]);
 
     return (
-        <div className="border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]">
+        <div className="overflow-hidden rounded-[0.8rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]">
             <div className="flex items-center justify-between border-b border-[var(--adaptive-border)] px-[1.6rem] py-[1.2rem]">
-                <strong className="text-[1.4rem]">{label}</strong>
-                <button type="button" onClick={copy} className="inline-flex items-center gap-[0.6rem] text-[1.3rem] text-[var(--adaptive-text-secondary)] hover:text-[var(--adaptive-text-primary)]">
+                <strong className="font-[family-name:var(--font-manrope)] text-[1.4rem]">{label}</strong>
+                <button type="button" onClick={copy} className="inline-flex items-center gap-[0.6rem] text-[1.3rem] text-[var(--adaptive-text-muted)] hover:text-[var(--adaptive-text-primary)]">
                     {copied ? <Check className="size-[1.5rem]" aria-hidden /> : <Copy className="size-[1.5rem]" aria-hidden />}
                     {copied ? codeCopied : label}
                 </button>
             </div>
-            <pre className="whitespace-pre-wrap p-[1.6rem] font-[family-name:var(--font-pretendard)] text-[1.5rem] leading-[1.7] text-[var(--adaptive-text-secondary)]">{text}</pre>
+            <pre className="whitespace-pre-wrap p-[1.6rem] font-[family-name:var(--font-inter)] text-[1.5rem] leading-[1.5] text-[var(--adaptive-text-secondary)]">{text}</pre>
         </div>
     );
 }

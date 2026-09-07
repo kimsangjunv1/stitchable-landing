@@ -10,18 +10,21 @@ import { Footer } from "@/widgets/layout/Footer";
 import { Header } from "@/widgets/layout/Header";
 import { SiteBanner } from "@/widgets/layout/SiteBanner";
 
+import "@fontsource-variable/inter/wght.css";
 import "@/shared/styles/scss/globals.css";
 import "@/shared/styles/scss/index.scss";
 
-const pretendard = localFont({
+const manrope = localFont({
     src: [
-        { path: "../../public/fonts/pretendard/woff2/Pretendard-Regular.subset.woff2", weight: "400", style: "normal" },
-        { path: "../../public/fonts/pretendard/woff2/Pretendard-Medium.subset.woff2", weight: "500", style: "normal" },
-        { path: "../../public/fonts/pretendard/woff2/Pretendard-SemiBold.subset.woff2", weight: "600", style: "normal" },
-        { path: "../../public/fonts/pretendard/woff2/Pretendard-Bold.subset.woff2", weight: "700", style: "normal" },
-        { path: "../../public/fonts/pretendard/woff2/Pretendard-ExtraBold.subset.woff2", weight: "800", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-ExtraLight.woff2", weight: "200", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-Light.woff2", weight: "300", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-Regular.woff2", weight: "400", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-Medium.woff2", weight: "500", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-SemiBold.woff2", weight: "600", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-Bold.woff2", weight: "700", style: "normal" },
+        { path: "../../public/fonts/manrope/woff2/Manrope-ExtraBold.woff2", weight: "800", style: "normal" },
     ],
-    variable: "--font-pretendard",
+    variable: "--font-manrope",
     display: "swap",
 });
 
@@ -65,7 +68,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={pretendard.variable}
+            className={manrope.variable}
             suppressHydrationWarning
         >
             <head>
@@ -75,7 +78,7 @@ export default function RootLayout({
                 />
                 <JsonLd />
             </head>
-            <body className="bg-[var(--fp-bg)] font-[family-name:var(--font-pretendard)] text-[var(--fp-text-emphasis)] antialiased">
+            <body className="bg-[var(--fp-bg)] font-[family-name:var(--font-inter)] text-[var(--fp-text-emphasis)] antialiased">
                 <LenisProvider>
                     <GlobalErrorBoundary>
                         <GlobalErrorListener>

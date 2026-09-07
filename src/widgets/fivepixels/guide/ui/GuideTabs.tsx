@@ -9,8 +9,8 @@ export function GuideTabs({ tabs, renderBlocks }: { tabs: { label: string; block
     const activeTab = tabs[activeIndex];
 
     return (
-        <div className="overflow-hidden border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]">
-            <div className="flex border-b border-[var(--adaptive-border)]" role="tablist">
+        <div className="overflow-hidden rounded-[0.8rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)]">
+            <div className="flex border-b border-[var(--adaptive-border)] bg-[var(--adaptive-grey50)] p-[0.4rem]" role="tablist">
                 {tabs.map((tab, index) => (
                     <button
                         key={tab.label}
@@ -18,8 +18,8 @@ export function GuideTabs({ tabs, renderBlocks }: { tabs: { label: string; block
                         role="tab"
                         aria-selected={activeIndex === index}
                         className={cn(
-                            "flex-1 px-[1.6rem] py-[1.2rem] text-[1.4rem] font-semibold transition-colors",
-                            activeIndex === index ? "bg-[var(--adaptive-surface-inverse)] text-[var(--adaptive-text-inverse)]" : "text-[var(--adaptive-text-secondary)] hover:bg-[var(--adaptive-greyOpacity50)] hover:text-[var(--adaptive-text-primary)]",
+                            "flex-1 rounded-[0.6rem] px-[1.6rem] py-[1.1rem] text-[1.4rem] font-medium transition-colors",
+                            activeIndex === index ? "bg-[var(--adaptive-surface)] text-[var(--adaptive-text-primary)] shadow-[var(--adaptive-popup-shadow)]" : "text-[var(--adaptive-text-muted)] hover:text-[var(--adaptive-text-primary)]",
                         )}
                         onClick={() => setActiveIndex(index)}
                     >

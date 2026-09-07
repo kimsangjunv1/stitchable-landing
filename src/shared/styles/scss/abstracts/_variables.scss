@@ -1,10 +1,11 @@
 :root {
     /* 폰트 */
-    --custom-font: var(--font-pretendard);
+    --custom-font: var(--font-manrope);
+    --font-inter: "Inter Variable", Inter, Arial, sans-serif;
     --root-font-size: 62.5%;
     --default-font-size: 1.8rem;
 
-    --preview-font: var(--font-pretendard);
+    --preview-font: var(--font-manrope);
 
     /* 헤더, 푸터, 배너 크기 */
     --button-height: 4rem;
@@ -71,8 +72,8 @@
         inset 0 0 0 4px var(--adaptive-grey500), 0 19px 8px #731f0803, 0 11px 6px #731f080a, 0 5px 5px #731f0812, 0 1px 3px #731f0814, 0 0 0 2px var(--adaptive-grey200), inset 0 0.5px 0.5px #ffffff1f;
 
     --shadow-border-normal: 0 24px 24px -12px #2929290a, 0 48px 48px -24px #2929290a, inset 0 0 0 1px var(--adaptive-grey300);
-    --ui-font: var(--font-pretendard);
-    --coding-font: var(--font-pretendard);
+    --ui-font: var(--font-manrope);
+    --coding-font: var(--font-manrope);
 }
 
 :root,

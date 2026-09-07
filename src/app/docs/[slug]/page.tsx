@@ -22,7 +22,7 @@ export default async function DocsPage({ params }: { params: Promise<{ slug: str
     if (!docsEn.pages[slug]) notFound();
 
     return (
-        <Main id="fivepixels-docs" className={{ container: "fivepixels-guide min-h-screen bg-white text-[#050505]", inner: "" }}>
+        <Main id="fivepixels-docs" className={{ container: "fivepixels-guide min-h-screen bg-[var(--adaptive-background)] text-[var(--adaptive-text-primary)]", inner: "" }}>
             <FivepixelsGuideView kind="docs" slug={slug} />
         </Main>
     );

@@ -9,7 +9,7 @@ type CreateIssueModalProps = {
 const tagStyles = [
     "border border-[#f04452] px-[0.8rem] py-[0.4rem] text-[1.2rem] text-[#f04452]",
     "border border-[#2563eb] px-[0.8rem] py-[0.4rem] text-[1.2rem] text-[#2563eb]",
-    "border border-[#111] px-[0.8rem] py-[0.4rem] text-[1.2rem]",
+    "border border-[var(--adaptive-text-primary)] px-[0.8rem] py-[0.4rem] text-[1.2rem]",
 ] as const;
 
 const tagReportIds = [
@@ -29,7 +29,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
             role="presentation"
         >
             <div
-                className="w-full max-w-[48rem] overflow-hidden border border-black/10 bg-white shadow-[var(--shadow-popup)]"
+                className="w-full max-w-[48rem] overflow-hidden border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] shadow-[var(--adaptive-popup-shadow)]"
                 data-report-id="example-dashboard-modal-dialog"
                 data-report-type="group"
                 onClick={(event) => event.stopPropagation()}
@@ -44,7 +44,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                 >
                     <div>
                         <p
-                            className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-white/60"
+                            className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-white/60"
                             data-report-id="example-dashboard-modal-eyebrow"
                         >
                             {createIssue.eyebrow}
@@ -83,7 +83,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             {createIssue.formTitle}
                         </span>
                         <input
-                            className="border border-black/15 px-[1.2rem] py-[1rem] text-[1.4rem] outline-none focus:border-black"
+                            className="border border-[var(--adaptive-border)] px-[1.2rem] py-[1rem] text-[1.4rem] outline-none focus:border-[var(--adaptive-text-primary)]"
                             data-report-id="example-dashboard-modal-title-input"
                             placeholder={createIssue.titlePlaceholder}
                             type="text"
@@ -101,7 +101,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             {createIssue.formDescription}
                         </span>
                         <textarea
-                            className="min-h-[10rem] resize-y border border-black/15 p-[1.2rem] font-[family-name:var(--font-pretendard)] text-[1.4rem] outline-none focus:border-black"
+                            className="min-h-[10rem] resize-y border border-[var(--adaptive-border)] p-[1.2rem] font-[family-name:var(--font-inter)] text-[1.4rem] outline-none focus:border-[var(--adaptive-text-primary)]"
                             data-report-id="example-dashboard-modal-textarea"
                             placeholder={createIssue.descriptionPlaceholder}
                         />
@@ -136,7 +136,7 @@ export function CreateIssueModal({ onClose }: CreateIssueModalProps) {
                             {createIssue.submit}
                         </button>
                         <button
-                            className="border border-black px-[1.4rem] py-[1rem] text-[1.3rem]"
+                            className="border border-[var(--adaptive-text-primary)] px-[1.4rem] py-[1rem] text-[1.3rem]"
                             data-report-id="example-dashboard-modal-cancel"
                             onClick={onClose}
                             type="button"

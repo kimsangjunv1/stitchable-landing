@@ -10,7 +10,7 @@ export function TestModal({ onClose }: TestModalProps) {
             aria-modal="true"
             aria-labelledby="guide-test-modal-title"
         >
-            <div className="w-full max-w-sm bg-white p-6 text-[#050505]">
+            <div className="w-full max-w-sm bg-[var(--adaptive-surface)] p-6 text-[var(--adaptive-text-primary)]">
                 <h2
                     className="text-2xl font-semibold"
                     id="guide-test-modal-title"
@@ -18,7 +18,7 @@ export function TestModal({ onClose }: TestModalProps) {
                     Test modal
                 </h2>
                 <button
-                    className="mt-6 border border-[#050505] px-4 py-2 font-[family-name:var(--font-pretendard)]"
+                    className="mt-6 border border-[var(--adaptive-text-primary)] px-4 py-2 font-[family-name:var(--font-manrope)]"
                     type="button"
                     onClick={onClose}
                 >

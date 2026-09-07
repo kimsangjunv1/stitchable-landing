@@ -30,7 +30,7 @@ export function ModalsLabContent() {
                 data-report-id="example-modals-header"
                 data-report-type="group"
             >
-                <p className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-black/45">{modalsLab.eyebrow}</p>
+                <p className="font-[family-name:var(--font-inter)] text-[1.2rem] text-[var(--adaptive-text-muted)]">{modalsLab.eyebrow}</p>
                 <h1
                     className="text-[2.8rem] font-semibold"
                     data-report-id="example-modals-title"
@@ -38,7 +38,7 @@ export function ModalsLabContent() {
                     {modalsLab.title}
                 </h1>
                 <p
-                    className="max-w-[72rem] text-[1.5rem] leading-[1.6] text-black/65"
+                    className="max-w-[72rem] text-[1.5rem] leading-[1.6] text-[var(--adaptive-text-secondary)]"
                     data-report-id="example-modals-description"
                 >
                     {modalsLab.description}
@@ -55,13 +55,13 @@ export function ModalsLabContent() {
 
                     return (
                         <article
-                            className="flex flex-col gap-[1.2rem] border border-black/8 bg-white p-[2rem]"
+                            className="flex flex-col gap-[1.2rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem]"
                             data-report-id={`example-modals-card-${id}`}
                             key={id}
                         >
                             <div>
                                 <p
-                                    className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-black/45"
+                                    className="font-[family-name:var(--font-inter)] text-[1.1rem] text-[var(--adaptive-text-muted)]"
                                     data-report-id={`example-modals-technique-${id}`}
                                 >
                                     {item.technique}
@@ -73,14 +73,14 @@ export function ModalsLabContent() {
                                     {item.title}
                                 </h2>
                                 <p
-                                    className="mt-[0.6rem] text-[1.3rem] leading-[1.5] text-black/60"
+                                    className="mt-[0.6rem] text-[1.3rem] leading-[1.5] text-[var(--adaptive-text-secondary)]"
                                     data-report-id={`example-modals-card-desc-${id}`}
                                 >
                                     {item.description}
                                 </p>
                             </div>
                             <button
-                                className="mt-auto w-max border border-black px-[1.2rem] py-[0.8rem] text-[1.3rem] hover:bg-black hover:text-white"
+                                className="mt-auto w-max border border-[var(--adaptive-text-primary)] px-[1.2rem] py-[0.8rem] text-[1.3rem] hover:bg-[var(--adaptive-surface-inverse)] hover:text-[var(--adaptive-text-inverse)]"
                                 data-report-id={`example-modals-open-${id}`}
                                 onClick={() => {
                                     if (id === "inline-positioned") {
@@ -100,7 +100,7 @@ export function ModalsLabContent() {
             </div>
 
             <section
-                className={cn("relative min-h-[28rem] overflow-hidden border border-black/8 bg-[#eef2f7] p-[2rem]", inlineOpen && "overflow-y-auto")}
+                className={cn("relative min-h-[28rem] overflow-hidden border border-[var(--adaptive-border)] bg-[var(--adaptive-grey50)] p-[2rem]", inlineOpen && "overflow-y-auto")}
                 data-report-id="example-modals-inline-host"
                 data-report-type="group"
             >
@@ -111,7 +111,7 @@ export function ModalsLabContent() {
                     {modalsLab.hostTitle}
                 </h3>
                 <p
-                    className="mt-[0.8rem] max-w-[56rem] text-[1.4rem] text-black/60"
+                    className="mt-[0.8rem] max-w-[56rem] text-[1.4rem] text-[var(--adaptive-text-secondary)]"
                     data-report-id="example-modals-inline-desc"
                 >
                     {modalsLab.hostDescription}
@@ -120,7 +120,7 @@ export function ModalsLabContent() {
                 <div className="mt-[2rem] flex flex-col gap-[1rem]">
                     {Array.from({ length: 8 }, (_, index) => (
                         <p
-                            className="text-[1.3rem] text-black/55"
+                            className="text-[1.3rem] text-[var(--adaptive-text-muted)]"
                             key={`filler-${index}`}
                         >
                             Scroll filler block {index + 1}
@@ -136,7 +136,7 @@ export function ModalsLabContent() {
                         role="presentation"
                     >
                         <div
-                            className="w-full max-w-[40rem] border border-black/10 bg-white p-[2rem] shadow-[var(--shadow-popup)]"
+                            className="w-full max-w-[40rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] p-[2rem] shadow-[var(--adaptive-popup-shadow)]"
                             data-report-id="example-modal-lab-dialog-inline-positioned"
                             data-report-type="group"
                             onClick={(event) => event.stopPropagation()}
@@ -144,9 +144,9 @@ export function ModalsLabContent() {
                             aria-modal="true"
                         >
                             <h4 className="text-[1.8rem] font-semibold">{modalsLab.fillerTitle}</h4>
-                            <p className="mt-[1rem] text-[1.4rem] text-black/65">{modalsLab.fillerDescription}</p>
+                            <p className="mt-[1rem] text-[1.4rem] text-[var(--adaptive-text-secondary)]">{modalsLab.fillerDescription}</p>
                             <button
-                                className="mt-[1.6rem] border border-black px-[1.2rem] py-[0.8rem] text-[1.3rem]"
+                                className="mt-[1.6rem] border border-[var(--adaptive-text-primary)] px-[1.2rem] py-[0.8rem] text-[1.3rem]"
                                 data-report-id="example-modal-lab-close-inline-positioned"
                                 onClick={() => setInlineOpen(false)}
                                 type="button"

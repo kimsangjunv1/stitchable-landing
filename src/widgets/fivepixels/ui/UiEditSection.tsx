@@ -260,7 +260,7 @@ export function UiEditSection() {
                     aria-hidden="true"
                 >
                     <motion.div
-                        className="flex h-[4.4rem] w-[4.4rem] items-center justify-center rounded-full border border-[#ededed] bg-white text-[1.2rem] font-[family-name:var(--font-pretendard)] text-black/45 shadow-[var(--shadow-popup)]"
+                        className="flex h-[4.4rem] w-[4.4rem] items-center justify-center rounded-full border border-[#ededed] bg-white text-[1.2rem] font-[family-name:var(--font-manrope)] text-black/45 shadow-[var(--shadow-popup)]"
                         initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.85 }}
                         animate={prefersReducedMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
                         transition={prefersReducedMotion ? undefined : { delay: 1.6, duration: 0.5, ease: emphasisEase }}
@@ -284,10 +284,10 @@ function Message({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean
         <div className="flex">
             <div className="flex-1">
                 <div>
-                    <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.beforeLabel}</span>
+                    <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.beforeLabel}</span>
                     <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-[var(--fp-text-emphasis)]">{uiEdit.beforeTitle}</h3>
                 </div>
-                <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.beforeEyebrow}</span>
+                <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.beforeEyebrow}</span>
             </div>
 
             <div className="flex-1 overflow-hidden relative">
@@ -350,7 +350,7 @@ function FeedbackMarker({ isInView, prefersReducedMotion, uiEdit }: { isInView: 
 
             <div className="flex-1 flex items-end justify-between gap-[1.6rem] border-b border-[var(--adaptive-border)]">
                 <div>
-                    <span className="font-[family-name:var(--font-pretendard)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.afterLabel}</span>
+                    <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.afterLabel}</span>
                     <h3 className="mt-[0.8rem] text-[2.4rem] font-semibold leading-[1.3] text-[var(--fp-text-emphasis)]">
                         {uiEdit.afterTitleLine1}
                         <br />
@@ -358,7 +358,7 @@ function FeedbackMarker({ isInView, prefersReducedMotion, uiEdit }: { isInView: 
                     </h3>
                 </div>
 
-                <span className="font-[family-name:var(--font-pretendard)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.afterEyebrow}</span>
+                <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.afterEyebrow}</span>
             </div>
         </div>
     );

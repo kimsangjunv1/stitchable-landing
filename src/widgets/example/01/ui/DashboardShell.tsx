@@ -37,7 +37,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
     return (
         <>
             <Link
-                className="fixed left-1/2 top-[1.6rem] z-[80] flex -translate-x-1/2 items-center gap-[0.8rem] border border-black/10 bg-white px-[1.6rem] py-[1rem] text-[1.3rem] font-medium shadow-[var(--shadow-popup)] transition-colors hover:border-black/25 hover:bg-[#fafafa]"
+                className="fixed left-1/2 top-[1.6rem] z-[80] flex -translate-x-1/2 items-center gap-[0.8rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] px-[1.6rem] py-[1rem] text-[1.3rem] font-medium shadow-[var(--adaptive-popup-shadow)] transition-colors hover:border-[var(--adaptive-grey400)] hover:bg-[var(--adaptive-grey50)]"
                 data-report-id="example-dashboard-back"
                 href="/"
             >
@@ -46,7 +46,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
             </Link>
 
             <div
-                className="flex h-dvh flex-col overflow-hidden bg-[#f4f6f8]"
+                className="flex h-dvh flex-col overflow-hidden bg-[var(--adaptive-background)]"
                 data-report-id="example-dashboard-root"
                 data-report-type="group"
             >
@@ -61,7 +61,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                 className="flex items-center gap-[1rem]"
                                 data-report-id="example-sidebar-brand"
                             >
-                                <span className="inline-flex h-[3.2rem] w-[3.2rem] items-center justify-center bg-[#3b82f6] font-[family-name:var(--font-pretendard)] text-[1.2rem]">
+                                <span className="inline-flex h-[3.2rem] w-[3.2rem] items-center justify-center bg-[#3b82f6] font-[family-name:var(--font-manrope)] text-[1.2rem]">
                                     QA
                                 </span>
                                 <div>
@@ -129,20 +129,20 @@ export function DashboardShell({ children }: DashboardShellProps) {
                         data-report-type="group"
                     >
                         <header
-                            className="flex shrink-0 flex-wrap items-center justify-between gap-[1.2rem] border-b border-black/8 bg-white px-[2rem] py-[1.6rem]"
+                            className="flex shrink-0 flex-wrap items-center justify-between gap-[1.2rem] border-b border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] px-[2rem] py-[1.6rem]"
                             data-report-id="example-dashboard-topbar"
                             data-report-type="group"
                         >
                             <div
-                                className="flex min-w-[20rem] flex-1 items-center gap-[1rem] border border-black/10 bg-[#f8fafc] px-[1.2rem] py-[0.8rem]"
+                                className="flex min-w-[20rem] flex-1 items-center gap-[1rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-grey50)] px-[1.2rem] py-[0.8rem]"
                                 data-report-id="example-topbar-search"
                             >
                                 <Search
-                                    className="text-black/40"
+                                    className="text-[var(--adaptive-text-muted)]"
                                     size={16}
                                 />
                                 <input
-                                    className="w-full bg-transparent text-[1.4rem] outline-none placeholder:text-black/35"
+                                    className="w-full bg-transparent text-[1.4rem] outline-none placeholder:text-[var(--adaptive-text-muted)]"
                                     data-report-id="example-topbar-search-input"
                                     placeholder={shell.searchPlaceholder}
                                     type="search"
@@ -151,7 +151,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
 
                             <div className="flex items-center gap-[0.8rem]">
                                 <button
-                                    className="relative border border-black/10 p-[0.9rem] hover:bg-black/[0.03]"
+                                    className="relative border border-[var(--adaptive-border)] p-[0.9rem] hover:bg-[var(--adaptive-greyOpacity100)]"
                                     data-report-id="example-topbar-notifications"
                                     onClick={openCreateIssue}
                                     type="button"
@@ -163,14 +163,14 @@ export function DashboardShell({ children }: DashboardShellProps) {
                                     />
                                 </button>
                                 <button
-                                    className="border border-black/10 px-[1.2rem] py-[0.9rem] text-[1.3rem] hover:bg-black/[0.03]"
+                                    className="border border-[var(--adaptive-border)] px-[1.2rem] py-[0.9rem] text-[1.3rem] hover:bg-[var(--adaptive-greyOpacity100)]"
                                     data-report-id="example-topbar-filter"
                                     type="button"
                                 >
                                     {shell.filter}
                                 </button>
                                 <button
-                                    className="flex items-center gap-[0.8rem] border border-black/10 px-[1rem] py-[0.6rem] hover:bg-black/[0.03]"
+                                    className="flex items-center gap-[0.8rem] border border-[var(--adaptive-border)] px-[1rem] py-[0.6rem] hover:bg-[var(--adaptive-greyOpacity100)]"
                                     data-report-id="example-topbar-profile"
                                     type="button"
                                 >

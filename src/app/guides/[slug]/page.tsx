@@ -22,7 +22,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
     if (!guidesEn.pages[slug]) notFound();
 
     return (
-        <Main id="fivepixels-guides" className={{ container: "fivepixels-guide min-h-screen bg-white text-[#050505]", inner: "" }}>
+        <Main id="fivepixels-guides" className={{ container: "fivepixels-guide min-h-screen bg-[var(--adaptive-background)] text-[var(--adaptive-text-primary)]", inner: "" }}>
             <FivepixelsGuideView kind="guides" slug={slug} />
         </Main>
     );
