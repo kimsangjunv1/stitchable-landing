@@ -86,13 +86,24 @@ export function MegaMenuBar({ menus, activeMenuId, onOpenChange, openMenuId }: M
                         <div
                             className={cn(
                                 "relative z-[1] inline-flex items-center rounded-[0.8rem] font-[family-name:var(--font-manrope)] text-[1.4rem] font-bold leading-none transition-colors tablet:text-[1.4rem]",
-                                isHighlighted ? "text-[var(--adaptive-text-primary)] shadow-[var(--shadow-popup)]" : "text-[var(--adaptive-text-muted)] hover:text-[var(--adaptive-text-primary)]",
+                                isHighlighted ? "text-[var(--adaptive-text-primary)]" : "text-[var(--adaptive-text-muted)] hover:text-[var(--adaptive-text-primary)]",
                             )}
                         >
-                            <Link href={menu.href} className="py-[0.8rem] pl-[1rem] pr-[0.4rem]" onClick={() => onOpenChange(null)}>
+                            <Link
+                                href={menu.href}
+                                className="py-[0.8rem] pl-[1rem] pr-[0.4rem]"
+                                onClick={() => onOpenChange(null)}
+                            >
                                 {menu.label}
                             </Link>
-                            <button type="button" className="py-[0.6rem] pl-[0.2rem] pr-[0.8rem]" aria-label={`${menu.label} menu`} aria-expanded={isOpen} aria-haspopup="true" onClick={() => handleToggle(menu.id)}>
+                            <button
+                                type="button"
+                                className="py-[0.6rem] pl-[0.2rem] pr-[0.8rem]"
+                                aria-label={`${menu.label} menu`}
+                                aria-expanded={isOpen}
+                                aria-haspopup="true"
+                                onClick={() => handleToggle(menu.id)}
+                            >
                                 <MaterialIcon
                                     className={cn("transition-transform duration-200", isOpen ? "rotate-180" : "")}
                                     name="expand_more"
