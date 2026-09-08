@@ -38,8 +38,16 @@ export function QuickStartHero({ collection, hero }: { collection: GuideCollecti
 
     return (
         <header className="border-b border-[var(--adaptive-border)] px-[3.2rem] pb-[5.6rem] pt-[4.8rem] lg:px-[5.6rem] lg:pb-[7.2rem]">
-            <nav className="flex flex-wrap items-center gap-[0.8rem] text-[1.35rem] text-[var(--adaptive-text-muted)]" aria-label="Breadcrumb">
-                <Link className="transition-colors hover:text-[var(--adaptive-text-primary)]" href={collection.basePath}>{collection.title}</Link>
+            <nav
+                className="flex flex-wrap items-center gap-[0.8rem] text-[1.35rem] text-[var(--adaptive-text-muted)]"
+                aria-label="Breadcrumb"
+            >
+                <Link
+                    className="transition-colors hover:text-[var(--adaptive-text-primary)]"
+                    href={collection.basePath}
+                >
+                    {collection.title}
+                </Link>
                 <ChevronRight className="size-[1.5rem]" />
                 <span className="text-[var(--adaptive-text-primary)]">{hero.eyebrow}</span>
             </nav>
@@ -52,19 +60,44 @@ export function QuickStartHero({ collection, hero }: { collection: GuideCollecti
 
             <div className="relative mt-[4rem] overflow-hidden rounded-[1rem] border border-[var(--adaptive-border)] bg-[var(--adaptive-surface)] shadow-[var(--adaptive-popup-shadow)]">
                 <div className="flex h-[5.6rem] items-center justify-between border-b border-[var(--adaptive-border)] px-[2rem]">
-                    <span className="flex items-center gap-[1rem] text-[1.4rem] font-medium text-[var(--adaptive-text-secondary)]"><Sparkles className="size-[1.6rem]" /> AI Prompt</span>
-                    <button type="button" onClick={handleCopy} aria-label={copied ? guide.codeCopied : guide.codeCopy} className="text-[var(--adaptive-text-muted)] transition-colors hover:text-[var(--adaptive-text-primary)]">
+                    <span className="flex items-center gap-[1rem] text-[1.4rem] font-medium text-[var(--adaptive-text-secondary)]">
+                        <Sparkles className="size-[1.6rem]" />
+                        Tip
+                    </span>
+                    <button
+                        type="button"
+                        onClick={handleCopy}
+                        aria-label={copied ? guide.codeCopied : guide.codeCopy}
+                        className="text-[var(--adaptive-text-muted)] transition-colors hover:text-[var(--adaptive-text-primary)]"
+                    >
                         {copied ? <Check className="size-[1.7rem] text-[var(--adaptive-accent-coral)]" /> : <Copy className="size-[1.7rem]" />}
                     </button>
                 </div>
                 <div className={expanded ? "p-[2rem]" : "max-h-[15.2rem] overflow-hidden p-[2rem]"}>
                     <p className="text-[1.55rem] leading-[1.5] text-[var(--adaptive-text-secondary)]">
                         Help me follow the <strong className="font-semibold text-[var(--adaptive-text-primary)]">{hero.title}</strong> guide. {hero.description}
-                        {showInstall ? <> Start by running <code className="rounded-[0.4rem] bg-[var(--adaptive-grey100)] px-[0.5rem] py-[0.2rem] text-[1.35rem] text-[var(--adaptive-text-primary)]">{installCode}</code>, then review the project and suggest the next steps.</> : <> Review the current project and turn this guidance into concrete next steps.</>}
+                        {showInstall ? (
+                            <>
+                                {" "}
+                                Start by running{" "}
+                                <code className="rounded-[0.4rem] bg-[var(--adaptive-grey100)] px-[0.5rem] py-[0.2rem] text-[1.35rem] text-[var(--adaptive-text-primary)]">{installCode}</code>, then
+                                review the project and suggest the next steps.
+                            </>
+                        ) : (
+                            <> Review the current project and turn this guidance into concrete next steps.</>
+                        )}
                     </p>
                 </div>
-                {!expanded ? <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[7.2rem] bg-gradient-to-t from-[var(--adaptive-surface)] via-[var(--adaptive-surface)]/95 to-transparent" /> : null}
-                <button type="button" onClick={() => setExpanded((value) => !value)} className="relative z-[1] mx-[2rem] mb-[2rem] text-[1.4rem] font-medium text-[var(--adaptive-accent-coral)] hover:text-[var(--adaptive-accent-coral-hover)]">{expanded ? "Show less" : "Show more"}</button>
+                {!expanded ? (
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[7.2rem] bg-gradient-to-t from-[var(--adaptive-surface)] via-[var(--adaptive-surface)]/95 to-transparent" />
+                ) : null}
+                <button
+                    type="button"
+                    onClick={() => setExpanded((value) => !value)}
+                    className="relative z-[1] mx-[2rem] mb-[2rem] text-[1.4rem] font-medium text-[var(--adaptive-accent-coral)] hover:text-[var(--adaptive-accent-coral-hover)]"
+                >
+                    {expanded ? "Show less" : "Show more"}
+                </button>
             </div>
         </header>
     );
