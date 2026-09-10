@@ -1,239 +1,41 @@
 "use client";
 
-import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { animate, motion, useMotionValue, useReducedMotion } from "motion/react";
+import { cubicBezier } from "motion";
+import { Pause, Play } from "lucide-react";
 import { useMessages } from "@/app/providers/LocaleProvider";
-import { revealEase } from "@/shared/lib/motion";
 import type { FivepixelsMessages } from "@/i18n/landing/types";
-import { FivePixelsDemo } from "@fivepixels-js/react/demo";
 
-type SlackMessage = FivepixelsMessages["uiEdit"]["messages"][number];
+type UiEditItem = FivepixelsMessages["uiEdit"]["items"][number];
 
-function AnimatedBubble({
-    className,
-    delay,
-    isActive,
-    prefersReducedMotion,
-    children,
-}: {
-    className: string;
-    delay: number;
-    isActive: boolean;
-    prefersReducedMotion: boolean;
-    children: React.ReactNode;
-}) {
-    return (
-        <motion.div
-            className={className}
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-            animate={prefersReducedMotion || isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-            transition={prefersReducedMotion ? undefined : { duration: 0.45, delay, ease: revealEase }}
-        >
-            {children}
-        </motion.div>
-    );
-}
+const SCENE_IMAGES: Partial<Record<UiEditItem["scene"], string>> = {
+    "device-preview": "/landing/ui-edit-device-preview.png",
+};
 
-function SlackAvatar({ bg, label }: { bg: string; label: string }) {
-    return (
-        <div
-            className="flex h-[3.6rem] w-[3.6rem] shrink-0 items-center justify-center rounded-[0.4rem] text-[1.4rem] font-bold text-white"
-            style={{ backgroundColor: bg }}
-        >
-            {label}
-        </div>
-    );
-}
+const MARKER_WINDOW_SLIDER_IMAGES = [
+    "/landing/ui-edit-marker-window-01.png",
+    "/landing/ui-edit-marker-window-02.png",
+    "/landing/ui-edit-marker-window-03.png",
+    "/landing/ui-edit-marker-window-04.png",
+] as const;
 
-function SlackMessageRow({
-    author,
-    time,
-    avatar,
-    body,
-    thread,
-    delay,
-    isActive,
-    prefersReducedMotion,
-}: {
-    author: string;
-    time: string;
-    avatar: { bg: string; label: string };
-    body: string;
-    thread?: string;
-    delay: number;
-    isActive: boolean;
-    prefersReducedMotion: boolean;
-}) {
-    return (
-        <AnimatedBubble
-            className="flex gap-[0.8rem] px-[2rem] py-[0.4rem] hover:bg-[#f8f8f8]"
-            delay={delay}
-            isActive={isActive}
-            prefersReducedMotion={prefersReducedMotion}
-        >
-            <SlackAvatar
-                bg={avatar.bg}
-                label={avatar.label}
-            />
-            <div className="min-w-0 flex-1 pt-[0.1rem]">
-                <div className="flex items-baseline gap-[0.8rem]">
-                    <span className="text-[1.5rem] font-[900] leading-none text-[#1d1c1d]">{author}</span>
-                    <span className="text-[1.2rem] leading-none text-[#616061]">{time}</span>
-                </div>
-                <p className="mt-[0.4rem] text-[1.5rem] leading-[1.46667] text-[#1d1c1d]">{body}</p>
-                {thread ? (
-                    <button
-                        type="button"
-                        className="mt-[0.6rem] flex items-center gap-[0.6rem] text-[1.3rem] font-medium text-[#1264a3]"
-                    >
-                        <div className="flex -space-x-[0.4rem]">
-                            <div className="h-[1.8rem] w-[1.8rem] rounded-[0.3rem] border border-white bg-[#e8912d]" />
-                            <div className="h-[1.8rem] w-[1.8rem] rounded-[0.3rem] border border-white bg-[#4a90d9]" />
-                        </div>
-                        {thread}
-                    </button>
-                ) : null}
-            </div>
-        </AnimatedBubble>
-    );
-}
+const FEEDBACK_COMPOSER_SLIDER_IMAGES = [
+    "/landing/ui-edit-feedback-04.png",
+    "/landing/ui-edit-feedback-01.png",
+    "/landing/ui-edit-feedback-02.png",
+    "/landing/ui-edit-feedback-03.png",
+] as const;
 
-function SlackSkeleton({ isInView, prefersReducedMotion, uiEdit }: { isInView: boolean; prefersReducedMotion: boolean; uiEdit: FivepixelsMessages["uiEdit"] }) {
-    return (
-        <div className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[100] flex w-[calc(100%-(1.6rem*4))] h-[calc(100%-(1.6rem*4))] overflow-hidden rounded-[0.8rem] font-['Helvetica_Neue',Helvetica,'Segoe_UI',Arial,sans-serif] shadow-[var(--shadow-popup)] border-[1px] border-[#ffffff90] p-[0.2rem]">
-            <section className="flex rounded-[0.8rem] overflow-hidden">
-                {/* workspace rail */}
-                <div className="flex w-[5.4rem] shrink-0 flex-col items-center gap-[1.2rem] bg-[#350d36] py-[1.2rem]">
-                    <div className="flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-[0.8rem] bg-[#611f69] text-[1.5rem] font-bold text-white">S</div>
-                    <div className="h-[3.6rem] w-[3.6rem] rounded-[0.8rem] bg-[#e8912d]/90" />
-                    <div className="h-[3.6rem] w-[3.6rem] rounded-[0.8rem] bg-[#4a90d9]/90" />
-                    <div className="mt-auto h-[3.6rem] w-[3.6rem] rounded-[0.8rem] border border-white/20" />
-                </div>
+const PANEL_SLIDER_IMAGES = [
+    "/landing/ui-edit-panel-collapsed.png",
+    "/landing/ui-edit-panel-expanded.png",
+] as const;
 
-                {/* sidebar (hidden demo) */}
-                {null}
-
-                {/* main */}
-                <div className="flex min-w-0 flex-1 flex-col bg-white">
-                    {/* search */}
-                    <div className="bg-[#350d36] px-[1.6rem] py-[1rem]">
-                        <div className="mx-auto flex max-w-[72rem] items-center gap-[0.8rem] rounded-[0.6rem] border border-white/10 bg-[#5c2c5d] px-[1.2rem] py-[0.7rem] text-[1.4rem] text-white/55">
-                            <svg
-                                className="h-[1.6rem] w-[1.6rem] shrink-0"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            {uiEdit.searchPlaceholder}
-                        </div>
-                    </div>
-
-                    {/* channel header */}
-                    <div className="flex items-center justify-between border-b border-[#e8e8e8] px-[2rem] py-[1.1rem]">
-                        <div className="flex min-w-0 items-center gap-[0.6rem]">
-                            <h2 className="text-[1.8rem] font-[900] text-[#1d1c1d]">{uiEdit.channelName}</h2>
-                            <svg
-                                className="h-[1.4rem] w-[1.4rem] text-[#616061]"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                            <span className="truncate text-[1.3rem] text-[#616061]">{uiEdit.channelTopic}</span>
-                        </div>
-                        <div className="flex items-center gap-[0.8rem]">
-                            <div className="flex -space-x-[0.5rem]">
-                                {["#e8912d", "#4a90d9", "#7b5ea7", "#5bb381"].map((color) => (
-                                    <div
-                                        key={color}
-                                        className="h-[2.4rem] w-[2.4rem] rounded-[0.4rem] border-2 border-white"
-                                        style={{ backgroundColor: color }}
-                                    />
-                                ))}
-                            </div>
-                            <span className="text-[1.3rem] text-[#616061]">74</span>
-                        </div>
-                    </div>
-
-                    {/* messages */}
-                    <div className="flex-1 overflow-y-auto py-[1.2rem]">
-                        <div className="relative my-[1.6rem] flex items-center px-[2rem]">
-                            <div className="h-px flex-1 bg-[#dddddd]" />
-                            <span className="mx-[1.2rem] rounded-[2.4rem] border border-[#dddddd] px-[1.2rem] py-[0.3rem] text-[1.3rem] font-medium text-[#1d1c1d]">{uiEdit.today}</span>
-                            <div className="h-px flex-1 bg-[#dddddd]" />
-                        </div>
-
-                        {uiEdit.messages.map((message, index) => (
-                            <div key={message.id}>
-                                {"isNew" in message && message.isNew ? (
-                                    <div className="relative my-[1.2rem] flex items-center px-[2rem]">
-                                        <div className="h-[0.2rem] flex-1 bg-[#e01e5a]" />
-                                        <span className="ml-[0.8rem] text-[1.2rem] font-[700] text-[#e01e5a]">{uiEdit.newLabel}</span>
-                                    </div>
-                                ) : null}
-                                <SlackMessageRow
-                                    author={message.author}
-                                    time={message.time}
-                                    avatar={message.avatar}
-                                    body={message.body}
-                                    thread={"thread" in message ? message.thread : undefined}
-                                    delay={0.12 + index * 0.18}
-                                    isActive={isInView}
-                                    prefersReducedMotion={prefersReducedMotion}
-                                />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* composer */}
-                    {false ? (
-                        <div className="border-t border-[#e8e8e8] px-[2rem] py-[1.6rem]">
-                            <div className="rounded-[0.8rem] border border-[#868686]">
-                                <div className="flex items-center gap-[1.2rem] border-b border-[#e8e8e8] px-[1.2rem] py-[0.6rem] text-[1.3rem] font-bold text-[#616061]">
-                                    <span>B</span>
-                                    <span className="italic font-normal">I</span>
-                                    <span className="line-through font-normal">S</span>
-                                    <span className="font-normal">🔗</span>
-                                    <span className="font-normal">≡</span>
-                                    <span className="font-normal">•</span>
-                                    <span className="font-normal">&gt;</span>
-                                    <span className="font-normal">&lt;/&gt;</span>
-                                </div>
-                                <div className="px-[1.2rem] py-[0.8rem] text-[1.5rem] text-[#616061]">Message #project-eagle</div>
-                                <div className="flex items-center justify-between px-[1rem] py-[0.6rem]">
-                                    <div className="flex items-center gap-[0.8rem] text-[#616061]">
-                                        <span className="flex h-[2.8rem] w-[2.8rem] items-center justify-center rounded-[0.4rem] text-[1.8rem] hover:bg-[#f8f8f8]">+</span>
-                                        <span className="text-[1.4rem]">📹</span>
-                                        <span className="text-[1.4rem]">🎤</span>
-                                        <span className="text-[1.4rem]">😊</span>
-                                        <span className="text-[1.4rem]">@</span>
-                                        <span className="text-[1.3rem] font-medium">Aa</span>
-                                    </div>
-                                    <div className="flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-[0.4rem] text-[#616061] hover:bg-[#f8f8f8]">
-                                        <svg
-                                            className="h-[1.8rem] w-[1.8rem]"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ) : null}
-                </div>
-            </section>
-        </div>
-    );
-}
+const SLIDE_INTERVAL_MS = 4000;
+const SLIDE_DURATION = 1.05;
+const slideEase = cubicBezier(0.4, 0, 0.2, 1);
 
 export function UiEditSection() {
     const uiEdit = useMessages().fivepixels.uiEdit;
@@ -244,96 +46,259 @@ export function UiEditSection() {
             id="ui-edit"
         >
             <div className="mx-auto w-full max-w-[var(--size-pc)] overflow-hidden border-x border-[var(--adaptive-border)]">
-                <Message
-                    uiEdit={uiEdit}
-                />
-
-                <FeedbackMarker
-                    uiEdit={uiEdit}
-                />
+                {uiEdit.items.map((item, index) => (
+                    <ZigzagRow
+                        key={item.scene}
+                        item={item}
+                        index={index}
+                        isLast={index === uiEdit.items.length - 1}
+                    />
+                ))}
             </div>
         </section>
     );
 }
 
-function Message({ uiEdit }: { uiEdit: FivepixelsMessages["uiEdit"] }) {
-    return (
-        <div className="grid border-b border-[var(--adaptive-border)] tablet:grid-cols-2">
-            <article className="flex min-h-[24rem] flex-col justify-between p-[2.4rem] tablet:min-h-[42rem] tablet:p-[5.2rem]">
-                <div className="max-w-[42rem]">
-                    <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.beforeLabel}</span>
-                    <h3 className="mt-[1.2rem] text-[2.8rem] font-semibold leading-[1.2] text-[var(--fp-text-emphasis)] tablet:text-[3.2rem]">{uiEdit.beforeTitle}</h3>
-                    <p className="mt-[1.6rem] text-[1.6rem] leading-[1.55] text-[var(--fp-text-description)]">{uiEdit.beforeDescription}</p>
-                </div>
-                <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.beforeEyebrow}</span>
-            </article>
+function ZigzagRow({ item, index, isLast }: { item: UiEditItem; index: number; isLast: boolean }) {
+    const imageFirst = index % 2 === 1;
+    const sliderImages =
+        item.scene === "marker-tooltip"
+            ? MARKER_WINDOW_SLIDER_IMAGES
+            : item.scene === "feedback-composer"
+              ? FEEDBACK_COMPOSER_SLIDER_IMAGES
+              : item.scene === "panel-overview"
+                ? PANEL_SLIDER_IMAGES
+                : null;
+    const imageSrc = SCENE_IMAGES[item.scene];
 
-            <div className="relative flex min-h-[32rem] items-center justify-center overflow-hidden border-t border-[var(--adaptive-border)] p-[2.4rem] tablet:min-h-[42rem] tablet:border-l tablet:border-t-0">
-                <video
-                    autoPlay
-                    className="absolute inset-0 h-full w-full object-cover"
-                    loop
-                    muted
-                    playsInline
-                    aria-hidden
-                >
-                    <source
-                        src="/colorflow-animation-2.mp4"
-                        type="video/mp4"
-                    />
-                </video>
-                <FivePixelsDemo
-                    scene="marker-tooltip"
-                    locale="en"
-                    interaction="showcase"
-                    className="relative z-10"
-                    ariaLabel="Marker tooltip demo"
-                />
+    const text = (
+        <article className={`flex h-full flex-col justify-between p-[2.4rem] tablet:p-[5.2rem] ${imageFirst ? "order-1 tablet:order-2" : ""}`}>
+            <div className="max-w-[42rem]">
+                <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{item.label}</span>
+                <h3 className="mt-[1.2rem] text-[2.8rem] font-semibold leading-[1.2] text-[var(--fp-text-emphasis)] tablet:text-[3.2rem]">
+                    {item.title}
+                    {item.titleLine2 ? (
+                        <>
+                            <br />
+                            {item.titleLine2}
+                        </>
+                    ) : null}
+                </h3>
+                <p className="mt-[1.6rem] text-[1.6rem] leading-[1.55] text-[var(--fp-text-description)]">{item.description}</p>
             </div>
+            <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{item.eyebrow}</span>
+        </article>
+    );
+
+    const media = (
+        <div
+            className={`relative aspect-square overflow-hidden border-t border-[var(--adaptive-border)] tablet:border-t-0 ${
+                imageFirst ? "order-2 tablet:order-1 tablet:border-r" : "tablet:border-l"
+            }`}
+        >
+            {sliderImages ? (
+                <SceneImageSlider
+                    alt={`${item.title} example`}
+                    images={sliderImages}
+                    label={item.eyebrow.toLowerCase()}
+                />
+            ) : imageSrc ? (
+                <Image
+                    src={imageSrc}
+                    alt={`${item.title} example`}
+                    fill
+                    sizes="(max-width: 768px) calc(100vw - 2.4rem), 50vw"
+                    className="object-cover object-center"
+                />
+            ) : null}
+        </div>
+    );
+
+    return (
+        <div className={`grid tablet:grid-cols-2 ${isLast ? "" : "border-b border-[var(--adaptive-border)]"}`}>
+            {imageFirst ? (
+                <>
+                    {media}
+                    {text}
+                </>
+            ) : (
+                <>
+                    {text}
+                    {media}
+                </>
+            )}
         </div>
     );
 }
 
-function FeedbackMarker({ uiEdit }: { uiEdit: FivepixelsMessages["uiEdit"] }) {
+function SceneImageSlider({
+    images,
+    alt,
+    label,
+}: {
+    images: readonly string[];
+    alt: string;
+    label: string;
+}) {
+    const prefersReducedMotion = useReducedMotion();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const indexRef = useRef(0);
+    const widthRef = useRef(0);
+    const animatingRef = useRef(false);
+    const draggingRef = useRef(false);
+    const x = useMotionValue(0);
+
+    const [width, setWidth] = useState(0);
+    const [index, setIndex] = useState(0);
+    const [paused, setPaused] = useState(false);
+
+    const count = images.length;
+    const trackImages = count > 1 ? [...images, images[0]] : [...images];
+
+    useEffect(() => {
+        indexRef.current = index;
+    }, [index]);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const update = () => {
+            const nextWidth = el.clientWidth;
+            widthRef.current = nextWidth;
+            setWidth(nextWidth);
+            x.set(-indexRef.current * nextWidth);
+        };
+
+        update();
+        const observer = new ResizeObserver(update);
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [x]);
+
+    useEffect(() => {
+        if (paused || prefersReducedMotion || count < 2 || !width) return;
+
+        const timer = window.setInterval(() => {
+            if (animatingRef.current || draggingRef.current) return;
+            const current = indexRef.current;
+            void moveTo(current >= count - 1 ? count : current + 1);
+        }, SLIDE_INTERVAL_MS);
+
+        return () => window.clearInterval(timer);
+        // moveTo reads latest refs; width/count gate the interval
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [paused, prefersReducedMotion, count, width]);
+
+    async function moveTo(target: number) {
+        const slideWidth = widthRef.current;
+        if (!slideWidth || count < 1 || animatingRef.current) return;
+
+        const duration = prefersReducedMotion ? 0 : SLIDE_DURATION;
+
+        if (target === count && count > 1) {
+            animatingRef.current = true;
+            await animate(x, -count * slideWidth, { duration, ease: slideEase });
+            x.set(0);
+            setIndex(0);
+            animatingRef.current = false;
+            return;
+        }
+
+        if (target === -1 && count > 1) {
+            animatingRef.current = true;
+            x.set(-count * slideWidth);
+            await animate(x, -(count - 1) * slideWidth, { duration, ease: slideEase });
+            setIndex(count - 1);
+            animatingRef.current = false;
+            return;
+        }
+
+        const next = ((target % count) + count) % count;
+        animatingRef.current = true;
+        setIndex(next);
+        await animate(x, -next * slideWidth, { duration, ease: slideEase });
+        animatingRef.current = false;
+    }
+
+    function snapFromDrag(offsetX: number, velocityX: number) {
+        const slideWidth = widthRef.current;
+        if (!slideWidth) return;
+
+        const current = indexRef.current;
+        const threshold = slideWidth * 0.18;
+
+        if (offsetX < -threshold || velocityX < -450) {
+            void moveTo(current >= count - 1 ? count : current + 1);
+            return;
+        }
+
+        if (offsetX > threshold || velocityX > 450) {
+            void moveTo(current <= 0 ? -1 : current - 1);
+            return;
+        }
+
+        void moveTo(current);
+    }
+
     return (
-        <div className="grid tablet:grid-cols-2">
-            <div className="order-2 relative flex min-h-[32rem] items-center justify-center overflow-hidden border-t border-[var(--adaptive-border)] p-[2.4rem] tablet:order-1 tablet:min-h-[42rem] tablet:border-r tablet:border-t-0 tablet:p-[4rem]">
-                <video
-                    autoPlay
-                    className="absolute inset-0 h-full w-full object-cover"
-                    loop
-                    muted
-                    playsInline
-                    aria-hidden
-                >
-                    <source
-                        src="/colorflow-animation-2.mp4"
-                        type="video/mp4"
-                    />
-                </video>
-                <FivePixelsDemo
-                    scene="feedback-composer"
-                    locale="en"
-                    interaction="showcase"
-                    className="absolute left-1/2 top-1/2 z-10 origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.73] tablet:scale-100"
-                    style={{ maxWidth: "none" }}
-                    ariaLabel="Feedback composer demo"
-                />
-            </div>
+        <div
+            ref={containerRef}
+            className="absolute inset-0 overflow-hidden"
+        >
+            <motion.div
+                className="flex h-full cursor-grab active:cursor-grabbing"
+                style={{
+                    x,
+                    width: width ? width * trackImages.length : "100%",
+                }}
+                drag={count > 1 && width > 0 ? "x" : false}
+                dragElastic={0.1}
+                dragMomentum={false}
+                dragConstraints={
+                    width
+                        ? {
+                              left: -count * width,
+                              right: 0,
+                          }
+                        : undefined
+                }
+                onDragStart={() => {
+                    draggingRef.current = true;
+                }}
+                onDragEnd={(_, info) => {
+                    draggingRef.current = false;
+                    snapFromDrag(info.offset.x, info.velocity.x);
+                }}
+            >
+                {trackImages.map((src, slideIndex) => (
+                    <div
+                        key={`${src}-${slideIndex}`}
+                        className="relative h-full shrink-0"
+                        style={{ width: width || "100%" }}
+                    >
+                        <Image
+                            src={src}
+                            alt={alt}
+                            fill
+                            sizes="(max-width: 768px) calc(100vw - 2.4rem), 50vw"
+                            className="pointer-events-none object-cover object-center select-none"
+                            draggable={false}
+                            priority={slideIndex === 0}
+                        />
+                    </div>
+                ))}
+            </motion.div>
 
-            <article className="order-1 flex min-h-[24rem] flex-col justify-between p-[2.4rem] tablet:order-2 tablet:min-h-[42rem] tablet:p-[5.2rem]">
-                <div className="max-w-[42rem]">
-                    <span className="font-[family-name:var(--font-manrope)] text-[1.2rem] text-[var(--fp-text-description)]">{uiEdit.afterLabel}</span>
-                    <h3 className="mt-[1.2rem] text-[2.8rem] font-semibold leading-[1.2] text-[var(--fp-text-emphasis)] tablet:text-[3.2rem]">
-                        {uiEdit.afterTitleLine1}
-                        <br />
-                        {uiEdit.afterTitleLine2}
-                    </h3>
-                    <p className="mt-[1.6rem] text-[1.6rem] leading-[1.55] text-[var(--fp-text-description)]">{uiEdit.afterDescription}</p>
-                </div>
-
-                <span className="font-[family-name:var(--font-manrope)] text-[1.1rem] text-[var(--fp-text-description)]">{uiEdit.afterEyebrow}</span>
-            </article>
+            <button
+                type="button"
+                aria-label={paused ? `Resume ${label} slideshow` : `Pause ${label} slideshow`}
+                aria-pressed={paused}
+                onClick={() => setPaused((value) => !value)}
+                className="absolute bottom-[1.2rem] right-[1.2rem] z-10 flex size-[3.6rem] items-center justify-center rounded-full border border-white/20 bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
+            >
+                {paused ? <Play className="ml-[0.15rem] size-[1.6rem]" strokeWidth={1.8} /> : <Pause className="size-[1.6rem]" strokeWidth={1.8} />}
+            </button>
         </div>
     );
 }
