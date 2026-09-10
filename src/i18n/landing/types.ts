@@ -84,28 +84,13 @@ export type FivepixelsMessages = {
         steps: { number: string; title: string; description: string }[];
     };
     uiEdit: {
-        beforeLabel: string;
-        beforeTitle: string;
-        beforeDescription: string;
-        beforeEyebrow: string;
-        afterLabel: string;
-        afterTitleLine1: string;
-        afterTitleLine2: string;
-        afterDescription: string;
-        afterEyebrow: string;
-        searchPlaceholder: string;
-        channelName: string;
-        channelTopic: string;
-        today: string;
-        newLabel: string;
-        messages: {
-            id: string;
-            author: string;
-            time: string;
-            avatar: { bg: string; label: string };
-            body: string;
-            thread?: string;
-            isNew?: boolean;
+        items: {
+            scene: string;
+            label: string;
+            title: string;
+            titleLine2?: string;
+            description: string;
+            eyebrow: string;
         }[];
     };
     features: { icon: string; title: string; description: string }[];
